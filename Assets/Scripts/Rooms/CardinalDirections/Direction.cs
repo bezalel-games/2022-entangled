@@ -1,6 +1,6 @@
 ﻿namespace Rooms.CardinalDirections
 {
-    public enum CardinalDirection : short
+    public enum Direction : byte
     {
         East = 0,
         South = 1,
