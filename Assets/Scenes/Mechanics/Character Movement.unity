@@ -241,6 +241,11 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!4 &386369617 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 934194646650880964, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+  m_PrefabInstance: {fileID: 4768744145195746003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &673278325
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +330,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1346371471 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 669163529, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+  m_PrefabInstance: {fileID: 4768744145195746003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4768744145195746003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,6 +342,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347532968884776834, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 386369617}
+    - target: {fileID: 1347532968884776834, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _initPos
+      value: 
+      objectReference: {fileID: 1346371471}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 2
