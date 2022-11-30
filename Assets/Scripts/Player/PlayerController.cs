@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActions
+public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerActions
 {
     #region Serialized Fields
 
@@ -24,9 +24,8 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
     #region Non-Serialized Fields
 
     private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
-    private bool _dash;
-    private float dashCooldownTimer;
-    private float dashingTime;
+    private bool _canDash = true;
+    private bool _dashing;
 
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
@@ -38,7 +37,6 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
     #region Properties
 
     private Vector2 DesiredVelocity => _direction * _speed;
-    private bool Dashing => dashingTime > 0;
     private float DashSpeed => _maxSpeed + _dashBonus;
 
     #endregion
@@ -51,14 +49,17 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
         _yoyo = GetComponentInChildren<Yoyo>();
     }
 
-    private void Update()
+    protected override void Update() 
     {
-        HandleTimers();
+        base.Update();
+        
         SetAim(); // Shooting Controller
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+        
         MoveCharacter();
         ModifyPhysics();
     }
@@ -104,10 +105,14 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (dashCooldownTimer > 0 || Dashing) return;
-                dashingTime = _dashTime;
-                dashCooldownTimer = _dashCooldown;
+                if (!_canDash || _dashing) return;
                 _dashDirection = _direction.normalized;
+                _dashing = true;
+                _canDash = false;
+                DelayInvoke(
+                    () => { _canDash = true;}, _dashCooldown);
+                DelayInvoke(
+                    () => { _dashing = false;}, _dashTime);
                 break;
         }
     }
@@ -122,7 +127,7 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
 
     private void MoveCharacter()
     {
-        if (Dashing)
+        if (_dashing)
         {
             _rigidbody.velocity = _dashDirection * DashSpeed;
             return;
@@ -152,12 +157,6 @@ public partial class PlayerController : MonoBehaviour, CharacterMap.IPlayerActio
         }
 
         if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < 0.2f) { _rigidbody.velocity *= Vector2.zero; }
-    }
-
-    private void HandleTimers()
-    {
-        if (dashCooldownTimer > 0) { dashCooldownTimer = Mathf.Max(dashCooldownTimer - Time.deltaTime, 0); }
-        if (dashingTime > 0) { dashingTime = Mathf.Max(dashingTime - Time.deltaTime, 0); }
     }
 
     #endregion
