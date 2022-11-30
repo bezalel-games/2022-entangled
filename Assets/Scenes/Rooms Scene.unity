@@ -178,10 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4768744146256827586, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
 --- !u!1 &1006228296
@@ -250,6 +246,7 @@ MonoBehaviour:
   roomHeight: 9
   roomVerticalIntersection: 1
   roomHorizontalIntersection: 1
+  previousRoomSleepDelay: 1
 --- !u!1 &1404668196
 GameObject:
   m_ObjectHideFlags: 0
