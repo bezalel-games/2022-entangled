@@ -20,18 +20,18 @@ namespace Rooms.CardinalDirections
         {
             if (dir.x * dir.y != 0 || (dir.x == 0 && dir.y == 0))
                 MonoBehaviour.print($"direction not supported: {dir}");
-            if (dir.x != 0) return dir.x > 0 ? East : West;
-            return dir.y > 0 ? North : South;
+            if (dir.x != 0) return dir.x > 0 ? EAST : WEST;
+            return dir.y > 0 ? NORTH : SOUTH;
         }
 
         public static Vector2Int ToVector(this Direction dir)
         {
             return dir switch
             {
-                East => Vector2Int.right,
-                West => Vector2Int.left,
-                North => Vector2Int.up,
-                South => Vector2Int.down,
+                EAST => Vector2Int.right,
+                WEST => Vector2Int.left,
+                NORTH => Vector2Int.up,
+                SOUTH => Vector2Int.down,
                 _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
             };
         }

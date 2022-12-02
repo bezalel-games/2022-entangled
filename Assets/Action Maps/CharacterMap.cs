@@ -97,7 +97,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""WASD"",
                     ""id"": ""9e5a64ae-50f5-4262-9c57-dd2cbfd1e867"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -174,7 +174,18 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": """",
+                    ""id"": ""58ec36d0-6dbc-4b77-a83c-555d5ed8ba60"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard Arrows"",
                     ""id"": ""028b4280-7d8c-4620-9ecd-1483e924557d"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -227,17 +238,6 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""58ec36d0-6dbc-4b77-a83c-555d5ed8ba60"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",

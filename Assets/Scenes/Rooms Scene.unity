@@ -238,15 +238,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598812362fdc45d3ab4e03a5f0222265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRoom:
-    index: {x: 0, y: 0}
-    room: {fileID: 4453669655545087670}
-  roomPrefab: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-  roomWidth: 16
-  roomHeight: 9
-  roomVerticalIntersection: 1
-  roomHorizontalIntersection: 1
-  previousRoomSleepDelay: 1
+  _currentRoom:
+    <Index>k__BackingField: {x: 0, y: 0}
+    <Room>k__BackingField: {fileID: 4453669655545087670}
+    <Rank>k__BackingField: 8
+  _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+  _roomWidth: 16
+  _roomHeight: 9
+  _roomVerticalIntersection: 1
+  _roomHorizontalIntersection: 1
+  _previousRoomSleepDelay: 0.5
+  _enemyDictionary: {fileID: 11400000, guid: a77c47aa10295c24a8e75151422073b9, type: 2}
 --- !u!1 &1404668196
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_Name
-      value: Room
+      value: Initial Room
       objectReference: {fileID: 0}
     - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_RootOrder
@@ -471,6 +473,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+      propertyPath: <Node>k__BackingField.<Room>k__BackingField
+      value: 
+      objectReference: {fileID: 4453669655545087670}
     m_RemovedComponents:
     - {fileID: 7430426292868641102, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
