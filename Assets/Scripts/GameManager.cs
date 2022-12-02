@@ -5,11 +5,14 @@ public class GameManager : MonoBehaviour
 {
     #region Serialized Fields
 
-    private static GameManager _instance;
+    [SerializeField] private PlayerController _playerController;
 
     #endregion
 
     #region Non-Serialized Fields
+
+    private static GameManager _instance;
+    private CharacterMap _controls; // for input callbacks
 
     #endregion
 
@@ -24,6 +27,13 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             throw new DoubleGameManagerException();
         _instance = this;
+        if (_controls == null)
+        {
+            // connect this class to callbacks from "Player" input actions
+            _controls = new CharacterMap();
+            _controls.Player.SetCallbacks(_playerController);
+            _controls.Player.Enable();
+        }
     }
 
     #endregion
@@ -41,7 +51,6 @@ public class GameManager : MonoBehaviour
 
     private void ChooseCard()
     {
-        
     }
 
     #endregion
