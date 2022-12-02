@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Enemies
@@ -10,6 +11,8 @@ namespace Enemies
 
         #region Non-Serialized Fields
 
+        private RoomEnemies _roomEnemies;
+
         #endregion
 
         #region Properties
@@ -20,8 +23,14 @@ namespace Enemies
 
         #region Function Events
 
+        private void Awake()
+        {
+            _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
+        }
+
         private void OnTriggerEnter2D(Collider2D col)
         {
+            _roomEnemies.EnemyKilled();
             gameObject.SetActive(false);
         }
 

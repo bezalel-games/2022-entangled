@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Cinemachine;
+using Enemies;
 using UnityEngine;
 
 namespace Rooms
@@ -11,9 +12,6 @@ namespace Rooms
         [SerializeField] private int _inPriority;
         [SerializeField] private int _outPriority;
         [SerializeField] private CinemachineVirtualCamera _vCam;
-        
-        [field: SerializeField] public GameObject RoomContent { get; private set; }
-        [field: SerializeField] public Transform Enemies { get; private set; }
 
         #endregion
 
@@ -25,7 +23,9 @@ namespace Rooms
 
         #region Properties
 
-        [field: SerializeField]public RoomNode Node { get; set; }
+        [field: SerializeField] public GameObject RoomContent { get; private set; }
+        [field: SerializeField] public RoomEnemies Enemies { get; private set; }
+        [field: SerializeField] public RoomNode Node { get; set; }
 
         #endregion
 
@@ -44,8 +44,7 @@ namespace Rooms
         {
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
-            for (int i = 0; i < Enemies.childCount; ++i)
-                Enemies.GetChild(i).gameObject.SetActive(true);
+            Enemies.Activate();
         }
 
         public void Exit(float sleepDelay = 0)
@@ -55,12 +54,6 @@ namespace Rooms
                 RoomContent.SetActive(false);
             else
                 StartCoroutine(SleepWithDelay(sleepDelay));
-        }
-
-        public void ReplaceEnemies()
-        {
-            for (int i = 0; i < Enemies.childCount; ++i)
-                Destroy(Enemies.GetChild(i).gameObject);
         }
 
         #endregion

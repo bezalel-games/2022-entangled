@@ -8,19 +8,18 @@ namespace Rooms
     [Serializable]
     public class RoomNode
     {
-        #region Serialized Fields
+        #region Non-Serialized Fields
+
+        [NonSerialized] private RoomNode[] _nodes = new RoomNode[4];
+
+        #endregion
+
+        #region Properties
 
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }
         [field: SerializeField] public int Rank { get; set; }
         [field: SerializeField] public int[] Enemies { get; private set; }
-        
-
-        #endregion
-
-        #region Non-Serialized Fields
-
-        [NonSerialized] private RoomNode[] _nodes = new RoomNode[4];
 
         #endregion
 
