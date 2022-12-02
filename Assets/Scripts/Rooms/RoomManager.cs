@@ -143,9 +143,13 @@ namespace Rooms
         private void SpawnEnemies(RoomNode roomNode, Room room)
         {
             var pos = GetPosition(roomNode.Index);
-            for (int i = 0; i < roomNode.Enemies.Length; ++i)
+            var enemiesTransform = room.Enemies.transform;
+            var enemiesLength = roomNode.Enemies.Length;
+            for (int i = 0; i < enemiesLength; ++i)
                 for (int j = roomNode.Enemies[i]; j > 0; j--)
-                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity, room.Enemies);
+                {
+                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity, enemiesTransform);
+                }
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null)
@@ -159,7 +163,7 @@ namespace Rooms
             }
 
             room = PopFromPool();
-            room.ReplaceEnemies();
+            room.Enemies.RemoveEnemies();
             room.Node.Room = null;
             room.Node = roomNode;
             room.transform.position = GetPosition(index);
@@ -206,10 +210,9 @@ namespace Rooms
                 if (Physics2D.OverlapArea(pos - perimeter, pos + perimeter, _enemySpawnLayerMask) == null)
                     return pos;
             }
+
             return Vector3.zero;
         }
-        
-        
 
         #endregion
 
