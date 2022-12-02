@@ -30,8 +30,6 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
 
-    private CharacterMap controls; // for input callbacks
-
     #endregion
 
     #region Properties
@@ -66,19 +64,12 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
 
     private void OnEnable()
     {
-        if (controls == null)
-        {
-            // connect this class to callbacks from "Player" input actions
-            controls = new CharacterMap();
-            controls.Player.SetCallbacks(this);
-        }
-
-        controls.Player.Enable();
+        // controls.Player.Enable();
     }
 
     private void OnDisable()
     {
-        controls.Player.Disable();
+        // controls.Player.Disable();
     }
 
     #endregion
