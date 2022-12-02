@@ -1705,10 +1705,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbac76e8a0f4db3a5fc00a785da480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPriority: 10
-  outPriority: 9
-  vCam: {fileID: 6572897696822594641}
-  roomContent: {fileID: 7363860059572617434}
+  _inPriority: 10
+  _outPriority: 9
+  _vCam: {fileID: 6572897696822594641}
+  <RoomContent>k__BackingField: {fileID: 7363860059572617434}
+  <Enemies>k__BackingField: {fileID: 3401266017214625909}
+  <Node>k__BackingField:
+    <Index>k__BackingField: {x: 0, y: 0}
+    <Room>k__BackingField: {fileID: 0}
+    <Rank>k__BackingField: 8
+    <Enemies>k__BackingField: 
 --- !u!61 &4942088843325642024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1733,7 +1739,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15, y: 8}
+  m_Size: {x: 14, y: 7}
   m_EdgeRadius: 0
 --- !u!1 &5475711160787552902
 GameObject:
@@ -2368,6 +2374,37 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &7147095230862036825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3401266017214625909}
+  m_Layer: 3
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3401266017214625909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147095230862036825}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5581982203018302187}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7363860059572617434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2436,7 @@ Transform:
   - {fileID: 5372136819398228609}
   - {fileID: 4453669656696353629}
   - {fileID: 2621679334121349683}
+  - {fileID: 3401266017214625909}
   m_Father: {fileID: 6451296004720908365}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -2,9 +2,9 @@
 {
     public enum Direction : byte
     {
-        East = 0,
-        South = 1,
-        West = 2,
-        North = 3
+        EAST = 0,
+        SOUTH = 1,
+        WEST = 2,
+        NORTH = 3
     }
 }

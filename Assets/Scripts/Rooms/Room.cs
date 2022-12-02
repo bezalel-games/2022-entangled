@@ -8,10 +8,12 @@ namespace Rooms
     {
         #region Serialized Fields
 
-        [SerializeField] private int inPriority;
-        [SerializeField] private int outPriority;
-        [SerializeField] private CinemachineVirtualCamera vCam;
-        [SerializeField] private GameObject roomContent;
+        [SerializeField] private int _inPriority;
+        [SerializeField] private int _outPriority;
+        [SerializeField] private CinemachineVirtualCamera _vCam;
+        
+        [field: SerializeField] public GameObject RoomContent { get; private set; }
+        [field: SerializeField] public Transform Enemies { get; private set; }
 
         #endregion
 
@@ -23,7 +25,7 @@ namespace Rooms
 
         #region Properties
 
-        public RoomNode Node { get; set; }
+        [field: SerializeField]public RoomNode Node { get; set; }
 
         #endregion
 
@@ -40,17 +42,25 @@ namespace Rooms
 
         public void Enter()
         {
-            vCam.Priority = inPriority;
-            roomContent.SetActive(true);
+            _vCam.Priority = _inPriority;
+            RoomContent.SetActive(true);
+            for (int i = 0; i < Enemies.childCount; ++i)
+                Enemies.GetChild(i).gameObject.SetActive(true);
         }
 
         public void Exit(float sleepDelay = 0)
         {
-            vCam.Priority = outPriority;
+            _vCam.Priority = _outPriority;
             if (sleepDelay <= 0)
-                roomContent.SetActive(false);
+                RoomContent.SetActive(false);
             else
                 StartCoroutine(SleepWithDelay(sleepDelay));
+        }
+
+        public void ReplaceEnemies()
+        {
+            for (int i = 0; i < Enemies.childCount; ++i)
+                Destroy(Enemies.GetChild(i).gameObject);
         }
 
         #endregion
@@ -60,7 +70,7 @@ namespace Rooms
         private IEnumerator SleepWithDelay(float sleepDelay)
         {
             yield return new WaitForSeconds(sleepDelay);
-            roomContent.SetActive(false);
+            RoomContent.SetActive(false);
         }
 
         #endregion
