@@ -1,4 +1,5 @@
 using System;
+using UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private UIController _uiController;
 
     #endregion
 
@@ -13,10 +15,56 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
     private CharacterMap _controls; // for input callbacks
+    private bool _playerControllerEnabled;
+    private bool _uiControllerEnabled;
+    private ActionMap _actionMapInUse;
 
     #endregion
 
     #region Properties
+
+    public static bool PlayerControllerEnabled
+    {
+        set
+        {
+            _instance._playerControllerEnabled = value;
+            if (value && _instance._actionMapInUse is ActionMap.PLAYER)
+                _instance._controls?.Player.Enable();
+            else
+                _instance._controls?.Player.Disable();
+        }
+    }
+
+    public static bool UIControllerEnabled
+    {
+        set
+        {
+            _instance._uiControllerEnabled = value;
+            if (value && _instance._actionMapInUse is ActionMap.UI)
+                _instance._controls?.UI.Enable();
+            else
+                _instance._controls?.UI.Disable();
+        }
+    }
+
+    private ActionMap ActionMapInUse
+    {
+        set
+        {
+            _actionMapInUse = value;
+            switch (_actionMapInUse)
+            {
+                case ActionMap.PLAYER when _playerControllerEnabled:
+                    _controls.Player.Enable();
+                    _controls.UI.Disable();
+                    break;
+                case ActionMap.UI when _uiControllerEnabled:
+                    _controls.UI.Enable();
+                    _controls.Player.Disable();
+                    break;
+            }
+        }
+    }
 
     #endregion
 
@@ -27,12 +75,16 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             throw new DoubleGameManagerException();
         _instance = this;
+    }
+
+    private void Start()
+    {
         if (_controls == null)
         {
-            // connect this class to callbacks from "Player" input actions
             _controls = new CharacterMap();
             _controls.Player.SetCallbacks(_playerController);
-            _controls.Player.Enable();
+            _controls.UI.SetCallbacks(_uiController);
+            ActionMapInUse = ActionMap.PLAYER;
         }
     }
 
@@ -59,6 +111,16 @@ public class GameManager : MonoBehaviour
 
     private class DoubleGameManagerException : Exception
     {
+    }
+
+    #endregion
+
+    #region Enums
+
+    private enum ActionMap : byte
+    {
+        PLAYER,
+        UI,
     }
 
     #endregion
