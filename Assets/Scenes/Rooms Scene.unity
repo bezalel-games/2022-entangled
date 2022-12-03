@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c149f25dc96cb4491e6c836cc46ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cards: {fileID: 565865183}
   _playerController: {fileID: 1749492221}
+  _uiController: {fileID: 1098251483}
 --- !u!4 &21915751
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +253,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 474039698}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21915750}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CardChosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &474039698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +314,8 @@ GameObject:
   m_Component:
   - component: {fileID: 565865184}
   - component: {fileID: 565865185}
+  - component: {fileID: 565865187}
+  - component: {fileID: 565865186}
   m_Layer: 5
   m_Name: Cards
   m_TagString: Untagged
@@ -355,6 +371,44 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &565865186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565865183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.023251325, g: 0, b: 0.23584908, a: 0.78039217}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &565865187
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565865183}
+  m_CullTransparentMesh: 1
 --- !u!1001 &678040901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -679,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 474039695}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1085365583
@@ -709,6 +763,7 @@ GameObject:
   - component: {fileID: 1098251481}
   - component: {fileID: 1098251480}
   - component: {fileID: 1098251479}
+  - component: {fileID: 1098251483}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -798,6 +853,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1098251483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098251478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07bf1afee78f42e7aeb9aeea69e66501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1404668196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,7 +1101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1743111589}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 21915750}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CardChosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1743111589
 MonoBehaviour:
   m_ObjectHideFlags: 0
