@@ -8,14 +8,12 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
 {
     #region Serialized Fields
 
-    [Header("Movement")] 
-    [SerializeField] private float _speed = 2;
+    [Header("Movement")] [SerializeField] private float _speed = 2;
     [SerializeField] private float _maxSpeed = 2;
     [SerializeField] private float _acceleration = 2;
     [SerializeField] private float _deceleration = 2;
 
-    [Header("Dash")]
-    [SerializeField] private float _dashTime;
+    [Header("Dash")] [SerializeField] private float _dashTime;
     [SerializeField] private float _dashBonus;
     [SerializeField] private float _dashCooldown;
 
@@ -29,8 +27,6 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
 
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
-
-    private CharacterMap controls; // for input callbacks
 
     #endregion
 
@@ -49,36 +45,29 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
         _yoyo = GetComponentInChildren<Yoyo>();
     }
 
-    protected override void Update() 
+    protected override void Update()
     {
         base.Update();
-        
+
         SetAim(); // Shooting Controller
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        
+
         MoveCharacter();
         ModifyPhysics();
     }
 
     private void OnEnable()
     {
-        if (controls == null)
-        {
-            // connect this class to callbacks from "Player" input actions
-            controls = new CharacterMap();
-            controls.Player.SetCallbacks(this);
-        }
-
-        controls.Player.Enable();
+        GameManager.PlayerControllerEnabled = true;
     }
 
     private void OnDisable()
     {
-        controls.Player.Disable();
+        GameManager.PlayerControllerEnabled = false;
     }
 
     #endregion
@@ -110,9 +99,9 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
                 _dashing = true;
                 _canDash = false;
                 DelayInvoke(
-                    () => { _canDash = true;}, _dashCooldown);
+                    () => { _canDash = true; }, _dashCooldown);
                 DelayInvoke(
-                    () => { _dashing = false;}, _dashTime);
+                    () => { _dashing = false; }, _dashTime);
                 break;
         }
     }
@@ -132,11 +121,11 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
             _rigidbody.velocity = _dashDirection * DashSpeed;
             return;
         }
-        
+
         _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity,
             DesiredVelocity,
             _acceleration * Time.fixedDeltaTime);
-        
+
         if (DesiredVelocity.magnitude > _maxSpeed)
         {
             _rigidbody.velocity = DesiredVelocity / DesiredVelocity.magnitude * _maxSpeed;
@@ -152,11 +141,14 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
         {
             _rigidbody.velocity = Vector2.Lerp(
                 _rigidbody.velocity,
-                Vector2.zero, 
+                Vector2.zero,
                 _deceleration * Time.fixedDeltaTime);
         }
 
-        if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < 0.2f) { _rigidbody.velocity *= Vector2.zero; }
+        if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < 0.2f)
+        {
+            _rigidbody.velocity *= Vector2.zero;
+        }
     }
 
     #endregion

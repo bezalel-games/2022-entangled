@@ -1709,7 +1709,7 @@ MonoBehaviour:
   _outPriority: 9
   _vCam: {fileID: 6572897696822594641}
   <RoomContent>k__BackingField: {fileID: 7363860059572617434}
-  <Enemies>k__BackingField: {fileID: 3401266017214625909}
+  <Enemies>k__BackingField: {fileID: 8590644783412925667}
   <Node>k__BackingField:
     <Index>k__BackingField: {x: 0, y: 0}
     <Room>k__BackingField: {fileID: 0}
@@ -2383,6 +2383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3401266017214625909}
+  - component: {fileID: 8590644783412925667}
   m_Layer: 3
   m_Name: Enemies
   m_TagString: Untagged
@@ -2405,6 +2406,18 @@ Transform:
   m_Father: {fileID: 5581982203018302187}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8590644783412925667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147095230862036825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d99970eed3425a8007d8be848f9dca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7363860059572617434
 GameObject:
   m_ObjectHideFlags: 0
