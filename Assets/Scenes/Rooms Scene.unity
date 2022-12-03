@@ -416,6 +416,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _precisionRotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1316,6 +1320,14 @@ PrefabInstance:
     - target: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_Name
       value: Initial Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_RootOrder

@@ -8,12 +8,14 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
 {
     #region Serialized Fields
 
-    [Header("Movement")] [SerializeField] private float _speed = 2;
+    [Header("Movement")] 
+    [SerializeField] private float _speed = 2;
     [SerializeField] private float _maxSpeed = 2;
     [SerializeField] private float _acceleration = 2;
     [SerializeField] private float _deceleration = 2;
 
-    [Header("Dash")] [SerializeField] private float _dashTime;
+    [Header("Dash")] 
+    [SerializeField] private float _dashTime;
     [SerializeField] private float _dashBonus;
     [SerializeField] private float _dashCooldown;
 
@@ -56,7 +58,10 @@ public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc
     {
         base.FixedUpdate();
 
-        MoveCharacter();
+        if (_yoyo.State != Yoyo.YoyoState.PRECISION)
+        {
+            MoveCharacter();
+        }
         ModifyPhysics();
     }
 

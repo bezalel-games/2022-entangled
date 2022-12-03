@@ -1,0 +1,390 @@
+[1mdiff --git a/Assets/Design/Materials.meta b/Assets/Design/Materials.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 48de351..0000000[m
+[1m--- a/Assets/Design/Materials.meta[m
+[1m+++ /dev/null[m
+[36m@@ -1,8 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: bc95dd900708e6e4e97900152e4178ce[m
+[31m-folderAsset: yes[m
+[31m-DefaultImporter:[m
+[31m-  externalObjects: {}[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Scenes/Rooms Scene.unity b/Assets/Scenes/Rooms Scene.unity[m
+[1mindex b27db19..ffd7848 100644[m
+[1m--- a/Assets/Scenes/Rooms Scene.unity[m	
+[1m+++ b/Assets/Scenes/Rooms Scene.unity[m	
+[36m@@ -130,10 +130,6 @@[m [mPrefabInstance:[m
+   m_Modification:[m
+     m_TransformParent: {fileID: 0}[m
+     m_Modifications:[m
+[31m-    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}[m
+[31m-      propertyPath: _precisionRotationSpeed[m
+[31m-      value: 10[m
+[31m-      objectReference: {fileID: 0}[m
+     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}[m
+       propertyPath: m_RootOrder[m
+       value: 2[m
+[36m@@ -423,14 +419,6 @@[m [mPrefabInstance:[m
+       propertyPath: m_Name[m
+       value: Room[m
+       objectReference: {fileID: 0}[m
+[31m-    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}[m
+[31m-      propertyPath: m_Layer[m
+[31m-      value: 7[m
+[31m-      objectReference: {fileID: 0}[m
+[31m-    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}[m
+[31m-      propertyPath: m_TagString[m
+[31m-      value: Wall[m
+[31m-      objectReference: {fileID: 0}[m
+     - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}[m
+       propertyPath: m_RootOrder[m
+       value: 0[m
+[1mdiff --git a/Assets/Scripts/Player/Yoyo/Line.cs b/Assets/Scripts/Line.cs[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Scripts/Player/Yoyo/Line.cs[m
+[1mrename to Assets/Scripts/Line.cs[m
+[1mdiff --git a/Assets/Scripts/Player/Yoyo/Line.cs.meta b/Assets/Scripts/Line.cs.meta[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Scripts/Player/Yoyo/Line.cs.meta[m
+[1mrename to Assets/Scripts/Line.cs.meta[m
+[1mdiff --git a/Assets/Scripts/Misc.meta b/Assets/Scripts/Misc.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 835f018..0000000[m
+[1m--- a/Assets/Scripts/Misc.meta[m
+[1m+++ /dev/null[m
+[36m@@ -1,8 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: 0b6bf6b1d2cc86e4faa7bb45ac8b9bcf[m
+[31m-folderAsset: yes[m
+[31m-DefaultImporter:[m
+[31m-  externalObjects: {}[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Scripts/Misc/MonoBehaviourExt.cs b/Assets/Scripts/MonoBehaviourExt.cs[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Scripts/Misc/MonoBehaviourExt.cs[m
+[1mrename to Assets/Scripts/MonoBehaviourExt.cs[m
+[1mdiff --git a/Assets/Scripts/Misc/MonoBehaviourExt.cs.meta b/Assets/Scripts/MonoBehaviourExt.cs.meta[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Scripts/Misc/MonoBehaviourExt.cs.meta[m
+[1mrename to Assets/Scripts/MonoBehaviourExt.cs.meta[m
+[1mdiff --git a/Assets/Design/Materials/PathMaterial.mat b/Assets/Scripts/PathMaterial.mat[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Design/Materials/PathMaterial.mat[m
+[1mrename to Assets/Scripts/PathMaterial.mat[m
+[1mdiff --git a/Assets/Design/Materials/PathMaterial.mat.meta b/Assets/Scripts/PathMaterial.mat.meta[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Design/Materials/PathMaterial.mat.meta[m
+[1mrename to Assets/Scripts/PathMaterial.mat.meta[m
+[1mdiff --git a/Assets/Scripts/Player/PlayerController.cs b/Assets/Scripts/Player/PlayerController.cs[m
+[1mindex c6fd0b9..3d16614 100644[m
+[1m--- a/Assets/Scripts/Player/PlayerController.cs[m
+[1m+++ b/Assets/Scripts/Player/PlayerController.cs[m
+[36m@@ -59,11 +59,8 @@[m [mpublic partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerAc[m
+     protected override void FixedUpdate()[m
+     {[m
+         base.FixedUpdate();[m
+[31m-[m
+[31m-        if (_yoyo.State != Yoyo.YoyoState.PRECISION)[m
+[31m-        {[m
+[31m-            MoveCharacter();[m
+[31m-        }[m
+[32m+[m[41m        [m
+[32m+[m[32m        MoveCharacter();[m
+         ModifyPhysics();[m
+     }[m
+ [m
+[1mdiff --git a/Assets/Scripts/Player/ShootingController.cs b/Assets/Scripts/Player/ShootingController.cs[m
+[1mindex 9fd67e1..de1deea 100644[m
+[1m--- a/Assets/Scripts/Player/ShootingController.cs[m
+[1m+++ b/Assets/Scripts/Player/ShootingController.cs[m
+[36m@@ -7,14 +7,12 @@[m [mpublic partial class PlayerController[m
+ {[m
+     #region Serialized Fields[m
+ [m
+[31m-    [Header("Shooting")] [m
+[31m-    [SerializeField] private float _rotationSpeed;[m
+[32m+[m[32m    [Header("Shooting")] [SerializeField] private float _rotationSpeed;[m
+     [SerializeField] private GameObject _aimLine;[m
+     [SerializeField] private GameObject _aimPivot;[m
+ [m
+[31m-    [Header("Precision Shot")] [m
+[31m-    [SerializeField] private float _precisionTime;[m
+[31m-    [SerializeField] private float _precisionRotationSpeed; [m
+[32m+[m[32m    [Header("Precision Shot")] [SerializeField][m
+[32m+[m[32m    private float _precisionTime;[m
+ [m
+     #endregion[m
+ [m
+[36m@@ -26,12 +24,12 @@[m [mpublic partial class PlayerController[m
+ [m
+     private bool _precisioning;[m
+ [m
+[31m-    private bool _aiming;[m
+[31m-[m
+     #endregion[m
+ [m
+     #region Properties[m
+ [m
+[32m+[m[32m    private bool Aiming => _aimLine.gameObject.activeSelf;[m
+[32m+[m
+     #endregion[m
+ [m
+     #region Function Events[m
+[36m@@ -45,11 +43,10 @@[m [mpublic partial class PlayerController[m
+         switch (context.phase)[m
+         {[m
+             case InputActionPhase.Performed:[m
+[31m-                _aiming = true;[m
+                 _aimDirection = context.ReadValue<Vector2>();[m
+                 break;[m
+             case InputActionPhase.Canceled:[m
+[31m-                _aiming = false;[m
+[32m+[m[32m                _aimDirection = Vector2.zero;[m
+                 _aimLine.SetActive(false);[m
+                 break;[m
+         }[m
+[36m@@ -62,13 +59,7 @@[m [mpublic partial class PlayerController[m
+             case InputActionPhase.Started:[m
+                 if (_yoyo.State == Yoyo.YoyoState.IDLE)[m
+                 {[m
+[31m-                    //if the player isn't aiming, we want to shoot in the movement direction.[m
+[31m-                    //if the player isn't aiming and isn't shooting, we want the last aiming direction.[m
+[31m-                    var desiredDir = (!_aiming && _direction != Vector2.zero)[m
+[31m-                        ? _direction[m
+[31m-                        : _aimDirection;[m
+[31m-[m
+[31m-                    _yoyo.Shoot(desiredDir);[m
+[32m+[m[32m                    _yoyo.Shoot(_aimDirection);[m
+                 }[m
+ [m
+                 break;[m
+[36m@@ -80,15 +71,11 @@[m [mpublic partial class PlayerController[m
+         switch (context.phase)[m
+         {[m
+             case InputActionPhase.Started:[m
+[31m-                if(_yoyo.State != Yoyo.YoyoState.IDLE) return;[m
+[31m-                [m
+                 _yoyo.PrecisionShoot();[m
+                 DelayInvoke([m
+                     () => {_yoyo.CancelPrecision();}, _precisionTime);[m
+                 break;[m
+             case InputActionPhase.Canceled:[m
+[31m-                if(_yoyo.State != Yoyo.YoyoState.PRECISION) return;[m
+[31m-[m
+                 _yoyo.CancelPrecision();[m
+                 break;[m
+         }[m
+[36m@@ -104,23 +91,17 @@[m [mpublic partial class PlayerController[m
+ [m
+     private void SetAim()[m
+     {[m
+[31m-        var zRotation = Vector3.SignedAngle(_aimDirection, Vector3.up, -Vector3.forward);[m
+[31m-        var q = Quaternion.Euler(0, 0, zRotation);[m
+[31m-        [m
+[31m-        if (_yoyo.State == Yoyo.YoyoState.PRECISION)[m
+[32m+[m[32m        if (_yoyo.State == Yoyo.YoyoState.PERCISION)[m
+         {[m
+[31m-            // _yoyo.PrecisionDirection = _aimDirection;[m
+[31m-            var currDir = _yoyo.PrecisionDirection;[m
+[31m-            _yoyo.PrecisionDirection = Vector2.Lerp(currDir, _aimDirection, [m
+[31m-                _precisionRotationSpeed * Time.deltaTime);[m
+[31m-            [m
+[31m-            _aimPivot.transform.rotation = q;[m
+[32m+[m[32m            _yoyo.PrecisionDirection = _aimDirection;[m
+         }[m
+         else[m
+         {[m
+[31m-            if (_aiming)[m
+[32m+[m[32m            if (_aimDirection != Vector2.zero)[m
+             {[m
+[31m-                if (!_aiming)[m
+[32m+[m[32m                var zRotation = Vector3.SignedAngle(_aimDirection, Vector3.up, -Vector3.forward);[m
+[32m+[m[32m                var q = Quaternion.Euler(0, 0, zRotation);[m
+[32m+[m[32m                if (!Aiming)[m
+                 {[m
+                     _aimPivot.transform.rotation = q;[m
+                     _aimLine.SetActive(true);[m
+[1mdiff --git a/Assets/Scripts/Player/Yoyo.meta b/Assets/Scripts/Player/Yoyo.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 500a314..0000000[m
+[1m--- a/Assets/Scripts/Player/Yoyo.meta[m
+[1m+++ /dev/null[m
+[36m@@ -1,8 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: 93cda135232ca354eb25e85ba8976ee0[m
+[31m-folderAsset: yes[m
+[31m-DefaultImporter:[m
+[31m-  externalObjects: {}[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Scripts/Player/Yoyo/Yoyo.cs b/Assets/Scripts/Yoyo.cs[m
+[1msimilarity index 76%[m
+[1mrename from Assets/Scripts/Player/Yoyo/Yoyo.cs[m
+[1mrename to Assets/Scripts/Yoyo.cs[m
+[1mindex d76084b..4036033 100644[m
+[1m--- a/Assets/Scripts/Player/Yoyo/Yoyo.cs[m
+[1m+++ b/Assets/Scripts/Yoyo.cs[m
+[36m@@ -8,7 +8,7 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+         IDLE,[m
+         SHOOT,[m
+         BACK,[m
+[31m-        PRECISION[m
+[32m+[m[32m        PERCISION[m
+     }[m
+ [m
+     #region Serialized Fields[m
+[36m@@ -34,7 +34,6 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+     #region Non-Serialized Fields[m
+     [m
+     private Rigidbody2D _rigidbody;[m
+[31m-    private Collider2D _collider;[m
+ [m
+     private Vector3 _direction;[m
+ [m
+[36m@@ -57,7 +56,6 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+     private void Start()[m
+     {[m
+         _rigidbody = GetComponent<Rigidbody2D>();[m
+[31m-        _collider = GetComponent<Collider2D>();[m
+     }[m
+ [m
+     protected override void Update()[m
+[36m@@ -76,7 +74,7 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+                     GoBack();[m
+                 }[m
+                 break;[m
+[31m-            case YoyoState.PRECISION:[m
+[32m+[m[32m            case YoyoState.PERCISION:[m
+                 DrawPath();[m
+                 break;[m
+         }[m
+[36m@@ -94,46 +92,15 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+ [m
+     private void OnTriggerEnter2D(Collider2D other)[m
+     {[m
+[31m-        switch (_state)[m
+[32m+[m[32m        if (other.CompareTag("Player") && _state == YoyoState.BACK)[m
+         {[m
+[31m-            case YoyoState.BACK:[m
+[31m-                if(other.CompareTag("Player"))[m
+[31m-                    Reset();[m
+[31m-                break;[m
+[31m-            [m
+[31m-            case YoyoState.PRECISION:[m
+[31m-                if (other.CompareTag("Wall"))[m
+[31m-                {[m
+[31m-                    // CalculateWallDirection();[m
+[31m-                    _collider.isTrigger = false;[m
+[31m-                    print("trigger off");[m
+[31m-                }[m
+[31m-                break;[m
+[31m-            [m
+[31m-            case YoyoState.SHOOT:[m
+[31m-                GoBack();[m
+[31m-                break;[m
+[32m+[m[32m            Reset();[m
+[32m+[m[32m            return;[m
+         }[m
+[31m-    }[m
+ [m
+[31m-    private void OnCollisionExit2D(Collision2D other)[m
+[31m-    {[m
+[31m-        if (other.gameObject.CompareTag("Wall"))[m
+[32m+[m[32m        if (_state == YoyoState.SHOOT)[m
+         {[m
+[31m-            // CalculateWallDirection();[m
+[31m-            _collider.isTrigger = true;[m
+[31m-            print("Trigger on");[m
+[31m-        }[m
+[31m-    }[m
+[31m-[m
+[31m-    private void OnTriggerStay2D(Collider2D other)[m
+[31m-    {[m
+[31m-        switch (_state)[m
+[31m-        {[m
+[31m-            case YoyoState.BACK:[m
+[31m-                if(other.CompareTag("Player"))[m
+[31m-                    Reset();[m
+[31m-                break;[m
+[32m+[m[32m            GoBack();[m
+         }[m
+     }[m
+ [m
+[36m@@ -150,22 +117,21 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+             transform.SetParent(null);[m
+         }[m
+     }[m
+[31m-[m
+[32m+[m[41m    [m
+     public void PrecisionShoot()[m
+     {[m
+[31m-        _state = YoyoState.PRECISION;[m
+[32m+[m[32m        _state = YoyoState.PERCISION;[m
+ [m
+         if (_currentLine != null)[m
+         {[m
+             RemovePath();[m
+         }[m
+[31m-        [m
+[31m-        transform.SetParent(null);[m
+         _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);[m
+     }[m
+ [m
+     public void CancelPrecision()[m
+     {[m
+[32m+[m[32m        print($"cancel: {_currentLine}");[m
+         if (_currentLine == null) return; [m
+         RemovePath();[m
+         GoBack();[m
+[36m@@ -183,7 +149,7 @@[m [mpublic class Yoyo : MonoBehaviourExt[m
+                 _rigidbody.velocity = _direction.normalized * _shootSpeed;[m
+                 break;[m
+             [m
+[31m-            case YoyoState.PRECISION:[m
+[32m+[m[32m            case YoyoState.PERCISION:[m
+                 _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;[m
+                 break;[m
+             [m
+[1mdiff --git a/Assets/Scripts/Player/Yoyo/Yoyo.cs.meta b/Assets/Scripts/Yoyo.cs.meta[m
+[1msimilarity index 100%[m
+[1mrename from Assets/Scripts/Player/Yoyo/Yoyo.cs.meta[m
+[1mrename to Assets/Scripts/Yoyo.cs.meta[m
+[1mdiff --git a/ProjectSettings/Physics2DSettings.asset b/ProjectSettings/Physics2DSettings.asset[m
+[1mindex f99d648..87079e7 100644[m
+[1m--- a/ProjectSettings/Physics2DSettings.asset[m
+[1m+++ b/ProjectSettings/Physics2DSettings.asset[m
+[36m@@ -53,4 +53,4 @@[m [mPhysics2DSettings:[m
+   m_ColliderAsleepColor: {r: 0.5686275, g: 0.95686275, b: 0.54509807, a: 0.36078432}[m
+   m_ColliderContactColor: {r: 1, g: 0, b: 1, a: 0.6862745}[m
+   m_ColliderAABBColor: {r: 1, g: 1, b: 0, a: 0.2509804}[m
+[31m-  m_LayerCollisionMatrix: c100000000000000000000004000000000000000000000000900000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000[m
+[32m+[m[32m  m_LayerCollisionMatrix: 4100000000000000000000004000000000000000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000[m
+[1mdiff --git a/ProjectSettings/TagManager.asset b/ProjectSettings/TagManager.asset[m
+[1mindex 70e6682..ed621cc 100644[m
+[1m--- a/ProjectSettings/TagManager.asset[m
+[1m+++ b/ProjectSettings/TagManager.asset[m
+[36m@@ -3,8 +3,7 @@[m
+ --- !u!78 &1[m
+ TagManager:[m
+   serializedVersion: 2[m
+[31m-  tags:[m
+[31m-  - Wall[m
+[32m+[m[32m  tags: [][m
+   layers:[m
+   - Default[m
+   - TransparentFX[m
+[36m@@ -13,7 +12,7 @@[m [mTagManager:[m
+   - Water[m
+   - UI[m
+   - Player[m
+[31m-  - Wall[m
+[32m+[m[32m  -[m[41m [m
+   - [m
+   - [m
+   - [m

@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -14,11 +15,15 @@ public partial class PlayerController
     [Header("Precision Shot")] [SerializeField]
     private float _precisionTime;
 
+    [SerializeField] private float _precisionRotationSpeed;
+
     #endregion
 
     #region Non-Serialized Fields
 
     private Vector2 _aimDirection;
+
+    private bool _aiming;
 
     private Yoyo _yoyo;
 
@@ -27,8 +32,6 @@ public partial class PlayerController
     #endregion
 
     #region Properties
-
-    private bool Aiming => _aimLine.gameObject.activeSelf;
 
     #endregion
 
@@ -43,10 +46,11 @@ public partial class PlayerController
         switch (context.phase)
         {
             case InputActionPhase.Performed:
+                _aiming = true;
                 _aimDirection = context.ReadValue<Vector2>();
                 break;
             case InputActionPhase.Canceled:
-                _aimDirection = Vector2.zero;
+                _aiming = false;
                 _aimLine.SetActive(false);
                 break;
         }
@@ -59,7 +63,11 @@ public partial class PlayerController
             case InputActionPhase.Started:
                 if (_yoyo.State == Yoyo.YoyoState.IDLE)
                 {
-                    _yoyo.Shoot(_aimDirection);
+                    var desiredDir = (!_aiming && _direction != Vector2.zero)
+                        ? _direction
+                        : _aimDirection;
+                    SetPivotRotation(desiredDir);
+                    _yoyo.Shoot(desiredDir);
                 }
 
                 break;
@@ -71,11 +79,15 @@ public partial class PlayerController
         switch (context.phase)
         {
             case InputActionPhase.Started:
+                if (_yoyo.State != Yoyo.YoyoState.IDLE) return;
+                _rigidbody.velocity = Vector2.zero;
                 _yoyo.PrecisionShoot();
                 DelayInvoke(
-                    () => {_yoyo.CancelPrecision();}, _precisionTime);
+                    () => { _yoyo.CancelPrecision(); }, _precisionTime);
                 break;
             case InputActionPhase.Canceled:
+                if (_yoyo.State != Yoyo.YoyoState.PRECISION) return;
+
                 _yoyo.CancelPrecision();
                 break;
         }
@@ -91,28 +103,36 @@ public partial class PlayerController
 
     private void SetAim()
     {
-        if (_yoyo.State == Yoyo.YoyoState.PERCISION)
+        if (_yoyo.State == Yoyo.YoyoState.PRECISION)
         {
-            _yoyo.PrecisionDirection = _aimDirection;
+            var currDir = _yoyo.PrecisionDirection;
+            _yoyo.PrecisionDirection = Vector2.Lerp(currDir, _aimDirection, _precisionRotationSpeed * Time.deltaTime);
+
+            SetPivotRotation(_aimDirection);
         }
         else
         {
-            if (_aimDirection != Vector2.zero)
+            bool immediateRotation = false;
+            
+            if (_aiming && !_aimLine.activeSelf)
             {
-                var zRotation = Vector3.SignedAngle(_aimDirection, Vector3.up, -Vector3.forward);
-                var q = Quaternion.Euler(0, 0, zRotation);
-                if (!Aiming)
-                {
-                    _aimPivot.transform.rotation = q;
-                    _aimLine.SetActive(true);
-                }
-                else
-                {
-                    _aimPivot.transform.rotation =
-                        Quaternion.Slerp(_aimPivot.transform.rotation, q, Time.deltaTime * _rotationSpeed);
-                }
+                _aimLine.SetActive(true);
+                immediateRotation = true;
             }
+            
+            SetPivotRotation(_aimDirection, immediateRotation);
         }
+    }
+
+    private void SetPivotRotation(Vector3 euler, bool immediate=true)
+    {
+        var zRotation = Vector3.SignedAngle(euler, Vector3.up, -Vector3.forward);
+        var q = Quaternion.Euler(0, 0, zRotation);
+        
+        float t = immediate ? 1 : Time.deltaTime * _rotationSpeed;
+        
+        _aimPivot.transform.rotation =
+            Quaternion.Slerp(_aimPivot.transform.rotation, q, t);
     }
 
     #endregion
