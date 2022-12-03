@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     #region Serialized Fields
 
+    [SerializeField] private GameObject _cards;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private UIController _uiController;
 
@@ -97,12 +98,21 @@ public class GameManager : MonoBehaviour
         _instance.ChooseCard();
     }
 
+    public static void CardChosen()
+    {
+        // OpenDoors();
+        _instance._cards.SetActive(false);
+        _instance.ActionMapInUse = ActionMap.PLAYER;
+    }
+
     #endregion
 
     #region Private Methods
 
     private void ChooseCard()
     {
+        ActionMapInUse = ActionMap.UI;
+        _cards.SetActive(true);
     }
 
     #endregion

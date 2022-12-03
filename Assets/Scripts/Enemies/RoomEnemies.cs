@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemies
 {
@@ -12,12 +11,6 @@ namespace Enemies
         #region Non-Serialized Fields
 
         private int _numOfLivingEnemies;
-
-        #endregion
-
-        #region Events
-
-        public event Action RoomCleared;
 
         #endregion
 
@@ -49,7 +42,7 @@ namespace Enemies
         public void EnemyKilled()
         {
             if (--_numOfLivingEnemies > 0) return;
-            RoomCleared?.Invoke();
+            GameManager.RoomCleared();
         }
 
         #endregion
