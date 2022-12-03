@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Yoyo : MonoBehaviour
+public class Yoyo : MonoBehaviourExt
 {
     public enum YoyoState
     {
@@ -13,10 +13,18 @@ public class Yoyo : MonoBehaviour
 
     #region Serialized Fields
 
+    [Header("Quick Shot")]
     [SerializeField] private float _shootSpeed;
-    [SerializeField] private float _backSpeed;
-    [SerializeField] private float _waitForReturn;
     [SerializeField] private float _maxDistance;
+    [SerializeField] private float _backSpeed;
+
+    [Header("Precision Shot")]
+    [SerializeField] private float _precisionSpeed;
+    [SerializeField] private float _resolution;
+    [SerializeField] private Line _linePrefab;
+
+    [Header("Other")]
+    [SerializeField] private float _waitForReturn;
 
     [SerializeField] private Transform _parent;
     [SerializeField] private Transform _initPos;
@@ -28,13 +36,18 @@ public class Yoyo : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private Vector3 _direction;
+
     public YoyoState _state = YoyoState.IDLE;
+
+    private Line _currentLine;
 
     #endregion
 
     #region Properties
 
     public YoyoState State => _state;
+    
+    public Vector2 PrecisionDirection { get; set; }
 
     #endregion
 
@@ -45,21 +58,32 @@ public class Yoyo : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (_state == YoyoState.IDLE)
+        base.Update();
+
+        switch (_state)
         {
-            transform.position = _initPos.position;
-        }
-        var d = Vector2.Distance(transform.position, _parent.position);
-        if (_state == YoyoState.SHOOT && d > _maxDistance)
-        {
-            GoBack();
+            case YoyoState.IDLE:
+                transform.position = _initPos.position;
+                break;
+            case YoyoState.SHOOT:
+                var d = Vector2.Distance(transform.position, _parent.position);
+                if (d > _maxDistance)
+                {
+                    GoBack();
+                }
+                break;
+            case YoyoState.PERCISION:
+                DrawPath();
+                break;
         }
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+        
         if (_state != YoyoState.IDLE)
         {
             MoveYoyo();
@@ -93,6 +117,25 @@ public class Yoyo : MonoBehaviour
             transform.SetParent(null);
         }
     }
+    
+    public void PrecisionShoot()
+    {
+        _state = YoyoState.PERCISION;
+
+        if (_currentLine != null)
+        {
+            RemovePath();
+        }
+        _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
+    }
+
+    public void CancelPrecision()
+    {
+        print($"cancel: {_currentLine}");
+        if (_currentLine == null) return; 
+        RemovePath();
+        GoBack();
+    }
 
     #endregion
 
@@ -105,6 +148,11 @@ public class Yoyo : MonoBehaviour
             case YoyoState.SHOOT:
                 _rigidbody.velocity = _direction.normalized * _shootSpeed;
                 break;
+            
+            case YoyoState.PERCISION:
+                _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;
+                break;
+            
             case YoyoState.BACK:
                 var backDirection = ((Vector2)_parent.transform.position - (Vector2)transform.position);
                 _rigidbody.velocity = backDirection.normalized * _backSpeed;
@@ -124,6 +172,26 @@ public class Yoyo : MonoBehaviour
         _rigidbody.velocity = Vector2.zero;
         _state = YoyoState.IDLE;
         transform.SetParent(_parent);
+    }
+    
+    private void DrawPath()
+    {
+        if(_currentLine == null) return;
+        
+        var position = transform.position;
+        var d = Vector2.Distance(position, _currentLine.CurrentPosition);
+        if (d > _resolution)
+        {
+            _currentLine.AddPosition(position);
+        }
+    }
+    
+    private void RemovePath()
+    {
+        if(_currentLine == null) return;
+        
+        Destroy(_currentLine.gameObject);
+        _currentLine = null;
     }
 
     #endregion
