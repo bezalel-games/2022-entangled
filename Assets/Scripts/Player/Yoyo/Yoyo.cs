@@ -8,7 +8,7 @@ public class Yoyo : MonoBehaviourExt
         IDLE,
         SHOOT,
         BACK,
-        PERCISION
+        PRECISION
     }
 
     #region Serialized Fields
@@ -34,6 +34,7 @@ public class Yoyo : MonoBehaviourExt
     #region Non-Serialized Fields
     
     private Rigidbody2D _rigidbody;
+    private Collider2D _collider;
 
     private Vector3 _direction;
 
@@ -56,6 +57,7 @@ public class Yoyo : MonoBehaviourExt
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
     protected override void Update()
@@ -74,7 +76,7 @@ public class Yoyo : MonoBehaviourExt
                     GoBack();
                 }
                 break;
-            case YoyoState.PERCISION:
+            case YoyoState.PRECISION:
                 DrawPath();
                 break;
         }
@@ -92,15 +94,42 @@ public class Yoyo : MonoBehaviourExt
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && _state == YoyoState.BACK)
+        switch (_state)
         {
-            Reset();
-            return;
+            case YoyoState.BACK:
+                if (other.CompareTag("Player"))
+                {
+                    Reset();
+                }
+                break;
+            case YoyoState.PRECISION:
+                if (other.CompareTag("Wall"))
+                {
+                    _collider.isTrigger = false;
+                }
+                break;
+            case YoyoState.SHOOT:
+                GoBack();
+                break;
         }
+    }
 
-        if (_state == YoyoState.SHOOT)
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
         {
-            GoBack();
+            _collider.isTrigger = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        switch (_state)
+        {
+            case YoyoState.BACK:
+                if(other.CompareTag("Player"))
+                    Reset();
+                break;
         }
     }
 
@@ -120,18 +149,19 @@ public class Yoyo : MonoBehaviourExt
     
     public void PrecisionShoot()
     {
-        _state = YoyoState.PERCISION;
+        _state = YoyoState.PRECISION;
 
         if (_currentLine != null)
         {
             RemovePath();
         }
+        
+        transform.SetParent(null);
         _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
     }
 
     public void CancelPrecision()
     {
-        print($"cancel: {_currentLine}");
         if (_currentLine == null) return; 
         RemovePath();
         GoBack();
@@ -149,7 +179,7 @@ public class Yoyo : MonoBehaviourExt
                 _rigidbody.velocity = _direction.normalized * _shootSpeed;
                 break;
             
-            case YoyoState.PERCISION:
+            case YoyoState.PRECISION:
                 _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;
                 break;
             
