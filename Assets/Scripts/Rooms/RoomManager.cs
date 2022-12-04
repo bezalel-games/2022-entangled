@@ -27,13 +27,8 @@ namespace Rooms
         [Tooltip("The global rank of all rooms. ~Temporary")] [SerializeField]
         private int _rank = 8;
 
-        [Header("General Room properties")] [SerializeField]
-        private int _roomWidth = 16;
-
-        [SerializeField] private int _roomHeight = 9;
-        [SerializeField] private int _roomVerticalIntersection = 1;
-        [SerializeField] private int _roomHorizontalIntersection = 1;
-        [SerializeField] private int _wallSize = 1;
+        [SerializeField] private RoomProperties _roomProperties;
+        [SerializeField] private bool _spawnEnemies = true;
 
         #endregion
 
@@ -63,8 +58,9 @@ namespace Rooms
 
         private void Start()
         {
-            _currentRoom = new RoomNode(_currentRoom.Room, _currentRoom.Index, _currentRoom.Rank);
-            _currentRoom.Room.Node = _currentRoom;
+            _currentRoom = new RoomNode(null, _currentRoom.Index, _currentRoom.Rank);
+            _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
+            _currentRoom.Room.Enter();
             LoadNeighbors(_currentRoom);
         }
 
@@ -87,6 +83,11 @@ namespace Rooms
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
+        }
+
+        public static void RepositionRoom(Room room)
+        {
+            room.transform.position = _instance.GetPosition(room.Node.Index);
         }
 
         #endregion
@@ -142,6 +143,7 @@ namespace Rooms
 
         private void SpawnEnemies(RoomNode roomNode, Room room)
         {
+            if (!_spawnEnemies) return;
             var pos = GetPosition(roomNode.Index);
             var enemiesTransform = room.Enemies.transform;
             var enemiesLength = roomNode.Enemies.Length;
@@ -172,8 +174,8 @@ namespace Rooms
 
         private Vector3 GetPosition(Vector2Int roomIndex)
         {
-            return new Vector3(roomIndex.x * (_roomWidth - _roomVerticalIntersection),
-                roomIndex.y * (_roomHeight - _roomHorizontalIntersection));
+            return new Vector3(roomIndex.x * (_roomProperties.Width - _roomProperties.VerticalIntersection),
+                roomIndex.y * (_roomProperties.Height - _roomProperties.HorizontalIntersection));
         }
 
         private void RemoveAndReplaceFromPool(int index)
@@ -194,8 +196,8 @@ namespace Rooms
 
         private Vector3 RandomPosInRoom()
         {
-            var halfWidth = _roomWidth / 2 - _wallSize;
-            var halfHeight = _roomHeight / 2 - _wallSize;
+            var halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize;
+            var halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize;
             var x = Random.Range(-halfWidth, halfWidth);
             var y = Random.Range(-halfHeight, halfHeight);
             return new Vector3(x, y);

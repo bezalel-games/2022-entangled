@@ -511,8 +511,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4453669655545087668}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -530,18 +529,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRoom:
     <Index>k__BackingField: {x: 0, y: 0}
-    <Room>k__BackingField: {fileID: 4453669655545087670}
+    <Room>k__BackingField: {fileID: 0}
     <Rank>k__BackingField: 8
     <Enemies>k__BackingField: 
   _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   _previousRoomSleepDelay: 0.5
   _enemyDictionary: {fileID: 11400000, guid: a77c47aa10295c24a8e75151422073b9, type: 2}
   _rank: 8
-  _roomWidth: 16
-  _roomHeight: 9
-  _roomVerticalIntersection: 1
-  _roomHorizontalIntersection: 1
-  _wallSize: 1
+  _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
+  _spawnEnemies: 1
 --- !u!1 &1014839472
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +953,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -981,7 +977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404668196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -100}
+  m_LocalPosition: {x: 0, y: 1, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1302,105 +1298,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935063146}
   m_CullTransparentMesh: 1
---- !u!1001 &4453669655545087667
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1006228298}
-    m_Modifications:
-    - target: {fileID: 2621679334121349683, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4453669656696353630, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_Name
-      value: Ground Tilemap
-      objectReference: {fileID: 0}
-    - target: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_Name
-      value: Initial Room
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051799213489769624, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6572897696822594641, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_Priority
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7363860059572617434, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-      propertyPath: <Node>k__BackingField.<Room>k__BackingField
-      value: 
-      objectReference: {fileID: 4453669655545087670}
-    m_RemovedComponents:
-    - {fileID: 7430426292868641102, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
---- !u!4 &4453669655545087668 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-  m_PrefabInstance: {fileID: 4453669655545087667}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4453669655545087670 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-  m_PrefabInstance: {fileID: 4453669655545087667}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbac76e8a0f4db3a5fc00a785da480e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
