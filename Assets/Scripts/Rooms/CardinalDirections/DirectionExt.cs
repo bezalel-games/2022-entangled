@@ -16,6 +16,11 @@ namespace Rooms.CardinalDirections
             return (Direction)(((byte)dir + 2) % NumOfDirections);
         }
 
+        public static bool IsHorizontal(this Direction dir)
+        {
+            return (byte)dir % 2 == 0;
+        }
+
         public static Direction ToDirection(this Vector2Int dir)
         {
             if (dir.x * dir.y != 0 || (dir.x == 0 && dir.y == 0))

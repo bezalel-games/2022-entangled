@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Rooms
 {
-    public class Room : MonoBehaviour
+    public partial class Room : MonoBehaviour
     {
         #region Serialized Fields
 
