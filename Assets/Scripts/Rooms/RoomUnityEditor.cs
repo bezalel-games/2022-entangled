@@ -66,9 +66,11 @@ namespace Rooms
                             tilemap.SetTile(pos, properties.GateTile);
                             continue;
                         }
+
                         tilemap.SetTile(pos, properties.WallTile);
                         continue;
                     }
+
                     tilemap.SetTile(pos, properties.GroundTile);
                 }
         }
