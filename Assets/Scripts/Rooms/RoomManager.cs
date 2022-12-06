@@ -37,6 +37,7 @@ namespace Rooms
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
         private int _enemySpawnLayerMask;
+        private RoomNode _nextRoom;
 
         #endregion
 
@@ -68,7 +69,31 @@ namespace Rooms
 
         #region Public Method
 
-        public static void ChangeRoom(RoomNode newRoom)
+        public static void EnteredRoom(RoomNode roomNode)
+        {
+            _instance._nextRoom = roomNode;
+        }
+
+        public static void ExitedRoom(RoomNode roomNode)
+        {
+            if (_instance._nextRoom == null) return;
+            if (_instance._currentRoom.Index == roomNode.Index)
+                ChangeRoom(_instance._nextRoom);
+            _instance._nextRoom = null;
+        }
+
+        public static void RepositionRoom(Room room)
+        {
+            room.transform.position = _instance.GetPosition(room.Node.Index);
+            room.Enemies.RemoveEnemies();
+            _instance.SpawnEnemies(room.Node, room);
+        }
+
+        #endregion
+
+        #region Private Methods
+        
+        private static void ChangeRoom(RoomNode newRoom)
         {
             if (newRoom == _instance._currentRoom) return;
             var currPos = _instance._currentRoom.Index;
@@ -76,7 +101,7 @@ namespace Rooms
             ChangeRoom(newRoom, (newPos - currPos).ToDirection());
         }
 
-        public static void ChangeRoom(RoomNode newRoom, Direction dirOfNewRoom)
+        private static void ChangeRoom(RoomNode newRoom, Direction dirOfNewRoom)
         {
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
@@ -84,15 +109,6 @@ namespace Rooms
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
         }
-
-        public static void RepositionRoom(Room room)
-        {
-            room.transform.position = _instance.GetPosition(room.Node.Index);
-        }
-
-        #endregion
-
-        #region Private Methods
 
         private void UnloadNeighbors(RoomNode prevRoom, Direction? dirOfNewRoom = null)
         {
@@ -150,7 +166,8 @@ namespace Rooms
             for (int i = 0; i < enemiesLength; ++i)
                 for (int j = roomNode.Enemies[i]; j > 0; j--)
                 {
-                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity, enemiesTransform);
+                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity,
+                        enemiesTransform);
                 }
         }
 
