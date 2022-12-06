@@ -33,7 +33,12 @@ namespace Rooms
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            RoomManager.ChangeRoom(Node);
+            RoomManager.EnteredRoom(Node);
+        }
+        
+        private void OnTriggerExit2D(Collider2D col)
+        {
+            RoomManager.ExitedRoom(Node);
         }
 
         #endregion
