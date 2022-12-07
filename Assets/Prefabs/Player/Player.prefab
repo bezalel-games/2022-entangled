@@ -123,7 +123,9 @@ MonoBehaviour:
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}
+  _aimAssistRange: 10
   _precisionTime: 5
+  _precisionRotationSpeed: 10
 --- !u!50 &3352697072945445586
 Rigidbody2D:
   serializedVersion: 4
