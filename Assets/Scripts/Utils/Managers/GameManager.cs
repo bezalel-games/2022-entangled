@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private GameObject _cards;
-    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private Player.PlayerController _playerController;
     [SerializeField] private UIController _uiController;
 
     #endregion
