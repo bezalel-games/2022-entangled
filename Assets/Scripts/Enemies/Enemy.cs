@@ -19,6 +19,8 @@ namespace Enemies
 
         [field: SerializeField] public int Rank { get; set; } = 1;
 
+        public static LayerMask Layer { get; private set;  }
+
         #endregion
 
         #region Function Events
@@ -26,6 +28,7 @@ namespace Enemies
         private void Awake()
         {
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
+            Layer = LayerMask.GetMask("Enemies");
         }
 
         private void OnTriggerEnter2D(Collider2D col)

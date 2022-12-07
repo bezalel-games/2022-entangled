@@ -1,4 +1,5 @@
 ﻿using System;
+using Enemies;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,7 @@ public partial class PlayerController
     [Header("Shooting")] [SerializeField] private float _rotationSpeed;
     [SerializeField] private GameObject _aimLine;
     [SerializeField] private GameObject _aimPivot;
+    [SerializeField] private float _aimAssistRange;
 
     [Header("Precision Shot")] [SerializeField]
     private float _precisionTime;
@@ -21,6 +23,8 @@ public partial class PlayerController
 
     #region Non-Serialized Fields
 
+    private const float ANGLE_THRESHOLD = 0.2f;
+    
     private Vector2 _aimDirection;
 
     private bool _aiming;
@@ -36,6 +40,11 @@ public partial class PlayerController
     #endregion
 
     #region Function Events
+
+    private void OnDrawGizmos()
+    {
+        DrawAimAssist();
+    }
 
     #endregion
 
@@ -66,6 +75,8 @@ public partial class PlayerController
                     var desiredDir = (!_aiming && _direction != Vector2.zero)
                         ? _direction
                         : _aimDirection;
+                    desiredDir = AimAssist(desiredDir);
+                    print(desiredDir);
                     SetPivotRotation(desiredDir);
                     _yoyo.Shoot(desiredDir);
                 }
@@ -101,6 +112,37 @@ public partial class PlayerController
 
     #region Private Methods
 
+    private Vector2 AimAssist(Vector2 desiredDir)
+    {
+        var collider = RayCastEnemy(desiredDir);
+        if (collider != null)
+        {
+            return desiredDir;
+        }
+
+        var rightRotation = Vector2.zero;
+        var leftRotation = Vector2.zero;
+        
+        for (float angle = ANGLE_THRESHOLD; angle < _aimAssistRange; angle += ANGLE_THRESHOLD)
+        {
+            rightRotation = Rotate(desiredDir, angle);
+            collider = RayCastEnemy(rightRotation);
+            if (collider != null)
+            {
+                return rightRotation;
+            }
+
+            leftRotation = Rotate(desiredDir, -angle);
+            collider = RayCastEnemy(leftRotation);
+            if (collider != null)
+            {
+                return leftRotation;
+            }
+        }
+
+        return desiredDir;
+    }
+
     private void SetAim()
     {
         if (_yoyo.State == Yoyo.YoyoState.PRECISION)
@@ -133,6 +175,46 @@ public partial class PlayerController
         
         _aimPivot.transform.rotation =
             Quaternion.Slerp(_aimPivot.transform.rotation, q, t);
+    }
+
+    private Vector2 Rotate(Vector2 v, float degrees) {
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+         
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
+    }
+
+    private Collider2D RayCastEnemy(Vector2 direction)
+    {
+        var enemy = Physics2D.Raycast(transform.position, direction, 10, layerMask: Enemy.Layer).collider;
+        if (enemy != null)
+        {
+            // when add walls layer, use this
+            
+            // var hit = Physics2D.Raycast(transform.position, direction, 10).collider;
+            // print($"{hit.gameObject.tag},{enemy.gameObject.tag}");
+            // if (hit.GetInstanceID() == enemy.GetInstanceID())
+            // {
+            //     return hit;
+            // }
+            
+            return enemy;
+        }
+
+        return null;
+    }
+
+    private void DrawAimAssist()
+    {
+        var position = transform.position;
+        var rot = _aimDirection;
+
+        Gizmos.DrawLine(position, position + (Vector3) Rotate(rot, _aimAssistRange).normalized * 10);
+        Gizmos.DrawLine(position, position + (Vector3) Rotate(rot, -_aimAssistRange).normalized * 10);
     }
 
     #endregion
