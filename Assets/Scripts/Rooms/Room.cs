@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Rooms
 {
-    public partial class Room : MonoBehaviour
+    public partial class Room : MonoBehaviourExt
     {
         #region Serialized Fields
 
@@ -18,6 +18,7 @@ namespace Rooms
         #region Non-Serialized Fields
 
         private Collider2D _collider;
+        private Coroutine _sleepCoroutine;
 
         #endregion
 
@@ -47,6 +48,11 @@ namespace Rooms
 
         public void Enter()
         {
+            if (_sleepCoroutine != null)
+            {
+                StopCoroutine(_sleepCoroutine);
+                _sleepCoroutine = null;
+            }
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
             Enemies.Activate();
@@ -58,7 +64,7 @@ namespace Rooms
             if (sleepDelay <= 0)
                 RoomContent.SetActive(false);
             else
-                StartCoroutine(SleepWithDelay(sleepDelay));
+                _sleepCoroutine = StartCoroutine(SleepWithDelay(sleepDelay));
         }
 
         #endregion
@@ -69,6 +75,7 @@ namespace Rooms
         {
             yield return new WaitForSeconds(sleepDelay);
             RoomContent.SetActive(false);
+            _sleepCoroutine = null;
         }
 
         #endregion

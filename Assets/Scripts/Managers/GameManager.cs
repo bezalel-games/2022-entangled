@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _cards;
     [SerializeField] private Player.PlayerController _playerController;
     [SerializeField] private UIController _uiController;
+    [SerializeField] private bool _chooseCards = true;
 
     #endregion
 
@@ -95,7 +96,8 @@ public class GameManager : MonoBehaviour
 
     public static void RoomCleared()
     {
-        // _instance.ChooseCard();
+        if (_instance._chooseCards)
+            _instance.ChooseCard();
     }
 
     public static void CardChosen()
