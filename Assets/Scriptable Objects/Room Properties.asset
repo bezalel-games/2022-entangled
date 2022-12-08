@@ -18,12 +18,12 @@ MonoBehaviour:
   _ratio: {x: 16, y: 9}
   <Width>k__BackingField: 16
   <Height>k__BackingField: 9
-  <VerticalIntersection>k__BackingField: 1
-  <HorizontalIntersection>k__BackingField: 1
+  <VerticalIntersection>k__BackingField: 0
+  <HorizontalIntersection>k__BackingField: 0
   <WallSize>k__BackingField: 1
   <GateWidth>k__BackingField: 2
   <GroundTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
   <WallTile>k__BackingField: {fileID: 11400000, guid: 9ce6f4c499a766f45b7ac05f125f7b87, type: 2}
   <GateTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
   _update: 0
-  _updateContinuously: 1
+  _updateContinuously: 0
