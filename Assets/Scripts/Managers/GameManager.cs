@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     public static void RoomCleared()
     {
-        _instance.ChooseCard();
+        // _instance.ChooseCard();
     }
 
     public static void CardChosen()
