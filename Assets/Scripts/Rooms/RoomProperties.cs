@@ -33,10 +33,10 @@ namespace Rooms
         [field: SerializeField] public int GateWidth { get; private set; } = 2;
 
         [field: Header("Tiles")]
-        [field: SerializeField] public Tile GroundTile { get; private set; }
+        [field: SerializeField] public TileBase GroundTile { get; private set; }
 
-        [field: SerializeField] public Tile WallTile { get; private set; }
-        [field: SerializeField] public Tile GateTile { get; private set; }
+        [field: SerializeField] public TileBase WallTile { get; private set; }
+        [field: SerializeField] public TileBase GateTile { get; private set; }
 
         [Space(20)] [SerializeField] private bool _update;
         [Space(20)] [SerializeField] private bool _updateContinuously;
