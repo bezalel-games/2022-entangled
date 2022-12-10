@@ -35,8 +35,7 @@ namespace Player
 
         public void AddPosition(Vector2 pos)
         {
-            _renderer.positionCount++;
-            _renderer.SetPosition(_renderer.positionCount - 1, pos);
+            _renderer.SetPosition(_renderer.positionCount++, pos);
         }
 
         #endregion

@@ -32,6 +32,8 @@ namespace Player
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
 
+        private const float DEC_THRESHOLD = 0.2f;
+
         #endregion
 
         #region Properties
@@ -136,7 +138,7 @@ namespace Player
 
             if (DesiredVelocity.magnitude > _maxSpeed)
             {
-                _rigidbody.velocity = DesiredVelocity / DesiredVelocity.magnitude * _maxSpeed;
+                _rigidbody.velocity = DesiredVelocity.normalized * _maxSpeed;
             }
         }
 
@@ -153,7 +155,7 @@ namespace Player
                     _deceleration * Time.fixedDeltaTime);
             }
 
-            if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < 0.2f)
+            if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < DEC_THRESHOLD)
             {
                 _rigidbody.velocity *= Vector2.zero;
             }
