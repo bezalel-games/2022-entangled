@@ -92,7 +92,7 @@ namespace Rooms
         #endregion
 
         #region Private Methods
-        
+
         private static void ChangeRoom(RoomNode newRoom)
         {
             if (newRoom == _instance._currentRoom) return;
@@ -213,8 +213,8 @@ namespace Rooms
 
         private Vector3 RandomPosInRoom()
         {
-            var halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize;
-            var halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize;
+            float halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize;
+            float halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize;
             var x = Random.Range(-halfWidth, halfWidth);
             var y = Random.Range(-halfHeight, halfHeight);
             return new Vector3(x, y);
