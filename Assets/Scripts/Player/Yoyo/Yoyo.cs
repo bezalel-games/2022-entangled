@@ -39,7 +39,7 @@ namespace Player
 
         private Vector3 _direction;
 
-        public YoyoState _state = YoyoState.IDLE;
+        private YoyoState _state = YoyoState.IDLE;
 
         private Line _currentLine;
 
@@ -68,7 +68,8 @@ namespace Player
             switch (_state)
             {
                 case YoyoState.IDLE:
-                    transform.position = _initPos.position;
+                    if(transform.position != _initPos.position)
+                        transform.position = _initPos.position;
                     break;
                 case YoyoState.SHOOT:
                     var d = Vector2.Distance(transform.position, _parent.position);

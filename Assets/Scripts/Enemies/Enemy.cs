@@ -1,4 +1,5 @@
 using System;
+using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -45,8 +46,14 @@ namespace Enemies
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            _roomEnemies.EnemyKilled();
-            gameObject.SetActive(false);
+            var yoyo = col.GetComponent<Yoyo>();
+            if(yoyo == null) return;
+
+            if (yoyo.State != Yoyo.YoyoState.IDLE)
+            {
+                _roomEnemies.EnemyKilled();
+                gameObject.SetActive(false);
+            }
         }
 
         protected override void FixedUpdate()
