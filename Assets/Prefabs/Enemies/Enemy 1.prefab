@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5714414330355541032}
-  - component: {fileID: 90006282798255875}
+  - component: {fileID: 2050991525924800270}
   - component: {fileID: 4509924979954832385}
   - component: {fileID: 4733121764592369638}
   - component: {fileID: 3829520020349340871}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &90006282798255875
+--- !u!114 &2050991525924800270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7897815488341969439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db44301396422104d8973348a1de7cbd, type: 3}
+  m_Script: {fileID: 11500000, guid: b5b5fff2a14c8074da9a148c9dc0eadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
   <Rank>k__BackingField: 1
-  _attackSpeed: 0
-  <AttackTime>k__BackingField: 0
-  <AttackDistance>k__BackingField: 0
-  <FollowDistance>k__BackingField: 0
 --- !u!61 &4509924979954832385
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,7 +134,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7897815488341969439}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
