@@ -26,6 +26,7 @@ namespace Tiles
     /// Generic visual tile for creating different tilesets like terrain, pipeline, random or animated tiles.
     /// </summary>
     [Serializable]
+    [CreateAssetMenu(fileName = "Rule Tile (with other)", menuName = "2D/Tiles/Rule Tile (with other)", order = 2)]
     public class RuleTileWithOther : TileBase
     {
         /// <summary>
@@ -107,6 +108,16 @@ namespace Tiles
             /// </summary>
             public class Neighbor
             {
+                /// <summary>
+                /// The Rule Tile will check if the contents of the cell in that direction is empty.
+                /// If not, the rule will fail.
+                /// </summary>
+                public const int Empty = -1;
+                /// <summary>
+                /// The Rule Tile will check if the contents of the cell in that direction is empty.
+                /// If not, the rule will fail.
+                /// </summary>
+                public const int NotEmpty = 0;
                 /// <summary>
                 /// The Rule Tile will check if the contents of the cell in that direction is an instance of this Rule Tile.
                 /// If not, the rule will fail.
@@ -712,6 +723,8 @@ namespace Tiles
 
             switch (neighbor)
             {
+                case TilingRuleOutput.Neighbor.Empty: return other == null;
+                case TilingRuleOutput.Neighbor.NotEmpty: return other != null;
                 case TilingRuleOutput.Neighbor.This: return other == this;
                 case TilingRuleOutput.Neighbor.NotThis: return other != this;
             }
