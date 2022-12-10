@@ -23,7 +23,7 @@ MonoBehaviour:
   <WallSize>k__BackingField: 1
   <GateWidth>k__BackingField: 2
   <GroundTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
-  <WallTile>k__BackingField: {fileID: 11400000, guid: 9ce6f4c499a766f45b7ac05f125f7b87, type: 2}
-  <GateTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
+  <WallTile>k__BackingField: {fileID: 11400000, guid: 9074e2919f971ad4dbd1b499579bdf9c, type: 2}
+  <GateTile>k__BackingField: {fileID: 11400000, guid: 25029765f2f184b43be72348dc4bd3da, type: 2}
   _update: 0
   _updateContinuously: 0
