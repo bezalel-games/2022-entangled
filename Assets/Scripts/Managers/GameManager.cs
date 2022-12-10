@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Properties
+    
+    public static Transform PlayerTransform { get; private set; }
 
     public static bool PlayerControllerEnabled
     {
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             throw new DoubleGameManagerException();
         _instance = this;
+        PlayerTransform = _playerController.transform;
     }
 
     private void Start()
