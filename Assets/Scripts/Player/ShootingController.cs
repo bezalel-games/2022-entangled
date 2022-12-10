@@ -85,7 +85,7 @@ namespace Player
             }
         }
 
-        public void OnPresicionShot(InputAction.CallbackContext context)
+        public void OnPrecisionShot(InputAction.CallbackContext context)
         {
             switch (context.phase)
             {
