@@ -56,7 +56,7 @@ namespace Rooms
 
         public struct Calculations
         {
-            private const float WidthToNeededHeight = (float)(9 / 32d);
+            private const float WIDTH_TO_NEEDED_HEIGHT = (float)(9 / 32d);
 
             public readonly float OrthoSize;
             public readonly float Offset;
@@ -72,9 +72,9 @@ namespace Rooms
             public readonly int GateBottom;
             public readonly int GateLeft;
             public readonly int GateRight;
-            public Tile GroundTile { get;}
-            public Tile WallTile { get;}
-            public Tile GateTile { get;}
+            public TileBase GroundTile { get;}
+            public TileBase WallTile { get;}
+            public TileBase GateTile { get;}
 
             public Calculations(RoomProperties properties)
             {
@@ -87,7 +87,7 @@ namespace Rooms
                 WallTile = properties.WallTile;
                 GateTile = properties.GateTile;
 
-                OrthoSize = Mathf.Max(Height / 2f, Width * WidthToNeededHeight);
+                OrthoSize = Mathf.Max(Height / 2f, Width * WIDTH_TO_NEEDED_HEIGHT);
                 Offset = Height % 2 == 0 ? 1 : 0.5f;
                 var halfHeight = (Height - 1) / 2f;
                 var halfWidth = (Width - 1) / 2f;
