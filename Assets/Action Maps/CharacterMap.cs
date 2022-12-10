@@ -64,7 +64,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PresicionShot"",
+                    ""name"": ""PrecisionShot"",
                     ""type"": ""Button"",
                     ""id"": ""97648f99-7849-4b16-bd32-0107322a356d"",
                     ""expectedControlType"": ""Button"",
@@ -268,7 +268,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PresicionShot"",
+                    ""action"": ""PrecisionShot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -279,7 +279,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PresicionShot"",
+                    ""action"": ""PrecisionShot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -810,7 +810,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_PresicionShot = m_Player.FindAction("PresicionShot", throwIfNotFound: true);
+        m_Player_PrecisionShot = m_Player.FindAction("PrecisionShot", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -886,7 +886,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_PresicionShot;
+    private readonly InputAction m_Player_PrecisionShot;
     public struct PlayerActions
     {
         private @CharacterMap m_Wrapper;
@@ -895,7 +895,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @PresicionShot => m_Wrapper.m_Player_PresicionShot;
+        public InputAction @PrecisionShot => m_Wrapper.m_Player_PrecisionShot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -917,9 +917,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @PresicionShot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPresicionShot;
-                @PresicionShot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPresicionShot;
-                @PresicionShot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPresicionShot;
+                @PrecisionShot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
+                @PrecisionShot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
+                @PrecisionShot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -936,9 +936,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
-                @PresicionShot.started += instance.OnPresicionShot;
-                @PresicionShot.performed += instance.OnPresicionShot;
-                @PresicionShot.canceled += instance.OnPresicionShot;
+                @PrecisionShot.started += instance.OnPrecisionShot;
+                @PrecisionShot.performed += instance.OnPrecisionShot;
+                @PrecisionShot.canceled += instance.OnPrecisionShot;
             }
         }
     }
@@ -1054,7 +1054,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnPresicionShot(InputAction.CallbackContext context);
+        void OnPrecisionShot(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

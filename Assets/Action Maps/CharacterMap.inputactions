@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PresicionShot",
+                    "name": "PrecisionShot",
                     "type": "Button",
                     "id": "97648f99-7849-4b16-bd32-0107322a356d",
                     "expectedControlType": "Button",
@@ -246,7 +246,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PresicionShot",
+                    "action": "PrecisionShot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -257,7 +257,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PresicionShot",
+                    "action": "PrecisionShot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
