@@ -1,5 +1,6 @@
 using System;
 using Player;
+using Player.Yoyo;
 using UnityEngine;
 
 namespace Enemies
