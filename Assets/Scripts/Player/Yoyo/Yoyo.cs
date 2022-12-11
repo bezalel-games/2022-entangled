@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Player.Yoyo
 {
     public class Yoyo : MonoBehaviourExt
     {
@@ -16,6 +16,7 @@ namespace Player
 
         [Header("Quick Shot")]
         [SerializeField] private float _shootSpeed;
+
         [SerializeField] private float _maxDistance;
         [SerializeField] private float _backSpeed;
 
@@ -23,6 +24,7 @@ namespace Player
         [SerializeField] private float _precisionTime;
         [SerializeField] private float _precisionRotationSpeed;
         [SerializeField] private float _precisionSpeed;
+
         [SerializeField] private float _resolution;
         [SerializeField] private Line _linePrefab;
 
@@ -35,7 +37,7 @@ namespace Player
         #endregion
 
         #region Non-Serialized Fields
-    
+
         private Rigidbody2D _rigidbody;
         private Collider2D _collider;
 
@@ -76,18 +78,14 @@ namespace Player
             switch (_state)
             {
                 case YoyoState.IDLE:
-                    if(transform.position != _initPos.position)
+                    if (transform.position != _initPos.position)
                         transform.position = _initPos.position;
-                    break;
-                case YoyoState.SHOOT:
-                    var d = Vector2.Distance(transform.position, _parent.position);
-                    if (d > _maxDistance)
-                    {
-                        GoBack();
-                    }
                     break;
                 case YoyoState.PRECISION:
                     DrawPath();
+                    break;
+                case YoyoState.SHOOT when Vector2.Distance(transform.position, _parent.position) > _maxDistance:
+                    GoBack();
                     break;
             }
         }
@@ -95,7 +93,7 @@ namespace Player
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-        
+
             if (_state != YoyoState.IDLE)
             {
                 MoveYoyo();
@@ -106,17 +104,11 @@ namespace Player
         {
             switch (_state)
             {
-                case YoyoState.BACK:
-                    if (other.CompareTag("Player"))
-                    {
-                        Reset();
-                    }
+                case YoyoState.BACK when other.CompareTag("Player"):
+                    Reset();
                     break;
-                case YoyoState.PRECISION:
-                    if (other.CompareTag("Wall"))
-                    {
-                        _collider.isTrigger = false;
-                    }
+                case YoyoState.PRECISION when other.CompareTag("Wall"):
+                    _collider.isTrigger = false;
                     break;
                 case YoyoState.SHOOT:
                     GoBack();
@@ -136,9 +128,8 @@ namespace Player
         {
             switch (_state)
             {
-                case YoyoState.BACK:
-                    if(other.CompareTag("Player"))
-                        Reset();
+                case YoyoState.BACK when other.CompareTag("Player"):
+                    Reset();
                     break;
             }
         }
@@ -156,7 +147,7 @@ namespace Player
                 transform.SetParent(null);
             }
         }
-    
+
         public void PrecisionShoot()
         {
             _state = YoyoState.PRECISION;
@@ -165,7 +156,7 @@ namespace Player
             {
                 RemovePath();
             }
-        
+
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
             
@@ -174,7 +165,7 @@ namespace Player
 
         public void CancelPrecision()
         {
-            if (_currentLine == null) return; 
+            if (_currentLine == null) return;
             RemovePath();
             GoBack();
         }
@@ -190,13 +181,13 @@ namespace Player
                 case YoyoState.SHOOT:
                     _rigidbody.velocity = _direction.normalized * _shootSpeed;
                     break;
-            
+
                 case YoyoState.PRECISION:
                     _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;
                     break;
-            
+
                 case YoyoState.BACK:
-                    var backDirection = ((Vector2)_parent.transform.position - (Vector2)transform.position);
+                    var backDirection = (Vector2)_parent.transform.position - (Vector2)transform.position;
                     _rigidbody.velocity = backDirection.normalized * _backSpeed;
                     break;
             }
@@ -217,11 +208,11 @@ namespace Player
             _state = YoyoState.IDLE;
             transform.SetParent(_parent);
         }
-    
+
         private void DrawPath()
         {
-            if(_currentLine == null) return;
-        
+            if (_currentLine == null) return;
+
             var position = transform.position;
             var d = Vector2.Distance(position, _currentLine.CurrentPosition);
             if (d > _resolution)
@@ -229,11 +220,11 @@ namespace Player
                 _currentLine.AddPosition(position);
             }
         }
-    
+
         private void RemovePath()
         {
-            if(_currentLine == null) return;
-        
+            if (_currentLine == null) return;
+
             Destroy(_currentLine.gameObject);
             _currentLine = null;
         }

@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Player.Yoyo.Yoyo;
 
 namespace Player
 {
@@ -43,12 +43,18 @@ namespace Player
 
         #endregion
 
+        #region C# Events
+
+        public event Action DashStartEvent;
+
+        #endregion
+
         #region Function Events
 
-        void Start()
+        private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _yoyo = GetComponentInChildren<Yoyo>();
+            Yoyo = GetComponentInChildren<Yoyo.Yoyo>();
         }
 
         protected override void Update()
@@ -62,7 +68,7 @@ namespace Player
         {
             base.FixedUpdate();
 
-            if (_yoyo.State != Yoyo.YoyoState.PRECISION)
+            if (Yoyo.State != YoyoState.PRECISION)
             {
                 MoveCharacter();
             }
@@ -104,14 +110,13 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    DashStartEvent?.Invoke();
                     if (!_canDash || _dashing) return;
                     _dashDirection = _direction.normalized;
                     _dashing = true;
                     _canDash = false;
-                    DelayInvoke(
-                        () => { _canDash = true; }, _dashCooldown);
-                    DelayInvoke(
-                        () => { _dashing = false; }, _dashTime);
+                    DelayInvoke(() => { _canDash = true; }, _dashCooldown);
+                    DelayInvoke(() => { _dashing = false; }, _dashTime);
                     break;
             }
         }
