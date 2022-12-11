@@ -20,6 +20,8 @@ namespace Player
         [SerializeField] private float _backSpeed;
 
         [Header("Precision Shot")]
+        [SerializeField] private float _precisionTime;
+        [SerializeField] private float _precisionRotationSpeed;
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
         [SerializeField] private Line _linePrefab;
@@ -38,6 +40,7 @@ namespace Player
         private Collider2D _collider;
 
         private Vector3 _direction;
+        private Vector2 _precisionDirection;
 
         private YoyoState _state = YoyoState.IDLE;
 
@@ -48,8 +51,13 @@ namespace Player
         #region Properties
 
         public YoyoState State => _state;
-    
-        public Vector2 PrecisionDirection { get; set; }
+
+        public Vector2 PrecisionDirection
+        {
+            get => _precisionDirection;
+            set => _precisionDirection = 
+                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.deltaTime);
+        }
 
         #endregion
 
@@ -160,6 +168,8 @@ namespace Player
         
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
+            
+            DelayInvoke(CancelPrecision, _precisionTime);
         }
 
         public void CancelPrecision()
@@ -194,12 +204,14 @@ namespace Player
 
         private void GoBack()
         {
+            _collider.isTrigger = true;
             _rigidbody.velocity = Vector2.zero;
             _state = YoyoState.BACK;
         }
 
         private void Reset()
         {
+            _collider.isTrigger = true;
             transform.position = _initPos.position;
             _rigidbody.velocity = Vector2.zero;
             _state = YoyoState.IDLE;
