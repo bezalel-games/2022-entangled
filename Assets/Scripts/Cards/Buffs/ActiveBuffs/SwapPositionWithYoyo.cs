@@ -3,12 +3,12 @@ using Player.Yoyo;
 
 namespace Cards.Buffs.ActiveBuffs
 {
-    public class SwapPositionWithYoyo : Buff
+    public class SwapPositionWithYoyo : IBuff
     {
         private PlayerController _playerController;
         private Yoyo _yoyo;
 
-        protected override void ApplyBuff(PlayerController playerController)
+        public void Apply(PlayerController playerController)
         {
             playerController.DashStartEvent += SwapPositions;
             _playerController = playerController;

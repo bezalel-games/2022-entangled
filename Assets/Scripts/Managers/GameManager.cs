@@ -1,5 +1,7 @@
 using System;
 using Cards.Buffs.PassiveBuffs;
+using Player;
+using Rooms;
 using UI;
 using UnityEngine;
 
@@ -9,8 +11,8 @@ namespace Managers
     {
         #region Serialized Fields
 
-        [SerializeField] private GameObject _cards;
         [SerializeField] private Player.PlayerController _playerController;
+        [SerializeField] private GameObject _cards;
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
 
@@ -27,7 +29,8 @@ namespace Managers
         #endregion
 
         #region Properties
-    
+
+        public static PlayerController PlayerController => _instance._playerController;
         public static Transform PlayerTransform { get; private set; }
 
         public static bool PlayerControllerEnabled
@@ -103,7 +106,7 @@ namespace Managers
         public static void RoomCleared()
         {
             if (_instance._chooseCards)
-                _instance.ChooseCard();
+                _instance.ChooseCard(); //.apply(_instance._playerController, RoomManager.EnemyDictionary);
         }
 
         public static void CardChosen()

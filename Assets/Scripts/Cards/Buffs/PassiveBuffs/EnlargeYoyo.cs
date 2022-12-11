@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Cards.Buffs.PassiveBuffs
 {
-    public class EnlargeYoyo : Buff
+    public class EnlargeYoyo : IBuff
     {
         [SerializeField] private float _enlargementSpeed = 1;
         private readonly float _growthIncrease;
@@ -14,7 +14,7 @@ namespace Cards.Buffs.PassiveBuffs
             _growthIncrease = growthIncrease;
         }
 
-        protected override void ApplyBuff(PlayerController playerController)
+        public void Apply(PlayerController playerController)
         {
             var yoyo = playerController.Yoyo;
             yoyo.StartCoroutine(Enlarge(yoyo.transform));
