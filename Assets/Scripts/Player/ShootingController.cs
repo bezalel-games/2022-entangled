@@ -14,11 +14,6 @@ namespace Player
         [SerializeField] private GameObject _aimPivot;
         [SerializeField] private float _aimAssistRange;
 
-        [Header("Precision Shot")] [SerializeField]
-        private float _precisionTime;
-
-        [SerializeField] private float _precisionRotationSpeed;
-
         #endregion
 
         #region Non-Serialized Fields
@@ -93,8 +88,6 @@ namespace Player
                     if (_yoyo.State != Yoyo.YoyoState.IDLE) return;
                     _rigidbody.velocity = Vector2.zero;
                     _yoyo.PrecisionShoot();
-                    DelayInvoke(
-                        () => { _yoyo.CancelPrecision(); }, _precisionTime);
                     break;
                 case InputActionPhase.Canceled:
                     if (_yoyo.State != Yoyo.YoyoState.PRECISION) return;
@@ -148,7 +141,7 @@ namespace Player
             if (_yoyo.State == Yoyo.YoyoState.PRECISION)
             {
                 var currDir = _yoyo.PrecisionDirection;
-                _yoyo.PrecisionDirection = Vector2.Lerp(currDir, _aimDirection, _precisionRotationSpeed * Time.deltaTime);
+                _yoyo.PrecisionDirection = _aimDirection;
 
                 SetPivotRotation(_aimDirection);
             }
