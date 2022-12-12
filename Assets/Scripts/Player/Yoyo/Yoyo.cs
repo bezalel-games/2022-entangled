@@ -1,3 +1,4 @@
+using HP_System;
 using UnityEngine;
 
 namespace Player
@@ -106,7 +107,7 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var hittable = other.GetComponent<Hittable>();
+            var hittable = other.GetComponent<IHittable>();
             
             switch (_state)
             {
@@ -215,7 +216,7 @@ namespace Player
             }
         }
 
-        private void DoDamage(Hittable hittable)
+        private void DoDamage(IHittable hittable)
         {
             if(hittable == null) return;
             hittable.OnHit(_damage);
