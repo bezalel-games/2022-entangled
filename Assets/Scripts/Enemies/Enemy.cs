@@ -1,4 +1,5 @@
 using System;
+using HP_System;
 using Player;
 using UnityEngine;
 
@@ -57,7 +58,7 @@ namespace Enemies
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                var hittable = other.gameObject.GetComponent<Hittable>();
+                var hittable = other.gameObject.GetComponent<IHittable>();
                 if(hittable == null) return;       
                 
                 hittable.OnHit(_damage);
