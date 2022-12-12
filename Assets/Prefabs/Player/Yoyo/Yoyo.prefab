@@ -85,15 +85,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootSpeed: 15
-  _maxDistance: 7
+  _maxDistance: 5
   _backSpeed: 20
   _precisionSpeed: 7
   _resolution: 0.1
+  _precisionTimeScale: 0.3
+  _precisionTime: 5
+  _precisionRotationSpeed: 10
   _linePrefab: {fileID: 1141267205715262119, guid: e6e4d0824b707774e898d5b95766b56f, type: 3}
   _waitForReturn: 0
   _parent: {fileID: 0}
   _initPos: {fileID: 0}
-  _state: 0
 --- !u!1 &7213034140519300429
 GameObject:
   m_ObjectHideFlags: 0

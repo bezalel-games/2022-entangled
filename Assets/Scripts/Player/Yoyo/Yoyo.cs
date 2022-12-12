@@ -22,6 +22,9 @@ namespace Player
         [Header("Precision Shot")]
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
+        [SerializeField] private float _precisionTimeScale;
+        [SerializeField] private float _precisionTime;
+        [SerializeField] private float _precisionRotationSpeed;
         [SerializeField] private Line _linePrefab;
 
         [Header("Other")]
@@ -38,6 +41,7 @@ namespace Player
         private Collider2D _collider;
 
         private Vector3 _direction;
+        private Vector3 _precisionDirection;
 
         private YoyoState _state = YoyoState.IDLE;
 
@@ -48,8 +52,13 @@ namespace Player
         #region Properties
 
         public YoyoState State => _state;
-    
-        public Vector2 PrecisionDirection { get; set; }
+
+        public Vector2 PrecisionDirection
+        {
+            get => _precisionDirection;
+            set => _precisionDirection = 
+                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.unscaledTime);
+        }
 
         #endregion
 
@@ -64,7 +73,7 @@ namespace Player
         protected override void Update()
         {
             base.Update();
-
+            
             switch (_state)
             {
                 case YoyoState.IDLE:
@@ -79,6 +88,7 @@ namespace Player
                     }
                     break;
                 case YoyoState.PRECISION:
+                    MoveYoyo();
                     DrawPath();
                     break;
             }
@@ -88,7 +98,7 @@ namespace Player
         {
             base.FixedUpdate();
         
-            if (_state != YoyoState.IDLE)
+            if (_state is YoyoState.SHOOT or YoyoState.BACK)
             {
                 MoveYoyo();
             }
@@ -151,6 +161,7 @@ namespace Player
     
         public void PrecisionShoot()
         {
+            Time.timeScale = _precisionTimeScale;
             _state = YoyoState.PRECISION;
 
             if (_currentLine != null)
@@ -160,11 +171,15 @@ namespace Player
         
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
+            
+            DelayInvoke(
+                CancelPrecision, _precisionTime * _precisionTimeScale);
         }
 
         public void CancelPrecision()
         {
-            if (_currentLine == null) return; 
+            if (_currentLine == null) return;
+            Time.timeScale = 1;
             RemovePath();
             GoBack();
         }
@@ -182,7 +197,12 @@ namespace Player
                     break;
             
                 case YoyoState.PRECISION:
-                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;
+                    // _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1 / _precisionTimeScale);
+
+                    var pos = transform.position;
+                    print(Time.unscaledTime);
+                    transform.position = 
+                        Vector3.Lerp(pos, pos + (Vector3) PrecisionDirection.normalized, Time.unscaledDeltaTime * _precisionSpeed);
                     break;
             
                 case YoyoState.BACK:

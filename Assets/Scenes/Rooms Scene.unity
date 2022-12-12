@@ -494,6 +494,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1109055446406721002, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _precisionSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109055446406721002, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _precisionTimeScale
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3352697072945445586, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_Mass
       value: 0.0001
