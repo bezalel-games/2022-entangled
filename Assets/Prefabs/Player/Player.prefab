@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256dd75ab0cfd849aa09a5e75ede91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 20
+  _healthBar: {fileID: 0}
   _speed: 7
   _maxSpeed: 8
   _acceleration: 7
@@ -124,8 +126,6 @@ MonoBehaviour:
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}
   _aimAssistRange: 10
-  _precisionTime: 5
-  _precisionRotationSpeed: 10
 --- !u!50 &3352697072945445586
 Rigidbody2D:
   serializedVersion: 4
