@@ -32,6 +32,8 @@ namespace Player
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _initPos;
 
+        [SerializeField] private float _damage;
+
         #endregion
 
         #region Non-Serialized Fields
@@ -104,6 +106,8 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            var hittable = other.GetComponent<Hittable>();
+            
             switch (_state)
             {
                 case YoyoState.BACK:
@@ -117,8 +121,17 @@ namespace Player
                     {
                         _collider.isTrigger = false;
                     }
+
+                    if (other.CompareTag("Enemy"))
+                    {
+                        DoDamage(hittable);
+                    }
                     break;
                 case YoyoState.SHOOT:
+                    if (other.CompareTag("Enemy"))
+                    {
+                        DoDamage(hittable);
+                    }
                     GoBack();
                     break;
             }
@@ -156,7 +169,7 @@ namespace Player
                 transform.SetParent(null);
             }
         }
-    
+
         public void PrecisionShoot()
         {
             _state = YoyoState.PRECISION;
@@ -200,6 +213,12 @@ namespace Player
                     _rigidbody.velocity = backDirection.normalized * _backSpeed;
                     break;
             }
+        }
+
+        private void DoDamage(Hittable hittable)
+        {
+            if(hittable == null) return;
+            hittable.OnHit(_damage);
         }
 
         private void GoBack()

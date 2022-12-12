@@ -71,7 +71,6 @@ namespace Player
                             ? _direction
                             : _aimDirection;
                         desiredDir = AimAssist(desiredDir);
-                        MonoBehaviour.print(desiredDir);
                         SetPivotRotation(desiredDir);
                         _yoyo.Shoot(desiredDir);
                     }

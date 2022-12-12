@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public partial class PlayerController : MonoBehaviourExt, CharacterMap.IPlayerActions
+    public partial class PlayerController : LivingBehaviour, CharacterMap.IPlayerActions
     {
         #region Serialized Fields
 
@@ -119,6 +119,11 @@ namespace Player
         #endregion
 
         #region Public Methods
+        
+        public override void OnDie()
+        {
+            print("Dead");
+        }
 
         #endregion
 
