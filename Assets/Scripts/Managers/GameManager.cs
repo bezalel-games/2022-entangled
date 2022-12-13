@@ -1,5 +1,5 @@
 using System;
-using Cards.Buffs.PassiveBuffs;
+using Cards;
 using Player;
 using Rooms;
 using UI;
@@ -11,7 +11,7 @@ namespace Managers
     {
         #region Serialized Fields
 
-        [SerializeField] private Player.PlayerController _playerController;
+        [SerializeField] private PlayerController _playerController;
         [SerializeField] private GameObject _cards;
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
@@ -25,6 +25,7 @@ namespace Managers
         private bool _playerControllerEnabled;
         private bool _uiControllerEnabled;
         private ActionMap _actionMapInUse;
+        private readonly CardManager _cardManager = new CardManager();
 
         #endregion
 
@@ -97,6 +98,8 @@ namespace Managers
                 _controls.UI.SetCallbacks(_uiController);
                 ActionMapInUse = ActionMap.PLAYER;
             }
+
+            ChooseCard(); // TODO: remove
         }
 
         #endregion
@@ -106,12 +109,16 @@ namespace Managers
         public static void RoomCleared()
         {
             if (_instance._chooseCards)
-                _instance.ChooseCard(); //.apply(_instance._playerController, RoomManager.EnemyDictionary);
+                _instance.ChooseCard();
         }
 
-        public static void CardChosen()
+        public static void LeftCardChosen() => CardChosen(Side.LEFT);
+        public static void RightCardChosen() => CardChosen(Side.RIGHT);
+
+        public static void CardChosen(Side side)
         {
             // OpenDoors();
+            _instance._cardManager[side].Apply();
             _instance._cards.SetActive(false);
             _instance.ActionMapInUse = ActionMap.PLAYER;
         }

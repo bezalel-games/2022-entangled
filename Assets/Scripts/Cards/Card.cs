@@ -6,17 +6,22 @@ using UnityEngine;
 
 namespace Cards
 {
-    public class Card : MonoBehaviour
+    public class Card
     {
-        #region Serialized Fields
+        #region Constructor
 
-        [SerializeField] private IBuff _buff;
-        [SerializeField] private IDebuff _debuff;
-
+        public Card(IBuff buff, IDebuff debuff)
+        {
+            _buff = buff;
+            _debuff = debuff;
+        }
+        
         #endregion
+        
+        #region Fields
 
-        #region Non-Serialized Fields
-
+        private readonly IBuff _buff;
+        private readonly IDebuff _debuff;
         private bool _applied = false;
 
         #endregion
@@ -25,17 +30,13 @@ namespace Cards
 
         #endregion
 
-        #region Function Events
-
-        #endregion
-
         #region Public Methods
 
         public void Apply()
         {
             if (_applied) return;
-            _buff.Apply(GameManager.PlayerController);
-            _debuff.Apply(RoomManager.EnemyDictionary);
+            _buff?.Apply(GameManager.PlayerController);
+            _debuff?.Apply(RoomManager.EnemyDictionary);
             _applied = true;
         }
 
