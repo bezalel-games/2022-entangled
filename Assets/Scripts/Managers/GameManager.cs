@@ -100,6 +100,8 @@ namespace Managers
                 _controls.UI.SetCallbacks(_uiController);
                 ActionMapInUse = ActionMap.PLAYER;
             }
+
+            RoomCleared();
         }
 
         #endregion
@@ -118,9 +120,9 @@ namespace Managers
         {
             if (_instance._chooseCards)
             {
-                _instance.ActionMapInUse = ActionMap.UI;
                 _instance._cardManager.ShowCards();
-            };
+                _instance.ActionMapInUse = ActionMap.UI;
+            }
         }
 
         public static void CardChosen()

@@ -1,30 +1,32 @@
 ﻿using System;
 using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
+using Cards.Debuffs;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace Cards
 {
-    [CreateAssetMenu(fileName = "Card Manager Asset", menuName = "Entangled/Card Manager Asset", order = 0)]
-    public class CardManager : ScriptableObject
+    public class CardManager : MonoBehaviour
     {
         #region Serialized Fields
 
         [SerializeField] [TextArea(5, 20)] private string _cardFormat;
+        [SerializeField] private CardSelectionUI _ui;
 
         #endregion
 
         #region Non-Serialized Fields
 
-        private readonly Card _leftCard = new Card(new EnlargeYoyo(1.3f), null);
-        private readonly Card _rightCard = new Card(new SwapPositionWithYoyo(), null);
+        private readonly Card _leftCard = new Card(new EnlargeYoyo(1.3f), new MoreEnemies(0, 1));
+        private readonly Card _rightCard = new Card(new SwapPositionWithYoyo(), new MoreEnemies(0, 1));
 
         #endregion
 
         #region Events
 
-        public event Action<string, string> ActivateCardSelection;
+        // public Action<string, string> ActivateCardSelection;
 
         #endregion
 
@@ -32,7 +34,7 @@ namespace Cards
 
         public void ShowCards()
         {
-            ActivateCardSelection?.Invoke(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
+            _ui.ShowCards(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
         }
 
         public void ChooseLeftCard()

@@ -72,8 +72,8 @@ namespace Enemies
 
         public override void OnDie()
         {
-            _roomEnemies.EnemyKilled();
             gameObject.SetActive(false);
+            _roomEnemies.EnemyKilled();
         }
 
         #endregion

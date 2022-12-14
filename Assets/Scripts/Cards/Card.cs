@@ -43,8 +43,8 @@ namespace Cards
 
         public string ToString(string format)
         {
-            return string.Format(format, _buff.Name, _buff.Description, _buff.Rarity, 
-                _debuff.Name, _debuff.Description, _debuff.Rarity);
+            return string.Format(format, _buff?.Name, _buff?.Description, _buff?.Rarity, 
+                _debuff?.Name, _debuff?.Description, _debuff?.Rarity);
         }
 
         #endregion
