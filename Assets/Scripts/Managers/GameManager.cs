@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private bool _uiControllerEnabled;
     private ActionMap _actionMapInUse;
 
-    private static readonly float FixedTimeScale = Time.fixedDeltaTime;
+    private static float _fixedTimeScale;
 
     #endregion
 
@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour
             throw new DoubleGameManagerException();
         _instance = this;
         PlayerTransform = _playerController.transform;
+        
+        _fixedTimeScale = Time.fixedDeltaTime;
     }
 
     private void Start()
@@ -102,7 +104,7 @@ public class GameManager : MonoBehaviour
     public static void ScaleTime(float timeScale)
     {
         Time.timeScale = timeScale;
-        Time.fixedDeltaTime = timeScale * FixedTimeScale;
+        Time.fixedDeltaTime = timeScale * _fixedTimeScale;
         
         UIManager.ToggleSlowdownFilter(timeScale != 1);
     }
