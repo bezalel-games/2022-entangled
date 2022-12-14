@@ -1,25 +1,52 @@
 ﻿using System;
 using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
+using Managers;
+using UnityEngine;
 
 namespace Cards
 {
-    public class CardManager
+    [CreateAssetMenu(fileName = "Card Manager Asset", menuName = "Entangled/Card Manager Asset", order = 0)]
+    public class CardManager : ScriptableObject
     {
-        private Card _leftCard = new Card(new EnlargeYoyo(1.3f), null);
-        private Card _rightCard = new Card(new SwapPositionWithYoyo(), null);
+        #region Serialized Fields
 
-        public Card this[Side side] => side switch
+        [SerializeField] [TextArea(5, 20)] private string _cardFormat;
+
+        #endregion
+
+        #region Non-Serialized Fields
+
+        private readonly Card _leftCard = new Card(new EnlargeYoyo(1.3f), null);
+        private readonly Card _rightCard = new Card(new SwapPositionWithYoyo(), null);
+
+        #endregion
+
+        #region Events
+
+        public event Action<string, string> ActivateCardSelection;
+
+        #endregion
+
+        #region Public Methods
+
+        public void ShowCards()
         {
-            Side.LEFT => _leftCard,
-            Side.RIGHT => _rightCard,
-            _ => throw new ArgumentOutOfRangeException(nameof(side), side, null)
-        };
-    }
-[Serializable]
-    public enum Side : byte
-    {
-        LEFT,
-        RIGHT
+            ActivateCardSelection?.Invoke(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
+        }
+
+        public void ChooseLeftCard()
+        {
+            _leftCard.Apply();
+            GameManager.CardChosen();
+        }
+
+        public void ChooseRightCard()
+        {
+            _rightCard.Apply();
+            GameManager.CardChosen();
+        }
+
+        #endregion
     }
 }

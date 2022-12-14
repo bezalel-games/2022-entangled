@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    [CreateAssetMenu(fileName = "Enemy Dictionary Asset", menuName = "Enemies Asset", order = 0)]
+    [CreateAssetMenu(fileName = "Enemy Dictionary Asset", menuName = "Entangled/Enemies Asset", order = 0)]
     public class EnemyDictionary : ScriptableObject
     {
         #region Serialized Fields
