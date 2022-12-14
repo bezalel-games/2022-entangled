@@ -9,7 +9,8 @@ namespace Player
     {
         #region Serialized Fields
 
-        [Header("Shooting")] [SerializeField] private float _rotationSpeed;
+        [Header("Shooting")] 
+        [SerializeField] private float _rotationSpeed;
         [SerializeField] private GameObject _aimLine;
         [SerializeField] private GameObject _aimPivot;
         [SerializeField] private float _aimAssistRange;
@@ -85,12 +86,10 @@ namespace Player
             {
                 case InputActionPhase.Started:
                     if (_yoyo.State != Yoyo.YoyoState.IDLE) return;
-                    _rigidbody.velocity = Vector2.zero;
                     _yoyo.PrecisionShoot();
                     break;
                 case InputActionPhase.Canceled:
                     if (_yoyo.State != Yoyo.YoyoState.PRECISION) return;
-
                     _yoyo.CancelPrecision();
                     break;
             }
