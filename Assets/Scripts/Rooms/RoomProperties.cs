@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace Rooms
 {
-    [CreateAssetMenu(fileName = "Room Properties Asset", menuName = "Room Properties Asset", order = 0)]
+    [CreateAssetMenu(fileName = "Room Properties Asset", menuName = "Entangled/Room Properties Asset", order = 0)]
     public partial class RoomProperties : ScriptableObject
     {
         #region Serialized Fields

@@ -2,7 +2,7 @@
 
 namespace Cards.Buffs
 {
-    public interface IBuff
+    public interface IBuff : ICardProperty
     {
         public void Apply(PlayerController playerController);
     }

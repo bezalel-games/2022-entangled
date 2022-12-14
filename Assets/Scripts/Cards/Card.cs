@@ -1,4 +1,5 @@
-﻿using Cards.Buffs;
+﻿using System;
+using Cards.Buffs;
 using Cards.Debuffs;
 using Managers;
 using Rooms;
@@ -38,6 +39,12 @@ namespace Cards
             _buff?.Apply(GameManager.PlayerController);
             _debuff?.Apply(RoomManager.EnemyDictionary);
             _applied = true;
+        }
+
+        public string ToString(string format)
+        {
+            return string.Format(format, _buff.Name, _buff.Description, _buff.Rarity, 
+                _debuff.Name, _debuff.Description, _debuff.Rarity);
         }
 
         #endregion

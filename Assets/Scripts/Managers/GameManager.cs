@@ -1,7 +1,6 @@
 using System;
 using Cards;
 using Player;
-using Rooms;
 using UI;
 using UnityEngine;
 
@@ -12,9 +11,9 @@ namespace Managers
         #region Serialized Fields
 
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private GameObject _cards;
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
+        [SerializeField] private CardManager _cardManager;
 
         #endregion
 
@@ -25,7 +24,6 @@ namespace Managers
         private bool _playerControllerEnabled;
         private bool _uiControllerEnabled;
         private ActionMap _actionMapInUse;
-        private readonly CardManager _cardManager = new CardManager();
 
         private static float _fixedTimeScale;
 
@@ -102,8 +100,6 @@ namespace Managers
                 _controls.UI.SetCallbacks(_uiController);
                 ActionMapInUse = ActionMap.PLAYER;
             }
-
-            ChooseCard(); // TODO: remove
         }
 
         #endregion
@@ -121,29 +117,22 @@ namespace Managers
         public static void RoomCleared()
         {
             if (_instance._chooseCards)
-                _instance.ChooseCard();
+            {
+                _instance.ActionMapInUse = ActionMap.UI;
+                _instance._cardManager.ShowCards();
+            };
         }
 
-        public static void LeftCardChosen() => CardChosen(Side.LEFT);
-        public static void RightCardChosen() => CardChosen(Side.RIGHT);
-
-        public static void CardChosen(Side side)
+        public static void CardChosen()
         {
             // OpenDoors();
-            _instance._cardManager[side].Apply();
-            _instance._cards.SetActive(false);
             _instance.ActionMapInUse = ActionMap.PLAYER;
         }
 
         #endregion
 
         #region Private Methods
-
-        private void ChooseCard()
-        {
-            ActionMapInUse = ActionMap.UI;
-            _cards.SetActive(true);
-        }
+        
 
         #endregion
 
