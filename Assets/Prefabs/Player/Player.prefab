@@ -118,7 +118,7 @@ MonoBehaviour:
   _speed: 7
   _maxSpeed: 8
   _acceleration: 7
-  _deceleration: 12
+  _deceleration: 15
   _dashTime: 0.2
   _dashBonus: 4
   _dashCooldown: 0.5

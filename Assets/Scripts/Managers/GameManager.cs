@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private bool _uiControllerEnabled;
     private ActionMap _actionMapInUse;
 
+    private static readonly float FixedTimeScale = Time.fixedDeltaTime;
+
     #endregion
 
     #region Properties
@@ -97,6 +99,14 @@ public class GameManager : MonoBehaviour
 
     #region Public Methods
 
+    public static void ScaleTime(float timeScale)
+    {
+        Time.timeScale = timeScale;
+        Time.fixedDeltaTime = timeScale * FixedTimeScale;
+        
+        UIManager.ToggleSlowdownFilter(timeScale != 1);
+    }
+    
     public static void RoomCleared()
     {
         if (_instance._chooseCards)
@@ -139,4 +149,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    
 }

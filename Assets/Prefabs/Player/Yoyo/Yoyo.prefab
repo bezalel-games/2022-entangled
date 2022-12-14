@@ -85,13 +85,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootSpeed: 15
-  _maxDistance: 5
+  _maxDistance: 3
   _backSpeed: 20
-  _precisionTime: 5
+  _precisionTime: 3
   _precisionRotationSpeed: 10
   _precisionSpeed: 7
   _resolution: 0.1
   _linePrefab: {fileID: 1141267205715262119, guid: e6e4d0824b707774e898d5b95766b56f, type: 3}
+  _timeScale: 0.3
   _waitForReturn: 0
   _parent: {fileID: 0}
   _initPos: {fileID: 0}
@@ -166,8 +167,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1047097729
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0.8867924, b: 0.6744382, a: 1}

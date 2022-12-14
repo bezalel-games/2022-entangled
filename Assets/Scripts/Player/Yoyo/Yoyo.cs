@@ -26,6 +26,7 @@ namespace Player
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
         [SerializeField] private Line _linePrefab;
+        [SerializeField] private float _timeScale;
 
         [Header("Other")]
         [SerializeField] private float _waitForReturn;
@@ -59,7 +60,7 @@ namespace Player
         {
             get => _precisionDirection;
             set => _precisionDirection = 
-                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.deltaTime);
+                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.unscaledTime);
         }
 
         #endregion
@@ -179,16 +180,19 @@ namespace Player
             {
                 RemovePath();
             }
-        
+
+            GameManager.ScaleTime(_timeScale);
+            
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
             
-            DelayInvoke(CancelPrecision, _precisionTime);
+            DelayInvoke(CancelPrecision, _precisionTime*_timeScale);
         }
 
         public void CancelPrecision()
         {
             if (_currentLine == null) return; 
+            GameManager.ScaleTime(1);
             RemovePath();
             GoBack();
         }
@@ -206,7 +210,7 @@ namespace Player
                     break;
             
                 case YoyoState.PRECISION:
-                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed;
+                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1/_timeScale);
                     break;
             
                 case YoyoState.BACK:

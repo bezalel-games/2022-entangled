@@ -62,12 +62,8 @@ namespace Player
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (_yoyo.State != Yoyo.YoyoState.PRECISION)
-            {
-                MoveCharacter();
-            }
-
+            
+            MoveCharacter();
             ModifyPhysics();
         }
 
