@@ -1,3 +1,4 @@
+using Enemies;
 using HP_System;
 using UnityEngine;
 
@@ -21,7 +22,6 @@ namespace Player
         [SerializeField] private float _backSpeed;
 
         [Header("Precision Shot")]
-        [SerializeField] private float _precisionTime;
         [SerializeField] private float _precisionRotationSpeed;
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
@@ -47,6 +47,7 @@ namespace Player
         private Vector2 _precisionDirection;
 
         private YoyoState _state = YoyoState.IDLE;
+        private PlayerController _player;
 
         private Line _currentLine;
 
@@ -69,6 +70,7 @@ namespace Player
 
         private void Start()
         {
+            _player = GetComponentInParent<PlayerController>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
         }
@@ -109,6 +111,7 @@ namespace Player
         private void OnTriggerEnter2D(Collider2D other)
         {
             var hittable = other.GetComponent<IHittable>();
+            Enemy enemy = other.GetComponent<Enemy>();
             
             switch (_state)
             {
@@ -127,12 +130,16 @@ namespace Player
                     if (other.CompareTag("Enemy"))
                     {
                         DoDamage(hittable);
+                        if(enemy != null)
+                            _player.OnHitEnemy(enemy);
                     }
                     break;
                 case YoyoState.SHOOT:
                     if (other.CompareTag("Enemy"))
                     {
                         DoDamage(hittable);
+                        if(enemy != null)
+                            _player.OnHitEnemy(enemy);
                     }
                     GoBack();
                     break;
@@ -186,7 +193,7 @@ namespace Player
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
             
-            DelayInvoke(CancelPrecision, _precisionTime*_timeScale);
+            // DelayInvoke(CancelPrecision, _precisionTime*_timeScale);
         }
 
         public void CancelPrecision()
@@ -211,6 +218,7 @@ namespace Player
             
                 case YoyoState.PRECISION:
                     _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1/_timeScale);
+                    _player.OnPrecision();
                     break;
             
                 case YoyoState.BACK:
