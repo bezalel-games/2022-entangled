@@ -115,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 20
   _healthBar: {fileID: 0}
+  _maxMp: 10
+  _mpBar: {fileID: 0}
   _speed: 7
   _maxSpeed: 8
   _acceleration: 7
@@ -122,6 +124,9 @@ MonoBehaviour:
   _dashTime: 0.2
   _dashBonus: 4
   _dashCooldown: 0.5
+  _mpRecoveryOnAttack: 0.5
+  _mpRecoveryOnHit: 0.2
+  _mpPrecisionReduction: 3
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}

@@ -10,14 +10,20 @@ namespace HP_System
     [Header("Living Behaviour")]
     [SerializeField] private float _maxHp;
     [SerializeField] private Image _healthBar;
+
+    [SerializeField] private float _maxMp;
+    [SerializeField] private Image _mpBar;
   
     #endregion
     #region Non-Serialized Fields
 
-    private float _barWidth;
-    private RectTransform _barTransform;
-  
+    private float _hpBarWidth;
+    private RectTransform _hpBarTransform;
     private float _hp;
+    
+    private float _mpBarWidth;
+    private RectTransform _mpBarTransform;
+    private float _mp;
 
     #endregion
   
@@ -40,7 +46,6 @@ namespace HP_System
       get => _hp;
       set
       {
-        print($"{_maxHp}, {_hp} {value}");
         _hp = Mathf.Min(Mathf.Max(value, 0), _maxHp);
       
         UpdateHealthUI();
@@ -51,6 +56,27 @@ namespace HP_System
         }
       }
     }
+    
+    protected float MaxMp
+    {
+      get => _maxMp;
+      set
+      {
+        _maxMp = Mathf.Max(value, 0);
+        Mp = Mathf.Min(Mp, _maxMp);
+      }
+    }
+
+    protected float Mp
+    {
+      get => _mp;
+      set
+      {
+        _mp = Mathf.Min(Mathf.Max(value, 0), _maxMp);
+      
+        UpdateMPUI();
+      }
+    }
   
     #endregion
     #region Function Events
@@ -59,11 +85,19 @@ namespace HP_System
     {
       if (_healthBar != null)
       {
-        _barTransform = _healthBar.rectTransform;
-        _barWidth = _barTransform.rect.size.x;
+        _hpBarTransform = _healthBar.rectTransform;
+        _hpBarWidth = _hpBarTransform.rect.size.x;
+      }
+      
+      if (_mpBar != null)
+      {
+        _mpBarTransform = _mpBar.rectTransform;
+        _mpBarWidth = _mpBarTransform.rect.size.x;
       }
 
       Hp = MaxHp;
+      Mp = MaxMp;
+      print($"start MP: {Mp}");
     }
 
     #endregion
@@ -76,7 +110,7 @@ namespace HP_System
   
     #region Hitable
   
-    public void OnHit(float damage)
+    public virtual void OnHit(float damage)
     {
       if (Invulnerable) return;
       Hp -= damage; 
@@ -89,9 +123,24 @@ namespace HP_System
     {
       if(_healthBar == null) return;
     
-      var ratio = 1 - (Hp / MaxHp);
-      var newWidth = -1 * ratio * _barWidth;
-      _barTransform.sizeDelta = new Vector2(newWidth, _barTransform.sizeDelta.y);
+      SetRectRation(_hpBarTransform, _hpBarWidth, Hp, MaxHp);
+      // var ratio = 1 - (Hp / MaxHp);
+      // var newWidth = -1 * ratio * _hpBarWidth;
+      // _hpBarTransform.sizeDelta = new Vector2(newWidth, _hpBarTransform.sizeDelta.y);
+    }
+    
+    protected virtual void UpdateMPUI()
+    {
+      if(_mpBar == null) return;
+      
+      SetRectRation(_mpBarTransform, _mpBarWidth, Mp, MaxMp);
+    }
+
+    private void SetRectRation(RectTransform rectTransform, float maxWidth, float currValue, float maxValue)
+    {
+      var ratio = 1 - (currValue / maxValue);
+      var newWidth = -1 * ratio * maxWidth;
+      rectTransform.sizeDelta = new Vector2(newWidth, rectTransform.sizeDelta.y);
     }
 
     #endregion

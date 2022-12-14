@@ -12,6 +12,7 @@ namespace Enemies
         [Header("Enemy")] 
         [SerializeField] private float _speed;
         [SerializeField] private float _damage;
+        [field: SerializeField] public float MpRestore { get; set; }
         
 
         #endregion

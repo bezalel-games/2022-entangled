@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using HP_System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +20,11 @@ namespace Player
         [Header("Dash")] [SerializeField] private float _dashTime;
         [SerializeField] private float _dashBonus;
         [SerializeField] private float _dashCooldown;
+
+        [Header("Other Stats")] 
+        [SerializeField] private float _mpRecoveryOnAttack;
+        [SerializeField] private float _mpRecoveryOnHit;
+        [SerializeField] private float _mpPrecisionReduction;
 
         #endregion
 
@@ -66,6 +72,7 @@ namespace Player
             MoveCharacter();
             ModifyPhysics();
         }
+        
 
         private void OnEnable()
         {
@@ -105,10 +112,11 @@ namespace Player
                     _dashDirection = _direction.normalized;
                     _dashing = true;
                     _canDash = false;
+                    Invulnerable = true;
                     DelayInvoke(
                         () => { _canDash = true; }, _dashCooldown);
                     DelayInvoke(
-                        () => { _dashing = false; }, _dashTime);
+                        () => { _dashing = false; Invulnerable = false; }, _dashTime);
                     break;
             }
         }
@@ -116,10 +124,20 @@ namespace Player
         #endregion
 
         #region Public Methods
-        
-        public override void OnDie()
+
+        public void OnHitEnemy(Enemy enemy)
         {
-            print("Dead");
+            if(_yoyo.State != Yoyo.YoyoState.PRECISION)
+                Mp += _mpRecoveryOnAttack;
+        }
+
+        public void OnPrecision()
+        {
+            Mp -= _mpPrecisionReduction * Time.unscaledDeltaTime;
+            if (Mp <= 0)
+            {
+                _yoyo.CancelPrecision();
+            }
         }
 
         #endregion
@@ -161,6 +179,23 @@ namespace Player
             {
                 _rigidbody.velocity *= Vector2.zero;
             }
+        }
+
+        #endregion
+
+        #region IHittable
+
+        public override void OnDie()
+        {
+            print("Dead");
+        }
+
+        public override void OnHit(float damage)
+        {
+            if(Invulnerable) return;
+            
+            base.OnHit(damage);
+            Mp += _mpRecoveryOnHit;
         }
 
         #endregion
