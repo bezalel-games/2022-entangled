@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.Yoyo
+namespace Player
 {
     public class Line : MonoBehaviour
     {

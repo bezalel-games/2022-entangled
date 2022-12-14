@@ -1,6 +1,5 @@
 ﻿using System;
 using Player;
-using Player.Yoyo;
 using UnityEngine.InputSystem;
 
 namespace Cards.Buffs.ActiveBuffs
