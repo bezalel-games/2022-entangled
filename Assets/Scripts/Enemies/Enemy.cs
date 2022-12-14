@@ -1,16 +1,19 @@
 using System;
+using HP_System;
 using Player;
-using Player.Yoyo;
 using UnityEngine;
 
 namespace Enemies
 {
-    public class Enemy : MonoBehaviourExt
+    public class Enemy : LivingBehaviour
     {
         #region Serialized Fields
 
         [Header("Enemy")] 
         [SerializeField] private float _speed;
+        [SerializeField] private float _damage;
+        [field: SerializeField] public float MpRestore { get; set; }
+        
 
         #endregion
 
@@ -38,23 +41,12 @@ namespace Enemies
 
         #region Function Events
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
             _rigidbody = GetComponent<Rigidbody2D>();
             Layer = LayerMask.GetMask("Enemies");
-        }
-
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            var yoyo = col.GetComponent<Yoyo>();
-            if(yoyo == null) return;
-
-            if (yoyo.State != Yoyo.YoyoState.IDLE)
-            {
-                _roomEnemies.EnemyKilled();
-                gameObject.SetActive(false);
-            }
         }
 
         protected override void FixedUpdate()
@@ -63,9 +55,26 @@ namespace Enemies
             Move();
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                var hittable = other.gameObject.GetComponent<IHittable>();
+                if(hittable == null) return;       
+                
+                hittable.OnHit(_damage);
+            }
+        }
+
         #endregion
 
         #region Public Methods
+
+        public override void OnDie()
+        {
+            _roomEnemies.EnemyKilled();
+            gameObject.SetActive(false);
+        }
 
         #endregion
 

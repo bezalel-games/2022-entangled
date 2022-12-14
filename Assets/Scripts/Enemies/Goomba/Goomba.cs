@@ -39,14 +39,12 @@ public class Goomba : Enemy
 
   protected override void Move()
   {
-    print($"override. attacking={_attacking}");
     if (!_attacking)
     {
       base.Move();
     }
     else
     {
-      print("attack vel");
       _rigidbody.velocity = DesiredDirection * _attackSpeed;
     }
   }

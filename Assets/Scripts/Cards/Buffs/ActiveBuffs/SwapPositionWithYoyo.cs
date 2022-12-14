@@ -1,5 +1,4 @@
 ﻿using Player;
-using Player.Yoyo;
 
 namespace Cards.Buffs.ActiveBuffs
 {

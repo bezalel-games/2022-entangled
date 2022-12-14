@@ -27,6 +27,8 @@ namespace Managers
         private ActionMap _actionMapInUse;
         private readonly CardManager _cardManager = new CardManager();
 
+        private static float _fixedTimeScale;
+
         #endregion
 
         #region Properties
@@ -87,6 +89,8 @@ namespace Managers
                 throw new DoubleGameManagerException();
             _instance = this;
             PlayerTransform = _playerController.transform;
+            
+            _fixedTimeScale = Time.fixedDeltaTime;
         }
 
         private void Start()
@@ -106,6 +110,14 @@ namespace Managers
 
         #region Public Methods
 
+        public static void ScaleTime(float timeScale)
+        {
+            Time.timeScale = timeScale;
+            Time.fixedDeltaTime = timeScale * _fixedTimeScale;
+            
+            UIManager.ToggleSlowdownFilter(timeScale != 1);
+        }
+        
         public static void RoomCleared()
         {
             if (_instance._chooseCards)
