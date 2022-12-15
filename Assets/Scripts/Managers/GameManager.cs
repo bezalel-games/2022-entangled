@@ -100,8 +100,6 @@ namespace Managers
                 _controls.UI.SetCallbacks(_uiController);
                 ActionMapInUse = ActionMap.PLAYER;
             }
-
-            RoomCleared();
         }
 
         #endregion

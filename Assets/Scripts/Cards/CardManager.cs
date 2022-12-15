@@ -1,8 +1,8 @@
-﻿using System;
-using Cards.Buffs.ActiveBuffs;
+﻿using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
 using Cards.Debuffs;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace Cards
@@ -12,6 +12,7 @@ namespace Cards
         #region Serialized Fields
 
         [SerializeField] [TextArea(5, 20)] private string _cardFormat;
+        [SerializeField] private CardSelectionUI _ui;
 
         #endregion
 
@@ -22,17 +23,11 @@ namespace Cards
 
         #endregion
 
-        #region Events
-
-        public Action<string, string> ActivateCardSelection;
-
-        #endregion
-
         #region Public Methods
 
         public void ShowCards()
         {
-            ActivateCardSelection.Invoke(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
+            _ui.ShowCards(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
         }
 
         public void ChooseLeftCard()

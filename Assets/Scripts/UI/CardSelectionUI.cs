@@ -1,4 +1,3 @@
-using Cards;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +9,6 @@ namespace UI
         #region Serialized Fields
 
         [SerializeField] private GameObject _firstSelectedCard;
-        [SerializeField] private CardManager _cardManager;
         [SerializeField] private TextMeshProUGUI _leftCard;
         [SerializeField] private TextMeshProUGUI _rightCard;
 
@@ -26,22 +24,10 @@ namespace UI
 
         private void Awake()
         {
-            _cardManager.ActivateCardSelection += ShowCards;
             _cardsParent = transform.GetChild(0).gameObject;
         }
 
-        private void Start()
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(_firstSelectedCard);
-        }
-
-        private void OnDestroy()
-        {
-            _cardManager.ActivateCardSelection -= ShowCards;
-        }
-
-        #endregion
+            #endregion
 
         #region Public Methods
 
@@ -50,13 +36,10 @@ namespace UI
             _cardsParent.SetActive(false);
         }
 
-        #endregion
-
-        #region Private Methods
-
         public void ShowCards(string leftCardText, string rightCardText)
         {
-            print("showing");
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(_firstSelectedCard);
             _cardsParent.SetActive(true);
             _leftCard.text = leftCardText;
             _rightCard.text = rightCardText;
