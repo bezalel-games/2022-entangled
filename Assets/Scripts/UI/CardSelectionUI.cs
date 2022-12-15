@@ -26,7 +26,7 @@ namespace UI
 
         private void Awake()
         {
-            // _cardManager.ActivateCardSelection = ShowCards;
+            _cardManager.ActivateCardSelection += ShowCards;
             _cardsParent = transform.GetChild(0).gameObject;
         }
 
@@ -38,7 +38,7 @@ namespace UI
 
         private void OnDestroy()
         {
-            // _cardManager.ActivateCardSelection -= ShowCards;
+            _cardManager.ActivateCardSelection -= ShowCards;
         }
 
         #endregion
