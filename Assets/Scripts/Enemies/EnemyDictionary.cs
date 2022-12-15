@@ -65,22 +65,26 @@ namespace Enemies
 
             [field: SerializeField] private Enemy Prefab { get; set; }
             [field: SerializeField] public int Rank { get; set; }
-            [SerializeField] private int _maxHp;
 
             #endregion
 
             #region Non-Serialized Fields
 
             private const float ENEMY_SPAWN_CLEAR_RADIUS = 2;
+            private float _maxHp;
             private int _collisionLayerMask;
 
             #endregion
 
             #region Properties
 
-            public int MaxHp
+            public float MaxHp
             {
-                get => _maxHp;
+                get
+                {
+                    if (_maxHp == 0) _maxHp = Prefab.MaxHp;
+                    return _maxHp;
+                }
                 set
                 {
                     _maxHp = value;
@@ -94,7 +98,7 @@ namespace Enemies
 
             #region Events
 
-            private event Action<int> MaxHpUpdate;
+            private event Action<float> MaxHpUpdate;
 
             #endregion
 
@@ -111,8 +115,9 @@ namespace Enemies
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
 
-                // create a method that updates the spawned enemy's health:
-                void UpdateMaxHpCallback(int maxHp) => spawnedEnemy.MaxHp = maxHp;
+                // create a method that updates the spawned enemy's health and call it:
+                void UpdateMaxHpCallback(float maxHp) => spawnedEnemy.MaxHp = maxHp;
+                UpdateMaxHpCallback(MaxHp);
 
                 // subscribe it to update when the entry is updated:
                 MaxHpUpdate += UpdateMaxHpCallback;
