@@ -25,7 +25,7 @@ namespace Cards.Debuffs
         public void Apply(EnemyDictionary enemyDictionary)
         {
             var rank = enemyDictionary[_enemyType].Rank;
-            enemyDictionary[_enemyType].Rank = Math.Max(rank - _rankDemotion, 0);
+            enemyDictionary[_enemyType].Rank = Math.Max(rank - _rankDemotion, 1);
         }
 
         #endregion

@@ -1659,6 +1659,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1487818910}
     - target: {fileID: 7766218729720609928, guid: 9743c40c859699b42af732fc6b6f3a5f, type: 3}
+      propertyPath: _chooseCards
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766218729720609928, guid: 9743c40c859699b42af732fc6b6f3a5f, type: 3}
       propertyPath: _uiController
       value: 
       objectReference: {fileID: 1098251483}
