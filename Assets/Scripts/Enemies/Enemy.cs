@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using HP_System;
 using UnityEngine;
 
@@ -36,6 +38,12 @@ namespace Enemies
 
         #endregion
 
+        #region Events
+
+        public event Action Destroyed;
+
+        #endregion
+
         #region Function Events
 
         protected override void Awake()
@@ -61,6 +69,11 @@ namespace Enemies
                 
                 hittable.OnHit(_damage);
             }
+        }
+
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke();
         }
 
         #endregion
