@@ -36,7 +36,6 @@ namespace Rooms
 
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
-        private int _enemySpawnLayerMask;
         private RoomNode _nextRoom;
 
         #endregion
@@ -54,7 +53,6 @@ namespace Rooms
             if (_instance != null)
                 throw new DoubleRoomManagerException();
             _instance = this;
-            _enemySpawnLayerMask = Physics2D.GetLayerCollisionMask(EnemyDictionary[0].gameObject.layer);
         }
 
         private void Start()
@@ -160,15 +158,12 @@ namespace Rooms
         private void SpawnEnemies(RoomNode roomNode, Room room)
         {
             if (!_spawnEnemies) return;
-            var pos = GetPosition(roomNode.Index);
+            var roomCenter = GetPosition(roomNode.Index);
             var enemiesTransform = room.Enemies.transform;
-            var enemiesLength = roomNode.Enemies.Length;
-            for (int i = 0; i < enemiesLength; ++i)
-                for (int j = roomNode.Enemies[i]; j > 0; j--)
-                {
-                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity,
-                        enemiesTransform);
-                }
+            var numOfEnemyTypes = roomNode.Enemies.Length;
+            for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
+                for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
+                    SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null)
@@ -220,17 +215,15 @@ namespace Rooms
             return new Vector3(x, y);
         }
 
-        private Vector3 ValidRandomPosInRoom()
+        private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter, Transform enemiesTransform)
         {
-            var perimeter = new Vector3(0.5f, 0.5f);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var pos = RandomPosInRoom();
-                if (Physics2D.OverlapArea(pos - perimeter, pos + perimeter, _enemySpawnLayerMask) == null)
-                    return pos;
+                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform))
+                    return;
             }
 
-            return Vector3.zero;
+            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true);
         }
 
         #endregion
