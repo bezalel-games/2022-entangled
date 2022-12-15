@@ -1,6 +1,4 @@
-using System;
 using HP_System;
-using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -13,7 +11,6 @@ namespace Enemies
         [SerializeField] private float _speed;
         [SerializeField] private float _damage;
         [field: SerializeField] public float MpRestore { get; set; }
-        
 
         #endregion
 

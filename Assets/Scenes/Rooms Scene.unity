@@ -1086,7 +1086,7 @@ MonoBehaviour:
     <i>{3}</i></color>
 
     {4}'
-  _ui: {fileID: 0}
+  _ui: {fileID: 1881547334}
 --- !u!4 &1487818911
 Transform:
   m_ObjectHideFlags: 0
@@ -1215,6 +1215,14 @@ PrefabInstance:
       propertyPath: _cardManager
       value: 
       objectReference: {fileID: 1487818910}
+    - target: {fileID: 1412385754436580766, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1487818910}
+    - target: {fileID: 1412385754436580766, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ChooseRightCard
+      objectReference: {fileID: 0}
     - target: {fileID: 1412385754436580767, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1234,6 +1242,14 @@ PrefabInstance:
     - target: {fileID: 4761189471462649333, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016630116582161520, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1487818910}
+    - target: {fileID: 6016630116582161520, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ChooseLeftCard
       objectReference: {fileID: 0}
     - target: {fileID: 6016630116582161521, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1342,6 +1358,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7727620129030313458, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
   m_PrefabInstance: {fileID: 1881547332}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881547334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1062880525801638645, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
+  m_PrefabInstance: {fileID: 1881547332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6114ca3310ecf4588cb97c7cb9fd9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &430795495472415813
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ namespace HP_System
   
     protected bool Invulnerable { get; set; }
 
-    protected float MaxHp
+    public float MaxHp
     {
       get => _maxHp;
       set

@@ -3,7 +3,6 @@ using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
 using Cards.Debuffs;
 using Managers;
-using UI;
 using UnityEngine;
 
 namespace Cards
@@ -13,7 +12,6 @@ namespace Cards
         #region Serialized Fields
 
         [SerializeField] [TextArea(5, 20)] private string _cardFormat;
-        [SerializeField] private CardSelectionUI _ui;
 
         #endregion
 
@@ -26,7 +24,7 @@ namespace Cards
 
         #region Events
 
-        // public Action<string, string> ActivateCardSelection;
+        public Action<string, string> ActivateCardSelection;
 
         #endregion
 
@@ -34,7 +32,7 @@ namespace Cards
 
         public void ShowCards()
         {
-            _ui.ShowCards(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
+            ActivateCardSelection.Invoke(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
         }
 
         public void ChooseLeftCard()
