@@ -1,9 +1,8 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Enemies
+namespace Enemies.Shooter
 {
-    public class EnemyPrepareAttack : EnemyBehaviour<Enemy>
+    public class ShooterPrepareAttack : ShooterBehaviour
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {

@@ -22,19 +22,7 @@ public class ShooterMove : ShooterBehaviour
         }
         else
         {
-            ThisEnemy.DesiredDirection = GetDirection(distance);
+            ThisEnemy.DesiredDirection = GetFlockingDirection();
         }    
-    }
-
-    //TODO: add flocking
-    private Vector2 GetDirection(float distance)
-    {
-        var dir = ThisEnemy.DesiredDirection;
-        var towardsPlayerDirection = (Player.position - ThisEnemy.transform.position);
-        
-        var t = (ThisEnemy.KeepDistance + distance) / (ThisEnemy.AttackDistance + distance);
-        var towardPlayerCoefficient = (t - 0.5f);
-
-        return (towardPlayerCoefficient * towardsPlayerDirection).normalized;
     }
 }

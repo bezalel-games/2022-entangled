@@ -164,6 +164,8 @@ MonoBehaviour:
   <KeepDistance>k__BackingField: 1
   <PrepareAttackTime>k__BackingField: 1
   <Rank>k__BackingField: 1
+  <SeparationWeight>k__BackingField: 0.5
+  <ToPlayerWeight>k__BackingField: 1
   _attackSpeed: 10
   <AttackTime>k__BackingField: 0.5
 --- !u!114 &6061621037769010695 stripped
