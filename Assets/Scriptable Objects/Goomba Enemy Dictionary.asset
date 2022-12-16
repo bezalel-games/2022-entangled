@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enemies>k__BackingField:
   - <Prefab>k__BackingField: {fileID: 5710059767567320373, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
-    <Rank>k__BackingField: 10
+    _rank: 10

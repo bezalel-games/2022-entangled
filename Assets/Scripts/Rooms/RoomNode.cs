@@ -54,15 +54,13 @@ namespace Rooms
             Index = index;
             Rank = rank;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
-            ChooseEnemies();
-            Cleared = Enemies.Sum() == 0;
         }
 
         #endregion
 
-        #region Private Methods
+        #region Public Methods
 
-        private void ChooseEnemies()
+        public void ChooseEnemies()
         {
             var enemyDict = RoomManager.EnemyDictionary;
             var rankDelta = Rank;
@@ -74,6 +72,7 @@ namespace Rooms
                 Enemies[chosenInd]++;
                 rankDelta -= enemyDict.GetRankByIndex(chosenInd);
             }
+            Cleared = Enemies.Sum() == 0;
         }
 
         #endregion

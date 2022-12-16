@@ -94,7 +94,11 @@ namespace Rooms
         public static void SpawnEnemiesInNeighbors()
         {
             foreach (Direction dir in DirectionExt.GetDirections())
-                _instance.SpawnEnemies(_instance._currentRoom[dir]);
+            {
+                var neighborNode = _instance._currentRoom[dir];
+                neighborNode.ChooseEnemies();
+                _instance.SpawnEnemies(neighborNode);
+            }
         }
 
         #endregion

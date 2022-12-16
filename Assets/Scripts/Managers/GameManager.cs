@@ -122,12 +122,12 @@ namespace Managers
                 _instance._cardManager.ShowCards();
                 _instance.ActionMapInUse = ActionMap.UI;
             }
-            RoomManager.SpawnEnemiesInNeighbors();
         }
 
         public static void CardChosen()
         {
             _instance.ActionMapInUse = ActionMap.PLAYER;
+            RoomManager.SpawnEnemiesInNeighbors();
         }
 
         #endregion

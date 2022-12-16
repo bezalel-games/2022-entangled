@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Rooms;
 using UnityEngine;
 
 namespace Enemies
@@ -64,7 +65,7 @@ namespace Enemies
             #region Serialized Fields
 
             [field: SerializeField] public Enemy Prefab { get; set; }
-            [field: SerializeField] public int Rank { get; set; }
+            [SerializeField] private int _rank;
 
             #endregion
 
@@ -78,6 +79,16 @@ namespace Enemies
 
             #region Properties
 
+            public int Rank
+            {
+                get => _rank;
+                set
+                {
+                    _rank = Math.Max(1, value);
+                    RoomManager.EnemyDictionary.OnValidate();
+                }
+            }
+
             public float MaxHp
             {
                 get
@@ -85,20 +96,10 @@ namespace Enemies
                     if (_maxHp == 0) _maxHp = Prefab.MaxHp;
                     return _maxHp;
                 }
-                set
-                {
-                    _maxHp = value;
-                    MaxHpUpdate?.Invoke(value);
-                }
+                set => _maxHp = value;
             }
 
             public string Name => Prefab.gameObject.name;
-
-            #endregion
-
-            #region Events
-
-            private event Action<float> MaxHpUpdate;
 
             #endregion
 
