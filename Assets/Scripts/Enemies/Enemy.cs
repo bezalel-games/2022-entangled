@@ -32,6 +32,9 @@ namespace Enemies
         [field: SerializeField] public float PrepareAttackTime { get; private set; }
 
         [field: SerializeField] public int Rank { get; set; } = 1;
+        
+        [field: SerializeField] public float SeparationWeight { get; set; } = 1;
+        [field: SerializeField] public float ToPlayerWeight { get; set; } = 1;
 
         public Vector2 DesiredDirection
         {

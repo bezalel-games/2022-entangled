@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a50d829124140f5bcd1f96c3d9332dd, type: 3}
+  m_Name: All AIs
+  m_EditorClassIdentifier: 
+  <Enemies>k__BackingField:
+  - {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
+  - {fileID: 4070872303377383493, guid: 9984ac93dd4629c4da28ed03fd02eb55, type: 3}

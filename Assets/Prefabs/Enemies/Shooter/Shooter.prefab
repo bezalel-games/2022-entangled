@@ -214,6 +214,8 @@ MonoBehaviour:
   <KeepDistance>k__BackingField: 4
   <PrepareAttackTime>k__BackingField: 1
   <Rank>k__BackingField: 2
+  <SeparationWeight>k__BackingField: 1
+  <ToPlayerWeight>k__BackingField: 0.5
   shootCooldown: 0.3
   _projectilePrefab: {fileID: 2983702607567104395, guid: 25810491f641aa345a6a7ff90daee898, type: 3}
   _projectileSpeed: 10

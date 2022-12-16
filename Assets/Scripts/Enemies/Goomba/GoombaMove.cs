@@ -21,7 +21,7 @@ public class GoombaMove : GoombaBehaviour
         }
         else
         {
-            ThisEnemy.DesiredDirection = playerPos - goombaPos;
+            ThisEnemy.DesiredDirection = GetFlockingDirection();
         }
     }
 
