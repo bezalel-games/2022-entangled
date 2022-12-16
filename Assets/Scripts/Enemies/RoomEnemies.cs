@@ -1,5 +1,4 @@
-﻿using System;
-using Managers;
+﻿using Managers;
 using Rooms;
 using UnityEngine;
 
@@ -39,9 +38,10 @@ namespace Enemies
         public void EnemyKilled()
         {
             if (--_numOfLivingEnemies > 0) return;
-            GameManager.RoomCleared();
             if (Node != null)
                 Node.Cleared = true;
+            GameManager.RoomCleared();
+            
         }
 
         #endregion

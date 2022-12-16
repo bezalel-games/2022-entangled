@@ -62,6 +62,7 @@ namespace Rooms
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Room.Enter();
             LoadNeighbors(_currentRoom);
+            SpawnEnemiesInNeighbors();
         }
 
         #endregion
@@ -85,7 +86,13 @@ namespace Rooms
         {
             room.transform.position = _instance.GetPosition(room.Node.Index);
             room.Enemies.RemoveEnemies();
-            _instance.SpawnEnemies(room.Node, room);
+            _instance.SpawnEnemies(room.Node);
+        }
+
+        public static void SpawnEnemiesInNeighbors()
+        {
+            foreach (Direction dir in DirectionExt.GetDirections())
+                _instance.SpawnEnemies(_instance._currentRoom[dir]);
         }
 
         #endregion
@@ -107,6 +114,8 @@ namespace Rooms
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
+            if (newRoom.Cleared)
+                SpawnEnemiesInNeighbors();
         }
 
         private void UnloadNeighbors(RoomNode prevRoom, Direction? dirOfNewRoom = null)
@@ -135,7 +144,6 @@ namespace Rooms
                     room.Node = new RoomNode(room, index, _rank);
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
-                    SpawnEnemies(room.Node, room);
                     continue;
                 }
 
@@ -152,15 +160,14 @@ namespace Rooms
                 neighborNode.Room = neighborRoom;
                 neighborNode[dir.Inverse()] = newRoomNode;
                 newRoomNode[dir] = neighborNode;
-                SpawnEnemies(neighborNode, neighborRoom);
             }
         }
 
-        private void SpawnEnemies(RoomNode roomNode, Room room)
+        private void SpawnEnemies(RoomNode roomNode)
         {
             if (!_spawnEnemies || roomNode.Cleared) return;
             var roomCenter = GetPosition(roomNode.Index);
-            var enemiesTransform = room.Enemies.transform;
+            var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
                 for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
@@ -216,7 +223,8 @@ namespace Rooms
             return new Vector3(x, y);
         }
 
-        private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter, Transform enemiesTransform)
+        private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter,
+            Transform enemiesTransform)
         {
             for (int i = 0; i < 20; i++)
             {

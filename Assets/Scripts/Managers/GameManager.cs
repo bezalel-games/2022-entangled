@@ -1,6 +1,7 @@
 using System;
 using Cards;
 using Player;
+using Rooms;
 using UI;
 using UnityEngine;
 
@@ -121,11 +122,11 @@ namespace Managers
                 _instance._cardManager.ShowCards();
                 _instance.ActionMapInUse = ActionMap.UI;
             }
+            RoomManager.SpawnEnemiesInNeighbors();
         }
 
         public static void CardChosen()
         {
-            // OpenDoors();
             _instance.ActionMapInUse = ActionMap.PLAYER;
         }
 
