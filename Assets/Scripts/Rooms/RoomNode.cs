@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -43,6 +44,7 @@ namespace Rooms
             Rank = rank;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
             ChooseEnemies();
+            Cleared = Enemies.Sum() == 0;
         }
 
         #endregion

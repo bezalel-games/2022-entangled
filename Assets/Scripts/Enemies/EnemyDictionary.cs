@@ -108,16 +108,14 @@ namespace Enemies
             {
                 if (_collisionLayerMask == 0)
                     _collisionLayerMask = Physics2D.GetLayerCollisionMask(Prefab.gameObject.layer);
-                if (force)
-                    position = Vector3.zero;
-                else if (Physics2D.OverlapCircle(position, ENEMY_SPAWN_CLEAR_RADIUS, _collisionLayerMask) == null)
+                if (Physics2D.OverlapCircle(position, ENEMY_SPAWN_CLEAR_RADIUS, _collisionLayerMask) == null && !force)
                     return false;
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
 
                 // subscribe a method to update enemy HP on it's enablement
                 spawnedEnemy.Enabled += () => spawnedEnemy.MaxHp = MaxHp;
-                
+
                 return true;
             }
 
