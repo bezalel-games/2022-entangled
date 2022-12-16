@@ -41,12 +41,12 @@ public class MonoBehaviourExt : MonoBehaviour
 
   #region Private Methods
 
-  protected void DelayInvoke(Action action, float delayTime)
+  public void DelayInvoke(Action action, float delayTime)
   {
     _actions[action] = delayTime;
   }
   
-  protected void FixedDelayInvoke(Action action, float delayTime)
+  public void FixedDelayInvoke(Action action, float delayTime)
   {
     _fixedActions[action] = delayTime;
   }

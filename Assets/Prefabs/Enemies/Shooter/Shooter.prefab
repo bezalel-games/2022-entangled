@@ -209,6 +209,7 @@ MonoBehaviour:
   _mpBar: {fileID: 0}
   _speed: 1
   _damage: 2
+  <AttackCooldown>k__BackingField: 1
   <MpRestore>k__BackingField: 0
   <AttackDistance>k__BackingField: 6
   <KeepDistance>k__BackingField: 4

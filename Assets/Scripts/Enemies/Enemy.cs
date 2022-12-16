@@ -24,7 +24,8 @@ namespace Enemies
         #endregion
 
         #region Properties
-
+        
+        [field: SerializeField] public float AttackCooldown { get; set; }
         [field: SerializeField] public float MpRestore { get; set; }
         [field: SerializeField] public float AttackDistance { get; private set; }
         [field: SerializeField] public float KeepDistance { get; private set; }
@@ -41,6 +42,8 @@ namespace Enemies
             get => _desiredDirection;
             set => _desiredDirection = value.normalized;
         }
+
+        public bool CanAttack { get; set; } = true;
 
         public static LayerMask Layer { get; private set;  }
 
