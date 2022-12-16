@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using HP_System;
 using UnityEngine;
 
@@ -40,7 +39,7 @@ namespace Enemies
 
         #region Events
 
-        public event Action Destroyed;
+        public event Action Enabled;
 
         #endregion
 
@@ -52,6 +51,12 @@ namespace Enemies
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
             _rigidbody = GetComponent<Rigidbody2D>();
             Layer = LayerMask.GetMask("Enemies");
+        }
+
+        protected override void OnEnable()
+        {
+            Enabled?.Invoke();
+            base.OnEnable();
         }
 
         protected override void FixedUpdate()
@@ -69,11 +74,6 @@ namespace Enemies
                 
                 hittable.OnHit(_damage);
             }
-        }
-
-        private void OnDestroy()
-        {
-            Destroyed?.Invoke();
         }
 
         #endregion

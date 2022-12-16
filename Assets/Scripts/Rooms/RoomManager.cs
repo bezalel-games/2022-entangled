@@ -57,6 +57,7 @@ namespace Rooms
 
         private void Start()
         {
+            _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
             _currentRoom = new RoomNode(null, _currentRoom.Index, _currentRoom.Rank);
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Room.Enter();

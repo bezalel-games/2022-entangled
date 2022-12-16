@@ -43,10 +43,10 @@ namespace Enemies
 
         public int GetMaxIndexForRank(int rank)
         {
-            for (int i = Enemies.Length - 1; i > 0; i--)
+            for (int i = Enemies.Length - 1; i >= 0; i--)
                 if (Enemies[i].Rank <= rank)
                     return i;
-            return 0;
+            return -1;
         }
 
         public int GetRankByIndex(int index)
@@ -63,7 +63,7 @@ namespace Enemies
         {
             #region Serialized Fields
 
-            [field: SerializeField] private Enemy Prefab { get; set; }
+            [field: SerializeField] public Enemy Prefab { get; set; }
             [field: SerializeField] public int Rank { get; set; }
 
             #endregion
@@ -115,15 +115,9 @@ namespace Enemies
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
 
-                // create a method that updates the spawned enemy's health and call it:
-                void UpdateMaxHpCallback(float maxHp) => spawnedEnemy.MaxHp = maxHp;
-                UpdateMaxHpCallback(MaxHp);
-
-                // subscribe it to update when the entry is updated:
-                MaxHpUpdate += UpdateMaxHpCallback;
-
-                // unsubscribe on spawned enemy death:
-                spawnedEnemy.Destroyed += () => MaxHpUpdate -= UpdateMaxHpCallback;
+                // subscribe a method to update enemy HP on it's enablement
+                spawnedEnemy.Enabled += () => spawnedEnemy.MaxHp = MaxHp;
+                
                 return true;
             }
 

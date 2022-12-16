@@ -8,14 +8,14 @@ namespace Cards.Debuffs
         #region Fields
 
         private readonly int _enemyType;
-        private readonly int _hpAddition;
+        private readonly float _hpAddition;
 
         #endregion
 
         #region ICardProperty Implementation
 
-        public string Name => "More Enemies";
-        public string Description => "More enemies will spawn in the following rooms";
+        public string Name => "Tougher Enemies";
+        public string Description => "Enemies will have more HP";
         public string Rarity => "Normal";
 
         #endregion
@@ -31,7 +31,7 @@ namespace Cards.Debuffs
 
         #region Constructor
 
-        public TougherEnemies(int enemyType, int hpAddition)
+        public TougherEnemies(int enemyType, float hpAddition)
         {
             _enemyType = enemyType;
             _hpAddition = hpAddition;

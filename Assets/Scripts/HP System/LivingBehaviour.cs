@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -102,7 +103,13 @@ namespace HP_System
 
     #endregion
     #region Public Methods
-  
+
+    protected virtual void OnEnable()
+    {
+      Hp = MaxHp;
+      Mp = MaxMp;
+    }
+
     #endregion
     #region Private Methods
   
