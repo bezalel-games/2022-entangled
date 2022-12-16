@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using Enemies;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Rooms
 {
@@ -12,6 +15,7 @@ namespace Rooms
         [SerializeField] private int _inPriority;
         [SerializeField] private int _outPriority;
         [SerializeField] private CinemachineVirtualCamera _vCam;
+        [SerializeField] private Tilemap _tilemap;
 
         #endregion
 
@@ -19,6 +23,7 @@ namespace Rooms
 
         private Collider2D _collider;
         private Coroutine _sleepCoroutine;
+        private GateState _gateState = GateState.OPEN;
 
         #endregion
 
@@ -28,20 +33,35 @@ namespace Rooms
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
 
+        public GateState GateState
+        {
+            get => _gateState;
+            set
+            {
+                if (_gateState == value) return;
+                _gateState = value;
+                var tile = value switch
+                {
+                    GateState.CLOSED => RoomManager.RoomProperties.ClosedGateTile,
+                    GateState.OPEN => RoomManager.RoomProperties.OpenedGateTile,
+                    _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+                };
+                foreach (var gateTilePos in RoomManager.RoomProperties.GatePositions)
+                {
+                    _tilemap.SetTile(gateTilePos, tile);
+                }
+            }
+        }
+
         #endregion
 
         #region Function Events
-
-        private void Start()
-        {
-            Enemies.Node = Node;
-        }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
             RoomManager.EnteredRoom(Node);
         }
-        
+
         private void OnTriggerExit2D(Collider2D col)
         {
             RoomManager.ExitedRoom(Node);
@@ -58,10 +78,15 @@ namespace Rooms
                 StopCoroutine(_sleepCoroutine);
                 _sleepCoroutine = null;
             }
+
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
+            Enemies.Node = Node;
             if (!Node.Cleared)
+            {
                 Enemies.Activate();
+                GateState = GateState.CLOSED;
+            }
         }
 
         public void Exit(float sleepDelay = 0)
@@ -86,4 +111,11 @@ namespace Rooms
 
         #endregion
     }
+}
+
+public enum GateState
+{
+    CLOSED,
+    // OPENING,
+    OPEN
 }

@@ -43,6 +43,7 @@ namespace Rooms
         #region Properties
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
+        public static RoomProperties RoomProperties => _instance._roomProperties;
 
         #endregion
 
@@ -60,6 +61,7 @@ namespace Rooms
             _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
             _currentRoom = new RoomNode(null, _currentRoom.Index, _currentRoom.Rank);
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
+            _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
             LoadNeighbors(_currentRoom);
             SpawnEnemiesInNeighbors();
