@@ -37,7 +37,7 @@ namespace Cards
             if (_applied) return;
             _buff?.Apply(GameManager.PlayerController);
             _debuff?.Apply(RoomManager.EnemyDictionary);
-            _applied = true;
+            // _applied = true;
         }
 
         public string ToString(string format)
