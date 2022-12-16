@@ -4,34 +4,24 @@ using UnityEngine;
 
 public class GoombaMove : GoombaBehaviour
 {
-
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-    }
-
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        var playerPos = _player.position;
-        var goombaPos = _goomba.transform.position;
+        var playerPos = Player.position;
+        var goombaPos = ThisEnemy.transform.position;
         var distance = Vector2.Distance(playerPos, goombaPos);
-
-        // if (distance > _goomba.FollowDistance)
-        // {
-        //     _goomba.DesiredDirection = Vector2.zero;
-        //     animator.SetBool("Move",false);
-        // }
-        // else
-        if (distance <= _goomba.AttackDistance)
+        
+        if (distance < ThisEnemy.KeepDistance)
         {
-            _goomba.DesiredDirection = Vector2.zero;
+            ThisEnemy.DesiredDirection =  goombaPos - playerPos;
+        }
+        else if (distance <= ThisEnemy.AttackDistance)
+        {
+            ThisEnemy.DesiredDirection = Vector2.zero;
             animator.SetTrigger("Attack");
         }
         else
         {
-            _goomba.DesiredDirection = playerPos - goombaPos;
+            ThisEnemy.DesiredDirection = playerPos - goombaPos;
         }
     }
 

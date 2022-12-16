@@ -11,9 +11,7 @@ namespace Enemies
 
         [Header("Enemy")] 
         [SerializeField] private float _speed;
-        [SerializeField] private float _damage;
-        [field: SerializeField] public float MpRestore { get; set; }
-        
+        [SerializeField] protected float _damage;
 
         #endregion
 
@@ -26,6 +24,12 @@ namespace Enemies
         #endregion
 
         #region Properties
+
+        [field: SerializeField] public float MpRestore { get; set; }
+        [field: SerializeField] public float AttackDistance { get; private set; }
+        [field: SerializeField] public float KeepDistance { get; private set; }
+
+        [field: SerializeField] public float PrepareAttackTime { get; private set; }
 
         [field: SerializeField] public int Rank { get; set; } = 1;
 
