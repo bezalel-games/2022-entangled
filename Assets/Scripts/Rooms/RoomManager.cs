@@ -158,7 +158,7 @@ namespace Rooms
 
         private void SpawnEnemies(RoomNode roomNode, Room room)
         {
-            if (!_spawnEnemies) return;
+            if (!_spawnEnemies || roomNode.Cleared) return;
             var roomCenter = GetPosition(roomNode.Index);
             var enemiesTransform = room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;

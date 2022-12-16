@@ -16,6 +16,7 @@ namespace Rooms
 
         #region Properties
 
+        public bool Cleared { get; set; } = false;
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }
         [field: SerializeField] public int Rank { get; set; }

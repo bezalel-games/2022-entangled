@@ -32,6 +32,11 @@ namespace Rooms
 
         #region Function Events
 
+        private void Start()
+        {
+            Enemies.Node = Node;
+        }
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             RoomManager.EnteredRoom(Node);
@@ -55,7 +60,8 @@ namespace Rooms
             }
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
-            Enemies.Activate();
+            if (!Node.Cleared)
+                Enemies.Activate();
         }
 
         public void Exit(float sleepDelay = 0)
