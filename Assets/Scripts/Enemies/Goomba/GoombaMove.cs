@@ -14,7 +14,7 @@ public class GoombaMove : GoombaBehaviour
         {
             ThisEnemy.DesiredDirection =  goombaPos - playerPos;
         }
-        else if (distance <= ThisEnemy.AttackDistance)
+        else if (ThisEnemy.CanAttack && distance <= ThisEnemy.AttackDistance)
         {
             ThisEnemy.DesiredDirection = Vector2.zero;
             animator.SetTrigger("Attack");
@@ -28,6 +28,7 @@ public class GoombaMove : GoombaBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         animator.ResetTrigger("Attack");
     }
 }

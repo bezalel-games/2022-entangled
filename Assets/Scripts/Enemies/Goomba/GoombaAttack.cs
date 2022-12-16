@@ -20,6 +20,8 @@ public class GoombaAttack : GoombaBehaviour
     
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        ThisEnemy.CanAttack = false;
+        ThisEnemy.DelayInvoke(() => { ThisEnemy.CanAttack = true;}, ThisEnemy.AttackCooldown);
         animator.ResetTrigger("Idle");
     }
 }
