@@ -18,8 +18,6 @@ public class Goomba : Enemy
   #endregion
   #region Properties
   [field: SerializeField] public float AttackTime { get; private set; }
-  [field: SerializeField] public float AttackDistance { get; private set; }
-  [field: SerializeField] public float FollowDistance { get; private set; }
 
   #endregion
   #region Function Events
