@@ -78,8 +78,9 @@ namespace Player
             ModifyPhysics();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             GameManager.PlayerControllerEnabled = true;
         }
 

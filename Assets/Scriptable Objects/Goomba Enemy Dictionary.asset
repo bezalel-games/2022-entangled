@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Goomba Enemy Dictionary
   m_EditorClassIdentifier: 
   <Enemies>k__BackingField:
-  - <Prefab>k__BackingField: {fileID: 90006282798255875, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+  - <Prefab>k__BackingField: {fileID: 5710059767567320373, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
     <Rank>k__BackingField: 10
-    _maxHp: 0

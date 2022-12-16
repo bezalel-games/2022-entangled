@@ -54,7 +54,9 @@ namespace Rooms
             var rankDelta = Rank;
             while (rankDelta > 0)
             {
-                var chosenInd = Random.Range(0, enemyDict.GetMaxIndexForRank(rankDelta) + 1);
+                var maxIndex = enemyDict.GetMaxIndexForRank(rankDelta);
+                if (maxIndex == -1) return;
+                var chosenInd = Random.Range(0, maxIndex + 1);
                 Enemies[chosenInd]++;
                 rankDelta -= enemyDict.GetRankByIndex(chosenInd);
             }

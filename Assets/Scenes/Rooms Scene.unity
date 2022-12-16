@@ -546,6 +546,18 @@ PrefabInstance:
       propertyPath: _healthBar
       value: 
       objectReference: {fileID: 1788573033}
+    - target: {fileID: 1109055446406721002, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109055446406721002, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _backSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109055446406721002, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _shootSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 3
