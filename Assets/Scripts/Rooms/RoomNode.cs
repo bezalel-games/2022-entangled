@@ -12,12 +12,23 @@ namespace Rooms
         #region Non-Serialized Fields
 
         [NonSerialized] private RoomNode[] _nodes = new RoomNode[4];
+        private bool _cleared = false;
 
         #endregion
 
         #region Properties
 
-        public bool Cleared { get; set; } = false;
+        public bool Cleared
+        {
+            get => _cleared;
+            set
+            {
+                _cleared = value;
+                if (Room != null)
+                    Room.GateState = GateState.OPEN;
+            }
+        }
+
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }
         [field: SerializeField] public int Rank { get; set; }
