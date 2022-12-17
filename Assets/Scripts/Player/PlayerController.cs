@@ -22,8 +22,9 @@ namespace Player
         [SerializeField] private float _dashBonus;
         [SerializeField] private float _dashCooldown;
 
-        [Header("Other Stats")] 
+        [Header("Other Stats")]
         [SerializeField] private float _mpRecoveryOnAttack;
+
         [SerializeField] private float _mpRecoveryOnHit;
         [SerializeField] private float _mpPrecisionReduction;
 
@@ -77,7 +78,7 @@ namespace Player
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            
+
             MoveCharacter();
             ModifyPhysics();
         }
@@ -124,8 +125,12 @@ namespace Player
                     _dashing = true;
                     _canDash = false;
                     Invulnerable = true;
-                    DelayInvoke( () => { _canDash = true; }, _dashCooldown);
-                    DelayInvoke( () => { _dashing = false; Invulnerable = false; }, _dashTime);
+                    DelayInvoke(() => { _canDash = true; }, _dashCooldown);
+                    DelayInvoke(() =>
+                    {
+                        _dashing = false;
+                        Invulnerable = false;
+                    }, _dashTime);
                     break;
             }
         }
@@ -137,6 +142,12 @@ namespace Player
         public void OverrideMovement(Vector3 dir, float threshold)
         {
             _overridenMovement = true;
+            var velocity = _rigidbody.velocity;
+            if (velocity.x * dir.x <= 0)
+                velocity.x = 0;
+            if (velocity.y * dir.y <= 0)
+                velocity.y = 0;
+            _rigidbody.velocity = velocity;
             _direction = dir;
             Predicate<Vector3> passThresholdTest;
             if (dir.x != 0)
@@ -148,7 +159,7 @@ namespace Player
 
         public void OnHitEnemy(Enemy enemy)
         {
-            if(Yoyo.State != Yoyo.YoyoState.PRECISION)
+            if (Yoyo.State != Yoyo.YoyoState.PRECISION)
                 Mp += _mpRecoveryOnAttack;
         }
 
@@ -201,13 +212,14 @@ namespace Player
                 _rigidbody.velocity *= Vector2.zero;
             }
         }
-        
+
         private IEnumerator StopOverrideOnThresholdPass(Predicate<Vector3> passedThreshold)
         {
             while (!passedThreshold.Invoke(transform.position))
             {
                 yield return null;
             }
+
             _direction = Vector2.zero;
             _overridenMovement = false;
         }
@@ -223,8 +235,8 @@ namespace Player
 
         public override void OnHit(float damage)
         {
-            if(Invulnerable) return;
-            
+            if (Invulnerable) return;
+
             base.OnHit(damage);
             Mp += _mpRecoveryOnHit;
         }
