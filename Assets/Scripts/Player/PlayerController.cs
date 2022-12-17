@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Managers;
 using Enemies;
 using HP_System;
+using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,6 +39,8 @@ namespace Player
 
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
+
+        private bool _overridenMovement; // true if the movement is currently not controlled by player input
 
         private const float DEC_THRESHOLD = 0.2f;
 
@@ -97,6 +101,7 @@ namespace Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (_overridenMovement) return;
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -128,6 +133,18 @@ namespace Player
         #endregion
 
         #region Public Methods
+
+        public void OverrideMovement(Vector3 dir, float threshold)
+        {
+            _overridenMovement = true;
+            _direction = dir;
+            Predicate<Vector3> passThresholdTest;
+            if (dir.x != 0)
+                passThresholdTest = dir.x > 0 ? (pos) => pos.x > threshold : (pos) => pos.x < threshold;
+            else
+                passThresholdTest = dir.y > 0 ? (pos) => pos.y > threshold : (pos) => pos.y < threshold;
+            StartCoroutine(StopOverrideOnThresholdPass(passThresholdTest));
+        }
 
         public void OnHitEnemy(Enemy enemy)
         {
@@ -183,6 +200,16 @@ namespace Player
             {
                 _rigidbody.velocity *= Vector2.zero;
             }
+        }
+        
+        private IEnumerator StopOverrideOnThresholdPass(Predicate<Vector3> passedThreshold)
+        {
+            while (!passedThreshold.Invoke(transform.position))
+            {
+                yield return null;
+            }
+            _direction = Vector2.zero;
+            _overridenMovement = false;
         }
 
         #endregion

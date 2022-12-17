@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Enemies;
+using Managers;
 using Direction = Rooms.CardinalDirections.Direction;
 using Random = UnityEngine.Random;
 
@@ -44,6 +45,9 @@ namespace Rooms
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
         public static RoomProperties RoomProperties => _instance._roomProperties;
+        
+        private int ActualHalfWidth => _roomProperties.Width/2 - _roomProperties.WallSize;
+        private int ActualHalfHeight => _roomProperties.Height/2 - _roomProperties.WallSize;
 
         #endregion
 
@@ -108,13 +112,9 @@ namespace Rooms
         private static void ChangeRoom(RoomNode newRoom)
         {
             if (newRoom == _instance._currentRoom) return;
-            var currPos = _instance._currentRoom.Index;
-            var newPos = newRoom.Index;
-            ChangeRoom(newRoom, (newPos - currPos).ToDirection());
-        }
-
-        private static void ChangeRoom(RoomNode newRoom, Direction dirOfNewRoom)
-        {
+            var indexDiff = newRoom.Index - _instance._currentRoom.Index;
+            var dirOfNewRoom = indexDiff.ToDirection();
+            MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff);
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
@@ -122,6 +122,20 @@ namespace Rooms
             _instance._currentRoom = newRoom;
             if (newRoom.Cleared)
                 SpawnEnemiesInNeighbors();
+        }
+
+        private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection)
+        {
+            var nextRoomPosition = _instance.GetPosition(newRoomIndex);
+            float threshold = dirOfNewRoom switch
+            {
+                Direction.WEST => nextRoomPosition.x + _instance.ActualHalfWidth,
+                Direction.EAST => nextRoomPosition.x - _instance.ActualHalfWidth,
+                Direction.SOUTH => nextRoomPosition.y + _instance.ActualHalfHeight,
+                Direction.NORTH => nextRoomPosition.y - _instance.ActualHalfHeight,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            GameManager.PlayerController.OverrideMovement(walkDirection.normalized, threshold);
         }
 
         private void UnloadNeighbors(RoomNode prevRoom, Direction? dirOfNewRoom = null)
