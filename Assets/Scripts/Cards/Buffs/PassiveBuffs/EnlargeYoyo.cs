@@ -17,7 +17,7 @@ namespace Cards.Buffs.PassiveBuffs
 
         public string Name => "Size Matters";
 
-        public string Description => "Make your weapon bigger";
+        public string Description => "Surround your weapon with a mighty aura";
 
         public string Rarity => "Normal";
 
@@ -28,7 +28,7 @@ namespace Cards.Buffs.PassiveBuffs
         public void Apply(PlayerController playerController)
         {
             var yoyo = playerController.Yoyo;
-            yoyo.StartCoroutine(Enlarge(yoyo.transform));
+            yoyo.StartCoroutine(Enlarge(yoyo.GetComponentInChildren<Collider2D>().transform));
         }
 
         #endregion
@@ -51,7 +51,7 @@ namespace Cards.Buffs.PassiveBuffs
             while (true)
             {
                 yield return null;
-                var growthFactor = (1 + Time.time - startTime) * ENLARGEMENT_SPEED;
+                var growthFactor = 1 + (Time.time - startTime) * ENLARGEMENT_SPEED;
                 if (growthFactor > _growthIncrease)
                 {
                     transform.localScale = initialScale * _growthIncrease;

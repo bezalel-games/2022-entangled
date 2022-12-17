@@ -73,7 +73,7 @@ namespace Player
         {
             _player = GetComponentInParent<PlayerController>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _collider = GetComponent<Collider2D>();
+            _collider = GetComponentInChildren<Collider2D>();
         }
 
         protected override void Update()
