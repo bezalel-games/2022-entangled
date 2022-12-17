@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Enemies;
+using Managers;
 using Direction = Rooms.CardinalDirections.Direction;
 using Random = UnityEngine.Random;
 
@@ -36,7 +37,6 @@ namespace Rooms
 
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
-        private int _enemySpawnLayerMask;
         private RoomNode _nextRoom;
 
         #endregion
@@ -44,6 +44,10 @@ namespace Rooms
         #region Properties
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
+        public static RoomProperties RoomProperties => _instance._roomProperties;
+        
+        private int ActualHalfWidth => _roomProperties.Width/2 - _roomProperties.WallSize;
+        private int ActualHalfHeight => _roomProperties.Height/2 - _roomProperties.WallSize;
 
         #endregion
 
@@ -54,15 +58,17 @@ namespace Rooms
             if (_instance != null)
                 throw new DoubleRoomManagerException();
             _instance = this;
-            _enemySpawnLayerMask = Physics2D.GetLayerCollisionMask(EnemyDictionary[0].gameObject.layer);
         }
 
         private void Start()
         {
+            _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
             _currentRoom = new RoomNode(null, _currentRoom.Index, _currentRoom.Rank);
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
+            _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
             LoadNeighbors(_currentRoom);
+            SpawnEnemiesInNeighbors();
         }
 
         #endregion
@@ -86,7 +92,17 @@ namespace Rooms
         {
             room.transform.position = _instance.GetPosition(room.Node.Index);
             room.Enemies.RemoveEnemies();
-            _instance.SpawnEnemies(room.Node, room);
+            _instance.SpawnEnemies(room.Node);
+        }
+
+        public static void SpawnEnemiesInNeighbors()
+        {
+            foreach (Direction dir in DirectionExt.GetDirections())
+            {
+                var neighborNode = _instance._currentRoom[dir];
+                neighborNode.ChooseEnemies();
+                _instance.SpawnEnemies(neighborNode);
+            }
         }
 
         #endregion
@@ -96,18 +112,30 @@ namespace Rooms
         private static void ChangeRoom(RoomNode newRoom)
         {
             if (newRoom == _instance._currentRoom) return;
-            var currPos = _instance._currentRoom.Index;
-            var newPos = newRoom.Index;
-            ChangeRoom(newRoom, (newPos - currPos).ToDirection());
-        }
-
-        private static void ChangeRoom(RoomNode newRoom, Direction dirOfNewRoom)
-        {
+            var indexDiff = newRoom.Index - _instance._currentRoom.Index;
+            var dirOfNewRoom = indexDiff.ToDirection();
+            MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff);
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
+            if (newRoom.Cleared)
+                SpawnEnemiesInNeighbors();
+        }
+
+        private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection)
+        {
+            var nextRoomPosition = _instance.GetPosition(newRoomIndex);
+            float threshold = dirOfNewRoom switch
+            {
+                Direction.WEST => nextRoomPosition.x + _instance.ActualHalfWidth,
+                Direction.EAST => nextRoomPosition.x - _instance.ActualHalfWidth,
+                Direction.SOUTH => nextRoomPosition.y + _instance.ActualHalfHeight,
+                Direction.NORTH => nextRoomPosition.y - _instance.ActualHalfHeight,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            GameManager.PlayerController.OverrideMovement(walkDirection.normalized, threshold);
         }
 
         private void UnloadNeighbors(RoomNode prevRoom, Direction? dirOfNewRoom = null)
@@ -136,7 +164,6 @@ namespace Rooms
                     room.Node = new RoomNode(room, index, _rank);
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
-                    SpawnEnemies(room.Node, room);
                     continue;
                 }
 
@@ -153,22 +180,18 @@ namespace Rooms
                 neighborNode.Room = neighborRoom;
                 neighborNode[dir.Inverse()] = newRoomNode;
                 newRoomNode[dir] = neighborNode;
-                SpawnEnemies(neighborNode, neighborRoom);
             }
         }
 
-        private void SpawnEnemies(RoomNode roomNode, Room room)
+        private void SpawnEnemies(RoomNode roomNode)
         {
-            if (!_spawnEnemies) return;
-            var pos = GetPosition(roomNode.Index);
-            var enemiesTransform = room.Enemies.transform;
-            var enemiesLength = roomNode.Enemies.Length;
-            for (int i = 0; i < enemiesLength; ++i)
-                for (int j = roomNode.Enemies[i]; j > 0; j--)
-                {
-                    Instantiate(EnemyDictionary[i], pos + ValidRandomPosInRoom(), Quaternion.identity,
-                        enemiesTransform);
-                }
+            if (!_spawnEnemies || roomNode.Cleared) return;
+            var roomCenter = GetPosition(roomNode.Index);
+            var enemiesTransform = roomNode.Room.Enemies.transform;
+            var numOfEnemyTypes = roomNode.Enemies.Length;
+            for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
+                for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
+                    SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null)
@@ -220,17 +243,16 @@ namespace Rooms
             return new Vector3(x, y);
         }
 
-        private Vector3 ValidRandomPosInRoom()
+        private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter,
+            Transform enemiesTransform)
         {
-            var perimeter = new Vector3(0.5f, 0.5f);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var pos = RandomPosInRoom();
-                if (Physics2D.OverlapArea(pos - perimeter, pos + perimeter, _enemySpawnLayerMask) == null)
-                    return pos;
+                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform))
+                    return;
             }
 
-            return Vector3.zero;
+            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true);
         }
 
         #endregion

@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using Enemies;
 using HP_System;
+using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +22,9 @@ namespace Player
         [SerializeField] private float _dashBonus;
         [SerializeField] private float _dashCooldown;
 
-        [Header("Other Stats")] 
+        [Header("Other Stats")]
         [SerializeField] private float _mpRecoveryOnAttack;
+
         [SerializeField] private float _mpRecoveryOnHit;
         [SerializeField] private float _mpPrecisionReduction;
 
@@ -39,6 +41,8 @@ namespace Player
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
 
+        private bool _overridenMovement; // true if the movement is currently not controlled by player input
+
         private const float DEC_THRESHOLD = 0.2f;
 
         #endregion
@@ -50,12 +54,18 @@ namespace Player
 
         #endregion
 
+        #region C# Events
+
+        public event Action DashStartEvent;
+
+        #endregion
+
         #region Function Events
 
-        void Start()
+        private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _yoyo = GetComponentInChildren<Yoyo>();
+            Yoyo = GetComponentInChildren<Yoyo>();
         }
 
         protected override void Update()
@@ -68,14 +78,14 @@ namespace Player
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            
+
             MoveCharacter();
             ModifyPhysics();
         }
-        
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             GameManager.PlayerControllerEnabled = true;
         }
 
@@ -92,6 +102,7 @@ namespace Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (_overridenMovement) return;
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -108,15 +119,18 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    DashStartEvent?.Invoke();
                     if (!_canDash || _dashing) return;
                     _dashDirection = _direction.normalized;
                     _dashing = true;
                     _canDash = false;
                     Invulnerable = true;
-                    DelayInvoke(
-                        () => { _canDash = true; }, _dashCooldown);
-                    DelayInvoke(
-                        () => { _dashing = false; Invulnerable = false; }, _dashTime);
+                    DelayInvoke(() => { _canDash = true; }, _dashCooldown);
+                    DelayInvoke(() =>
+                    {
+                        _dashing = false;
+                        Invulnerable = false;
+                    }, _dashTime);
                     break;
             }
         }
@@ -125,9 +139,27 @@ namespace Player
 
         #region Public Methods
 
+        public void OverrideMovement(Vector3 dir, float threshold)
+        {
+            _overridenMovement = true;
+            var velocity = _rigidbody.velocity;
+            if (velocity.x * dir.x <= 0)
+                velocity.x = 0;
+            if (velocity.y * dir.y <= 0)
+                velocity.y = 0;
+            _rigidbody.velocity = velocity;
+            _direction = dir;
+            Predicate<Vector3> passThresholdTest;
+            if (dir.x != 0)
+                passThresholdTest = dir.x > 0 ? (pos) => pos.x > threshold : (pos) => pos.x < threshold;
+            else
+                passThresholdTest = dir.y > 0 ? (pos) => pos.y > threshold : (pos) => pos.y < threshold;
+            StartCoroutine(StopOverrideOnThresholdPass(passThresholdTest));
+        }
+
         public void OnHitEnemy(Enemy enemy)
         {
-            if(_yoyo.State != Yoyo.YoyoState.PRECISION)
+            if (Yoyo.State != Yoyo.YoyoState.PRECISION)
                 Mp += _mpRecoveryOnAttack;
         }
 
@@ -136,7 +168,7 @@ namespace Player
             Mp -= _mpPrecisionReduction * Time.unscaledDeltaTime;
             if (Mp <= 0)
             {
-                _yoyo.CancelPrecision();
+                Yoyo.CancelPrecision();
             }
         }
 
@@ -181,6 +213,17 @@ namespace Player
             }
         }
 
+        private IEnumerator StopOverrideOnThresholdPass(Predicate<Vector3> passedThreshold)
+        {
+            while (!passedThreshold.Invoke(transform.position))
+            {
+                yield return null;
+            }
+
+            _direction = Vector2.zero;
+            _overridenMovement = false;
+        }
+
         #endregion
 
         #region IHittable
@@ -192,8 +235,8 @@ namespace Player
 
         public override void OnHit(float damage)
         {
-            if(Invulnerable) return;
-            
+            if (Invulnerable) return;
+
             base.OnHit(damage);
             Mp += _mpRecoveryOnHit;
         }

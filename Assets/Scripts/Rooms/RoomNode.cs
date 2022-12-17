@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,10 +12,22 @@ namespace Rooms
         #region Non-Serialized Fields
 
         [NonSerialized] private RoomNode[] _nodes = new RoomNode[4];
+        private bool _cleared = false;
 
         #endregion
 
         #region Properties
+
+        public bool Cleared
+        {
+            get => _cleared;
+            set
+            {
+                _cleared = value;
+                if (Room != null)
+                    Room.GateState = GateState.OPEN;
+            }
+        }
 
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }
@@ -41,23 +54,25 @@ namespace Rooms
             Index = index;
             Rank = rank;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
-            ChooseEnemies();
         }
 
         #endregion
 
-        #region Private Methods
+        #region Public Methods
 
-        private void ChooseEnemies()
+        public void ChooseEnemies()
         {
             var enemyDict = RoomManager.EnemyDictionary;
             var rankDelta = Rank;
             while (rankDelta > 0)
             {
-                var chosenInd = Random.Range(0, enemyDict.GetMaxIndexForRank(rankDelta) + 1);
+                var maxIndex = enemyDict.GetMaxIndexForRank(rankDelta);
+                if (maxIndex == -1) return;
+                var chosenInd = Random.Range(0, maxIndex + 1);
                 Enemies[chosenInd]++;
                 rankDelta -= enemyDict.GetRankByIndex(chosenInd);
             }
+            Cleared = Enemies.Sum() == 0;
         }
 
         #endregion
