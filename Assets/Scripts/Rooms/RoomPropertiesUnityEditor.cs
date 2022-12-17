@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
 using System;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -85,7 +84,7 @@ namespace Rooms
                 
                 GroundTile = properties.GroundTile;
                 WallTile = properties.WallTile;
-                GateTile = properties.GateTile;
+                GateTile = properties.OpenedGateTile;
 
                 OrthoSize = Mathf.Max(Height / 2f, Width * WIDTH_TO_NEEDED_HEIGHT);
                 Offset = Height % 2 == 0 ? 1 : 0.5f;

@@ -1,5 +1,6 @@
 using Enemies;
 using HP_System;
+using Managers;
 using UnityEngine;
 
 namespace Player
@@ -72,7 +73,7 @@ namespace Player
         {
             _player = GetComponentInParent<PlayerController>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _collider = GetComponent<Collider2D>();
+            _collider = GetComponentInChildren<Collider2D>();
         }
 
         protected override void Update()
@@ -82,7 +83,7 @@ namespace Player
             switch (_state)
             {
                 case YoyoState.IDLE:
-                    if(transform.position != _initPos.position)
+                    if (transform.position != _initPos.position)
                         transform.position = _initPos.position;
                     break;
                 case YoyoState.SHOOT:
@@ -178,7 +179,7 @@ namespace Player
                 transform.SetParent(null);
             }
         }
-
+    
         public void PrecisionShoot()
         {
             _state = YoyoState.PRECISION;
@@ -252,7 +253,7 @@ namespace Player
     
         private void DrawPath()
         {
-            if(_currentLine == null) return;
+            if (_currentLine == null) return;
         
             var position = transform.position;
             var d = Vector2.Distance(position, _currentLine.CurrentPosition);
@@ -264,7 +265,7 @@ namespace Player
     
         private void RemovePath()
         {
-            if(_currentLine == null) return;
+            if (_currentLine == null) return;
         
             Destroy(_currentLine.gameObject);
             _currentLine = null;

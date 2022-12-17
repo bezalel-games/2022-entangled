@@ -32,15 +32,15 @@ namespace HP_System
         #region Properties
 
         protected bool Invulnerable { get; set; }
-
-        protected float MaxHp
+        
+        public float MaxHp
         {
-            get => _maxHp;
-            set
-            {
-                _maxHp = Mathf.Max(value, 0);
-                Hp = Mathf.Min(Hp, _maxHp);
-            }
+          get => _maxHp;
+          set
+          {
+            _maxHp = Mathf.Max(value, 0);
+            Hp = Mathf.Min(Hp, _maxHp);
+          }
         }
 
         protected float Hp
@@ -106,6 +106,12 @@ namespace HP_System
         #endregion
 
         #region Public Methods
+        
+        protected virtual void OnEnable()
+        {
+            Hp = MaxHp;
+            Mp = MaxMp;
+        }
 
         #endregion
 
@@ -113,7 +119,7 @@ namespace HP_System
 
         #endregion
 
-        #region Hitable
+        #region IHittable
 
         public virtual void OnHit(float damage)
         {

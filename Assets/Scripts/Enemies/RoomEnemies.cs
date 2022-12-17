@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+﻿using Managers;
+using Rooms;
+using UnityEngine;
 
 namespace Enemies
 {
     public class RoomEnemies : MonoBehaviour
     {
-        #region Serialized Fields
-
-        #endregion
-
         #region Non-Serialized Fields
 
         private int _numOfLivingEnemies;
@@ -16,10 +14,8 @@ namespace Enemies
 
         #region Properties
 
-        #endregion
-
-        #region Function Events
-
+        public RoomNode Node { get; set; }
+        
         #endregion
 
         #region Public Methods
@@ -42,7 +38,10 @@ namespace Enemies
         public void EnemyKilled()
         {
             if (--_numOfLivingEnemies > 0) return;
+            if (Node != null)
+                Node.Cleared = true;
             GameManager.RoomCleared();
+            
         }
 
         #endregion

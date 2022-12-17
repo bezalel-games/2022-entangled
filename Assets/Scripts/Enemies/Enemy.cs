@@ -49,6 +49,12 @@ namespace Enemies
 
         #endregion
 
+        #region Events
+
+        public event Action Enabled;
+
+        #endregion
+
         #region Function Events
 
         protected override void Awake()
@@ -57,6 +63,12 @@ namespace Enemies
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
             _rigidbody = GetComponent<Rigidbody2D>();
             Layer = LayerMask.GetMask("Enemies");
+        }
+
+        protected override void OnEnable()
+        {
+            Enabled?.Invoke();
+            base.OnEnable();
         }
 
         protected override void FixedUpdate()
@@ -82,8 +94,8 @@ namespace Enemies
 
         public override void OnDie()
         {
-            _roomEnemies.EnemyKilled();
             gameObject.SetActive(false);
+            _roomEnemies.EnemyKilled();
         }
 
         #endregion

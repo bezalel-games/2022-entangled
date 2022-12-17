@@ -1,4 +1,5 @@
-﻿using Enemies;
+﻿using System;
+using Enemies;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -20,18 +21,24 @@ namespace Player
         #region Non-Serialized Fields
 
         private const float ANGLE_THRESHOLD = 0.2f;
-    
+
         private Vector2 _aimDirection;
 
         private bool _aiming;
-
-        private Yoyo _yoyo;
 
         private bool _precisioning;
 
         #endregion
 
         #region Properties
+
+        public Yoyo Yoyo { get; private set; }
+
+        #endregion
+
+        #region C# Events
+
+        public event Action<InputActionPhase> QuickShotEvent;
 
         #endregion
 
@@ -63,17 +70,18 @@ namespace Player
 
         public void OnShoot(InputAction.CallbackContext context)
         {
+            QuickShotEvent?.Invoke(context.phase);
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (_yoyo.State == Yoyo.YoyoState.IDLE)
+                    if (Yoyo.State == Yoyo.YoyoState.IDLE)
                     {
                         var desiredDir = (!_aiming && _direction != Vector2.zero)
                             ? _direction
                             : _aimDirection;
                         desiredDir = AimAssist(desiredDir);
                         SetPivotRotation(desiredDir);
-                        _yoyo.Shoot(desiredDir);
+                        Yoyo.Shoot(desiredDir);
                     }
 
                     break;
@@ -85,12 +93,12 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (_yoyo.State != Yoyo.YoyoState.IDLE) return;
-                    _yoyo.PrecisionShoot();
+                    if (Yoyo.State != Yoyo.YoyoState.IDLE) return;
+                    Yoyo.PrecisionShoot();
                     break;
                 case InputActionPhase.Canceled:
-                    if (_yoyo.State != Yoyo.YoyoState.PRECISION) return;
-                    _yoyo.CancelPrecision();
+                    if (Yoyo.State != Yoyo.YoyoState.PRECISION) return;
+                    Yoyo.CancelPrecision();
                     break;
             }
         }
@@ -136,10 +144,10 @@ namespace Player
 
         private void SetAim()
         {
-            if (_yoyo.State == Yoyo.YoyoState.PRECISION)
+            if (Yoyo.State == Yoyo.YoyoState.PRECISION)
             {
-                var currDir = _yoyo.PrecisionDirection;
-                _yoyo.PrecisionDirection = _aimDirection;
+                var currDir = Yoyo.PrecisionDirection;
+                Yoyo.PrecisionDirection = _aimDirection;
 
                 SetPivotRotation(_aimDirection);
             }
@@ -157,7 +165,7 @@ namespace Player
             }
         }
 
-        private void SetPivotRotation(Vector3 euler, bool immediate=true)
+        private void SetPivotRotation(Vector3 euler, bool immediate = true)
         {
             var zRotation = Vector3.SignedAngle(euler, Vector3.up, -Vector3.forward);
             var q = Quaternion.Euler(0, 0, zRotation);
