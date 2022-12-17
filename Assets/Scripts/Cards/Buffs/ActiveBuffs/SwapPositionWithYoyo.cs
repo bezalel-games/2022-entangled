@@ -40,6 +40,8 @@ namespace Cards.Buffs.ActiveBuffs
             if (_yoyo.State is Yoyo.YoyoState.IDLE) return;
             //TODO: animation?
             _playerController.transform.position = _yoyo.transform.position;
+            if (_yoyo.State is Yoyo.YoyoState.PRECISION)
+                _yoyo.CancelPrecision();
         }
 
         #endregion
