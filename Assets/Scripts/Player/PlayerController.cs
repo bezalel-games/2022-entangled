@@ -230,7 +230,7 @@ namespace Player
 
         public override void OnDie()
         {
-            print("Dead");
+            
         }
 
         public override void OnHit(float damage)

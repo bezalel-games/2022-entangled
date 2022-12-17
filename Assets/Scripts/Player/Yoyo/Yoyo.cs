@@ -1,6 +1,7 @@
 using Enemies;
 using HP_System;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -17,20 +18,21 @@ namespace Player
 
         #region Serialized Fields
 
-        [Header("Quick Shot")]
-        [SerializeField] private float _shootSpeed;
+        [Header("Quick Shot")] [SerializeField]
+        private float _shootSpeed;
+
         [SerializeField] private float _maxDistance;
         [SerializeField] private float _backSpeed;
 
-        [Header("Precision Shot")]
-        [SerializeField] private float _precisionRotationSpeed;
+        [Header("Precision Shot")] [SerializeField]
+        private float _precisionRotationSpeed;
+
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
         [SerializeField] private Line _linePrefab;
         [SerializeField] private float _timeScale;
 
-        [Header("Other")]
-        [SerializeField] private float _waitForReturn;
+        [Header("Other")] [SerializeField] private float _waitForReturn;
 
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _initPos;
@@ -40,7 +42,7 @@ namespace Player
         #endregion
 
         #region Non-Serialized Fields
-    
+
         private Rigidbody2D _rigidbody;
         private Collider2D _collider;
 
@@ -52,6 +54,8 @@ namespace Player
 
         private Line _currentLine;
 
+        private const float AlmostZero = 0.01f;
+
         #endregion
 
         #region Properties
@@ -61,7 +65,7 @@ namespace Player
         public Vector2 PrecisionDirection
         {
             get => _precisionDirection;
-            set => _precisionDirection = 
+            set => _precisionDirection =
                 Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.unscaledTime);
         }
 
@@ -92,6 +96,7 @@ namespace Player
                     {
                         GoBack();
                     }
+
                     break;
                 case YoyoState.PRECISION:
                     DrawPath();
@@ -102,7 +107,7 @@ namespace Player
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-        
+
             if (_state != YoyoState.IDLE)
             {
                 MoveYoyo();
@@ -113,7 +118,7 @@ namespace Player
         {
             var hittable = other.GetComponent<IHittable>();
             Enemy enemy = other.GetComponent<Enemy>();
-            
+
             switch (_state)
             {
                 case YoyoState.BACK:
@@ -121,6 +126,14 @@ namespace Player
                     {
                         Reset();
                     }
+
+                    if (other.CompareTag("Enemy"))
+                    {
+                        DoDamage(hittable);
+                        if (enemy != null)
+                            _player.OnHitEnemy(enemy);
+                    }
+
                     break;
                 case YoyoState.PRECISION:
                     if (other.CompareTag("Wall"))
@@ -131,17 +144,22 @@ namespace Player
                     if (other.CompareTag("Enemy"))
                     {
                         DoDamage(hittable);
-                        if(enemy != null)
+                        if (enemy != null)
                             _player.OnHitEnemy(enemy);
                     }
+
                     break;
                 case YoyoState.SHOOT:
+                    if(other.CompareTag("Player"))
+                        return;
+                    
                     if (other.CompareTag("Enemy"))
                     {
                         DoDamage(hittable);
-                        if(enemy != null)
+                        if (enemy != null)
                             _player.OnHitEnemy(enemy);
                     }
+                    
                     GoBack();
                     break;
             }
@@ -160,8 +178,21 @@ namespace Player
             switch (_state)
             {
                 case YoyoState.BACK:
-                    if(other.CompareTag("Player"))
+                    if (other.CompareTag("Player"))
                         Reset();
+                    break;
+                case YoyoState.SHOOT:
+                    if (other.CompareTag("Enemy"))
+                    {
+                        var hittable = other.GetComponent<IHittable>();
+                        Enemy enemy = other.GetComponent<Enemy>();
+                        DoDamage(hittable);
+                        if (enemy != null)
+                            _player.OnHitEnemy(enemy);
+                        
+                        GoBack();
+                    }
+
                     break;
             }
         }
@@ -177,9 +208,11 @@ namespace Player
                 _state = YoyoState.SHOOT;
                 _direction = direction;
                 transform.SetParent(null);
+
+                //HitCloseByEnemies();
             }
         }
-    
+
         public void PrecisionShoot()
         {
             _state = YoyoState.PRECISION;
@@ -190,16 +223,16 @@ namespace Player
             }
 
             GameManager.ScaleTime(_timeScale);
-            
+
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
-            
+
             // DelayInvoke(CancelPrecision, _precisionTime*_timeScale);
         }
 
         public void CancelPrecision()
         {
-            if (_currentLine == null) return; 
+            if (_currentLine == null) return;
             GameManager.ScaleTime(1);
             RemovePath();
             GoBack();
@@ -216,14 +249,14 @@ namespace Player
                 case YoyoState.SHOOT:
                     _rigidbody.velocity = _direction.normalized * _shootSpeed;
                     break;
-            
+
                 case YoyoState.PRECISION:
-                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1/_timeScale);
+                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1 / _timeScale);
                     _player.OnPrecision();
                     break;
-            
+
                 case YoyoState.BACK:
-                    var backDirection = ((Vector2)_parent.transform.position - (Vector2)transform.position);
+                    var backDirection = ((Vector2) _parent.transform.position - (Vector2) transform.position);
                     _rigidbody.velocity = backDirection.normalized * _backSpeed;
                     break;
             }
@@ -231,7 +264,7 @@ namespace Player
 
         private void DoDamage(IHittable hittable)
         {
-            if(hittable == null) return;
+            if (hittable == null) return;
             hittable.OnHit(_damage);
         }
 
@@ -250,11 +283,11 @@ namespace Player
             _state = YoyoState.IDLE;
             transform.SetParent(_parent);
         }
-    
+
         private void DrawPath()
         {
             if (_currentLine == null) return;
-        
+
             var position = transform.position;
             var d = Vector2.Distance(position, _currentLine.CurrentPosition);
             if (d > _resolution)
@@ -262,11 +295,11 @@ namespace Player
                 _currentLine.AddPosition(position);
             }
         }
-    
+
         private void RemovePath()
         {
             if (_currentLine == null) return;
-        
+
             Destroy(_currentLine.gameObject);
             _currentLine = null;
         }

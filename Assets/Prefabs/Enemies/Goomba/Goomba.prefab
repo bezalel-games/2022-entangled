@@ -161,11 +161,11 @@ MonoBehaviour:
   _damage: 3
   <AttackCooldown>k__BackingField: 1
   <MpRestore>k__BackingField: 0
-  <AttackDistance>k__BackingField: 3
-  <KeepDistance>k__BackingField: 1
+  <AttackDistance>k__BackingField: 4
+  <KeepDistance>k__BackingField: 2
   <PrepareAttackTime>k__BackingField: 1
   <Rank>k__BackingField: 1
-  <SeparationWeight>k__BackingField: 0.5
+  <SeparationWeight>k__BackingField: 0.8
   <ToPlayerWeight>k__BackingField: 1
   _attackSpeed: 10
   <AttackTime>k__BackingField: 0.5

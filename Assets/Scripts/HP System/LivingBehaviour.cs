@@ -100,7 +100,6 @@ namespace HP_System
 
             Hp = MaxHp;
             Mp = MaxMp;
-            print($"start MP: {Mp}");
         }
 
         #endregion
