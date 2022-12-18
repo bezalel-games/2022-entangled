@@ -10,7 +10,11 @@ namespace Enemies
         private bool _init;
         protected Transform Player;
         protected T ThisEnemy;
-    
+
+        private readonly int frameRate = 20;
+        private int frameCount;
+
+        protected bool AtFrameRate => frameCount % frameRate == 0;
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (!_init)
@@ -18,7 +22,13 @@ namespace Enemies
                 Init(animator);
             }
         }
-    
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            frameCount++;
+        }
+
         private void Init(Animator animator)
         {
             Player = GameManager.PlayerTransform;

@@ -6,6 +6,10 @@ public class GoombaMove : GoombaBehaviour
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
+        
+        if(!AtFrameRate) return;
+        
         var playerPos = Player.position;
         var goombaPos = ThisEnemy.transform.position;
         var distance = Vector2.Distance(playerPos, goombaPos);
