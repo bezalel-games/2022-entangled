@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,24 +8,15 @@ namespace HP_System
     {
         #region Serialized Fields
 
-        [Header("Living Behaviour")] [SerializeField]
-        private float _maxHp;
-
-        [SerializeField] private Image _healthBar;
-
+        [Header("Living Behaviour")] 
+        [SerializeField] private float _maxHp;
         [SerializeField] private float _maxMp;
-        [SerializeField] private Image _mpBar;
 
         #endregion
 
         #region Non-Serialized Fields
 
-        private float _hpBarWidth;
-        private RectTransform _hpBarTransform;
         private float _hp;
-
-        private float _mpBarWidth;
-        private RectTransform _mpBarTransform;
         private float _mp;
 
         #endregion
@@ -32,6 +24,9 @@ namespace HP_System
         #region Properties
 
         protected bool Invulnerable { get; set; }
+
+        public event Action<float, float> OnHpChange;
+        public event Action<float, float> OnMpChange;
         
         public float MaxHp
         {
@@ -49,8 +44,8 @@ namespace HP_System
             set
             {
                 _hp = Mathf.Min(Mathf.Max(value, 0), _maxHp);
-
-                UpdateHealthUI();
+                
+                OnHpChange?.Invoke(_hp, MaxHp);
 
                 if (_hp <= 0)
                 {
@@ -75,8 +70,8 @@ namespace HP_System
             set
             {
                 _mp = Mathf.Min(Mathf.Max(value, 0), _maxMp);
-
-                UpdateMPUI();
+                
+                OnMpChange?.Invoke(_mp, MaxMp);
             }
         }
 
@@ -86,18 +81,6 @@ namespace HP_System
 
         protected virtual void Awake()
         {
-            if (_healthBar != null)
-            {
-                _hpBarTransform = _healthBar.rectTransform;
-                _hpBarWidth = _hpBarTransform.rect.size.x;
-            }
-
-            if (_mpBar != null)
-            {
-                _mpBarTransform = _mpBar.rectTransform;
-                _mpBarWidth = _mpBarTransform.rect.size.x;
-            }
-
             Hp = MaxHp;
             Mp = MaxMp;
         }
@@ -132,30 +115,6 @@ namespace HP_System
         }
 
         public abstract void OnDie();
-
-        protected virtual void UpdateHealthUI()
-        {
-            if (_healthBar == null) return;
-
-            SetRectRation(_hpBarTransform, _hpBarWidth, Hp, MaxHp);
-            // var ratio = 1 - (Hp / MaxHp);
-            // var newWidth = -1 * ratio * _hpBarWidth;
-            // _hpBarTransform.sizeDelta = new Vector2(newWidth, _hpBarTransform.sizeDelta.y);
-        }
-
-        protected virtual void UpdateMPUI()
-        {
-            if (_mpBar == null) return;
-
-            SetRectRation(_mpBarTransform, _mpBarWidth, Mp, MaxMp);
-        }
-
-        private void SetRectRation(RectTransform rectTransform, float maxWidth, float currValue, float maxValue)
-        {
-            var ratio = 1 - (currValue / maxValue);
-            var newWidth = -1 * ratio * maxWidth;
-            rectTransform.sizeDelta = new Vector2(newWidth, rectTransform.sizeDelta.y);
-        }
 
         #endregion
     }

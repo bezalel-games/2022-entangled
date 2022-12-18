@@ -1031,6 +1031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414143102}
+  - component: {fileID: 1414143103}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -1060,6 +1061,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1414143103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414143101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1e8ac7dacdd0241bdad33384df8753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpBar: {fileID: 1788573033}
+  _mpBar: {fileID: 1944245418559876192}
+  _living: {fileID: 1749492221}
 --- !u!1 &1487818909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1496,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2784439664567552540, guid: 740d2293fbf0693469251c99ed7d1681, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 740d2293fbf0693469251c99ed7d1681, type: 3}
 --- !u!1001 &1944245418559876191
 PrefabInstance:
@@ -1581,7 +1598,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MPBar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4350206723256524274, guid: 315d852f70075de459290ed2d6d8bea2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 315d852f70075de459290ed2d6d8bea2, type: 3}
 --- !u!114 &1944245418559876192 stripped
 MonoBehaviour:

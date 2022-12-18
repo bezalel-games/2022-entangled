@@ -47,6 +47,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4125554779391483649, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: _hpBar
+      value: 
+      objectReference: {fileID: 2213277536817564912}
+    - target: {fileID: 4125554779391483649, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: _living
+      value: 
+      objectReference: {fileID: 4070872303377383493}
     - target: {fileID: 4509924979954832385, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0.28866667
@@ -204,9 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 2
-  _healthBar: {fileID: 2213277536817564912}
   _maxMp: 0
-  _mpBar: {fileID: 0}
   _speed: 1
   _damage: 2
   <AttackCooldown>k__BackingField: 1
