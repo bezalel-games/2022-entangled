@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class ShooterAttack : ShooterBehaviour
@@ -30,6 +31,7 @@ public class ShooterAttack : ShooterBehaviour
     
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Enemy.NumberOfAttacking--;
         ThisEnemy.CanAttack = false;
         ThisEnemy.DelayInvoke(() => { ThisEnemy.CanAttack = true;}, ThisEnemy.AttackCooldown);
         animator.ResetTrigger("Idle");

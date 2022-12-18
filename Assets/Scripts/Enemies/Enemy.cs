@@ -20,6 +20,7 @@ namespace Enemies
         private RoomEnemies _roomEnemies;
         protected Rigidbody2D _rigidbody;
         private Vector2 _desiredDirection;
+        private bool _canAttack = true;
 
         #endregion
 
@@ -43,9 +44,16 @@ namespace Enemies
             set => _desiredDirection = value.normalized;
         }
 
-        public bool CanAttack { get; set; } = true;
+        public bool CanAttack
+        {
+            get => _canAttack && NumberOfAttacking < MaxCanAttack;
+            set => _canAttack = value;
+        }
 
         public static LayerMask Layer { get; private set;  }
+        
+        public static int NumberOfAttacking { get; set; }
+        public static int MaxCanAttack { get; set; } = 2;
 
         #endregion
 
