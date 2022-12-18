@@ -25,7 +25,7 @@ namespace Rooms
             {
                 _cleared = value;
                 if (Room != null)
-                    Room.GateState = GateState.OPEN;
+                    Room.GateClosed = false;
             }
         }
 

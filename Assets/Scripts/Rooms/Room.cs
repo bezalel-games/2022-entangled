@@ -16,6 +16,7 @@ namespace Rooms
         [SerializeField] private int _outPriority;
         [SerializeField] private CinemachineVirtualCamera _vCam;
         [SerializeField] private Tilemap _tilemap;
+        [SerializeField] private float _doorAnimationDuration = 0.5f;
 
         #endregion
 
@@ -33,7 +34,12 @@ namespace Rooms
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
 
-        public GateState GateState
+        public bool GateClosed
+        {
+            set { GateState = value ? GateState.CLOSING : GateState.OPENING; }
+        }
+
+        private GateState GateState
         {
             get => _gateState;
             set
@@ -42,7 +48,9 @@ namespace Rooms
                 _gateState = value;
                 var tile = value switch
                 {
+                    GateState.CLOSING => RoomManager.RoomProperties.ClosingGateTile,
                     GateState.CLOSED => RoomManager.RoomProperties.ClosedGateTile,
+                    GateState.OPENING => RoomManager.RoomProperties.OpeningGateTile,
                     GateState.OPEN => RoomManager.RoomProperties.OpenedGateTile,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 };
@@ -50,6 +58,9 @@ namespace Rooms
                 {
                     _tilemap.SetTile(gateTilePos, tile);
                 }
+
+                if (value is GateState.CLOSING or GateState.OPENING)
+                    DelayInvoke(() => GateState = value + 1, _doorAnimationDuration);
             }
         }
 
@@ -85,7 +96,7 @@ namespace Rooms
             if (!Node.Cleared)
             {
                 Enemies.Activate();
-                GateState = GateState.CLOSED;
+                GateClosed = true;
             }
         }
 
@@ -115,7 +126,8 @@ namespace Rooms
 
 public enum GateState
 {
+    CLOSING,
     CLOSED,
-    // OPENING,
+    OPENING,
     OPEN
 }
