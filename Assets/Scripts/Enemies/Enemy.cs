@@ -17,10 +17,14 @@ namespace Enemies
 
         #region Non-Serialized Fields
 
+        private static int _numAttacking;
+        private static int _maxAttacking = 2;
+        
         private RoomEnemies _roomEnemies;
         protected Rigidbody2D _rigidbody;
         private Vector2 _desiredDirection;
         private bool _canAttack = true;
+        private bool _attacking;
 
         #endregion
 
@@ -54,9 +58,28 @@ namespace Enemies
         }
 
         public static LayerMask Layer { get; private set;  }
-        
-        public static int NumberOfAttacking { get; set; }
-        public static int MaxCanAttack { get; set; } = 2;
+
+        public static int NumberOfAttacking
+        {
+            get => _numAttacking;
+            set => _numAttacking = Math.Max(Math.Min(value, MaxCanAttack), 0);
+        }
+
+        public static int MaxCanAttack
+        {
+            get => _maxAttacking;
+            set => _maxAttacking = Math.Max(_maxAttacking, 0);
+        }
+
+        public bool Attacking
+        {
+            get => _attacking;
+            set
+            {
+                _attacking = value;
+                NumberOfAttacking += value ? 1 : -1;
+            }
+        }
 
         #endregion
 
@@ -105,6 +128,9 @@ namespace Enemies
 
         public override void OnDie()
         {
+            if (_attacking)
+                NumberOfAttacking--;
+            
             gameObject.SetActive(false);
             _roomEnemies.EnemyKilled();
         }

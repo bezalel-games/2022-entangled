@@ -7,7 +7,7 @@ namespace Enemies
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            Enemy.NumberOfAttacking++;
+            ThisEnemy.Attacking = true;
             SetSpeedMultiplier(animator, stateInfo, "Prepare Speed", ThisEnemy.PrepareAttackTime);
         }
     }

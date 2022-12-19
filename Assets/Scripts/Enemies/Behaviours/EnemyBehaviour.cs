@@ -12,9 +12,11 @@ namespace Enemies
         protected T ThisEnemy;
 
         private readonly int frameRate = 100;
+        
         private int frameCount;
+        private int frameOffset; // add offset to frame count so enemies will make decisions at different times
 
-        protected bool AtFrameRate => frameCount % frameRate == 0;
+        protected bool AtFrameRate => (frameCount + frameOffset) % frameRate == 0;
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (!_init)
@@ -31,6 +33,8 @@ namespace Enemies
 
         private void Init(Animator animator)
         {
+            frameOffset = UnityEngine.Random.Range(0, 100);
+            
             Player = GameManager.PlayerTransform;
             
             ThisEnemy = animator.GetComponent<T>() ?? animator.GetComponentInParent<T>();
