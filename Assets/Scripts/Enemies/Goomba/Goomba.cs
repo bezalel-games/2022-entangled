@@ -17,7 +17,6 @@ public class Goomba : Enemy
   
   #endregion
   #region Properties
-  [field: SerializeField] public float AttackTime { get; private set; }
 
   #endregion
   #region Function Events

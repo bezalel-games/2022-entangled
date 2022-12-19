@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
-public class GoombaMove : GoombaBehaviour
+public class GoombaMove : MoveBehaviour<Goomba>
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,5 +35,10 @@ public class GoombaMove : GoombaBehaviour
     {
         
         animator.ResetTrigger("Attack");
+    }
+    
+    protected override Vector2 GetToPlayerDirection()
+    {
+        return (Player.position - ThisEnemy.transform.position).normalized;
     }
 }
