@@ -170,11 +170,12 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 4
   <KeepDistance>k__BackingField: 2
   <PrepareAttackTime>k__BackingField: 1
-  <Rank>k__BackingField: 1
-  <SeparationWeight>k__BackingField: 0.8
-  <ToPlayerWeight>k__BackingField: 1
-  _attackSpeed: 10
   <AttackTime>k__BackingField: 0.5
+  <Rank>k__BackingField: 1
+  <SeparationWeight>k__BackingField: 1
+  <ToPlayerWeight>k__BackingField: 1
+  <AwayFromWallWeight>k__BackingField: 1
+  _attackSpeed: 10
 --- !u!114 &6061621037769010695 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1882158375167747121, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
