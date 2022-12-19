@@ -11,8 +11,7 @@ public class Goomba : Enemy
 
   #endregion
   #region Non-Serialized Fields
-
-  private bool _attacking;
+  
   private bool _following;
   
   #endregion
@@ -26,8 +25,7 @@ public class Goomba : Enemy
 
   public void Attack(Action onEnd)
   {
-    _attacking = true;
-    DelayInvoke((() => { _attacking = false; onEnd?.Invoke();}), AttackTime);
+    DelayInvoke((() => { Attacking = false; onEnd?.Invoke();}), AttackTime);
   }
 
   #endregion
@@ -36,7 +34,7 @@ public class Goomba : Enemy
 
   protected override void Move()
   {
-    if (!_attacking)
+    if (!Attacking)
     {
       base.Move();
     }

@@ -13,9 +13,11 @@ namespace Enemies
     
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            Enemy.NumberOfAttacking--;
+            ThisEnemy.Attacking = false;
+            
             ThisEnemy.CanAttack = false;
             ThisEnemy.DelayInvoke(() => { ThisEnemy.CanAttack = true;}, ThisEnemy.AttackCooldown);
+            
             animator.ResetTrigger("Idle");
         }
     }

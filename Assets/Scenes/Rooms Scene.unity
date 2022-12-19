@@ -672,8 +672,8 @@ MonoBehaviour:
     <Enemies>k__BackingField: 
   _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   _previousRoomSleepDelay: 0.5
-  _enemyDictionary: {fileID: 11400000, guid: d76c5164f246bc447977c89d0871cb87, type: 2}
-  _rank: 10
+  _enemyDictionary: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
+  _rank: 20
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
 --- !u!1 &1085365580
