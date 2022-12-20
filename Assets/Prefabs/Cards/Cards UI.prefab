@@ -53,6 +53,15 @@ MonoBehaviour:
   _firstSelectedCard: {fileID: 6902590243591667766}
   _leftCard: {fileID: 6016630116048142675}
   _rightCard: {fileID: 1412385754977388733}
+  _cardFormat: '<color="green"><b>Buff:</b> <i>{0}</i></color>
+
+    {1}
+
+
+    <color="red"><b>Debuff:</b>
+    <i>{3}</i></color>
+
+    {4}'
 --- !u!1 &4761189471462649333
 GameObject:
   m_ObjectHideFlags: 0

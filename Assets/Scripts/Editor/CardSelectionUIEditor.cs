@@ -1,11 +1,11 @@
-﻿using Cards;
+﻿using UI;
 using UnityEngine;
 using UnityEditor;
 
 namespace Editor
 {
-    [CustomEditor(typeof(CardManager))]
-    public class CardManagerEditor : UnityEditor.Editor
+    [CustomEditor(typeof(CardSelectionUI))]
+    public class CardSelectionUIEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
