@@ -11,7 +11,6 @@ namespace Cards
     {
         #region Serialized Fields
 
-        [SerializeField] [TextArea(5, 20)] private string _cardFormat;
         [SerializeField] private CardSelectionUI _ui;
 
         #endregion
@@ -29,7 +28,7 @@ namespace Cards
         public void ShowCards(Action finishedChoosingCardsAction)
         {
             _finishedChoosingCardsAction = finishedChoosingCardsAction;
-            _ui.ShowCards(_leftCard.ToString(_cardFormat), _rightCard.ToString(_cardFormat));
+            _ui.ShowCards(_leftCard, _rightCard);
         }
 
         public void ChooseLeftCard() => ChooseCard(_leftCard);
