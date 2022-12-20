@@ -8,7 +8,7 @@ namespace Cards.CardElementClasses
     [Serializable]
     public class FixedCardElementClass
     {
-        [SerializeField] private Rarity _rarity;
+        [field: SerializeField] public Rarity Rarity { get; private set; }
         [SerializeField] private float _parameter;
         [field: SerializeField] public CardElementClassAttributes Attributes { get; private set; }
 
