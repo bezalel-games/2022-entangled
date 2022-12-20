@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b48de1492dc048d188ccb46a823bde37, type: 3}
+  m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Enlarge Yoyo
   m_EditorClassIdentifier: 
-  <Attributes>k__BackingField:
-    <Name>k__BackingField: Size Matters
-    <Description>k__BackingField: Surround your weapon with a mighty aura, expanding
-      it's hit area
-  _commonVariation: 0
-  _rareVariation: 0
-  _epicVariation: 0
+  <Name>k__BackingField: Size Matters
+  <Description>k__BackingField: "Surround your weapon with a mighty aura, expanding\r
+    it's hit area"

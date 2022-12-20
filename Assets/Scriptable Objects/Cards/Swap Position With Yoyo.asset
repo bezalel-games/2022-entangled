@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
-  m_Name: Explosive Yoyo
+  m_Name: Swap Position With Yoyo
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Spectral Pulse
-  <Description>k__BackingField: "Create a powerful pulse from your weapon by pressing\r
-    R1 when you are not holding it"
+  <Name>k__BackingField: Dimensional Glitch
+  <Description>k__BackingField: "Instantly teleport to your weapon's position by\r
+    pressing L1 when you are not holding it"

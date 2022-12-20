@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Cards.Buffs;
 using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
@@ -15,20 +16,32 @@ namespace Cards.Factory
     {
         #region Buff Serialized Fields
 
-        [field: SerializeField] public FloatCardElementClass EnlargeYoyo { get; private set; }
-        [field: SerializeField] public FloatCardElementClass ExplosiveYoyo { get; private set; }
-        [field: SerializeField] public FloatCardElementClass SwapPositionWithYoyo { get; private set; }
+        [field: Header("Buffs")]
+        [field: Tooltip("Multiply the current size of the yoyo by given amount")]
+        [field: SerializeField] public VariableCardElementClass EnlargeYoyo { get; private set; }
+        
+        [field: Tooltip("Create an explosion with the given radius around the yoyo")]
+        [field: SerializeField] public VariableCardElementClass ExplosiveYoyo { get; private set; }
+        
+        [field: Tooltip("Teleports to the yoyo's location, using the specified amount of stamina")]
+        [field: SerializeField] public FixedCardElementClass SwapPositionWithYoyo { get; private set; }
 
         #endregion
 
         #region Debuff Serialized Fields
 
-        [field: SerializeField] public IntEnemyCardElementClass MoreGoombas { get; private set; }
-        [field: SerializeField] public FloatEnemyCardElementClass TougherGoombas { get; private set; }
-
-        [field: SerializeField] public IntEnemyCardElementClass MoreShooters { get; private set; }
-
-        [field: SerializeField] public FloatEnemyCardElementClass TougherShooters { get; private set; }
+        [field: Header("Debuffs")]
+        [field: Tooltip("Reduces the rank of goombas by the specified amount")]
+        [field: SerializeField] public EnemyCardElementClass MoreGoombas { get; private set; }
+        
+        [field: Tooltip("Adds the specified amount of HP to goombas")]
+        [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
+        
+        [field: Tooltip("Reduces the rank of shooters by the specified amount")]
+        [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
+        
+        [field: Tooltip("Adds the specified amount of HP to shooters")]
+        [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
 
         #endregion
 
@@ -36,6 +49,8 @@ namespace Cards.Factory
 
         private void OnValidate()
         {
+            MoreGoombas?.ToInt();
+            MoreShooters?.ToInt();
         }
 
         #endregion
@@ -54,12 +69,12 @@ namespace Cards.Factory
             Debuff debuff = debuffType switch
             {
                 MORE_GOOMBAS => new MoreEnemies(MoreGoombas.Attributes, debuffRarity, MoreGoombas.EnemyIndex,
-                    MoreGoombas[debuffRarity]),
+                    (int)MoreGoombas[debuffRarity]),
                 TOUGHER_GOOMBAS => new TougherEnemies(TougherGoombas.Attributes, debuffRarity,
                     TougherGoombas.EnemyIndex,
                     TougherGoombas[debuffRarity]),
                 MORE_SHOOTERS => new MoreEnemies(MoreShooters.Attributes, debuffRarity, MoreShooters.EnemyIndex,
-                    MoreShooters[debuffRarity]),
+                    (int)MoreShooters[debuffRarity]),
                 TOUGHER_SHOOTERS => new TougherEnemies(TougherShooters.Attributes, debuffRarity,
                     TougherShooters.EnemyIndex,
                     TougherShooters[debuffRarity]),
