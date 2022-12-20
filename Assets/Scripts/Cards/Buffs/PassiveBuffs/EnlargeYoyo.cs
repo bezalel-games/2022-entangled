@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using Cards.CardElementClasses;
 using Player;
 using UnityEngine;
 
 namespace Cards.Buffs.PassiveBuffs
 {
-    public class EnlargeYoyo : IBuff
+    public class EnlargeYoyo : Buff
     {
         #region Fields
 
@@ -13,19 +14,9 @@ namespace Cards.Buffs.PassiveBuffs
 
         #endregion
 
-        #region ICardProperty Implementation
+        #region Buff Implementation
 
-        public string Name => "Size Matters";
-
-        public string Description => "Surround your weapon with a mighty aura";
-
-        public string Rarity => "Normal";
-
-        #endregion
-
-        #region IBuff Implementation
-
-        public void Apply(PlayerController playerController)
+        public override void Apply(PlayerController playerController)
         {
             var yoyo = playerController.Yoyo;
             yoyo.StartCoroutine(Enlarge(yoyo.GetComponentInChildren<Collider2D>().transform));
@@ -35,7 +26,8 @@ namespace Cards.Buffs.PassiveBuffs
 
         #region Constructor
 
-        public EnlargeYoyo(float growthIncrease)
+        public EnlargeYoyo(CardElementClassAttributes attributes, Rarity rarity, float growthIncrease)
+            : base(attributes, rarity)
         {
             _growthIncrease = growthIncrease;
         }

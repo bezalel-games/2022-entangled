@@ -1,10 +1,11 @@
 ﻿using System;
+using Cards.CardElementClasses;
 using Player;
 using UnityEngine.InputSystem;
 
 namespace Cards.Buffs.ActiveBuffs
 {
-    public class ExplosiveYoyo : IBuff
+    public class ExplosiveYoyo : Buff
     {
         #region Fields
 
@@ -12,23 +13,20 @@ namespace Cards.Buffs.ActiveBuffs
 
         #endregion
 
-        #region ICardProperty Implementation
+        #region Buff Implementation
 
-        public string Name => "Spectral Pulse";
-
-        public string Description =>
-            "Create a powerful pulse from your weapon by pressing R1 when you are not holding it";
-
-        public string Rarity => "Normal";
-
-        #endregion
-
-        #region IBuff Implementation
-
-        public void Apply(PlayerController playerController)
+        public override void Apply(PlayerController playerController)
         {
             _yoyo = playerController.Yoyo;
             playerController.QuickShotEvent += BlowUpYoyo;
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public ExplosiveYoyo(CardElementClassAttributes attributes, Rarity rarity) : base(attributes, rarity)
+        {
         }
 
         #endregion

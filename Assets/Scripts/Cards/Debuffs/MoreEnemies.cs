@@ -1,9 +1,10 @@
 ﻿using System;
+using Cards.CardElementClasses;
 using Enemies;
 
 namespace Cards.Debuffs
 {
-    class MoreEnemies : IDebuff
+    class MoreEnemies : Debuff
     {
         #region Fields
 
@@ -12,17 +13,9 @@ namespace Cards.Debuffs
 
         #endregion
 
-        #region ICardProperty Implementation
+        #region Debuff Implementation
 
-        public string Name => "More Enemies";
-        public string Description => "More enemies will spawn in the following rooms";
-        public string Rarity => "Normal";
-
-        #endregion
-
-        #region IDebuff Implementation
-
-        public void Apply(EnemyDictionary enemyDictionary)
+        public override void Apply(EnemyDictionary enemyDictionary)
         {
             var rank = enemyDictionary[_enemyType].Rank;
             enemyDictionary[_enemyType].Rank = Math.Max(rank - _rankDemotion, 1);
@@ -32,7 +25,8 @@ namespace Cards.Debuffs
 
         #region Constructor
 
-        public MoreEnemies(int enemyType, int rankDemotion)
+        public MoreEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, int rankDemotion)
+            : base(attributes, rarity)
         {
             _enemyType = enemyType;
             _rankDemotion = rankDemotion;
