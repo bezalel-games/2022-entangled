@@ -1106,6 +1106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ui: {fileID: 1881547334}
+  _factory: {fileID: 11400000, guid: 68b0b24357c64264994beb4aeb694f78, type: 2}
+  _commonWeight: 6
+  _rareWeight: 3
+  _epicWeight: 1
 --- !u!4 &1487818911
 Transform:
   m_ObjectHideFlags: 0

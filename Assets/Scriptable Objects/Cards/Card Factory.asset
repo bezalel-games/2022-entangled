@@ -23,7 +23,7 @@ MonoBehaviour:
     _epicVariant: 2
     <Attributes>k__BackingField: {fileID: 11400000, guid: 0d9972c13a27afd48b5b725e96c774fc, type: 2}
   <SwapPositionWithYoyo>k__BackingField:
-    _rarity: 1
+    <Rarity>k__BackingField: 1
     _parameter: 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
   <MoreGoombas>k__BackingField:
