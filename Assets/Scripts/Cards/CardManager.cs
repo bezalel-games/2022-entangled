@@ -2,7 +2,6 @@
 using Cards.Buffs.ActiveBuffs;
 using Cards.Buffs.PassiveBuffs;
 using Cards.Debuffs;
-using Managers;
 using UI;
 using UnityEngine;
 
@@ -19,8 +18,8 @@ namespace Cards
 
         #region Non-Serialized Fields
 
-        private readonly Card _leftCard = new Card(new EnlargeYoyo(1.3f), new MoreEnemies(0, 3));
-        private readonly Card _rightCard = new Card(new SwapPositionWithYoyo(), new TougherEnemies(0, 1));
+        private Card _leftCard;
+        private Card _rightCard;
         private Action _finishedChoosingCardsAction;
 
         #endregion

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cards.CardElementClasses;
 using Enemies;
 
 namespace Cards.Debuffs
 {
-    class TougherEnemies : IDebuff
+    public class TougherEnemies : Debuff
     {
         #region Fields
 
@@ -12,17 +12,9 @@ namespace Cards.Debuffs
 
         #endregion
 
-        #region ICardProperty Implementation
+        #region Debuff Implementation
 
-        public string Name => "Tougher Enemies";
-        public string Description => "Enemies will have more HP";
-        public string Rarity => "Normal";
-
-        #endregion
-
-        #region IDebuff Implementation
-
-        public void Apply(EnemyDictionary enemyDictionary)
+        public override void Apply(EnemyDictionary enemyDictionary)
         {
             enemyDictionary[_enemyType].MaxHp += _hpAddition;
         }
@@ -31,7 +23,8 @@ namespace Cards.Debuffs
 
         #region Constructor
 
-        public TougherEnemies(int enemyType, float hpAddition)
+        public TougherEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float hpAddition)
+            : base(attributes, rarity)
         {
             _enemyType = enemyType;
             _hpAddition = hpAddition;
