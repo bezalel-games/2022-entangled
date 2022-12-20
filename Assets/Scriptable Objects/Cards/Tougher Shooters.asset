@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790855ec74954ee598c3d32c94b02c06, type: 3}
+  m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Tougher Shooters
   m_EditorClassIdentifier: 
-  <Attributes>k__BackingField:
-    <Name>k__BackingField: Tougher Shooters
-    <Description>k__BackingField: Shooting enemies will have more HP
-  _commonVariation: 0
-  _rareVariation: 0
-  _epicVariation: 0
-  <EnemyIndex>k__BackingField: 0
+  <Name>k__BackingField: Tougher Shooters
+  <Description>k__BackingField: Ranged enemies will have more HP
