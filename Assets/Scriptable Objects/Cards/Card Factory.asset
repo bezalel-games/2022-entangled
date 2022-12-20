@@ -12,10 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d781f18b9deb4beea31eff710794b660, type: 3}
   m_Name: Card Factory
   m_EditorClassIdentifier: 
-  <EnlargeYoyo>k__BackingField: {fileID: 11400000, guid: b137ed9e0a93f904897c4aaa3ac4b8a3, type: 2}
-  <ExplosiveYoyo>k__BackingField: {fileID: 11400000, guid: 0cf0c1d01d227b3458e27e14de1aaa89, type: 2}
-  <SwapPositionWithYoyo>k__BackingField: {fileID: 11400000, guid: 766cba4f34de46240af68e6feef3b367, type: 2}
-  <MoreGoombas>k__BackingField: {fileID: 11400000, guid: 7d9c3ebe905b170459b144b104ba277e, type: 2}
-  <TougherGoombas>k__BackingField: {fileID: 11400000, guid: 2d12136a05725cb4ba03648e87fc6694, type: 2}
-  <MoreShooters>k__BackingField: {fileID: 11400000, guid: 80f09f9b1f1571c4f87009316e127801, type: 2}
-  <TougherShooters>k__BackingField: {fileID: 11400000, guid: 86343b132d9084b4da8521f21bd40465, type: 2}
+  <EnlargeYoyo>k__BackingField:
+    _commonVariant: 1.1
+    _rareVariant: 1.2
+    _epicVariant: 1.25
+    <Attributes>k__BackingField: {fileID: 11400000, guid: dcf55da2f32ace841a5c78a4a7f72346, type: 2}
+  <ExplosiveYoyo>k__BackingField:
+    _commonVariant: 1.2
+    _rareVariant: 1.7
+    _epicVariant: 2
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 0d9972c13a27afd48b5b725e96c774fc, type: 2}
+  <SwapPositionWithYoyo>k__BackingField:
+    _rarity: 1
+    _parameter: 1
+    <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
+  <MoreGoombas>k__BackingField:
+    _commonVariant: 1
+    _rareVariant: 2
+    _epicVariant: 3
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 3723c6eff8a890c4aba027930ee8703e, type: 2}
+    <EnemyIndex>k__BackingField: 0
+  <TougherGoombas>k__BackingField:
+    _commonVariant: 1
+    _rareVariant: 2
+    _epicVariant: 3
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 88dc1bf97df7da042b301c589b409880, type: 2}
+    <EnemyIndex>k__BackingField: 0
+  <MoreShooters>k__BackingField:
+    _commonVariant: 1
+    _rareVariant: 2
+    _epicVariant: 3
+    <Attributes>k__BackingField: {fileID: 11400000, guid: b3881a6d50cd06b41bbbdc53c1d72411, type: 2}
+    <EnemyIndex>k__BackingField: 1
+  <TougherShooters>k__BackingField:
+    _commonVariant: 1
+    _rareVariant: 2
+    _epicVariant: 3
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 167359edc1e9bd84e87d9a5e88bcee96, type: 2}
+    <EnemyIndex>k__BackingField: 1

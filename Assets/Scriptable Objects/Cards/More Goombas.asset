@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce977416fc84e3b94367f0af5d1d487, type: 3}
+  m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: More Goombas
   m_EditorClassIdentifier: 
-  <Attributes>k__BackingField:
-    <Name>k__BackingField: More Melee Enemies
-    <Description>k__BackingField: More melee enemies will spawn from now on
-  _commonVariation: 0
-  _rareVariation: 0
-  _epicVariation: 0
-  <EnemyIndex>k__BackingField: 0
+  <Name>k__BackingField: Melee Enemies Population Overflow
+  <Description>k__BackingField: Melee enemies will appear more
