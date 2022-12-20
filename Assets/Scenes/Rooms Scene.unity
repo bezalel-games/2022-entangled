@@ -1105,15 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a30de08849c40109ba01f6811e5df7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardFormat: '<color="green"><b>Buff:</b> <i>{0}</i></color>
-
-    {1}
-
-
-    <color="red"><b>Debuff:</b>
-    <i>{3}</i></color>
-
-    {4}'
   _ui: {fileID: 1881547334}
 --- !u!4 &1487818911
 Transform:
