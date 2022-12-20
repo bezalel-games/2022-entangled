@@ -79,6 +79,12 @@ namespace Managers
         }
 
         #endregion
+        
+        #region Events
+
+        public static event Action FinishedCurrentRoom;
+        
+        #endregion
 
         #region Function Events
 
@@ -119,15 +125,15 @@ namespace Managers
         {
             if (_instance._chooseCards)
             {
-                _instance._cardManager.ShowCards();
+                _instance._cardManager.ShowCards(CardChosen);
                 _instance.ActionMapInUse = ActionMap.UI;
             }
         }
 
-        public static void CardChosen()
+        private static void CardChosen()
         {
             _instance.ActionMapInUse = ActionMap.PLAYER;
-            RoomManager.SpawnEnemiesInNeighbors();
+            FinishedCurrentRoom?.Invoke();
         }
 
         #endregion

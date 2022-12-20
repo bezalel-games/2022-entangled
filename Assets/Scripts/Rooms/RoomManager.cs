@@ -4,6 +4,7 @@ using Rooms.CardinalDirections;
 using UnityEngine;
 using Enemies;
 using Managers;
+using Player;
 using Direction = Rooms.CardinalDirections.Direction;
 using Random = UnityEngine.Random;
 
@@ -45,9 +46,9 @@ namespace Rooms
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
         public static RoomProperties RoomProperties => _instance._roomProperties;
-        
-        private int ActualHalfWidth => _roomProperties.Width/2 - _roomProperties.WallSize;
-        private int ActualHalfHeight => _roomProperties.Height/2 - _roomProperties.WallSize;
+
+        private int ActualHalfWidth => _roomProperties.Width / 2 - _roomProperties.WallSize;
+        private int ActualHalfHeight => _roomProperties.Height / 2 - _roomProperties.WallSize;
 
         #endregion
 
@@ -58,6 +59,7 @@ namespace Rooms
             if (_instance != null)
                 throw new DoubleRoomManagerException();
             _instance = this;
+            GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
         }
 
         private void Start()
@@ -71,6 +73,11 @@ namespace Rooms
             SpawnEnemiesInNeighbors();
         }
 
+        private void OnDestroy()
+        {
+            GameManager.FinishedCurrentRoom -= SpawnEnemiesInNeighbors;
+        }
+
         #endregion
 
         #region Public Method
@@ -80,11 +87,11 @@ namespace Rooms
             _instance._nextRoom = roomNode;
         }
 
-        public static void ExitedRoom(RoomNode roomNode)
+        public static void ExitedRoom(RoomNode roomNode, GameObject exitingObject)
         {
             if (_instance._nextRoom == null) return;
             if (_instance._currentRoom.Index == roomNode.Index)
-                ChangeRoom(_instance._nextRoom);
+                ChangeRoom(_instance._nextRoom, exitingObject);
             _instance._nextRoom = null;
         }
 
@@ -109,12 +116,17 @@ namespace Rooms
 
         #region Private Methods
 
-        private static void ChangeRoom(RoomNode newRoom)
+        private static void ChangeRoom(RoomNode newRoom, GameObject transitioningObject)
         {
             if (newRoom == _instance._currentRoom) return;
             var indexDiff = newRoom.Index - _instance._currentRoom.Index;
             var dirOfNewRoom = indexDiff.ToDirection();
-            MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff);
+            var player = transitioningObject.GetComponent<PlayerController>();
+            if (player)
+            {
+                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
+            }
+
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
@@ -124,7 +136,8 @@ namespace Rooms
                 SpawnEnemiesInNeighbors();
         }
 
-        private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection)
+        private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
+            PlayerController player)
         {
             var nextRoomPosition = _instance.GetPosition(newRoomIndex);
             float threshold = dirOfNewRoom switch
@@ -135,7 +148,7 @@ namespace Rooms
                 Direction.NORTH => nextRoomPosition.y - _instance.ActualHalfHeight,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            GameManager.PlayerController.OverrideMovement(walkDirection.normalized, threshold);
+            player.OverrideMovement(walkDirection.normalized, threshold);
         }
 
         private void UnloadNeighbors(RoomNode prevRoom, Direction? dirOfNewRoom = null)

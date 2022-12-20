@@ -75,7 +75,7 @@ namespace Rooms
 
         private void OnTriggerExit2D(Collider2D col)
         {
-            RoomManager.ExitedRoom(Node);
+            RoomManager.ExitedRoom(Node, col.gameObject);
         }
 
         #endregion
