@@ -152,9 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2ba888e1643654a87616b860eeaae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootSpeed: 15
-  _maxDistance: 3
-  _backSpeed: 20
+  _shootSpeed: 27
+  _maxDistance: 3.5
+  _easeDistance: 0.7
+  _easeVelocityThreshold: 3
+  _backSpeed: 28
+  _backEaseDuration: 1.25
   _precisionRotationSpeed: 10
   _precisionSpeed: 7
   _resolution: 0.1
@@ -163,7 +166,7 @@ MonoBehaviour:
   _waitForReturn: 0
   _parent: {fileID: 0}
   _initPos: {fileID: 0}
-  _damage: 1
+  _damage: 2
 --- !u!1 &6143497779323870012
 GameObject:
   m_ObjectHideFlags: 0
