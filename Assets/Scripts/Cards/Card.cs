@@ -10,7 +10,7 @@ namespace Cards
     {
         #region Constructor
 
-        public Card(IBuff buff, IDebuff debuff)
+        public Card(Buff buff, Debuff debuff)
         {
             _buff = buff;
             _debuff = debuff;
@@ -20,8 +20,8 @@ namespace Cards
         
         #region Fields
 
-        private readonly IBuff _buff;
-        private readonly IDebuff _debuff;
+        private readonly Buff _buff;
+        private readonly Debuff _debuff;
         private bool _applied = false;
 
         #endregion
@@ -37,7 +37,7 @@ namespace Cards
             if (_applied) return;
             _buff?.Apply(GameManager.PlayerController);
             _debuff?.Apply(RoomManager.EnemyDictionary);
-            // _applied = true;
+            _applied = true;
         }
 
         public string ToString(string format)

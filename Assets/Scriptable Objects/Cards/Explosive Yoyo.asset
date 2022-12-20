@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48de1492dc048d188ccb46a823bde37, type: 3}
+  m_Name: Explosive Yoyo
+  m_EditorClassIdentifier: 
+  <Attributes>k__BackingField:
+    <Name>k__BackingField: Spectral Pulse
+    <Description>k__BackingField: Create a powerful pulse from your weapon by pressing
+      R1 when you are not holding it
+  _commonVariation: 0
+  _rareVariation: 0
+  _epicVariation: 0
