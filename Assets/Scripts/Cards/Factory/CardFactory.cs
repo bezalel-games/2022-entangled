@@ -57,7 +57,7 @@ namespace Cards.Factory
 
         #region Public Methods
 
-        public Card GenerateCard(BuffType buffType, Rarity buffRarity, DebuffType debuffType, Rarity debuffRarity)
+        public Card Create(BuffType buffType, Rarity buffRarity, DebuffType debuffType, Rarity debuffRarity)
         {
             Buff buff = buffType switch
             {
