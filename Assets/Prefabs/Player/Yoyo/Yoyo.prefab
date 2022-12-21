@@ -153,11 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootSpeed: 27
-  _maxDistance: 2.5
+  _maxDistance: 3.5
   _easeDistance: 0.5
   _easeVelocityThreshold: 3
   _backSpeed: 28
   _backEaseDuration: 1.25
+  _turnFactor: 10
   _precisionRotationSpeed: 10
   _precisionSpeed: 7
   _resolution: 0.1

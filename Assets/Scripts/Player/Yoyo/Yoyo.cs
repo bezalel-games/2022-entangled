@@ -3,6 +3,7 @@ using HP_System;
 using Managers;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
@@ -21,10 +22,15 @@ namespace Player
         [Header("Quick Shot")] 
         [SerializeField] private float _shootSpeed;
         [SerializeField] private float _maxDistance;
-        [SerializeField][Range(0f,1f)][Tooltip("Portion of \"Max Distance\" in which the weapon should slow down on quickshot")] private float _easeDistance;
-        [SerializeField][Tooltip("The lower this is, the slower the weapon will become before going back on quick shot")] private float _easeVelocityThreshold = 1.5f;
+        [SerializeField][Range(0f,1f)][Tooltip("Portion of \"Max Distance\" in which the weapon should slow down on quickshot")] 
+        private float _easeDistance;
+        [SerializeField][Tooltip("The lower this is, the slower the weapon will become before going back on quick shot")] 
+        private float _easeVelocityThreshold = 1.5f;
         [SerializeField] private float _backSpeed;
-        [SerializeField][Tooltip("The time it will take the weapon to reach \"Back Speed\" when going back")] private float _backEaseDuration;
+        [SerializeField][Tooltip("The time it will take the weapon to reach \"Back Speed\" when going back")] 
+        private float _backEaseDuration;
+        [SerializeField][Tooltip("The higher this is, the more turning the right stick during quickshots will effect the direction of the weapon")] 
+        private float _turnFactor;
 
         [Header("Precision Shot")] 
         [SerializeField] private float _precisionRotationSpeed;
@@ -64,6 +70,9 @@ namespace Player
         #endregion
 
         #region Properties
+
+        private Vector2 BackDirection =>
+            ((Vector2) _parent.transform.position - (Vector2) transform.position).normalized;
 
         public YoyoState State => _state;
 
@@ -210,8 +219,8 @@ namespace Player
             {
                 _state = YoyoState.SHOOT;
                 _direction = direction;
+                _rigidbody.velocity = direction;
                 _quickShotLastPos = transform.position;
-                // _quickShotPosition = _initPos.position + (_maxDistance*_direction.normalized);
                 transform.SetParent(null);
             }
         }
@@ -229,8 +238,6 @@ namespace Player
 
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
-
-            // DelayInvoke(CancelPrecision, _precisionTime*_timeScale);
         }
 
         public void CancelPrecision()
@@ -247,6 +254,10 @@ namespace Player
 
         private void MoveYoyo()
         {
+            var vel = Vector2.zero;
+            var perpendicular = Vector2.zero;
+            var velWithPerpendicular = Vector2.zero;
+            
             switch (_state)
             {
                 case YoyoState.SHOOT:
@@ -256,10 +267,13 @@ namespace Player
                     _quickShotCumDistance += Vector2.Distance(position, _quickShotLastPos);
                     _quickShotLastPos = position;
                     
-                    var vel = _rigidbody.velocity;
+                    vel = _rigidbody.velocity;
+                    perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, vel);
+                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized; 
+                    
                     if (_quickShotCumDistance < _easeDistance * _maxDistance)
                     {
-                        vel = _direction.normalized * _shootSpeed;
+                        _rigidbody.velocity = velWithPerpendicular * _shootSpeed;
                     }
                     else
                     {
@@ -268,11 +282,9 @@ namespace Player
                          * if d > em -> d = e*m + (m - e*m)*t -> t = (d - e*m)/(m - e*m)
                          */
                         var t = (_quickShotCumDistance - _easeDistance*_maxDistance) / (_maxDistance - _easeDistance*_maxDistance);
-                        vel = Vector2.Lerp(_rigidbody.velocity, Vector2.zero, t);
+                        _rigidbody.velocity = Vector2.Lerp(velWithPerpendicular * vel.magnitude, Vector2.zero, t);
                     }
 
-                    _rigidbody.velocity = vel;
-                    
                     if(vel.magnitude <= _easeVelocityThreshold)
                         GoBack();
                     
@@ -284,16 +296,23 @@ namespace Player
                     break;
 
                 case YoyoState.BACK:
-                    var backDirection = ((Vector2) _parent.transform.position - (Vector2) transform.position);
-                    var backT = 1 - ((stopBackEase - Time.time) / _backEaseDuration);
-                    if (backT < 0)
+                    vel = BackDirection * _backSpeed;
+                    perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, -vel);
+                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized; 
+                    
+                    if (Time.time > stopBackEase)
                     {
-                        _rigidbody.velocity = backDirection.normalized * _backSpeed;
+                        _rigidbody.velocity = velWithPerpendicular * _backSpeed;
                     }
                     else
                     {
-                        _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity, backDirection.normalized * _backSpeed, backT);
+                        var backT = 1 - ((stopBackEase - Time.time) / _backEaseDuration);
+                        _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity, 
+                             velWithPerpendicular * vel.magnitude, backT);
                     }
+                    
+                    // _rigidbody.velocity = (vel + _turnFactor*perpendicular).normalized * vel.magnitude;
+                    
                     break;
             }
         }
