@@ -21,13 +21,13 @@ namespace Player
         [Header("Quick Shot")] 
         [SerializeField] private float _shootSpeed;
         [SerializeField] private float _maxDistance;
-        [SerializeField] private float _easeDistance;
-        [SerializeField] private float _easeVelocityThreshold = 1.5f;
+        [SerializeField][Range(0f,1f)][Tooltip("Portion of \"Max Distance\" in which the weapon should slow down on quickshot")] private float _easeDistance;
+        [SerializeField][Tooltip("The lower this is, the slower the weapon will become before going back on quick shot")] private float _easeVelocityThreshold = 1.5f;
         [SerializeField] private float _backSpeed;
-        [SerializeField] private float _backEaseDuration;
+        [SerializeField][Tooltip("The time it will take the weapon to reach \"Back Speed\" when going back")] private float _backEaseDuration;
 
-        [Header("Precision Shot")] [SerializeField]
-        private float _precisionRotationSpeed;
+        [Header("Precision Shot")] 
+        [SerializeField] private float _precisionRotationSpeed;
 
         [SerializeField] private float _precisionSpeed;
         [SerializeField] private float _resolution;
@@ -50,7 +50,9 @@ namespace Player
 
         private Vector3 _direction;
         private Vector2 _precisionDirection;
-        private Vector2 _quickShotPosition;
+        private Vector2 _quickShotLastPos;
+        private Vector2 _quickShotDirection;
+        private float _quickShotCumDistance;
 
         private YoyoState _state = YoyoState.IDLE;
         private PlayerController _player;
@@ -70,6 +72,12 @@ namespace Player
             get => _precisionDirection;
             set => _precisionDirection =
                 Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.unscaledTime);
+        }
+
+        public Vector2 QuickShotDirection
+        {
+            get => _quickShotDirection;
+            set => _quickShotDirection = value.normalized;
         }
 
         #endregion
@@ -202,10 +210,9 @@ namespace Player
             {
                 _state = YoyoState.SHOOT;
                 _direction = direction;
-                _quickShotPosition = _initPos.position + (_maxDistance*_direction.normalized);
+                _quickShotLastPos = transform.position;
+                // _quickShotPosition = _initPos.position + (_maxDistance*_direction.normalized);
                 transform.SetParent(null);
-
-                //HitCloseByEnemies();
             }
         }
 
@@ -243,16 +250,24 @@ namespace Player
             switch (_state)
             {
                 case YoyoState.SHOOT:
-                    var distance = ((Vector2) transform.position - _quickShotPosition).magnitude;
 
+                    var position = transform.position;
+
+                    _quickShotCumDistance += Vector2.Distance(position, _quickShotLastPos);
+                    _quickShotLastPos = position;
+                    
                     var vel = _rigidbody.velocity;
-                    if (distance > _easeDistance * _maxDistance)
+                    if (_quickShotCumDistance < _easeDistance * _maxDistance)
                     {
                         vel = _direction.normalized * _shootSpeed;
                     }
                     else
                     {
-                        var t = 1 - (distance / (_easeDistance * _maxDistance));
+                        /*
+                         * for d = cumulativeDistance, e = easeDistance, m = maxDistance
+                         * if d > em -> d = e*m + (m - e*m)*t -> t = (d - e*m)/(m - e*m)
+                         */
+                        var t = (_quickShotCumDistance - _easeDistance*_maxDistance) / (_maxDistance - _easeDistance*_maxDistance);
                         vel = Vector2.Lerp(_rigidbody.velocity, Vector2.zero, t);
                     }
 
@@ -299,6 +314,7 @@ namespace Player
 
         private void Reset()
         {
+            _quickShotCumDistance = 0;
             _collider.isTrigger = true;
             transform.position = _initPos.position;
             _rigidbody.velocity = Vector2.zero;

@@ -114,9 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
-  _healthBar: {fileID: 0}
   _maxMp: 10
-  _mpBar: {fileID: 0}
   _speed: 7
   _maxSpeed: 8
   _acceleration: 7
@@ -372,6 +370,14 @@ PrefabInstance:
       propertyPath: _initPos
       value: 
       objectReference: {fileID: 669163529}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _easeDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _easeVelocityThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Name
       value: Yoyo
