@@ -10,8 +10,7 @@ namespace Player
     {
         #region Serialized Fields
 
-        [Header("Shooting")] 
-        [SerializeField] private float _rotationSpeed;
+        [Header("Shooting")] [SerializeField] private float _rotationSpeed;
         [SerializeField] private GameObject _aimLine;
         [SerializeField] private GameObject _aimPivot;
         [SerializeField] private float _aimAssistRange;
@@ -64,6 +63,7 @@ namespace Player
                 case InputActionPhase.Canceled:
                     _aiming = false;
                     _aimLine.SetActive(false);
+                    Yoyo.QuickShotDirection = Vector2.zero;
                     break;
             }
         }
@@ -121,7 +121,7 @@ namespace Player
 
             var rightRotation = Vector2.zero;
             var leftRotation = Vector2.zero;
-        
+
             for (float angle = ANGLE_THRESHOLD; angle < _aimAssistRange; angle += ANGLE_THRESHOLD)
             {
                 rightRotation = Vector2Ext.Rotate(desiredDir, angle);
@@ -150,28 +150,32 @@ namespace Player
                 Yoyo.PrecisionDirection = _aimDirection;
 
                 SetPivotRotation(_aimDirection);
+                return;
             }
-            else
+
+            if (Yoyo.State is Yoyo.YoyoState.SHOOT or Yoyo.YoyoState.BACK)
             {
-                bool immediateRotation = false;
-            
-                if (_aiming && !_aimLine.activeSelf)
-                {
-                    _aimLine.SetActive(true);
-                    immediateRotation = true;
-                }
-            
-                SetPivotRotation(_aimDirection, immediateRotation);
+                Yoyo.QuickShotDirection = _aimDirection;
             }
+
+            bool immediateRotation = false;
+
+            if (_aiming && !_aimLine.activeSelf)
+            {
+                _aimLine.SetActive(true);
+                immediateRotation = true;
+            }
+
+            SetPivotRotation(_aimDirection, immediateRotation);
         }
 
         private void SetPivotRotation(Vector3 euler, bool immediate = true)
         {
             var zRotation = Vector3.SignedAngle(euler, Vector3.up, -Vector3.forward);
             var q = Quaternion.Euler(0, 0, zRotation);
-        
+
             float t = immediate ? 1 : Time.deltaTime * _rotationSpeed;
-        
+
             _aimPivot.transform.rotation =
                 Quaternion.Slerp(_aimPivot.transform.rotation, q, t);
         }
@@ -182,14 +186,14 @@ namespace Player
             if (enemy != null)
             {
                 // when add walls layer, use this
-            
+
                 // var hit = Physics2D.Raycast(transform.position, direction, 10).collider;
                 // print($"{hit.gameObject.tag},{enemy.gameObject.tag}");
                 // if (hit.GetInstanceID() == enemy.GetInstanceID())
                 // {
                 //     return hit;
                 // }
-            
+
                 return enemy;
             }
 
