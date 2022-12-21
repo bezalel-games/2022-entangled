@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7766218729720609929}
   - component: {fileID: 7766218729720609928}
+  - component: {fileID: 7235197585445724460}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -48,3 +49,20 @@ MonoBehaviour:
   _uiController: {fileID: 0}
   _chooseCards: 1
   _cardManager: {fileID: 11400000, guid: f78b6e2fc34c81347a9af574875b51ca, type: 2}
+--- !u!114 &7235197585445724460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766218729720609931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a30de08849c40109ba01f6811e5df7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ui: {fileID: 0}
+  _factory: {fileID: 11400000, guid: 68b0b24357c64264994beb4aeb694f78, type: 2}
+  _commonWeight: 5
+  _rareWeight: 4
+  _epicWeight: 3

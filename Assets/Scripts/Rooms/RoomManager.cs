@@ -14,9 +14,6 @@ namespace Rooms
     {
         #region Serialized Fields
 
-        [Tooltip("The node of the room the character is currently in")] [SerializeField]
-        private RoomNode _currentRoom;
-
         [Tooltip("The Room Component of the Room Prefab used for spawning all rooms")] [SerializeField]
         private Room _roomPrefab;
 
@@ -36,6 +33,7 @@ namespace Rooms
 
         #region Non-Serialized Fields
 
+        private RoomNode _currentRoom;
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
         private RoomNode _nextRoom;
@@ -65,7 +63,7 @@ namespace Rooms
         private void Start()
         {
             _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
-            _currentRoom = new RoomNode(null, _currentRoom.Index, _currentRoom.Rank);
+            _currentRoom = new RoomNode(null, new Vector2Int(0, 0), _rank);
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();

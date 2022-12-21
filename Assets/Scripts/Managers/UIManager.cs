@@ -1,50 +1,56 @@
 using System;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+namespace Managers
 {
-  #region Serialized Fields
+    public class UIManager : MonoBehaviour
+    {
+        #region Serialized Fields
 
-  [SerializeField] private Canvas _slowdownFilter;
-  
-  #endregion
-  #region Non-Serialized Fields
-  
-  private static UIManager _instance;
-  
-  #endregion
-  #region Properties
-  
-  #endregion
-  #region Function Events
+        [SerializeField] private Canvas _slowdownFilter;
 
-  private void Awake()
-  {
-    if (_instance != null)
-      throw new DoubleUIManagerException();
-    _instance = this;
-  }
+        #endregion
 
-  #endregion
+        #region Non-Serialized Fields
 
-  #region Public Methods
+        private static UIManager _instance;
 
-  public static void ToggleSlowdownFilter(bool show)
-  {
-    _instance._slowdownFilter.gameObject.SetActive(show);
-  }
+        #endregion
 
-  #endregion
-  #region Private Methods
-  
-  #endregion
+        #region Properties
 
-  #region Classes
+        #endregion
 
-  private class DoubleUIManagerException : Exception
-  {
-  }
+        #region Function Events
 
-  #endregion
+        private void Awake()
+        {
+            if (_instance != null)
+                throw new DoubleUIManagerException();
+            _instance = this;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public static void ToggleSlowdownFilter(bool show)
+        {
+            _instance._slowdownFilter.gameObject.SetActive(show);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        #endregion
+
+        #region Classes
+
+        private class DoubleUIManagerException : Exception
+        {
+        }
+
+        #endregion
+    }
 }
-
