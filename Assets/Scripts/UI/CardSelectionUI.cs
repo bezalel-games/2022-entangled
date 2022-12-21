@@ -1,5 +1,4 @@
 using Cards;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,9 +9,8 @@ namespace UI
         #region Serialized Fields
 
         [SerializeField] private GameObject _firstSelectedCard;
-        [SerializeField] private TextMeshProUGUI _leftCard;
-        [SerializeField] private TextMeshProUGUI _rightCard;
-        [SerializeField] [TextArea(5, 20)] private string _cardFormat;
+        [SerializeField] private CardUI _leftCard;
+        [SerializeField] private CardUI _rightCard;
 
         #endregion
 
@@ -38,13 +36,13 @@ namespace UI
             _cardsParent.SetActive(false);
         }
 
-        public void ShowCards(Card leftCardText, Card rightCardText)
+        public void ShowCards(Card leftCard, Card rightCard)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_firstSelectedCard);
             _cardsParent.SetActive(true);
-            _leftCard.text = leftCardText.ToString(_cardFormat);
-            _rightCard.text = rightCardText.ToString(_cardFormat);
+            _leftCard.Card = leftCard;
+            _rightCard.Card = rightCard;
         }
 
         #endregion

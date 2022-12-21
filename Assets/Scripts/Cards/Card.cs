@@ -15,9 +15,9 @@ namespace Cards
             _buff = buff;
             _debuff = debuff;
         }
-        
+
         #endregion
-        
+
         #region Fields
 
         private readonly Buff _buff;
@@ -27,6 +27,9 @@ namespace Cards
         #endregion
 
         #region Properties
+
+        public Rarity Rarity =>
+            _buff.Rarity <= _debuff.Rarity ? Rarity.COMMON : (Rarity)(_buff.Rarity - _debuff.Rarity);
 
         #endregion
 
@@ -40,10 +43,19 @@ namespace Cards
             _applied = true;
         }
 
-        public string ToString(string format)
+        public string TitleString(string format)
         {
-            return string.Format(format, _buff?.Name, _buff?.Description, _buff?.Rarity, 
-                _debuff?.Name, _debuff?.Description, _debuff?.Rarity);
+            throw new NotImplementedException();
+        }
+
+        public string BuffString(string format)
+        {
+            return string.Format(format, _buff?.Name, _buff?.Description, _buff?.Rarity);
+        }
+
+        public string DebuffString(string format)
+        {
+            return string.Format(format, _debuff?.Name, _debuff?.Description, _debuff?.Rarity);
         }
 
         #endregion
