@@ -5,6 +5,8 @@ namespace Cards.Buffs.ActiveBuffs
 {
     public class SwapPositionWithYoyo : Buff
     {
+        private float _staminaCost;
+
         #region Fields
 
         private PlayerController _playerController;
@@ -25,8 +27,10 @@ namespace Cards.Buffs.ActiveBuffs
 
         #region Constructor
 
-        public SwapPositionWithYoyo(CardElementClassAttributes attributes, Rarity rarity) : base(attributes, rarity)
+        public SwapPositionWithYoyo(CardElementClassAttributes attributes, Rarity rarity, float staminaCost)
+            : base(attributes, rarity)
         {
+            _staminaCost = staminaCost;
         }
 
         #endregion

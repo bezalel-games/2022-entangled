@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Cards.Buffs.Components;
 using Cards.CardElementClasses;
 using Player;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Cards.Buffs.ActiveBuffs
 {
     public class ExplosiveYoyo : Buff
     {
+        private float _explosionRadius;
+        private readonly Explosion _explosion;
+
         #region Fields
 
         private Yoyo _yoyo;
@@ -25,8 +29,12 @@ namespace Cards.Buffs.ActiveBuffs
 
         #region Constructor
 
-        public ExplosiveYoyo(CardElementClassAttributes attributes, Rarity rarity) : base(attributes, rarity)
+        public ExplosiveYoyo(CardElementClassAttributes attributes, Rarity rarity, float explosionRadius,
+            Explosion explosionPrefab)
+            : base(attributes, rarity)
         {
+            _explosionRadius = explosionRadius;
+            _explosion = explosionPrefab;
         }
 
         #endregion
@@ -35,8 +43,11 @@ namespace Cards.Buffs.ActiveBuffs
 
         private void BlowUpYoyo(InputActionPhase phase)
         {
-            if (phase is not InputActionPhase.Started) return;
-            throw new NotImplementedException("what is the hit interface?");
+            if (phase is not InputActionPhase.Started || _yoyo.State is Yoyo.YoyoState.IDLE) return;
+            var explosion = Object.Instantiate(_explosion, _yoyo.transform);
+            explosion.Radius = _explosionRadius;
+            if (_yoyo.State is Yoyo.YoyoState.PRECISION)
+                _yoyo.CancelPrecision();
         }
 
         #endregion
