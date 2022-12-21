@@ -152,9 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2ba888e1643654a87616b860eeaae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootSpeed: 20
-  _maxDistance: 3
-  _backSpeed: 25
+  _shootSpeed: 27
+  _maxDistance: 4
+  _easeDistance: 0.23
+  _easeVelocityThreshold: 0.75
+  _backSpeed: 28
+  _backEaseDuration: 1.25
+  _turnFactor: 20.5
   _precisionRotationSpeed: 10
   _precisionSpeed: 7
   _resolution: 0.1
