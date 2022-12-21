@@ -2,6 +2,7 @@
 using System.Linq;
 using Cards.Buffs;
 using Cards.Buffs.ActiveBuffs;
+using Cards.Buffs.Components;
 using Cards.Buffs.PassiveBuffs;
 using Cards.CardElementClasses;
 using Cards.Debuffs;
@@ -19,10 +20,12 @@ namespace Cards.Factory
         [field: Header("Buffs")]
         [field: Tooltip("Multiply the current size of the yoyo by given amount")]
         [field: SerializeField] public VariableCardElementClass EnlargeYoyo { get; private set; }
-        
+
         [field: Tooltip("Create an explosion with the given radius around the yoyo")]
-        [field: SerializeField] public VariableCardElementClass ExplosiveYoyo { get; private set; }
-        
+        [field: SerializeField] public FixedCardElementClass ExplosiveYoyo { get; private set; }
+
+        [field: SerializeField] public Explosion ExplosionPrefab { get; private set; }
+
         [field: Tooltip("Teleports to the yoyo's location, using the specified amount of stamina")]
         [field: SerializeField] public FixedCardElementClass SwapPositionWithYoyo { get; private set; }
 
@@ -33,13 +36,13 @@ namespace Cards.Factory
         [field: Header("Debuffs")]
         [field: Tooltip("Reduces the rank of goombas by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreGoombas { get; private set; }
-        
+
         [field: Tooltip("Adds the specified amount of HP to goombas")]
         [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
-        
+
         [field: Tooltip("Reduces the rank of shooters by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
-        
+
         [field: Tooltip("Adds the specified amount of HP to shooters")]
         [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
 
@@ -62,8 +65,9 @@ namespace Cards.Factory
             Buff buff = buffType switch
             {
                 ENLARGE_YOYO => new EnlargeYoyo(EnlargeYoyo.Attributes, buffRarity, EnlargeYoyo[buffRarity]),
-                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity),
-                SWAP_POSITIONS_WITH_YOYO => new SwapPositionWithYoyo(SwapPositionWithYoyo.Attributes, buffRarity),
+                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity, ExplosiveYoyo.Parameter, ExplosionPrefab),
+                SWAP_POSITIONS_WITH_YOYO => new SwapPositionWithYoyo(SwapPositionWithYoyo.Attributes, buffRarity,
+                    SwapPositionWithYoyo.Parameter),
                 _ => throw new ArgumentOutOfRangeException(nameof(buffType), buffType, null)
             };
             Debuff debuff = debuffType switch
