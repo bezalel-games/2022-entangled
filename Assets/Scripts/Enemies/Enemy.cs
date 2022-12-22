@@ -21,7 +21,6 @@ namespace Enemies
         private static int _maxAttacking = 2;
         
         private RoomEnemies _roomEnemies;
-        protected Rigidbody2D _rigidbody;
         private Vector2 _desiredDirection;
         private bool _canAttack = true;
         private bool _attacking;
@@ -95,7 +94,7 @@ namespace Enemies
         {
             base.Awake();
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
-            _rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody = GetComponent<Rigidbody2D>();
             Layer = LayerMask.GetMask("Enemies");
         }
 
@@ -118,7 +117,7 @@ namespace Enemies
                 var hittable = other.gameObject.GetComponent<IHittable>();
                 if(hittable == null) return;       
                 
-                hittable.OnHit(_damage);
+                hittable.OnHit(transform, _damage);
             }
         }
 
@@ -141,8 +140,17 @@ namespace Enemies
 
         protected virtual void Move()
         {
-            if(_rigidbody.bodyType != RigidbodyType2D.Static)
-                _rigidbody.velocity = _desiredDirection * _speed;
+            if (Rigidbody.bodyType != RigidbodyType2D.Static)
+            {
+                if (PushbackVector != Vector2.zero)
+                {
+                    Rigidbody.velocity = PushbackVector;
+                }
+                else
+                {
+                    Rigidbody.velocity = _desiredDirection * _speed;
+                }
+            }
         }
 
         #endregion

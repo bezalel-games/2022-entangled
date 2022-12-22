@@ -161,8 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db44301396422104d8973348a1de7cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 4
+  _maxHp: 40
   _maxMp: 0
+  _pushbackFactor: 1
   _speed: 2
   _damage: 3
   <AttackCooldown>k__BackingField: 1

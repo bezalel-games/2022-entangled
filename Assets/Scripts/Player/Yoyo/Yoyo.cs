@@ -128,9 +128,6 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var hittable = other.GetComponent<IHittable>();
-            Enemy enemy = other.GetComponent<Enemy>();
-
             switch (_state)
             {
                 case YoyoState.BACK:
@@ -141,23 +138,16 @@ namespace Player
 
                     if (other.CompareTag("Enemy"))
                     {
-                        DoDamage(hittable);
-                        if (enemy != null)
-                            _player.OnHitEnemy(enemy);
+                        Enemy enemy = other.GetComponent<Enemy>();
+                        OnHitEnemy(enemy);
                     }
 
                     break;
                 case YoyoState.PRECISION:
-                    if (other.CompareTag("Wall"))
-                    {
-                        _collider.isTrigger = false;
-                    }
-
                     if (other.CompareTag("Enemy"))
                     {
-                        DoDamage(hittable);
-                        if (enemy != null)
-                            _player.OnHitEnemy(enemy);
+                        Enemy enemy = other.GetComponent<Enemy>();
+                        OnHitEnemy(enemy);
                     }
 
                     break;
@@ -167,9 +157,8 @@ namespace Player
                     
                     if (other.CompareTag("Enemy"))
                     {
-                        DoDamage(hittable);
-                        if (enemy != null)
-                            _player.OnHitEnemy(enemy);
+                        Enemy enemy = other.GetComponent<Enemy>();
+                        OnHitEnemy(enemy);
                     }
                     
                     GoBack(true);
@@ -177,12 +166,11 @@ namespace Player
             }
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void OnHitEnemy(Enemy enemy)
         {
-            if (other.gameObject.CompareTag("Wall"))
-            {
-                _collider.isTrigger = true;
-            }
+            if (enemy == null) return;
+            DoDamage(enemy);
+            _player.OnHitEnemy(enemy);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -196,11 +184,8 @@ namespace Player
                 case YoyoState.SHOOT:
                     if (other.CompareTag("Enemy"))
                     {
-                        var hittable = other.GetComponent<IHittable>();
                         Enemy enemy = other.GetComponent<Enemy>();
-                        DoDamage(hittable);
-                        if (enemy != null)
-                            _player.OnHitEnemy(enemy);
+                        OnHitEnemy(enemy);
                         
                         GoBack();
                     }
@@ -254,9 +239,9 @@ namespace Player
 
         private void MoveYoyo()
         {
-            var vel = Vector2.zero;
-            var perpendicular = Vector2.zero;
-            var velWithPerpendicular = Vector2.zero;
+            Vector2 vel;
+            Vector2 perpendicular;
+            Vector2 velWithPerpendicular;
             
             switch (_state)
             {
@@ -320,7 +305,7 @@ namespace Player
         private void DoDamage(IHittable hittable)
         {
             if (hittable == null) return;
-            hittable.OnHit(_damage);
+            hittable.OnHit(transform, _damage);
         }
 
         private void GoBack(bool immediate=false)

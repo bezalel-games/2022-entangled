@@ -211,8 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db7d204ce46f2e4ab339a3f8b006b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 2
+  _maxHp: 20
   _maxMp: 0
+  _pushbackFactor: 1
   _speed: 1
   _damage: 2
   <AttackCooldown>k__BackingField: 1
@@ -220,9 +221,11 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 6
   <KeepDistance>k__BackingField: 4
   <PrepareAttackTime>k__BackingField: 1
+  <AttackTime>k__BackingField: 1
   <Rank>k__BackingField: 2
   <SeparationWeight>k__BackingField: 1
   <ToPlayerWeight>k__BackingField: 0.5
+  <AwayFromWallWeight>k__BackingField: 1
   shootCooldown: 0.3
   _projectilePrefab: {fileID: 2983702607567104395, guid: 25810491f641aa345a6a7ff90daee898, type: 3}
   _projectileSpeed: 10

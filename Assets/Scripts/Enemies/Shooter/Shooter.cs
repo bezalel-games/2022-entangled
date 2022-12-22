@@ -42,9 +42,8 @@ public class Shooter : Enemy
 
     public void Shoot(Vector2 dir)
     {
-        print("shoot");
-        var projPos = transform.position;// + ((Vector3) dir) * 0.5f;
-
+        var projPos = transform.position;
+        
         Projectile proj;
         if (_projectilePool.Count > 0)
         {
@@ -55,16 +54,21 @@ public class Shooter : Enemy
         else
         {
             proj = Instantiate(_projectilePrefab, projPos, Quaternion.identity);
-            proj.OnCollision = () =>
-            {
-                proj.gameObject.SetActive(false);
-                _projectilePool.Push(proj);
-            };
         }
         
         proj.Damage = _damage;
         proj.Speed = _projectileSpeed;
         proj.Direction = dir;
+        proj.OnDisappear = () =>
+        {
+            /*
+             * since setActive(false) calls OnBecameInvisible, we must start by null-ing OnDisappear so it won't
+             * get called twice
+             */
+            proj.OnDisappear = null;
+            proj.gameObject.SetActive(false);
+            _projectilePool.Push(proj);
+        };
 
         CanShoot = false;
         DelayInvoke(() => { CanShoot = true; }, shootCooldown);

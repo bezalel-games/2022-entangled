@@ -37,17 +37,30 @@ namespace Player
 
         private bool _canDash = true;
         private bool _dashing;
-
-        private Rigidbody2D _rigidbody;
+        
         private Vector2 _direction;
+        private bool _invulnerable;
 
         private bool _overridenMovement; // true if the movement is currently not controlled by player input
 
         private const float DEC_THRESHOLD = 0.2f;
 
+        private int OnlyWallLayer;
+        private int PlayerLayer;
+
         #endregion
 
         #region Properties
+
+        protected override bool Invulnerable
+        {
+            get => _invulnerable;
+            set
+            {
+                _invulnerable = value;
+                gameObject.layer = value ? OnlyWallLayer : PlayerLayer;
+            }
+        }
 
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
@@ -64,8 +77,11 @@ namespace Player
 
         private void Start()
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody = GetComponent<Rigidbody2D>();
             Yoyo = GetComponentInChildren<Yoyo>();
+
+            PlayerLayer = LayerMask.NameToLayer("Player");
+            OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
         }
 
         protected override void Update()
@@ -122,10 +138,13 @@ namespace Player
                     DashStartEvent?.Invoke();
                     if (!_canDash || _dashing) return;
                     _dashDirection = _direction.normalized;
+                    
                     _dashing = true;
                     _canDash = false;
                     Invulnerable = true;
+
                     DelayInvoke(() => { _canDash = true; }, _dashCooldown);
+                    
                     DelayInvoke(() =>
                     {
                         _dashing = false;
@@ -142,12 +161,12 @@ namespace Player
         public void OverrideMovement(Vector3 dir, float threshold)
         {
             _overridenMovement = true;
-            var velocity = _rigidbody.velocity;
+            var velocity = Rigidbody.velocity;
             if (velocity.x * dir.x <= 0)
                 velocity.x = 0;
             if (velocity.y * dir.y <= 0)
                 velocity.y = 0;
-            _rigidbody.velocity = velocity;
+            Rigidbody.velocity = velocity;
             _direction = dir;
             Predicate<Vector3> passThresholdTest;
             if (dir.x != 0)
@@ -180,36 +199,44 @@ namespace Player
         {
             if (_dashing)
             {
-                _rigidbody.velocity = _dashDirection * DashSpeed;
+                Rigidbody.velocity = _dashDirection * DashSpeed;
                 return;
             }
 
-            _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity,
-                DesiredVelocity,
-                _acceleration * Time.fixedDeltaTime);
-
-            if (DesiredVelocity.magnitude > _maxSpeed)
+            if (PushbackVector != Vector2.zero)
             {
-                _rigidbody.velocity = DesiredVelocity.normalized * _maxSpeed;
+                Rigidbody.velocity = PushbackVector;
+            }
+            else
+            {
+                Rigidbody.velocity = Vector2.Lerp(Rigidbody.velocity,
+                    DesiredVelocity,
+                    _acceleration * Time.fixedDeltaTime);
+
+                if (DesiredVelocity.magnitude > _maxSpeed)
+                {
+                    Rigidbody.velocity = DesiredVelocity.normalized * _maxSpeed;
+                }
+                
             }
         }
 
         private void ModifyPhysics()
         {
-            var changingDirection = Vector3.Angle(_direction, _rigidbody.velocity) >= 90;
+            var changingDirection = Vector3.Angle(_direction, Rigidbody.velocity) >= 90;
 
             // Make "linear drag" when changing direction
             if (changingDirection)
             {
-                _rigidbody.velocity = Vector2.Lerp(
-                    _rigidbody.velocity,
+                Rigidbody.velocity = Vector2.Lerp(
+                    Rigidbody.velocity,
                     Vector2.zero,
                     _deceleration * Time.fixedDeltaTime);
             }
 
-            if (_direction.magnitude == 0 && _rigidbody.velocity.magnitude < DEC_THRESHOLD)
+            if (_direction.magnitude == 0 && Rigidbody.velocity.magnitude < DEC_THRESHOLD)
             {
-                _rigidbody.velocity *= Vector2.zero;
+                Rigidbody.velocity *= Vector2.zero;
             }
         }
 
@@ -233,12 +260,15 @@ namespace Player
             
         }
 
-        public override void OnHit(float damage)
+        public override void OnHit(Transform attacker, float damage)
         {
             if (Invulnerable) return;
 
-            base.OnHit(damage);
+            base.OnHit(attacker, damage);
             Mp += _mpRecoveryOnHit;
+
+            Invulnerable = true;
+            DelayInvoke((() => { Invulnerable = false; }), PushbackTime);
         }
 
         #endregion

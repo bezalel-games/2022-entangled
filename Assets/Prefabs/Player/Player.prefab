@@ -125,6 +125,7 @@ MonoBehaviour:
   _mpRecoveryOnAttack: 0.5
   _mpRecoveryOnHit: 0.2
   _mpPrecisionReduction: 3
+  _invulTimeOnHit: 0.5
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}
