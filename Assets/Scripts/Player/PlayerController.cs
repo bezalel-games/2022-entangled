@@ -18,7 +18,8 @@ namespace Player
         [SerializeField] private float _acceleration = 2;
         [SerializeField] private float _deceleration = 2;
 
-        [Header("Dash")] [SerializeField] private float _dashTime;
+        [Header("Dash")] 
+        [field: SerializeField] public float DashTime;
         [SerializeField] private float _dashBonus;
         [SerializeField] private float _dashCooldown;
 
@@ -31,6 +32,8 @@ namespace Player
         #endregion
 
         #region Non-Serialized Fields
+        
+        private Animator _animator;
 
         private Vector3
             _dashDirection; // used so we can keep tracking the input direction without changing dash direction
@@ -50,6 +53,15 @@ namespace Player
 
         #endregion
 
+        #region Animator Strings
+
+        private static readonly int Dash = Animator.StringToHash("dash");
+        private static readonly int Walking = Animator.StringToHash("walking");
+        private static readonly int xDirection = Animator.StringToHash("xDirection");
+        private static readonly int yDirection = Animator.StringToHash("yDirection");
+
+        #endregion
+
         #region Properties
 
         protected override bool Invulnerable
@@ -65,6 +77,20 @@ namespace Player
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
 
+        private Vector2 Direction
+        {
+            get => _direction;
+            set
+            {
+                _direction = value.normalized;
+                if (!_dashing)
+                {
+                    _animator.SetFloat(xDirection, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x );
+                    _animator.SetFloat(yDirection, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y );
+                }
+            }
+        }
+
         #endregion
 
         #region C# Events
@@ -79,6 +105,7 @@ namespace Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             Yoyo = GetComponentInChildren<Yoyo>();
+            _animator = GetComponentInChildren<Animator>();
 
             PlayerLayer = LayerMask.NameToLayer("Player");
             OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
@@ -122,10 +149,12 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
-                    _direction = context.ReadValue<Vector2>();
+                    Direction = context.ReadValue<Vector2>();
+                    _animator.SetBool(Walking, true);
                     break;
                 case InputActionPhase.Canceled:
-                    _direction = Vector2.zero;
+                    Direction = Vector2.zero;
+                    _animator.SetBool(Walking, false);
                     break;
             }
         }
@@ -137,11 +166,13 @@ namespace Player
                 case InputActionPhase.Started:
                     DashStartEvent?.Invoke();
                     if (!_canDash || _dashing) return;
+                    
                     _dashDirection = _direction.normalized;
                     
                     _dashing = true;
                     _canDash = false;
                     Invulnerable = true;
+                    _animator.SetTrigger(Dash);
 
                     DelayInvoke(() => { _canDash = true; }, _dashCooldown);
                     
@@ -149,7 +180,7 @@ namespace Player
                     {
                         _dashing = false;
                         Invulnerable = false;
-                    }, _dashTime);
+                    }, DashTime);
                     break;
             }
         }
@@ -167,7 +198,7 @@ namespace Player
             if (velocity.y * dir.y <= 0)
                 velocity.y = 0;
             Rigidbody.velocity = velocity;
-            _direction = dir;
+            Direction = dir;
             Predicate<Vector3> passThresholdTest;
             if (dir.x != 0)
                 passThresholdTest = dir.x > 0 ? (pos) => pos.x > threshold : (pos) => pos.x < threshold;
@@ -247,7 +278,7 @@ namespace Player
                 yield return null;
             }
 
-            _direction = Vector2.zero;
+            Direction = Vector2.zero;
             _overridenMovement = false;
         }
 
