@@ -119,13 +119,12 @@ MonoBehaviour:
   _maxSpeed: 8
   _acceleration: 7
   _deceleration: 15
-  _dashTime: 0.2
+  DashTime: 0.5
   _dashBonus: 4
   _dashCooldown: 0.5
   _mpRecoveryOnAttack: 0.5
   _mpRecoveryOnHit: 0.2
   _mpPrecisionReduction: 3
-  _invulTimeOnHit: 0.5
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}
