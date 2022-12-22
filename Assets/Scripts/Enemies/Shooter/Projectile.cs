@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 
   public float Damage { get; set; }
   
-  public Action OnCollision { get; set; }
+  public Action OnDisappear { get; set; }
 
   #endregion
 
@@ -53,10 +53,15 @@ public class Projectile : MonoBehaviour
     if (other.gameObject.CompareTag("Player"))
     {
       var hittable = other.gameObject.GetComponent<IHittable>();
-      hittable.OnHit(Damage);
+      hittable.OnHit(transform, Damage);
     }
     
-    OnCollision.Invoke();
+    OnDisappear?.Invoke();
+  }
+
+  private void OnBecameInvisible()
+  {
+    OnDisappear?.Invoke();
   }
 
   #endregion

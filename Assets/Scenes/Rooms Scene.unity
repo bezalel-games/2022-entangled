@@ -449,14 +449,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: _mpBar
-      value: 
-      objectReference: {fileID: 1944245418559876192}
-    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: _healthBar
-      value: 
-      objectReference: {fileID: 1788573033}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 2

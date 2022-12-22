@@ -69,7 +69,7 @@ namespace Cards.Buffs.Components
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Enemy"))
-                other.GetComponent<IHittable>()?.OnHit(_damage);
+                other.GetComponent<IHittable>()?.OnHit(transform, _damage);
         }
 
         #endregion

@@ -40,7 +40,7 @@ public class Goomba : Enemy
     }
     else
     {
-      _rigidbody.velocity = DesiredDirection * _attackSpeed;
+      Rigidbody.velocity = DesiredDirection * _attackSpeed;
     }
   }
 

@@ -12,18 +12,27 @@ namespace HP_System
         [SerializeField] private float _maxHp;
         [SerializeField] private float _maxMp;
 
+        protected readonly float PushbackTime = 0.3f;
+
         #endregion
 
         #region Non-Serialized Fields
 
         private float _hp;
         private float _mp;
+        private float _hitTime;
+        private float _pushbackFactor = 0.4f;
+        
+        protected Rigidbody2D Rigidbody;
+        
+        protected Vector2 PushbackVector;
+        private Vector2 _pushbackDirection;
 
         #endregion
 
         #region Properties
 
-        protected bool Invulnerable { get; set; }
+        protected virtual bool Invulnerable { get; set; }
 
         public event Action<float, float> OnHpChange;
         public event Action<float, float> OnMpChange;
@@ -85,6 +94,25 @@ namespace HP_System
             Mp = MaxMp;
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            if (Time.time > _hitTime + PushbackTime && PushbackVector != Vector2.zero)
+            {
+                PushbackVector = Vector2.zero;
+            }
+            if (Time.time >= _hitTime && Time.time <= _hitTime + PushbackTime)
+            {
+                var t = (Time.time - _hitTime) / PushbackTime;
+                PushbackVector = Vector2.Lerp(_pushbackDirection, Vector2.zero, t);
+                if (PushbackVector.magnitude <= 0.1f)
+                {
+                    PushbackVector = Vector2.zero;
+                }
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -103,10 +131,13 @@ namespace HP_System
 
         #region IHittable
 
-        public virtual void OnHit(float damage)
+        public virtual void OnHit(Transform attacker, float damage)
         {
             if (Invulnerable) return;
             Hp -= damage;
+
+            _pushbackDirection = _pushbackFactor * (transform.position - attacker.position.normalized);
+            _hitTime = Time.time;
         }
 
         public void OnHeal(float health)
