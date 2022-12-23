@@ -10,7 +10,7 @@ namespace Cards.Debuffs
         #region Fields
 
         private readonly int _enemyType;
-        private readonly int _rankDemotion;
+        private readonly float _enemyRankMultiplier;
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace Cards.Debuffs
         public override void Apply(EnemyDictionary enemyDictionary)
         {
             var rank = enemyDictionary[_enemyType].Rank;
-            enemyDictionary[_enemyType].Rank = Math.Max(rank - _rankDemotion, 1);
+            enemyDictionary[_enemyType].Rank = Math.Max((int)(rank * _enemyRankMultiplier), 1);
         }
         
         public override DebuffType Type => DebuffType.MORE_GOOMBAS + _enemyType;
@@ -28,11 +28,11 @@ namespace Cards.Debuffs
 
         #region Constructor
 
-        public MoreEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, int rankDemotion)
+        public MoreEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float enemyQuantityMultiplier)
             : base(attributes, rarity)
         {
             _enemyType = enemyType;
-            _rankDemotion = rankDemotion;
+            _enemyRankMultiplier = 1 / enemyQuantityMultiplier;
         }
 
         #endregion

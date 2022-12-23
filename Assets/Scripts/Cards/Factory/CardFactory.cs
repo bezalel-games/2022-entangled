@@ -34,27 +34,17 @@ namespace Cards.Factory
         #region Debuff Serialized Fields
 
         [field: Header("Debuffs")]
-        [field: Tooltip("Reduces the rank of goombas by the specified amount")]
+        [field: Tooltip("Multiplies the number of Goombas by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreGoombas { get; private set; }
 
-        [field: Tooltip("Adds the specified amount of HP to goombas")]
+        [field: Tooltip("Multiplies Goomba HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
 
-        [field: Tooltip("Reduces the rank of shooters by the specified amount")]
+        [field: Tooltip("Multiplies the number of Shooters by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
 
-        [field: Tooltip("Adds the specified amount of HP to shooters")]
+        [field: Tooltip("Multiplies Shooter HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
-
-        #endregion
-
-        #region Function Events
-
-        private void OnValidate()
-        {
-            MoreGoombas?.ToInt();
-            MoreShooters?.ToInt();
-        }
 
         #endregion
 

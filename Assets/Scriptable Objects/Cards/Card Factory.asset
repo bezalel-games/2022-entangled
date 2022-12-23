@@ -27,26 +27,26 @@ MonoBehaviour:
     <Parameter>k__BackingField: 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
   <MoreGoombas>k__BackingField:
-    _commonVariant: 1
-    _rareVariant: 2
-    _epicVariant: 3
+    _commonVariant: 1.1
+    _rareVariant: 1.3
+    _epicVariant: 1.5
     <Attributes>k__BackingField: {fileID: 11400000, guid: 3723c6eff8a890c4aba027930ee8703e, type: 2}
     <EnemyIndex>k__BackingField: 0
   <TougherGoombas>k__BackingField:
-    _commonVariant: 10
-    _rareVariant: 20
-    _epicVariant: 30
+    _commonVariant: 1.2
+    _rareVariant: 1.4
+    _epicVariant: 1.7
     <Attributes>k__BackingField: {fileID: 11400000, guid: 88dc1bf97df7da042b301c589b409880, type: 2}
     <EnemyIndex>k__BackingField: 0
   <MoreShooters>k__BackingField:
-    _commonVariant: 1
-    _rareVariant: 2
-    _epicVariant: 3
+    _commonVariant: 1.1
+    _rareVariant: 1.3
+    _epicVariant: 1.5
     <Attributes>k__BackingField: {fileID: 11400000, guid: b3881a6d50cd06b41bbbdc53c1d72411, type: 2}
     <EnemyIndex>k__BackingField: 1
   <TougherShooters>k__BackingField:
-    _commonVariant: 10
-    _rareVariant: 20
-    _epicVariant: 30
+    _commonVariant: 1.2
+    _rareVariant: 1.4
+    _epicVariant: 1.7
     <Attributes>k__BackingField: {fileID: 11400000, guid: 167359edc1e9bd84e87d9a5e88bcee96, type: 2}
     <EnemyIndex>k__BackingField: 1

@@ -9,7 +9,7 @@ namespace Cards.Debuffs
         #region Fields
 
         private readonly int _enemyType;
-        private readonly float _hpAddition;
+        private readonly float _hpMultiplier;
 
         #endregion
 
@@ -17,7 +17,7 @@ namespace Cards.Debuffs
 
         public override void Apply(EnemyDictionary enemyDictionary)
         {
-            enemyDictionary[_enemyType].MaxHp += _hpAddition;
+            enemyDictionary[_enemyType].MaxHp *= _hpMultiplier;
         }
 
         public override DebuffType Type => DebuffType.TOUGHER_GOOMBAS + _enemyType;
@@ -26,11 +26,11 @@ namespace Cards.Debuffs
 
         #region Constructor
 
-        public TougherEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float hpAddition)
+        public TougherEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float hpMultiplier)
             : base(attributes, rarity)
         {
             _enemyType = enemyType;
-            _hpAddition = hpAddition;
+            _hpMultiplier = hpMultiplier;
         }
 
         #endregion
