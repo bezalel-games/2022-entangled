@@ -22,11 +22,11 @@ MonoBehaviour:
   <HorizontalIntersection>k__BackingField: 0
   <WallSize>k__BackingField: 1
   <GateWidth>k__BackingField: 2
-  <GroundTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
+  <GroundTile>k__BackingField: {fileID: 11400000, guid: e072c05858d5feb48b2c2d55426e6396, type: 2}
   <WallTile>k__BackingField: {fileID: 11400000, guid: 3236b8e7650b4234d86045dfa50b9746, type: 2}
-  <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
+  <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
   <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
-  <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
-  <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: 9b9817bf463fe8a4d8b8df1b2096964e, type: 2}
+  <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
+  <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
   _update: 0
   _updateContinuously: 0
