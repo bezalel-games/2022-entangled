@@ -8,6 +8,7 @@ namespace Managers
         #region Serialized Fields
 
         [SerializeField] private Canvas _slowdownFilter;
+        [SerializeField] private Canvas _generalCanvas;
 
         #endregion
 
@@ -37,6 +38,11 @@ namespace Managers
         public static void ToggleSlowdownFilter(bool show)
         {
             _instance._slowdownFilter.gameObject.SetActive(show);
+        }
+
+        public static void ToggleRunCanvas(bool show)
+        {
+            _instance._generalCanvas.gameObject.SetActive(show);
         }
 
         #endregion

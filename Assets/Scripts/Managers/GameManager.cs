@@ -4,6 +4,7 @@ using Player;
 using Rooms;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -15,6 +16,7 @@ namespace Managers
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
         [SerializeField] private CardManager _cardManager;
+        [SerializeField] private GameObject _hub;
 
         #endregion
 
@@ -113,6 +115,31 @@ namespace Managers
 
         #region Public Methods
 
+        public static void LoadRun()
+        {
+            LoadManager.LoadScene("Run Scene", LoadSceneMode.Additive, onLoad: StartRun);
+        }
+        
+        public static void UnloadRun()
+        {
+            LoadManager.UnloadScene("Run Scene", onLoad: EndRun);
+        }
+        
+        public static void StartRun()
+        {
+            _instance._hub.SetActive(false);
+            UIManager.ToggleRunCanvas(true);
+            
+            PlayerController.StartRun();
+        }
+
+        public static void EndRun()
+        {
+            _instance._hub.SetActive(true);
+            UIManager.ToggleRunCanvas(false);
+            PlayerController.EndRun();
+        }
+
         public static void ScaleTime(float timeScale)
         {
             Time.timeScale = timeScale;
@@ -139,7 +166,6 @@ namespace Managers
         #endregion
 
         #region Private Methods
-        
 
         #endregion
 
