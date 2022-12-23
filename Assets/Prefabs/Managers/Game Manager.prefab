@@ -48,7 +48,7 @@ MonoBehaviour:
   _playerController: {fileID: 0}
   _uiController: {fileID: 0}
   _chooseCards: 1
-  _cardManager: {fileID: 11400000, guid: f78b6e2fc34c81347a9af574875b51ca, type: 2}
+  _cardManager: {fileID: 7235197585445724460}
 --- !u!114 &7235197585445724460
 MonoBehaviour:
   m_ObjectHideFlags: 0

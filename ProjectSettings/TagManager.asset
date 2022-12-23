@@ -43,8 +43,17 @@ TagManager:
   - name: Background
     uniqueID: 2034819169
     locked: 0
+  - name: Floor
+    uniqueID: 171178255
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3945494543
+    locked: 0
+  - name: Slowdown
+    uniqueID: 2892944209
     locked: 0
   - name: Yoyo
     uniqueID: 1047097729
