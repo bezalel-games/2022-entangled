@@ -9,7 +9,6 @@ public class LoadManager : MonoBehaviour
   #region Serialized Fields
 
   [SerializeField] private CanvasGroup _loadingCanvas;
-  [SerializeField] private float _fadeDuration = 0.5f;
 
   #endregion
 

@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
 using Cards;
 using Player;
 using Rooms;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
+using Utils.SaveUtils;
+using Object = UnityEngine.Object;
 
 namespace Managers
 {
@@ -129,6 +133,7 @@ namespace Managers
         {
             _instance._hub.SetActive(false);
             UIManager.ToggleRunCanvas(true);
+            _instance.SaveData();
             
             PlayerController.StartRun();
         }
@@ -137,6 +142,7 @@ namespace Managers
         {
             _instance._hub.SetActive(true);
             UIManager.ToggleRunCanvas(false);
+            _instance.LoadData();
             PlayerController.EndRun();
         }
 
@@ -166,6 +172,16 @@ namespace Managers
         #endregion
 
         #region Private Methods
+
+        private void SaveData()
+        {
+            SaveSystem.SaveData(new (){{SaveSystem.DataType.PLAYER, _playerController}});
+        }
+
+        private void LoadData()
+        {
+            SaveSystem.LoadData(new (){{SaveSystem.DataType.PLAYER, _playerController}});
+        }
 
         #endregion
 
