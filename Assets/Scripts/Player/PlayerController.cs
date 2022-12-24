@@ -3,6 +3,7 @@ using System.Collections;
 using Managers;
 using Enemies;
 using HP_System;
+using Rooms;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -106,7 +107,9 @@ namespace Player
             Rigidbody = GetComponent<Rigidbody2D>();
             Yoyo = GetComponentInChildren<Yoyo>();
             _animator = GetComponentInChildren<Animator>();
-
+            
+            Yoyo.gameObject.SetActive(false);
+            
             PlayerLayer = LayerMask.NameToLayer("Player");
             OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
         }
@@ -288,7 +291,7 @@ namespace Player
 
         public override void OnDie()
         {
-            
+            GameManager.UnloadRun();
         }
 
         public override void OnHit(Transform attacker, float damage)
@@ -303,5 +306,25 @@ namespace Player
         }
 
         #endregion
+
+        public void StartRun()
+        {
+            Yoyo.gameObject.SetActive(true);
+            var height = RoomManager.RoomProperties.Height;
+
+            Hp = MaxHp;
+            Mp = MaxMp;
+            DashStartEvent = null;
+            QuickShotEvent = null;
+
+            transform.position = new Vector3(0 , -(height * 0.45f), 0);
+            OverrideMovement(Vector3.up, -(height * 0.1f));
+        }
+
+        public void EndRun()
+        {
+            Yoyo.gameObject.SetActive(false);
+            transform.position = Vector3.zero;
+        }
     }
 }

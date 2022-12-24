@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using Cards;
 using Player;
 using Rooms;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Utils;
+using Utils.SaveUtils;
+using Object = UnityEngine.Object;
 
 namespace Managers
 {
@@ -15,6 +20,7 @@ namespace Managers
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
         [SerializeField] private CardManager _cardManager;
+        [SerializeField] private GameObject _hub;
 
         #endregion
 
@@ -113,6 +119,33 @@ namespace Managers
 
         #region Public Methods
 
+        public static void LoadRun()
+        {
+            LoadManager.LoadScene("Run Scene", LoadSceneMode.Additive, onLoad: StartRun);
+        }
+        
+        public static void UnloadRun()
+        {
+            LoadManager.UnloadScene("Run Scene", onLoad: EndRun);
+        }
+        
+        public static void StartRun()
+        {
+            _instance._hub.SetActive(false);
+            UIManager.ToggleRunCanvas(true);
+            _instance.SaveData();
+            
+            PlayerController.StartRun();
+        }
+
+        public static void EndRun()
+        {
+            _instance._hub.SetActive(true);
+            UIManager.ToggleRunCanvas(false);
+            _instance.LoadData();
+            PlayerController.EndRun();
+        }
+
         public static void ScaleTime(float timeScale)
         {
             Time.timeScale = timeScale;
@@ -139,7 +172,16 @@ namespace Managers
         #endregion
 
         #region Private Methods
-        
+
+        private void SaveData()
+        {
+            SaveSystem.SaveData(new (){{SaveSystem.DataType.PLAYER, _playerController}});
+        }
+
+        private void LoadData()
+        {
+            SaveSystem.LoadData(new (){{SaveSystem.DataType.PLAYER, _playerController}});
+        }
 
         #endregion
 
