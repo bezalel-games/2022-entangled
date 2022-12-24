@@ -36,6 +36,8 @@ namespace HP_System
 
         public event Action<float, float> OnHpChange;
         public event Action<float, float> OnMpChange;
+
+        public bool IsDead => Hp <= 0;
         
         public float MaxHp
         {
@@ -56,7 +58,7 @@ namespace HP_System
                 
                 OnHpChange?.Invoke(_hp, MaxHp);
 
-                if (_hp <= 0)
+                if (IsDead)
                 {
                     OnDie();
                 }
@@ -133,7 +135,7 @@ namespace HP_System
 
         public virtual void OnHit(Transform attacker, float damage)
         {
-            if (Invulnerable) return;
+            if (Invulnerable || IsDead) return;
             Hp -= damage;
 
             _pushbackDirection = _pushbackFactor * (transform.position - attacker.position.normalized);

@@ -311,6 +311,12 @@ namespace Player
         {
             Yoyo.gameObject.SetActive(true);
             var height = RoomManager.RoomProperties.Height;
+
+            Hp = MaxHp;
+            Mp = MaxMp;
+            DashStartEvent = null;
+            QuickShotEvent = null;
+
             transform.position = new Vector3(0 , -(height * 0.45f), 0);
             OverrideMovement(Vector3.up, -(height * 0.1f));
         }

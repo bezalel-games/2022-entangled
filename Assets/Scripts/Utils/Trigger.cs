@@ -4,35 +4,34 @@ using UnityEngine.Events;
 
 public class Trigger : MonoBehaviour
 {
-  #region Serialized Fields
+    #region Serialized Fields
 
-  [SerializeField] private UnityEvent _onTrigger;
+    [SerializeField] private UnityEvent _onTrigger;
 
-  #endregion
+    #endregion
 
-  #region Non-Serialized Fields
+    #region Non-Serialized Fields
 
-  #endregion
+    #endregion
 
-  #region Properties
+    #region Properties
 
-  #endregion
+    #endregion
 
-  #region Function Events
+    #region Function Events
 
-  private void OnTriggerEnter2D(Collider2D other)
-  {
-    _onTrigger.Invoke();
-  }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        _onTrigger.Invoke();
+    }
 
-  #endregion
+    #endregion
 
-  #region Public Methods
+    #region Public Methods
 
-  #endregion
+    #endregion
 
-  #region Private Methods
+    #region Private Methods
 
-  #endregion
+    #endregion
 }
-
