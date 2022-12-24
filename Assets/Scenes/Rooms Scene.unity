@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slowdownFilter: {fileID: 132095366}
+  _generalCanvas: {fileID: 0}
 --- !u!224 &256326578 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2234109566293707142, guid: 315d852f70075de459290ed2d6d8bea2, type: 3}
@@ -512,14 +513,6 @@ PrefabInstance:
     - target: {fileID: 4768744146256827586, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5892026909823545101, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5892026909823545101, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8773820950673093149, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_LocalScale.x
