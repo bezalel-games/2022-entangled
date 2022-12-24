@@ -19,7 +19,7 @@ namespace Cards.Buffs.PassiveBuffs
         public override void Apply(PlayerController playerController)
         {
             var yoyo = playerController.Yoyo;
-            yoyo.StartCoroutine(Enlarge(yoyo.GetComponentInChildren<Collider2D>().transform));
+            yoyo.StartCoroutine(Enlarge(yoyo));
         }
 
         #endregion
@@ -36,9 +36,9 @@ namespace Cards.Buffs.PassiveBuffs
 
         #region Private Methods
 
-        private IEnumerator Enlarge(Transform transform)
+        private IEnumerator Enlarge(Yoyo yoyo)
         {
-            var initialScale = transform.localScale;
+            var initialScale = yoyo.Size;
             var startTime = Time.time;
             while (true)
             {
@@ -46,11 +46,11 @@ namespace Cards.Buffs.PassiveBuffs
                 var growthFactor = 1 + (Time.time - startTime) * ENLARGEMENT_SPEED;
                 if (growthFactor > _growthIncrease)
                 {
-                    transform.localScale = initialScale * _growthIncrease;
+                    yoyo.Size = initialScale * _growthIncrease;
                     break;
                 }
 
-                transform.localScale = initialScale * growthFactor;
+                yoyo.Size = initialScale * growthFactor;
             }
         }
 

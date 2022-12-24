@@ -89,6 +89,12 @@ namespace Player
             set => _quickShotDirection = value.normalized;
         }
 
+        public float Size
+        {
+            get => _collider.transform.localScale.x;
+            set => _collider.transform.localScale = Vector3.one * value;
+        }
+
         #endregion
 
         #region Function Events
@@ -295,9 +301,7 @@ namespace Player
                         _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity, 
                              velWithPerpendicular * vel.magnitude, backT);
                     }
-                    
-                    // _rigidbody.velocity = (vel + _turnFactor*perpendicular).normalized * vel.magnitude;
-                    
+
                     break;
             }
         }

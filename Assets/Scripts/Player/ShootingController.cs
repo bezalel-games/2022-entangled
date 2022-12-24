@@ -54,6 +54,8 @@ namespace Player
 
         public void OnAim(InputAction.CallbackContext context)
         {
+            if(Yoyo.enabled == false) return;
+            
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -189,7 +191,6 @@ namespace Player
                 // when add walls layer, use this
 
                 // var hit = Physics2D.Raycast(transform.position, direction, 10).collider;
-                // print($"{hit.gameObject.tag},{enemy.gameObject.tag}");
                 // if (hit.GetInstanceID() == enemy.GetInstanceID())
                 // {
                 //     return hit;
