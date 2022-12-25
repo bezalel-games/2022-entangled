@@ -1,4 +1,5 @@
 ﻿using Cards.CardElementClasses;
+using Cards.Factory;
 using Player;
 
 namespace Cards.Buffs.ActiveBuffs
@@ -22,6 +23,8 @@ namespace Cards.Buffs.ActiveBuffs
             _playerController = playerController;
             _yoyo = playerController.Yoyo;
         }
+        
+        public override BuffType Type => BuffType.SWAP_POSITIONS_WITH_YOYO;
 
         #endregion
 

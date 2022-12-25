@@ -1,8 +1,9 @@
 ﻿using Cards.Buffs.Components;
 using Cards.CardElementClasses;
+using Cards.Factory;
 using Player;
-using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 namespace Cards.Buffs.ActiveBuffs
 {
@@ -24,6 +25,8 @@ namespace Cards.Buffs.ActiveBuffs
             _yoyo = playerController.Yoyo;
             playerController.QuickShotEvent += BlowUpYoyo;
         }
+        
+        public override BuffType Type => BuffType.EXPLOSIVE_YOYO;
 
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using Cards.CardElementClasses;
 using Cards.Cards;
+using Cards.Factory;
 using Enemies;
 
 namespace Cards.Debuffs
@@ -11,5 +12,7 @@ namespace Cards.Debuffs
         }
 
         public abstract void Apply(EnemyDictionary enemyDictionary);
+
+        public abstract DebuffType Type { get; }
     }
 }
