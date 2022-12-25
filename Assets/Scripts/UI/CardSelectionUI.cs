@@ -11,6 +11,7 @@ namespace UI
         [SerializeField] private GameObject _firstSelectedCard;
         [SerializeField] private CardUI _leftCard;
         [SerializeField] private CardUI _rightCard;
+        [SerializeField] private GameObject _leftIsDeckCard;
 
         #endregion
 
@@ -36,13 +37,14 @@ namespace UI
             _cardsParent.SetActive(false);
         }
 
-        public void ShowCards(Card leftCard, Card rightCard)
+        public void ShowCards(Card leftCard, Card rightCard, bool leftIsDeckCard)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_firstSelectedCard);
             _cardsParent.SetActive(true);
             _leftCard.Card = leftCard;
             _rightCard.Card = rightCard;
+            _leftIsDeckCard.SetActive(leftIsDeckCard);
         }
 
         #endregion

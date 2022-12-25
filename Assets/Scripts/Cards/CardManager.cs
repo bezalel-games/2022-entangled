@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Cards.Buffs.ActiveBuffs;
-using Cards.Buffs.PassiveBuffs;
-using Cards.Debuffs;
 using Cards.Factory;
 using UI;
 using UnityEngine;
+using Utils.SaveUtils;
 
 namespace Cards
 {
@@ -23,6 +22,8 @@ namespace Cards
 
         #region Non-Serialized Fields
 
+        private PlayerDeck _playerDeck;
+        private RunDeck _runDeck;
         private CardPool _cardPool;
         private Card _leftCard;
         private Card _rightCard;
@@ -32,20 +33,37 @@ namespace Cards
 
         #region Function Events
 
-        public void Awake()
+        private void Awake()
         {
-            _cardPool = new CardPool(new[] { _commonWeight, _rareWeight, _epicWeight });
-            foreach (var rarity in Enum.GetValues(typeof(Rarity)).Cast<Rarity>())
-            {
-                _cardPool.Add(BuffType.EXPLOSIVE_YOYO, rarity);
-                _cardPool.Add(BuffType.ENLARGE_YOYO, rarity);
-                _cardPool.Add(DebuffType.MORE_GOOMBAS, rarity);
-                _cardPool.Add(DebuffType.MORE_SHOOTERS, rarity);
-                _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, rarity);
-                _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, rarity);
-            }
+            _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
+            var allRarities = Rarities.All;
+            _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
+            _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
+            _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
+            _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
+            _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
+            _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
 
             _cardPool.Add(BuffType.ENLARGE_YOYO, _factory.SwapPositionWithYoyo.Rarity);
+
+            _playerDeck = new PlayerDeck(_factory);
+
+            if (SaveSystem.DataSaved(_playerDeck))
+                SaveSystem.LoadData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
+            else
+                _playerDeck.InitEmpty();
+            _runDeck = new RunDeck(_playerDeck, _cardPool);
+        }
+
+        private void OnDestroy()
+        {
+            SaveSystem.SaveData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
+        }
+
+        public void Reset()
+        {
+            OnDestroy();
+            Awake();
         }
 
         #endregion
@@ -54,9 +72,17 @@ namespace Cards
 
         public void ShowCards(Action finishedChoosingCardsAction)
         {
+            bool leftIsDeckCard = true;
             _finishedChoosingCardsAction = finishedChoosingCardsAction;
-            GenerateNewCards();
-            _ui.ShowCards(_leftCard, _rightCard);
+            _leftCard = _runDeck.Draw();
+            if (_leftCard == null)
+            {
+                _leftCard = GenerateNewCard();
+                leftIsDeckCard = false;
+            }
+
+            _rightCard = GenerateNewCard();
+            _ui.ShowCards(_leftCard, _rightCard, leftIsDeckCard);
         }
 
         public void ChooseLeftCard() => ChooseCard(_leftCard);
@@ -67,20 +93,59 @@ namespace Cards
 
         #region Private Methods
 
-        private void GenerateNewCards()
+        private Card GenerateNewCard()
         {
             var buff = _cardPool.GetRandomBuff();
             var debuff = _cardPool.GetRandomDebuff();
-            _leftCard = _factory.Create(buff.type, buff.rarity, debuff.type, debuff.rarity);
-            buff = _cardPool.GetRandomBuff();
-            debuff = _cardPool.GetRandomDebuff();
-            _rightCard = _factory.Create(buff.type, buff.rarity, debuff.type, debuff.rarity);
+            return _factory.Create(buff.type, buff.rarity, debuff.type, debuff.rarity);
         }
 
         private void ChooseCard(Card card)
         {
             card.Apply();
+            _runDeck.ReplaceCard(card);
             _finishedChoosingCardsAction.Invoke();
+        }
+
+        #endregion
+
+        #region Classes
+
+        public class PlayerDeck : ISavable<List<Card.CardEssence>>
+        {
+            private readonly CardFactory _factory;
+            private List<Card> _deck;
+
+            public PlayerDeck(CardFactory factory)
+            {
+                _factory = factory;
+                _deck = null;
+            }
+
+
+            // To allow a deck to be passed as a list
+            public static implicit operator List<Card>(PlayerDeck deck) => deck._deck;
+
+            public void InitEmpty() => _deck = new List<Card>();
+
+            public SaveSystem.DataType GetDataType()
+            {
+                return SaveSystem.DataType.DECK;
+            }
+
+            List<Card.CardEssence> ISavable<List<Card.CardEssence>>.ToSave()
+            {
+                var serializableCards = new List<Card.CardEssence>(_deck.Count);
+                serializableCards.AddRange(_deck.Select(card => card.Essence));
+                return serializableCards;
+            }
+
+            public void FromLoad(List<Card.CardEssence> data)
+            {
+                _deck = new List<Card>(data.Count);
+                _deck.AddRange(data.Select(cardEssence => _factory.Create(cardEssence.Buff.type,
+                    cardEssence.Buff.rarity, cardEssence.Debuff.type, cardEssence.Debuff.rarity)));
+            }
         }
 
         #endregion

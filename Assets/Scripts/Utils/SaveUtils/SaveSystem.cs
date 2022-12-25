@@ -13,7 +13,8 @@ namespace Utils.SaveUtils
 
         private static Dictionary<DataType, string> Filenames = new()
         {
-            {DataType.PLAYER, "player.data"}
+            {DataType.PLAYER, "player.data"},
+            {DataType.DECK, "deck.data"}
         };
 
         #endregion
@@ -69,6 +70,11 @@ namespace Utils.SaveUtils
             }
         }
 
+        public static bool DataSaved(ISavableBase data)
+        {
+            return File.Exists(Application.persistentDataPath + "/" + Filenames[data.GetDataType()]);
+        }
+
         #endregion
         
         #region Private Methods
@@ -113,7 +119,8 @@ namespace Utils.SaveUtils
         
         public enum DataType
         {
-            PLAYER
+            PLAYER,
+            DECK
         }
         
         private class UnknownDataTypeException : Exception

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Cards.CardElementClasses;
+using Cards.Factory;
 using Player;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace Cards.Buffs.PassiveBuffs
             var yoyo = playerController.Yoyo;
             yoyo.StartCoroutine(Enlarge(yoyo));
         }
+
+        public override BuffType Type => BuffType.ENLARGE_YOYO;
 
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using Cards.CardElementClasses;
+using Cards.Factory;
 using Enemies;
 
 namespace Cards.Debuffs
@@ -18,6 +19,8 @@ namespace Cards.Debuffs
         {
             enemyDictionary[_enemyType].MaxHp += _hpAddition;
         }
+
+        public override DebuffType Type => DebuffType.TOUGHER_GOOMBAS + _enemyType;
 
         #endregion
 

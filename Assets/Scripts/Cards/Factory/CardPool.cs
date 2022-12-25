@@ -11,85 +11,100 @@ namespace Cards.Factory
         private const int NUMBER_OF_RARITIES = 3;
 
         private readonly int[] _weights;
-        private readonly List<BuffType>[] _buffPools = new List<BuffType>[NUMBER_OF_RARITIES];
-        private readonly List<DebuffType>[] _debuffPools = new List<DebuffType>[NUMBER_OF_RARITIES];
+        private readonly List<(BuffType buff, Rarities rarities)> _buffPool;
+        private readonly List<(DebuffType debuff, Rarities rarities)> _debuffPool;
+        private readonly bool[] _containedBuffs;
+        private readonly bool[] _containedDebuffs;
 
+        private int[] _raritiesBuffer = new int[NUMBER_OF_RARITIES];
+
+        #endregion
+        
+        #region Events
+
+        public event Action PoolUpdated;
+        
         #endregion
 
         #region Constructor
 
-        public CardPool(int[] weights)
+        public CardPool(params int[] weights)
         {
             if (weights.Length != NUMBER_OF_RARITIES)
                 throw new ArgumentException("length of weights should be exactly 3");
             _weights = weights;
-            for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
-            {
-                _buffPools[i] = new List<BuffType>();
-                _debuffPools[i] = new List<DebuffType>();
-            }
+
+            var numOfBuffs = Enum.GetNames(typeof(BuffType)).Length;
+            _buffPool = new(numOfBuffs);
+            _containedBuffs = new bool[numOfBuffs];
+
+            var numOfDebuffs = Enum.GetNames(typeof(DebuffType)).Length;
+            _debuffPool = new(numOfDebuffs);
+            _containedDebuffs = new bool[numOfDebuffs];
         }
 
         #endregion
 
         #region Public Methods
 
-        public void Add(BuffType buff, Rarity rarity)
+        public void Add(BuffType buff, Rarities rarities)
         {
-            var pool = _buffPools[(int)rarity];
-            if (pool.Contains(buff)) return;
-            pool.Add(buff);
+            if (_containedBuffs[(int)buff]) return;
+            _buffPool.Add((buff, rarities));
+            _containedBuffs[(int)buff] = true;
         }
 
-        public void Add(DebuffType debuff, Rarity rarity)
+        public void Add(DebuffType debuff, Rarities rarities)
         {
-            var pool = _debuffPools[(int)rarity];
-            if (pool.Contains(debuff)) return;
-            pool.Add(debuff);
+            if (_containedDebuffs[(int)debuff]) return;
+            _debuffPool.Add((debuff, rarities));
+            _containedDebuffs[(int)debuff] = true;
         }
 
-        public void Remove(BuffType buff, Rarity rarity)
+        public bool Contains(BuffType buff) => _containedBuffs[(int)buff];
+        public bool Contains(DebuffType debuff) => _containedDebuffs[(int)debuff];
+
+        public void Remove(BuffType buff)
         {
-            _buffPools[(int)rarity].Remove(buff);
+            if (!_containedBuffs[(int)buff]) return;
+            _buffPool.RemoveAll(element => element.buff == buff);
         }
 
-        public void Remove(DebuffType debuff, Rarity rarity)
+        public void Remove(DebuffType debuff)
         {
-            _debuffPools[(int)rarity].Remove(debuff);
+            if (!_containedDebuffs[(int)debuff]) return;
+            _debuffPool.RemoveAll(element => element.debuff == debuff);
         }
 
-        public (BuffType type, Rarity rarity) GetRandomBuff()
+        public (BuffType type, Rarity rarity) GetRandomBuff() => GetRandom(_buffPool);
+
+        public (DebuffType type, Rarity rarity) GetRandomDebuff() => GetRandom(_debuffPool);
+
+        #endregion
+
+        #region Public Methods
+
+        private (T, Rarity) GetRandom<T>(IReadOnlyList<(T type, Rarities rarities)> pool) where T : Enum
         {
+            var element = pool[Random.Range(0, pool.Count)];
+            var toArrResult = element.rarities.ToIntArrayNonAlloc(ref _raritiesBuffer);
+            if (toArrResult.onlyOneRarity)
+                return (element.type, toArrResult.rarity);
+
             int range = 0;
             for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
-                range += _buffPools[i].Count * _weights[i];
-            var index = Random.Range(0, range);
-
-            for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
             {
-                if (index < _buffPools[i].Count * _weights[i])
-                    return (_buffPools[i][index / _weights[i]], (Rarity)i);
-                index -= _buffPools[i].Count * _weights[i];
+                range += _raritiesBuffer[i] *= _weights[i];
             }
 
-            throw new Exception("Algorithm is wrong");
-        }
-
-        public (DebuffType type, Rarity rarity) GetRandomDebuff()
-        {
-            int range = 0;
-            for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
-                range += _debuffPools[i].Count * _weights[i];
-            var index = Random.Range(0, range);
-
-            for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
+            var randomInRange = Random.Range(0, range);
+            for (int i = 0; i < NUMBER_OF_RARITIES - 1; ++i)
             {
-                if (index < _debuffPools[i].Count * _weights[i])
-                    return (_debuffPools[i][index / _weights[i]], (Rarity)i);
-                index -= _debuffPools[i].Count * _weights[i];
+                if (randomInRange < _raritiesBuffer[i])
+                    return (element.type, (Rarity)i);
             }
 
-            throw new Exception("Algorithm is wrong");
+            return (element.type, Rarity.EPIC);
         }
 
         #endregion

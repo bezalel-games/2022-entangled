@@ -1,5 +1,6 @@
 ﻿using System;
 using Cards.CardElementClasses;
+using Cards.Factory;
 using Enemies;
 
 namespace Cards.Debuffs
@@ -20,6 +21,8 @@ namespace Cards.Debuffs
             var rank = enemyDictionary[_enemyType].Rank;
             enemyDictionary[_enemyType].Rank = Math.Max(rank - _rankDemotion, 1);
         }
+        
+        public override DebuffType Type => DebuffType.MORE_GOOMBAS + _enemyType;
 
         #endregion
 

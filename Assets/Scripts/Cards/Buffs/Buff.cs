@@ -1,5 +1,6 @@
 ﻿using Cards.CardElementClasses;
 using Cards.Cards;
+using Cards.Factory;
 using Player;
 
 namespace Cards.Buffs
@@ -11,5 +12,7 @@ namespace Cards.Buffs
         }
 
         public abstract void Apply(PlayerController playerController);
+        
+        public abstract BuffType Type { get; }
     }
 }

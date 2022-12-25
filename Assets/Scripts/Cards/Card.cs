@@ -1,11 +1,13 @@
 ﻿using System;
 using Cards.Buffs;
 using Cards.Debuffs;
+using Cards.Factory;
 using Managers;
 using Rooms;
 
 namespace Cards
 {
+    [Serializable]
     public class Card
     {
         #region Constructor
@@ -30,6 +32,11 @@ namespace Cards
 
         public Rarity Rarity =>
             _buff.Rarity <= _debuff.Rarity ? Rarity.COMMON : (Rarity)(_buff.Rarity - _debuff.Rarity);
+
+        public BuffType BuffType => _buff.Type;
+        public DebuffType DebuffType => _debuff.Type;
+
+        public CardEssence Essence => new CardEssence(_buff, _debuff);
 
         #endregion
 
@@ -60,7 +67,20 @@ namespace Cards
 
         #endregion
 
-        #region Private Methods
+        #region Classes
+
+        [Serializable]
+        public class CardEssence
+        {
+            public CardEssence(Buff buff, Debuff debuff)
+            {
+                Buff = (buff.Type, buff.Rarity);
+                Debuff = (debuff.Type, debuff.Rarity);
+            }
+
+            public (BuffType type, Rarity rarity) Buff { get; }
+            public (DebuffType type, Rarity rarity) Debuff { get; }
+        }
 
         #endregion
     }

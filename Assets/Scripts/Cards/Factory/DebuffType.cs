@@ -3,8 +3,8 @@
     public enum DebuffType
     {
         MORE_GOOMBAS,
-        TOUGHER_GOOMBAS,
         MORE_SHOOTERS,
+        TOUGHER_GOOMBAS,
         TOUGHER_SHOOTERS
     }
 }

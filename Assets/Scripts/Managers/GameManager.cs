@@ -144,6 +144,7 @@ namespace Managers
             UIManager.ToggleRunCanvas(false);
             _instance.LoadData();
             PlayerController.EndRun();
+            _instance._cardManager.Reset();
         }
 
         public static void ScaleTime(float timeScale)
@@ -162,16 +163,16 @@ namespace Managers
                 _instance.ActionMapInUse = ActionMap.UI;
             }
         }
+        
+        #endregion
 
+        #region Private Methods
+        
         private static void CardChosen()
         {
             _instance.ActionMapInUse = ActionMap.PLAYER;
             FinishedCurrentRoom?.Invoke();
         }
-
-        #endregion
-
-        #region Private Methods
 
         private void SaveData()
         {
