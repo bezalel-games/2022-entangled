@@ -507,23 +507,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slowdownFilter: {fileID: 132095366}
-  _generalCanvas: {fileID: 1098251481}
+  _generalCanvas: {fileID: 0}
 --- !u!224 &256326578 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2234109566293707142, guid: 315d852f70075de459290ed2d6d8bea2, type: 3}
   m_PrefabInstance: {fileID: 1944245418559876191}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &291329946 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7235197585445724460, guid: 9743c40c859699b42af732fc6b6f3a5f, type: 3}
-  m_PrefabInstance: {fileID: 7766218729732773102}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a30de08849c40109ba01f6811e5df7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &334358559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1113,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _maxSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _aimAssistRange
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2199,7 +2200,7 @@ PrefabInstance:
     - target: {fileID: 1412385754436580766, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 291329946}
+      objectReference: {fileID: 0}
     - target: {fileID: 1412385754436580766, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseRightCard
@@ -2227,7 +2228,7 @@ PrefabInstance:
     - target: {fileID: 6016630116582161520, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 291329946}
+      objectReference: {fileID: 0}
     - target: {fileID: 6016630116582161520, guid: 3d22fc225df962d4dac50547cb5aa97b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ChooseLeftCard
