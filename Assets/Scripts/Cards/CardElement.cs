@@ -1,4 +1,5 @@
 ﻿using Cards.CardElementClasses;
+using UnityEngine;
 
 namespace Cards
 {
@@ -9,6 +10,7 @@ namespace Cards
             private readonly CardElementClassAttributes _attributes;
             public string Name => _attributes.Name;
             public string Description => _attributes.Description;
+            public Sprite CardSprite => _attributes.CardSprite;
             public Rarity Rarity { get; }
 
             public CardElement(CardElementClassAttributes attributes, Rarity rarity)

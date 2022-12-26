@@ -2,6 +2,7 @@
 using Cards;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,7 +14,7 @@ namespace UI
         [SerializeField] private string _titleFormat;
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
-        [SerializeField] private RarityColors _rarityColors;
+        [SerializeField] private RarityIdentifierSprites _rarityIdentifierSprites;
 
         #endregion
         #region Non-Serialized Fields
@@ -35,7 +36,9 @@ namespace UI
                 // value.TitleString(_titleFormat);
                 _buffText.text = value.BuffString(_buffFormat);
                 _debuffText.text = value.DebuffString(_debuffFormat);
-                _rarityIdentifier.color = _rarityColors[value.Rarity];
+                _rarityIdentifier.sprite = _rarityIdentifierSprites[value.Rarity];
+                _buffImage.sprite = value.BuffSprite;
+                _debuffImage.sprite = value.DebuffSprite;
             }
         }
 
@@ -46,10 +49,10 @@ namespace UI
         private void Awake()
         {
             var buffObject = transform.GetChild(0);
-            _buffImage = buffObject.GetComponent<Image>();
+            _buffImage = buffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _buffText = buffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
             var debuffObject = transform.GetChild(1);
-            _debuffImage = debuffObject.GetComponent<Image>();
+            _debuffImage = debuffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _debuffText = debuffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
             _rarityIdentifier = transform.GetChild(2).GetComponent<Image>();
         }
@@ -67,17 +70,17 @@ namespace UI
         #region Class
 
         [Serializable]
-        public class RarityColors
+        public class RarityIdentifierSprites
         {
-            [SerializeField] private Color _commonColor;
-            [SerializeField] private Color _rareColor;
-            [SerializeField] private Color _epicColor;
+            [SerializeField] private Sprite _common;
+            [SerializeField] private Sprite _rare;
+            [SerializeField] private Sprite _epic;
 
-            public Color this[Rarity rarity] => rarity switch
+            public Sprite this[Rarity rarity] => rarity switch
             {
-                Rarity.COMMON=>_commonColor,
-                Rarity.RARE=>_rareColor,
-                Rarity.EPIC=>_epicColor,
+                Rarity.COMMON=>_common,
+                Rarity.RARE=>_rare,
+                Rarity.EPIC=>_epic,
                 _ => throw new ArgumentOutOfRangeException(nameof(rarity), rarity, null)
             };
         }

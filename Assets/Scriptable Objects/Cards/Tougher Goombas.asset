@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Tougher Melee Enemies
   <Description>k__BackingField: Melee enemies will have more HP
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 9a843e2eecb312646a4df64621e36fb7, type: 3}

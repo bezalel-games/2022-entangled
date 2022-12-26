@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Melee Enemies Population Overflow
   <Description>k__BackingField: Melee enemies will appear more
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: aff64c5131fe2104fab56eee52f4d0a3, type: 3}

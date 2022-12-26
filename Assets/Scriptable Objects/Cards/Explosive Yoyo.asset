@@ -15,3 +15,4 @@ MonoBehaviour:
   <Name>k__BackingField: Spectral Pulse
   <Description>k__BackingField: Create a powerful pulse from your weapon by pressing
     R1 when you are not holding it
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 4b31aaa71b6d5164ca4690d40828cdac, type: 3}

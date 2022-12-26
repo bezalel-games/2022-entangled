@@ -4,6 +4,7 @@ using Cards.Debuffs;
 using Cards.Factory;
 using Managers;
 using Rooms;
+using UnityEngine;
 
 namespace Cards
 {
@@ -35,6 +36,9 @@ namespace Cards
 
         public BuffType BuffType => _buff.Type;
         public DebuffType DebuffType => _debuff.Type;
+
+        public Sprite BuffSprite => _buff.CardSprite;
+        public Sprite DebuffSprite => _debuff.CardSprite;
 
         public CardEssence Essence => new CardEssence(_buff, _debuff);
 

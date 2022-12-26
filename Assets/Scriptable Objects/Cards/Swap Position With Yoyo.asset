@@ -15,3 +15,4 @@ MonoBehaviour:
   <Name>k__BackingField: Dimensional Glitch
   <Description>k__BackingField: "Instantly teleport to your weapon's position by\r
     pressing L1 when you are not holding it"
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: df2f1c4903f2475449a9e3916eac94b1, type: 3}
