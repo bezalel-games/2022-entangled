@@ -1,5 +1,4 @@
-﻿using System;
-using UI;
+﻿using UI;
 using UnityEngine;
 using UnityEditor;
 
@@ -11,14 +10,14 @@ namespace Editor
         private SerializedProperty _titleFormat;
         private SerializedProperty _buffFormat;
         private SerializedProperty _debuffFormat;
-        private SerializedProperty _rarityColors;
+        private SerializedProperty _rarityIdentifierSprites;
 
         private void OnEnable()
         {
             _titleFormat = serializedObject.FindProperty("_titleFormat");
             _buffFormat = serializedObject.FindProperty("_buffFormat");
             _debuffFormat = serializedObject.FindProperty("_debuffFormat");
-            _rarityColors = serializedObject.FindProperty("_rarityColors");
+            _rarityIdentifierSprites = serializedObject.FindProperty("_rarityIdentifierSprites");
         }
 
         public override void OnInspectorGUI()
@@ -37,7 +36,7 @@ namespace Editor
             _debuffFormat.stringValue = GUILayout.TextArea(_debuffFormat.stringValue);
             GUILayout.Label("where  {0} = Name  {1} = Description  {2} = Rarity\n");
 
-            EditorGUILayout.PropertyField(_rarityColors);
+            EditorGUILayout.PropertyField(_rarityIdentifierSprites);
             
             serializedObject.ApplyModifiedProperties();
         }
