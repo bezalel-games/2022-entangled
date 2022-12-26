@@ -17,6 +17,8 @@ public class Goomba : Enemy
   #endregion
   #region Properties
 
+  public bool PreparingAttack { get; set; } = false;
+
   #endregion
   #region Function Events
 
@@ -40,7 +42,8 @@ public class Goomba : Enemy
     }
     else
     {
-      Rigidbody.velocity = DesiredDirection * _attackSpeed;
+      if(!PreparingAttack)
+        Rigidbody.velocity = DesiredDirection * _attackSpeed;
     }
   }
 

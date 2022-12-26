@@ -27,6 +27,9 @@ namespace HP_System
         
         protected Vector2 PushbackVector;
         private Vector2 _pushbackDirection;
+        
+        protected Animator Animator;
+        protected SpriteRenderer Renderer;
 
         #endregion
 
@@ -87,6 +90,15 @@ namespace HP_System
         }
 
         #endregion
+        
+        #region Animator Strings
+
+        protected static readonly int Dash = Animator.StringToHash("dash");
+        protected static readonly int Walking = Animator.StringToHash("walking");
+        protected static readonly int xDirection = Animator.StringToHash("xDirection");
+        protected static readonly int yDirection = Animator.StringToHash("yDirection");
+
+        #endregion
 
         #region Function Events
 
@@ -94,6 +106,9 @@ namespace HP_System
         {
             Hp = MaxHp;
             Mp = MaxMp;
+            
+            Animator = GetComponentInChildren<Animator>();
+            Renderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         protected override void Update()

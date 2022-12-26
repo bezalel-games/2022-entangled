@@ -33,8 +33,6 @@ namespace Player
         #endregion
 
         #region Non-Serialized Fields
-        
-        private Animator _animator;
 
         private Vector3
             _dashDirection; // used so we can keep tracking the input direction without changing dash direction
@@ -51,15 +49,6 @@ namespace Player
 
         private int OnlyWallLayer;
         private int PlayerLayer;
-
-        #endregion
-
-        #region Animator Strings
-
-        private static readonly int Dash = Animator.StringToHash("dash");
-        private static readonly int Walking = Animator.StringToHash("walking");
-        private static readonly int xDirection = Animator.StringToHash("xDirection");
-        private static readonly int yDirection = Animator.StringToHash("yDirection");
 
         #endregion
 
@@ -86,8 +75,8 @@ namespace Player
                 _direction = value.normalized;
                 if (!_dashing)
                 {
-                    _animator.SetFloat(xDirection, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x );
-                    _animator.SetFloat(yDirection, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y );
+                    Animator.SetFloat(xDirection, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x );
+                    Animator.SetFloat(yDirection, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y );
                 }
             }
         }
@@ -106,8 +95,7 @@ namespace Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             Yoyo = GetComponentInChildren<Yoyo>();
-            _animator = GetComponentInChildren<Animator>();
-            
+
             Yoyo.gameObject.SetActive(false);
             
             PlayerLayer = LayerMask.NameToLayer("Player");
@@ -153,11 +141,11 @@ namespace Player
             {
                 case InputActionPhase.Performed:
                     Direction = context.ReadValue<Vector2>();
-                    _animator.SetBool(Walking, true);
+                    Animator.SetBool(Walking, true);
                     break;
                 case InputActionPhase.Canceled:
                     Direction = Vector2.zero;
-                    _animator.SetBool(Walking, false);
+                    Animator.SetBool(Walking, false);
                     break;
             }
         }
@@ -175,7 +163,7 @@ namespace Player
                     _dashing = true;
                     _canDash = false;
                     Invulnerable = true;
-                    _animator.SetTrigger(Dash);
+                    Animator.SetTrigger(Dash);
 
                     DelayInvoke(() => { _canDash = true; }, _dashCooldown);
                     

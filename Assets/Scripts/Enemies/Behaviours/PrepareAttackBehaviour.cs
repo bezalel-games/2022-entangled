@@ -9,6 +9,8 @@ namespace Enemies
             base.OnStateEnter(animator, stateInfo, layerIndex);
             ThisEnemy.Attacking = true;
             SetSpeedMultiplier(animator, stateInfo, "Prepare Speed", ThisEnemy.PrepareAttackTime);
+            
+            ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
         }
     }
 }

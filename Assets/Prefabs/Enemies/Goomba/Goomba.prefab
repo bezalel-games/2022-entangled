@@ -39,6 +39,10 @@ PrefabInstance:
       propertyPath: <FollowDistance>k__BackingField
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1456842425901656848, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 430042234, guid: 948217ca201df0d41b07ce1f84ed9041, type: 3}
     - target: {fileID: 3829520020349340871, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_Mass
       value: 2
@@ -58,6 +62,10 @@ PrefabInstance:
     - target: {fileID: 3959231270111122722, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959231270111122722, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4125554779391483649, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: _hpBar
@@ -118,6 +126,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2050991525924800270, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
     - {fileID: -4058472840688020095, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+    - {fileID: 4509924979954832385, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
 --- !u!1 &1274224118983726192 stripped
 GameObject:
@@ -134,7 +143,7 @@ Animator:
   m_GameObject: {fileID: 1274224118983726192}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7090e4413760e85439ffe47e82bbc35f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 803f47e4d5b58c54dad60d1b811b84e9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -149,6 +158,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7897815488341969439, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
   m_PrefabInstance: {fileID: 5621038956480547382}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &8348053089654780759
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565746055829536809}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.065
 --- !u!114 &-5456139093824870760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 40
   _maxMp: 0
-  _pushbackFactor: 1
   _speed: 2
   _damage: 3
   <AttackCooldown>k__BackingField: 1

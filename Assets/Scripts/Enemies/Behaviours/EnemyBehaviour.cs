@@ -49,7 +49,7 @@ namespace Enemies
 
             if(animationLength == 0) return;
         
-            var newMult = wantedTime / (animationLength * mult);
+            var newMult = wantedTime * (animationLength * mult);
             animator.SetFloat(parameterName, newMult);
         }
     }

@@ -11,9 +11,10 @@ public class ShooterAttack : AttackBehaviour<Shooter>
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        
+
         shootCounter = 0;
         dir = Player.position - ThisEnemy.transform.position;
+        ThisEnemy.DesiredDirection = dir;
     }
     
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

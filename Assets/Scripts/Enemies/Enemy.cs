@@ -47,7 +47,23 @@ namespace Enemies
         public Vector2 DesiredDirection
         {
             get => _desiredDirection;
-            set => _desiredDirection = value.normalized;
+            set
+            {
+                _desiredDirection = value.normalized;
+                var xVal = Mathf.Abs(_desiredDirection.x) <= 0.1f ? 0 : _desiredDirection.x;
+                var yVal = Mathf.Abs(_desiredDirection.y) <= 0.1f ? 0 : _desiredDirection.y;
+                if (xVal == 0)
+                {
+                    Renderer.flipX = false;
+                }
+                else
+                {
+                    Renderer.flipX = xVal > 0;
+                }
+                
+                Animator.SetFloat(xDirection, xVal );
+                Animator.SetFloat(yDirection, yVal );
+            }
         }
 
         public bool CanAttack
@@ -132,6 +148,12 @@ namespace Enemies
             
             gameObject.SetActive(false);
             _roomEnemies.EnemyKilled();
+        }
+
+        public void Stop()
+        {
+            DesiredDirection = Vector2.zero;
+            Rigidbody.velocity = Vector2.zero;
         }
 
         #endregion

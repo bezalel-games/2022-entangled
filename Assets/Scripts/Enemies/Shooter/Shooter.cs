@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 using UnityEngine.Search;
+using Utils;
 
 public class Shooter : Enemy
 {
@@ -77,6 +78,14 @@ public class Shooter : Enemy
     #endregion
 
     #region Private Methods
+    
+    protected override void Move()
+    {
+        if (!Attacking)
+        {
+            base.Move();
+        }
+    }
 
     #endregion
 }

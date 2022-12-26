@@ -21,7 +21,12 @@ public class Projectile : MonoBehaviour
   public Vector2 Direction
   {
     get => _direction;
-    set => _direction = value.normalized;
+    set
+    {
+      _direction = value.normalized;
+      var angle = Vector2.SignedAngle(Vector2.up, _direction);
+      transform.rotation = Quaternion.Euler(0,0,angle);
+    }
   }
 
   public float Speed
