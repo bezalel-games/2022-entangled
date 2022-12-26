@@ -59,6 +59,7 @@ namespace Player
         private Vector2 _quickShotLastPos;
         private Vector2 _quickShotDirection;
         private float _quickShotCumDistance;
+        private float _actualMaxDistance;
 
         private YoyoState _state = YoyoState.IDLE;
         private PlayerController _player;
@@ -204,13 +205,24 @@ namespace Player
 
         #region Public Methods
 
-        public void Shoot(Vector3 direction)
+        public void Shoot(Vector3 aimDirection, Vector3 moveDirection)
         {
-            if (direction != Vector3.zero)
+            if (aimDirection != Vector3.zero)
             {
+                aimDirection = aimDirection.normalized;
+                moveDirection = moveDirection.normalized;
+
+                var movePortionOnAim = Vector2Ext.GetAxisPortion(moveDirection, aimDirection);
+                var maxDistanceFactor = 
+                    movePortionOnAim.magnitude * Mathf.Sign(Vector2.Dot(aimDirection, moveDirection));
+
+                if (Mathf.Abs(maxDistanceFactor) > 1)
+                    maxDistanceFactor = Mathf.Sign(maxDistanceFactor);
+                _actualMaxDistance = _maxDistance * (1 + 0.5f*maxDistanceFactor);
+                
                 _state = YoyoState.SHOOT;
-                _direction = direction;
-                _rigidbody.velocity = direction;
+                _direction = aimDirection;
+                _rigidbody.velocity = aimDirection;
                 _quickShotLastPos = transform.position;
                 transform.SetParent(null);
             }
@@ -262,7 +274,7 @@ namespace Player
                     perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, vel);
                     velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized; 
                     
-                    if (_quickShotCumDistance < _easeDistance * _maxDistance)
+                    if (_quickShotCumDistance < _easeDistance * _actualMaxDistance)
                     {
                         _rigidbody.velocity = velWithPerpendicular * _shootSpeed;
                     }
@@ -272,7 +284,7 @@ namespace Player
                          * for d = cumulativeDistance, e = easeDistance, m = maxDistance
                          * if d > em -> d = e*m + (m - e*m)*t -> t = (d - e*m)/(m - e*m)
                          */
-                        var t = (_quickShotCumDistance - _easeDistance*_maxDistance) / (_maxDistance - _easeDistance*_maxDistance);
+                        var t = (_quickShotCumDistance - _easeDistance*_actualMaxDistance) / (_actualMaxDistance - _easeDistance*_actualMaxDistance);
                         _rigidbody.velocity = Vector2.Lerp(velWithPerpendicular * vel.magnitude, Vector2.zero, t);
                     }
 

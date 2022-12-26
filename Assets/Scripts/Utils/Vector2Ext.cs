@@ -32,6 +32,14 @@ namespace Utils
         {
             return v - GetProjection(v, axis);
         }
+        
+        /*
+         * for v = a*axis + per where <axis, per>=0, return a*axis
+         */
+        public static Vector2 GetAxisPortion(Vector2 v, Vector2 axis)
+        {
+            return GetProjection(v, axis);
+        }
     }
 }
 

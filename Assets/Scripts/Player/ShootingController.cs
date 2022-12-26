@@ -83,7 +83,7 @@ namespace Player
                             : _aimDirection;
                         desiredDir = AimAssist(desiredDir);
                         SetPivotRotation(desiredDir);
-                        Yoyo.Shoot(desiredDir);
+                        Yoyo.Shoot(desiredDir, _direction);
                     }
 
                     break;
@@ -156,7 +156,7 @@ namespace Player
                 return;
             }
 
-            if (Yoyo.State is Yoyo.YoyoState.SHOOT or Yoyo.YoyoState.BACK)
+            if (_aiming && Yoyo.State is Yoyo.YoyoState.SHOOT or Yoyo.YoyoState.BACK)
             {
                 Yoyo.QuickShotDirection = _aimDirection;
             }
