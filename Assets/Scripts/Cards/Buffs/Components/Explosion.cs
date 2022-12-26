@@ -9,6 +9,7 @@ namespace Cards.Buffs.Components
 
         [SerializeField] private AnimationCurve _explosionExpansionCurve;
         [SerializeField] private float _expansionTime = 1;
+        [SerializeField] private float _dissolveTime = 0.5f;
         [SerializeField] private float _damage = 1;
 
         #endregion
@@ -63,7 +64,7 @@ namespace Cards.Buffs.Components
 
             if (_spriteRenderer.color.a <= 0)
                 Destroy(gameObject);
-            _spriteRenderer.color -= Color.black * Time.deltaTime;
+            _spriteRenderer.color -= Color.black * Time.deltaTime / _dissolveTime;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
