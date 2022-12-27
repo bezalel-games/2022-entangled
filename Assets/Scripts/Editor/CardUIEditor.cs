@@ -7,14 +7,12 @@ namespace Editor
     [CustomEditor(typeof(CardUI))]
     public class CardUIEditor : UnityEditor.Editor
     {
-        private SerializedProperty _titleFormat;
         private SerializedProperty _buffFormat;
         private SerializedProperty _debuffFormat;
         private SerializedProperty _rarityIdentifierSprites;
 
         private void OnEnable()
         {
-            _titleFormat = serializedObject.FindProperty("_titleFormat");
             _buffFormat = serializedObject.FindProperty("_buffFormat");
             _debuffFormat = serializedObject.FindProperty("_debuffFormat");
             _rarityIdentifierSprites = serializedObject.FindProperty("_rarityIdentifierSprites");
@@ -23,10 +21,6 @@ namespace Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            
-            GUILayout.Label("Card Title Format:");
-            _titleFormat.stringValue = GUILayout.TextArea(_titleFormat.stringValue);
-            GUILayout.Label("where  {0} = Buff part  {1} = Debuff part\n");
             
             GUILayout.Label("Card Buff Format:");
             _buffFormat.stringValue = GUILayout.TextArea(_buffFormat.stringValue);

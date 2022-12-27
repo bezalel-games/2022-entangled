@@ -40,6 +40,9 @@ namespace Cards
         public Sprite BuffSprite => _buff.CardSprite;
         public Sprite DebuffSprite => _debuff.CardSprite;
 
+        public string BuffTitlePart => _buff.TitlePart;
+        public string DebuffTitlePart => _debuff.TitlePart;
+
         public CardEssence Essence => new CardEssence(_buff, _debuff);
 
         #endregion
@@ -52,11 +55,6 @@ namespace Cards
             _buff?.Apply(GameManager.PlayerController);
             _debuff?.Apply(RoomManager.EnemyDictionary);
             _applied = true;
-        }
-
-        public string TitleString(string format)
-        {
-            throw new NotImplementedException();
         }
 
         public string BuffString(string format)

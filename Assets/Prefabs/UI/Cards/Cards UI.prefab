@@ -85,7 +85,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6016630116582161521}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -591,6 +591,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4761189471462649290}
     m_Modifications:
+    - target: {fileID: 462538506484386096, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4348741986614986279, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
       propertyPath: m_Name
       value: Left Card
@@ -722,6 +726,10 @@ PrefabInstance:
     - target: {fileID: 4348741986614986297, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913670916634792370, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba82ca87affda3247828129f0e2d7145, type: 3}

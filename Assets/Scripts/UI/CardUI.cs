@@ -11,7 +11,6 @@ namespace UI
     {
         #region Serialized Fields
         
-        [SerializeField] private string _titleFormat;
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
         [SerializeField] private RarityIdentifierSprites _rarityIdentifierSprites;
@@ -24,6 +23,8 @@ namespace UI
         private TextMeshProUGUI _buffText;
         private TextMeshProUGUI _debuffText;
         private Image _rarityIdentifier;
+        private TextMeshProUGUI _titleDebuffPart;
+        private TextMeshProUGUI _titleBuffPart;
 
         #endregion
 
@@ -33,7 +34,8 @@ namespace UI
         {
             set
             {
-                // value.TitleString(_titleFormat);
+                _titleDebuffPart.text = value.DebuffTitlePart;
+                _titleBuffPart.text = value.BuffTitlePart;
                 _buffText.text = value.BuffString(_buffFormat);
                 _debuffText.text = value.DebuffString(_debuffFormat);
                 _rarityIdentifier.sprite = _rarityIdentifierSprites[value.Rarity];
@@ -55,6 +57,8 @@ namespace UI
             _debuffImage = debuffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _debuffText = debuffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
             _rarityIdentifier = transform.GetChild(2).GetComponent<Image>();
+            _titleDebuffPart = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+            _titleBuffPart = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         }
 
         #endregion
