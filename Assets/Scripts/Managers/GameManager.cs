@@ -141,6 +141,7 @@ namespace Managers
         public static void EndRun()
         {
             _instance._hub.SetActive(true);
+            Shooter.ClearProjectiles();
             UIManager.ToggleRunCanvas(false);
             _instance.LoadData();
             PlayerController.EndRun();

@@ -18,7 +18,7 @@ public class Shooter : Enemy
 
     #region Non-Serialized Fields
 
-    private Stack<Projectile> _projectilePool = new Stack<Projectile>();
+    private static Stack<Projectile> _projectilePool = new Stack<Projectile>();
 
     #endregion
 
@@ -40,6 +40,16 @@ public class Shooter : Enemy
     #endregion
 
     #region Public Methods
+
+    public static void ClearProjectiles()
+    {
+        foreach (var proj in _projectilePool)
+        {
+            Destroy(proj.gameObject);
+        }
+
+        _projectilePool = new Stack<Projectile>();
+    }
 
     public void Shoot(Vector2 dir)
     {

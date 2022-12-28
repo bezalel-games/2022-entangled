@@ -197,7 +197,7 @@ MonoBehaviour:
   <PrepareAttackTime>k__BackingField: 1
   <AttackTime>k__BackingField: 0.5
   <Rank>k__BackingField: 1
-  <SeparationWeight>k__BackingField: 1
+  <SeparationWeight>k__BackingField: 2
   <ToPlayerWeight>k__BackingField: 1
   <AwayFromWallWeight>k__BackingField: 1
   _attackSpeed: 10
