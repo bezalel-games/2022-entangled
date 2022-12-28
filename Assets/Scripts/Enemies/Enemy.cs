@@ -9,8 +9,7 @@ namespace Enemies
     {
         #region Serialized Fields
 
-        [Header("Enemy")] 
-        [SerializeField] private float _speed;
+        [Header("Enemy")] [SerializeField] private float _speed;
         [SerializeField] protected float _damage;
 
         #endregion
@@ -19,16 +18,18 @@ namespace Enemies
 
         private static int _numAttacking;
         private static int _maxAttacking = 2;
-        
+
         private RoomEnemies _roomEnemies;
         private Vector2 _desiredDirection;
         private bool _canAttack = true;
         private bool _attacking;
 
+        private Collider2D _collider;
+
         #endregion
 
         #region Properties
-        
+
         [field: SerializeField] public float AttackCooldown { get; set; }
         [field: SerializeField] public float MpRestore { get; set; }
         [field: SerializeField] public float AttackDistance { get; private set; }
@@ -39,7 +40,7 @@ namespace Enemies
         [field: SerializeField] public float AttackTime { get; private set; } = 1;
 
         [field: SerializeField] public int Rank { get; set; } = 1;
-        
+
         [field: SerializeField] public float SeparationWeight { get; set; } = 1;
         [field: SerializeField] public float ToPlayerWeight { get; set; } = 1;
         [field: SerializeField] public float AwayFromWallWeight { get; set; } = 1;
@@ -60,9 +61,9 @@ namespace Enemies
                 {
                     Renderer.flipX = xVal > 0;
                 }
-                
-                Animator.SetFloat(xDirection, xVal );
-                Animator.SetFloat(yDirection, yVal );
+
+                Animator.SetFloat(xDirection, xVal);
+                Animator.SetFloat(yDirection, yVal);
             }
         }
 
@@ -72,7 +73,7 @@ namespace Enemies
             set => _canAttack = value;
         }
 
-        public static LayerMask Layer { get; private set;  }
+        public static LayerMask Layer { get; private set; }
 
         public static int NumberOfAttacking
         {
@@ -111,6 +112,7 @@ namespace Enemies
             base.Awake();
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
             Rigidbody = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<Collider2D>();
             Layer = LayerMask.GetMask("Enemies");
         }
 
@@ -131,8 +133,8 @@ namespace Enemies
             if (other.gameObject.CompareTag("Player"))
             {
                 var hittable = other.gameObject.GetComponent<IHittable>();
-                if(hittable == null) return;       
-                
+                if (hittable == null) return;
+
                 hittable.OnHit(transform, _damage);
             }
         }
@@ -143,6 +145,13 @@ namespace Enemies
 
         public override void OnDie()
         {
+            _collider.enabled = false;
+            Stop();
+            Animator.SetTrigger("Dead");
+        }
+
+        public void AfterDeathAnimation()
+        {
             if (_attacking)
                 NumberOfAttacking--;
             
@@ -152,6 +161,7 @@ namespace Enemies
 
         public void Stop()
         {
+            Animator.SetBool("Move",false);
             DesiredDirection = Vector2.zero;
             Rigidbody.velocity = Vector2.zero;
         }
@@ -162,16 +172,16 @@ namespace Enemies
 
         protected virtual void Move()
         {
-            if (Rigidbody.bodyType != RigidbodyType2D.Static)
+            if (Rigidbody.bodyType == RigidbodyType2D.Static || IsDead)
+                return;
+
+            if (PushbackVector != Vector2.zero)
             {
-                if (PushbackVector != Vector2.zero)
-                {
-                    Rigidbody.velocity = PushbackVector;
-                }
-                else
-                {
-                    Rigidbody.velocity = _desiredDirection * _speed;
-                }
+                Rigidbody.velocity = PushbackVector;
+            }
+            else
+            {
+                Rigidbody.velocity = _desiredDirection * _speed;
             }
         }
 

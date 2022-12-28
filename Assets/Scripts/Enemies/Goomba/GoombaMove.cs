@@ -21,7 +21,6 @@ public class GoombaMove : MoveBehaviour<Goomba>
         }
         else if (ThisEnemy.CanAttack && distance <= ThisEnemy.AttackDistance)
         {
-            ThisEnemy.Stop();
             animator.SetTrigger("Attack");
         }
         else

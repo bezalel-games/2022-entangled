@@ -106,6 +106,8 @@ namespace Player
         {
             base.Update();
 
+            if(IsDead) return;
+            
             SetAim(); // Shooting Controller
         }
 
@@ -113,6 +115,8 @@ namespace Player
         {
             base.FixedUpdate();
 
+            if(IsDead) return;
+            
             MoveCharacter();
             ModifyPhysics();
         }
@@ -179,6 +183,31 @@ namespace Player
         #endregion
 
         #region Public Methods
+        
+        public void StartRun()
+        {
+            Yoyo.gameObject.SetActive(true);
+            var height = RoomManager.RoomProperties.Height;
+
+            Hp = MaxHp;
+            Mp = MaxMp;
+            DashStartEvent = null;
+            QuickShotEvent = null;
+
+            transform.position = new Vector3(0 , -(height * 0.45f), 0);
+            OverrideMovement(Vector3.up, -(height * 0.1f));
+        }
+
+        public void EndRun()
+        {
+            Yoyo.gameObject.SetActive(false);
+            transform.position = Vector3.zero;
+        }
+        
+        public void AfterDeathAnimation()
+        {
+            GameManager.UnloadRun();
+        }
 
         public void OverrideMovement(Vector3 dir, float threshold)
         {
@@ -280,6 +309,10 @@ namespace Player
         public override void OnDie()
         {
             GameManager.UnloadRun();
+            
+            //When moved to scene transition use this...
+            // Rigidbody.bodyType = RigidbodyType2D.Static;
+            // Animator.SetTrigger("Dead");
         }
 
         public override void OnHit(Transform attacker, float damage)
@@ -294,25 +327,5 @@ namespace Player
         }
 
         #endregion
-
-        public void StartRun()
-        {
-            Yoyo.gameObject.SetActive(true);
-            var height = RoomManager.RoomProperties.Height;
-
-            Hp = MaxHp;
-            Mp = MaxMp;
-            DashStartEvent = null;
-            QuickShotEvent = null;
-
-            transform.position = new Vector3(0 , -(height * 0.45f), 0);
-            OverrideMovement(Vector3.up, -(height * 0.1f));
-        }
-
-        public void EndRun()
-        {
-            Yoyo.gameObject.SetActive(false);
-            transform.position = Vector3.zero;
-        }
     }
 }

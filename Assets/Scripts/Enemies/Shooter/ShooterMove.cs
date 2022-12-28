@@ -22,7 +22,6 @@ public class ShooterMove : MoveBehaviour<Shooter>
         }
         else if (ThisEnemy.CanAttack && distance <= ThisEnemy.AttackDistance)
         {
-            ThisEnemy.Stop();
             animator.SetTrigger("Attack");
         }
         else
