@@ -115,8 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 20
   _maxMp: 10
-  _speed: 7
-  _maxSpeed: 8
+  _speed: 5.1
+  _maxSpeed: 6
   _acceleration: 7
   _deceleration: 15
   DashTime: 0.5
@@ -128,7 +128,7 @@ MonoBehaviour:
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}
-  _aimAssistRange: 10
+  _aimAssistRange: 25
 --- !u!50 &3352697072945445586
 Rigidbody2D:
   serializedVersion: 4
