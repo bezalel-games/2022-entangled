@@ -14,12 +14,9 @@ public class GoombaMove : MoveBehaviour<Goomba>
         var playerPos = Player.position;
         var goombaPos = ThisEnemy.transform.position;
         var distance = Vector2.Distance(playerPos, goombaPos);
-        
-        if (distance < ThisEnemy.KeepDistance)
-        {
-            ThisEnemy.DesiredDirection =  goombaPos - playerPos;
-        }
-        else if (ThisEnemy.CanAttack && distance <= ThisEnemy.AttackDistance)
+
+        var validAttackDistance = distance <= ThisEnemy.AttackDistance && distance > ThisEnemy.KeepDistance / 2;
+        if (ThisEnemy.CanAttack && validAttackDistance)
         {
             animator.SetTrigger("Attack");
         }

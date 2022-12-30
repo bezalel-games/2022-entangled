@@ -16,11 +16,8 @@ public class ShooterMove : MoveBehaviour<Shooter>
         var shooterPos = ThisEnemy.transform.position;
         var distance = Vector2.Distance(playerPos, shooterPos);
         
-        if (distance < ThisEnemy.KeepDistance)
-        {
-            ThisEnemy.DesiredDirection =  shooterPos - playerPos;
-        }
-        else if (ThisEnemy.CanAttack && distance <= ThisEnemy.AttackDistance)
+        var validAttackDistance = distance <= ThisEnemy.AttackDistance && distance > ThisEnemy.KeepDistance / 2;
+        if (ThisEnemy.CanAttack && validAttackDistance)
         {
             animator.SetTrigger("Attack");
         }
