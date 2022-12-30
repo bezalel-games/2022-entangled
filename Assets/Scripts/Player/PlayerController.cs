@@ -7,6 +7,7 @@ using Rooms;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 namespace Player
 {
@@ -91,15 +92,10 @@ namespace Player
 
         #region Function Events
 
-        private void Start()
+        protected override void Awake()
         {
-            Rigidbody = GetComponent<Rigidbody2D>();
-            Yoyo = GetComponentInChildren<Yoyo>();
-
-            Yoyo.gameObject.SetActive(false);
-            
-            PlayerLayer = LayerMask.NameToLayer("Player");
-            OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
+            base.Awake();
+            Init();
         }
 
         protected override void Update()
@@ -108,7 +104,7 @@ namespace Player
 
             if(IsDead) return;
             
-            SetAim(); // Shooting Controller
+            SetAim();
         }
 
         protected override void FixedUpdate()
@@ -183,30 +179,10 @@ namespace Player
         #endregion
 
         #region Public Methods
-        
-        public void StartRun()
-        {
-            Yoyo.gameObject.SetActive(true);
-            var height = RoomManager.RoomProperties.Height;
 
-            Hp = MaxHp;
-            Mp = MaxMp;
-            DashStartEvent = null;
-            QuickShotEvent = null;
-
-            transform.position = new Vector3(0 , -(height * 0.45f), 0);
-            OverrideMovement(Vector3.up, -(height * 0.1f));
-        }
-
-        public void EndRun()
-        {
-            Yoyo.gameObject.SetActive(false);
-            transform.position = Vector3.zero;
-        }
-        
         public void AfterDeathAnimation()
         {
-            GameManager.UnloadRun();
+            LoadManager.LoadHub();
         }
 
         public void OverrideMovement(Vector3 dir, float threshold)
@@ -246,6 +222,32 @@ namespace Player
 
         #region Private Methods
 
+        private void Init()
+        {
+            Yoyo = GetComponentInChildren<Yoyo>();
+
+            PlayerLayer = LayerMask.NameToLayer("Player");
+            OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
+
+            switch (LoadManager.CurrentScene)
+            {
+                case LoadManager.Scenes.RUN:
+                    StartRun();
+                    break;
+            }
+        }
+        
+        private  void StartRun()
+        {
+            Hp = MaxHp;
+            Mp = MaxMp;
+            DashStartEvent = null;
+            QuickShotEvent = null;
+            
+            // enter "animation"
+            OverrideMovement(Vector3.up, 0);
+        }
+        
         private void MoveCharacter()
         {
             if (_dashing)
@@ -308,11 +310,8 @@ namespace Player
 
         public override void OnDie()
         {
-            GameManager.UnloadRun();
-            
-            //When moved to scene transition use this...
-            // Rigidbody.bodyType = RigidbodyType2D.Static;
-            // Animator.SetTrigger("Dead");
+            Rigidbody.bodyType = RigidbodyType2D.Static;
+            Animator.SetTrigger("Dead");
         }
 
         public override void OnHit(Transform attacker, float damage)

@@ -111,7 +111,6 @@ namespace Enemies
         {
             base.Awake();
             _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
-            Rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
             Layer = LayerMask.GetMask("Enemies");
         }

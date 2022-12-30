@@ -147,6 +147,8 @@ namespace Player
 
         private void SetAim()
         {
+            if(Yoyo == null) return;
+            
             if (Yoyo.State == Yoyo.YoyoState.PRECISION)
             {
                 var currDir = Yoyo.PrecisionDirection;

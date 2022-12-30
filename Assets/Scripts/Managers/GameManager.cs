@@ -20,7 +20,6 @@ namespace Managers
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
         [SerializeField] private CardManager _cardManager;
-        [SerializeField] private GameObject _hub;
 
         #endregion
 
@@ -98,9 +97,14 @@ namespace Managers
         {
             if (_instance != null)
                 throw new DoubleGameManagerException();
+
+            Init();
+        }
+
+        private void Init()
+        {
             _instance = this;
             PlayerTransform = _playerController.transform;
-            
             _fixedTimeScale = Time.fixedDeltaTime;
         }
 
@@ -118,35 +122,6 @@ namespace Managers
         #endregion
 
         #region Public Methods
-
-        public static void LoadRun()
-        {
-            LoadManager.LoadScene("Run Scene", LoadSceneMode.Additive, onLoad: StartRun);
-        }
-        
-        public static void UnloadRun()
-        {
-            LoadManager.UnloadScene("Run Scene", onLoad: EndRun);
-        }
-        
-        public static void StartRun()
-        {
-            _instance._hub.SetActive(false);
-            UIManager.ToggleRunCanvas(true);
-            _instance.SaveData();
-            
-            PlayerController.StartRun();
-        }
-
-        public static void EndRun()
-        {
-            _instance._hub.SetActive(true);
-            Shooter.ClearProjectiles();
-            UIManager.ToggleRunCanvas(false);
-            _instance.LoadData();
-            PlayerController.EndRun();
-            _instance._cardManager.Reset();
-        }
 
         public static void ScaleTime(float timeScale)
         {
@@ -171,6 +146,7 @@ namespace Managers
         
         private static void CardChosen()
         {
+            print("chosen");
             _instance.ActionMapInUse = ActionMap.PLAYER;
             FinishedCurrentRoom?.Invoke();
         }
