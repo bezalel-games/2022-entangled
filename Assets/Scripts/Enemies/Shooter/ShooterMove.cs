@@ -6,25 +6,11 @@ using UnityEngine;
 public class ShooterMove : MoveBehaviour<Shooter>
 {
 
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    protected override bool ShouldAttack(float distanceFromPlayer)
     {
-        base.OnStateUpdate(animator, stateInfo, layerIndex);
-        
-        if(!AtFrameRate) return;
-        
-        var playerPos = Player.position;
-        var shooterPos = ThisEnemy.transform.position;
-        var distance = Vector2.Distance(playerPos, shooterPos);
-        
-        var validAttackDistance = distance <= ThisEnemy.AttackDistance && distance > ThisEnemy.KeepDistance / 2;
-        if (ThisEnemy.CanAttack && validAttackDistance)
-        {
-            animator.SetTrigger("Attack");
-        }
-        else
-        {
-            ThisEnemy.DesiredDirection = GetFlockingDirection();
-        }    
+        var validAttackDistance = 
+            distanceFromPlayer <= ThisEnemy.AttackDistance && distanceFromPlayer > ThisEnemy.KeepDistance / 2;
+        return ThisEnemy.CanAttack && validAttackDistance;
     }
     
     protected override Vector2 GetToPlayerDirection()

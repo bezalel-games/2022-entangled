@@ -6,16 +6,58 @@ namespace Enemies
 {
     public abstract class MoveBehaviour<T> : EnemyBehaviour<T> where T : Enemy
     {
+        
+        #region Fields
+        
         private readonly float wallRaycastDistance = 1;
         private readonly float enemyCastDistance = 1;
         private int wallMask = 0;
+        
+        #endregion
+
+        #region Abstract Methods
+
         protected abstract Vector2 GetToPlayerDirection();
+        protected abstract bool ShouldAttack(float distanceFromPlayer);
+
+        #endregion
+
+        #region StateMachineBehaviour Methods
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             wallMask = LayerMask.GetMask("Walls");
         }
+        
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.ResetTrigger("Attack");
+        }
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            
+            if(!AtFrameRate) return;
+        
+            var playerPos = Player.position;
+            var goombaPos = ThisEnemy.transform.position;
+            var distance = Vector2.Distance(playerPos, goombaPos);
+            
+            if (ShouldAttack(distance))
+            {
+                animator.SetTrigger("Attack");
+            }
+            else
+            {
+                ThisEnemy.DesiredDirection = GetFlockingDirection();
+            }
+        }
+
+        #endregion
+
+        #region Flocking
 
         protected Vector2 GetFlockingDirection()
         {
@@ -89,5 +131,7 @@ namespace Enemies
 
             return direction;
         }
+
+        #endregion
     }
 }
