@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340952520632582641}
   - component: {fileID: 2744190503378649879}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Wall Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1981774851803262246}
   - component: {fileID: 256745148794846129}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 6791028210301857002}
   - component: {fileID: 5218044006668404598}
   - component: {fileID: 1134928996173750113}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Yoyo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8747930354147197078}
   - component: {fileID: 4287302082976398127}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6675022092519468311}
   - component: {fileID: 163586303564662432}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}

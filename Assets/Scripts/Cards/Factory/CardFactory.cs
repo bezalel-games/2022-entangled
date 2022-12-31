@@ -63,12 +63,12 @@ namespace Cards.Factory
             Debuff debuff = debuffType switch
             {
                 MORE_GOOMBAS => new MoreEnemies(MoreGoombas.Attributes, debuffRarity, MoreGoombas.EnemyIndex,
-                    (int)MoreGoombas[debuffRarity]),
+                    MoreGoombas[debuffRarity]),
                 TOUGHER_GOOMBAS => new TougherEnemies(TougherGoombas.Attributes, debuffRarity,
                     TougherGoombas.EnemyIndex,
                     TougherGoombas[debuffRarity]),
                 MORE_SHOOTERS => new MoreEnemies(MoreShooters.Attributes, debuffRarity, MoreShooters.EnemyIndex,
-                    (int)MoreShooters[debuffRarity]),
+                    MoreShooters[debuffRarity]),
                 TOUGHER_SHOOTERS => new TougherEnemies(TougherShooters.Attributes, debuffRarity,
                     TougherShooters.EnemyIndex,
                     TougherShooters[debuffRarity]),

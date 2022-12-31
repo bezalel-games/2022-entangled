@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8561616785004331781}
   - component: {fileID: 5094455229071905611}
   - component: {fileID: 7635006433394813106}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 20
+  m_LinearDrag: 18
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
