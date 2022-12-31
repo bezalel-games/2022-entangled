@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -49,8 +50,11 @@ namespace Rooms
 
         private void SetTileMap(RoomProperties.Calculations properties)
         {
-            var tilemap = GetComponentInChildren(typeof(Tilemap), true) as Tilemap;
-            tilemap.ClearAllTiles();
+            Tilemap back = RoomContent.transform.Find("Background Tilemap").GetComponent<Tilemap>();
+            Tilemap front = RoomContent.transform.Find("Foreground Tilemap").GetComponent<Tilemap>();
+                
+            back.ClearAllTiles();
+            front.ClearAllTiles();
             var pos = Vector3Int.zero;
             for (int x = properties.Left; x <= properties.Right; x++)
                 for (int y = properties.Bottom; y <= properties.Top; y++)
@@ -60,18 +64,27 @@ namespace Rooms
                     if (x - properties.Left < properties.WallSize || properties.Right - x < properties.WallSize ||
                         y - properties.Bottom < properties.WallSize || properties.Top - y < properties.WallSize)
                     {
-                        if (x >= properties.GateLeft && x <= properties.GateRight ||
-                            y >= properties.GateBottom && y <= properties.GateTop)
+                        if (x >= properties.GateLeft && x <= properties.GateRight)
                         {
-                            tilemap.SetTile(pos, properties.GateTile);
+                            back.SetTile(pos, properties.GateTile);
+                            front.SetTile(pos, properties.GateFrameTile);
+                            front.SetTile(pos + Vector3Int.down * Math.Sign(y), properties.EmptyTile);
                             continue;
                         }
 
-                        tilemap.SetTile(pos, properties.WallTile);
+                        if (y >= properties.GateBottom && y <= properties.GateTop)
+                        {
+                            back.SetTile(pos, properties.GateTile);
+                            front.SetTile(pos, properties.GateFrameTile);
+                            front.SetTile(pos + Vector3Int.left * Math.Sign(x), properties.EmptyTile);
+                            continue;
+                        }
+
+                        back.SetTile(pos, properties.WallTile);
                         continue;
                     }
 
-                    tilemap.SetTile(pos, properties.GroundTile);
+                    back.SetTile(pos, properties.GroundTile);
                 }
         }
 
