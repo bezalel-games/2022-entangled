@@ -11,102 +11,101 @@ namespace Cards.Factory
         private const int NUMBER_OF_RARITIES = 3;
 
         private readonly int[] _weights;
-        private readonly List<(BuffType buff, Rarities rarities)> _buffPool;
-        private readonly List<(DebuffType debuff, Rarities rarities)> _debuffPool;
-        private readonly bool[] _containedBuffs;
-        private readonly bool[] _containedDebuffs;
-
-        private int[] _raritiesBuffer = new int[NUMBER_OF_RARITIES];
+        private readonly CardElementPool<BuffType> _buffPool = new();
+        private readonly CardElementPool<DebuffType> _debuffPool = new();
 
         #endregion
-        
+
         #region Events
 
         public event Action PoolUpdated;
-        
+
         #endregion
 
         #region Constructor
 
-        public CardPool(params int[] weights)
+        public CardPool(int commonWeight, int rareWeight, int epicWeight)
         {
-            if (weights.Length != NUMBER_OF_RARITIES)
-                throw new ArgumentException("length of weights should be exactly 3");
-            _weights = weights;
-
-            var numOfBuffs = Enum.GetNames(typeof(BuffType)).Length;
-            _buffPool = new(numOfBuffs);
-            _containedBuffs = new bool[numOfBuffs];
-
-            var numOfDebuffs = Enum.GetNames(typeof(DebuffType)).Length;
-            _debuffPool = new(numOfDebuffs);
-            _containedDebuffs = new bool[numOfDebuffs];
+            _weights = new[] { commonWeight, rareWeight, epicWeight };
         }
 
         #endregion
 
         #region Public Methods
 
-        public void Add(BuffType buff, Rarities rarities)
-        {
-            if (_containedBuffs[(int)buff]) return;
-            _buffPool.Add((buff, rarities));
-            _containedBuffs[(int)buff] = true;
-        }
+        public void Add(BuffType buff, Rarities rarities) => _buffPool.Add(buff, rarities);
+        public void Add(DebuffType debuff, Rarities rarities) => _debuffPool.Add(debuff, rarities);
 
-        public void Add(DebuffType debuff, Rarities rarities)
-        {
-            if (_containedDebuffs[(int)debuff]) return;
-            _debuffPool.Add((debuff, rarities));
-            _containedDebuffs[(int)debuff] = true;
-        }
+        public bool Contains(BuffType buff) => _buffPool.ContainedElements[(int)buff];
+        public bool Contains(DebuffType debuff) => _debuffPool.ContainedElements[(int)debuff];
 
-        public bool Contains(BuffType buff) => _containedBuffs[(int)buff];
-        public bool Contains(DebuffType debuff) => _containedDebuffs[(int)debuff];
+        public void Remove(BuffType buff) => _buffPool.Remove(buff);
+        public void Remove(DebuffType debuff) => _debuffPool.Remove(debuff);
 
-        public void Remove(BuffType buff)
-        {
-            if (!_containedBuffs[(int)buff]) return;
-            _buffPool.RemoveAll(element => element.buff == buff);
-        }
+        public (BuffType type, Rarity rarity) GetRandomBuff() => _buffPool.GetRandom(_weights);
+        public (DebuffType type, Rarity rarity) GetRandomDebuff() => _debuffPool.GetRandom(_weights);
 
-        public void Remove(DebuffType debuff)
-        {
-            if (!_containedDebuffs[(int)debuff]) return;
-            _debuffPool.RemoveAll(element => element.debuff == debuff);
-        }
-
-        public (BuffType type, Rarity rarity) GetRandomBuff() => GetRandom(_buffPool);
-
-        public (DebuffType type, Rarity rarity) GetRandomDebuff() => GetRandom(_debuffPool);
+        public void FinishedUpdating() => PoolUpdated?.Invoke();
 
         #endregion
 
-        #region Public Methods
+        #region Classes
 
-        private (T, Rarity) GetRandom<T>(IReadOnlyList<(T type, Rarities rarities)> pool) where T : Enum
+        private class CardElementPool<T> where T : Enum
         {
-            var element = pool[Random.Range(0, pool.Count)];
-            var toArrResult = element.rarities.ToIntArrayNonAlloc(ref _raritiesBuffer);
-            if (toArrResult.onlyOneRarity)
-                return (element.type, toArrResult.rarity);
+            private int[] _raritiesBuffer = new int[NUMBER_OF_RARITIES];
+            private readonly List<(T type, Rarities rarities)> _pool;
+            public bool[] ContainedElements { get; private set; }
 
-            int range = 0;
-            for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
+            public CardElementPool()
             {
-                range += _raritiesBuffer[i] *= _weights[i];
+                var numOfBuffs = Enum.GetNames(typeof(T)).Length;
+                _pool = new(numOfBuffs);
+                ContainedElements = new bool[numOfBuffs];
             }
 
-            var randomInRange = Random.Range(0, range);
-            for (int i = 0; i < NUMBER_OF_RARITIES - 1; ++i)
+            public void Add(T type, Rarities rarities)
             {
-                if (randomInRange < _raritiesBuffer[i])
-                    return (element.type, (Rarity)i);
+                if (ContainedElements[type.IntValue()]) return;
+                _pool.Add((type, rarities));
+                ContainedElements[type.IntValue()] = true;
             }
 
-            return (element.type, Rarity.EPIC);
+            public void Remove(T type)
+            {
+                if (!ContainedElements[type.IntValue()]) return;
+                _pool.RemoveAll(element => element.type.Equals(type));
+            }
+
+            public (T, Rarity) GetRandom(int[] weights)
+            {
+                var element = _pool[Random.Range(0, _pool.Count)];
+                var toArrResult = element.rarities.ToIntArrayNonAlloc(ref _raritiesBuffer);
+                if (toArrResult.onlyOneRarity)
+                    return (element.type, toArrResult.rarity);
+
+                int range = 0;
+                for (int i = 0; i < NUMBER_OF_RARITIES; ++i)
+                {
+                    range += _raritiesBuffer[i] *= weights[i];
+                }
+
+                var randomInRange = Random.Range(0, range);
+                for (int i = 0; i < NUMBER_OF_RARITIES - 1; ++i)
+                {
+                    if (randomInRange < _raritiesBuffer[i])
+                        return (element.type, (Rarity)i);
+                }
+
+                return (element.type, Rarity.EPIC);
+            }
         }
 
         #endregion
+    }
+
+    public static class EnumGenericExt
+    {
+        public static int IntValue<T>(this T value) where T : Enum => (int)(object)value;
     }
 }
