@@ -10,6 +10,8 @@ namespace Cards.Buffs
         {
         }
 
+        protected override void RemoveSelfFromPool(CardPool pool) => pool.Remove(Type);
+
         public abstract void Apply(PlayerController playerController);
         
         public abstract BuffType Type { get; }

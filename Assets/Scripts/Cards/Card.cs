@@ -49,11 +49,14 @@ namespace Cards
 
         #region Public Methods
 
-        public void Apply()
+        public void Apply(CardPool pool)
         {
             if (_applied) return;
-            _buff?.Apply(GameManager.PlayerController);
-            _debuff?.Apply(RoomManager.EnemyDictionary);
+            _buff.Apply(GameManager.PlayerController);
+            _debuff.Apply(RoomManager.EnemyDictionary);
+            _buff.UpdatePool(pool);
+            _debuff.UpdatePool(pool);
+            pool.FinishedUpdating();
             _applied = true;
         }
 

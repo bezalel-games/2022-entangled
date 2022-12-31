@@ -22,8 +22,8 @@ namespace Cards
 
         #region Non-Serialized Fields
 
-        private PlayerDeck _playerDeck;
-        private RunDeck _runDeck;
+        // private PlayerDeck _playerDeck;
+        // private RunDeck _runDeck;
         private CardPool _cardPool;
         private Card _leftCard;
         private Card _rightCard;
@@ -35,36 +35,13 @@ namespace Cards
 
         private void Awake()
         {
-            _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
-            var allRarities = Rarities.All;
-            _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
-            _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
-
-            _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
-            _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
-            _cardPool.Add(BuffType.SWAP_POSITIONS_WITH_YOYO, _factory.SwapPositionWithYoyo.Rarity);
-
-            _playerDeck = new PlayerDeck(_factory);
-
-            if (SaveSystem.DataSaved(_playerDeck))
-                SaveSystem.LoadData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
-            else
-                _playerDeck.InitEmpty();
-            _runDeck = new RunDeck(_playerDeck, _cardPool);
+            InitPool();
         }
 
-        private void OnDestroy()
-        {
-            SaveSystem.SaveData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
-        }
-
-        public void Reset()
-        {
-            OnDestroy();
-            Awake();
-        }
+        // private void OnDestroy()
+        // {
+        //     SaveSystem.SaveData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
+        // }
 
         #endregion
 
@@ -72,17 +49,19 @@ namespace Cards
 
         public void ShowCards(Action finishedChoosingCardsAction)
         {
-            bool leftIsDeckCard = true;
+            // bool leftIsDeckCard = true;
             _finishedChoosingCardsAction = finishedChoosingCardsAction;
-            _leftCard = _runDeck.Draw();
-            if (_leftCard == null)
-            {
-                _leftCard = GenerateNewCard();
-                leftIsDeckCard = false;
-            }
+            _leftCard = GenerateNewCard();
+            
+            // _leftCard = _runDeck.Draw();
+            // if (_leftCard == null)
+            // {
+            //     _leftCard = GenerateNewCard();
+            //     leftIsDeckCard = false;
+            // }
 
             _rightCard = GenerateNewCard();
-            _ui.ShowCards(_leftCard, _rightCard, leftIsDeckCard);
+            _ui.ShowCards(_leftCard, _rightCard, false);
         }
 
         public void ChooseLeftCard() => ChooseCard(_leftCard);
@@ -93,6 +72,31 @@ namespace Cards
 
         #region Private Methods
 
+        private void InitPool()
+        {
+            _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
+            var allRarities = Rarities.All;
+            _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
+            _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
+            _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
+            _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
+
+            _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
+            _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
+            _cardPool.Add(BuffType.SWAP_POSITIONS_WITH_YOYO, _factory.SwapPositionWithYoyo.Rarity);
+        }
+        
+        // private void InitDecks()
+        // {
+        //     _playerDeck = new PlayerDeck(_factory);
+        //
+        //     if (SaveSystem.DataSaved(_playerDeck))
+        //         SaveSystem.LoadData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
+        //     else
+        //         _playerDeck.InitEmpty();
+        //     _runDeck = new RunDeck(_playerDeck, _cardPool);
+        // }
+        
         private Card GenerateNewCard()
         {
             var buff = _cardPool.GetRandomBuff();
@@ -102,8 +106,8 @@ namespace Cards
 
         private void ChooseCard(Card card)
         {
-            card.Apply();
-            _runDeck.ReplaceCard(card);
+            card.Apply(_cardPool);
+            // _runDeck.ReplaceCard(card);
             _finishedChoosingCardsAction.Invoke();
         }
 
