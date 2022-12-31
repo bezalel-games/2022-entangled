@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cards.Factory;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Cards
 {
@@ -93,6 +93,8 @@ namespace Cards
 
         private void ValidateCards()
         {
+            _cards.RemoveAll(element => !_cardPool.Contains(element.card.BuffType) ||
+                                        !_cardPool.Contains(element.card.DebuffType));
             for (int i = _unavailableCards.Count - 1; i >= 0; --i)
             {
                 var cardsElement = _unavailableCards[i];

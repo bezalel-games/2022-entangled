@@ -9,6 +9,8 @@ namespace Cards.Debuffs
         protected Debuff(CardElementClassAttributes attributes, Rarity rarity) : base(attributes, rarity)
         {
         }
+        
+        protected override void RemoveSelfFromPool(CardPool pool) => pool.Remove(Type);
 
         public abstract void Apply(EnemyDictionary enemyDictionary);
 
