@@ -37,13 +37,13 @@ namespace Cards
         {
             _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
             var allRarities = Rarities.All;
-            _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
-            _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
             _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
             _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
             _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
             _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
 
+            _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
+            _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
             _cardPool.Add(BuffType.SWAP_POSITIONS_WITH_YOYO, _factory.SwapPositionWithYoyo.Rarity);
 
             _playerDeck = new PlayerDeck(_factory);
