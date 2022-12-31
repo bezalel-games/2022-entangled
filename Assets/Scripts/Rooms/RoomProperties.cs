@@ -41,6 +41,8 @@ namespace Rooms
         [field: SerializeField] public TileBase ClosedGateTile { get; private set; }
         [field: SerializeField] public TileBase OpeningGateTile { get; private set; }
         [field: SerializeField] public TileBase OpenedGateTile { get; private set; }
+        [field: SerializeField] public TileBase GateFrameTile { get; private set; }
+        [field: SerializeField] public TileBase EmptyTile { get; private set; }
 
         [Space(20)] [SerializeField] private bool _update;
         [Space(20)] [SerializeField] private bool _updateContinuously;
