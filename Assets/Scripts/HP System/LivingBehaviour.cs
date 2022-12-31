@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace HP_System
@@ -11,8 +12,8 @@ namespace HP_System
         [Header("Living Behaviour")] 
         [SerializeField] private float _maxHp;
         [SerializeField] private float _maxMp;
-
-        protected readonly float PushbackTime = 0.3f;
+        [SerializeField] private float _pushbackFactor = 0.4f;
+        [SerializeField] protected float _pushbackTime = 0.3f;
 
         #endregion
 
@@ -21,7 +22,6 @@ namespace HP_System
         private float _hp;
         private float _mp;
         private float _hitTime;
-        private float _pushbackFactor = 0.4f;
         
         protected Rigidbody2D Rigidbody;
         
@@ -117,13 +117,13 @@ namespace HP_System
         {
             base.Update();
 
-            if (Time.time > _hitTime + PushbackTime && PushbackVector != Vector2.zero)
+            if (Time.time > _hitTime + _pushbackTime && PushbackVector != Vector2.zero)
             {
                 PushbackVector = Vector2.zero;
             }
-            if (Time.time >= _hitTime && Time.time <= _hitTime + PushbackTime)
+            if (Time.time >= _hitTime && Time.time <= _hitTime + _pushbackTime)
             {
-                var t = (Time.time - _hitTime) / PushbackTime;
+                var t = (Time.time - _hitTime) / _pushbackTime;
                 PushbackVector = Vector2.Lerp(_pushbackDirection, Vector2.zero, t);
                 if (PushbackVector.magnitude <= 0.1f)
                 {
@@ -155,7 +155,7 @@ namespace HP_System
             if (Invulnerable || IsDead) return;
             Hp -= damage;
 
-            _pushbackDirection = _pushbackFactor * (transform.position - attacker.position.normalized);
+            _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
             _hitTime = Time.time;
         }
 

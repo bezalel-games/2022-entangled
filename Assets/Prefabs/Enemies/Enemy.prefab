@@ -281,16 +281,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
-  _healthBar: {fileID: 0}
   _maxMp: 0
-  _mpBar: {fileID: 0}
+  _pushbackFactor: 2
+  _pushbackTime: 0.3
   _speed: 0
   _damage: 0
+  <AttackCooldown>k__BackingField: 0
   <MpRestore>k__BackingField: 0
   <AttackDistance>k__BackingField: 0
   <KeepDistance>k__BackingField: 0
   <PrepareAttackTime>k__BackingField: 0
+  <AttackTime>k__BackingField: 1
   <Rank>k__BackingField: 1
+  <SeparationWeight>k__BackingField: 1
+  <ToPlayerWeight>k__BackingField: 1
+  <AwayFromWallWeight>k__BackingField: 1
 --- !u!1001 &2298167498492990749
 PrefabInstance:
   m_ObjectHideFlags: 0

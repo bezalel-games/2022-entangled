@@ -200,6 +200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 40
   _maxMp: 0
+  _pushbackFactor: 10
+  _pushbackTime: 0.3
   _speed: 2
   _damage: 3
   <AttackCooldown>k__BackingField: 1
