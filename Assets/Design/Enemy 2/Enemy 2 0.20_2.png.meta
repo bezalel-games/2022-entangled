@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 550
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1403,19 +1403,19 @@ TextureImporter:
       Enemy 2 0.20_2_59: 1575726930
       Enemy 2 0.20_2_54: -110563684
       Enemy 2 0.20_2_38: -1888764366
-      Enemy 2 0.20_2_19: -305777074
-      Enemy 2 0.20_2_33: -1103156804
-      Enemy 2 0.20_2_31: 65747064
       Enemy 2 0.20_2_1: -1567793630
       Enemy 2 0.20_2_12: 1124898723
+      Enemy 2 0.20_2_33: -1103156804
+      Enemy 2 0.20_2_19: -305777074
+      Enemy 2 0.20_2_31: 65747064
       Enemy 2 0.20_2_47: -1580658713
       Enemy 2 0.20_2_41: -1111067252
       Enemy 2 0.20_2_4: -574001839
       Enemy 2 0.20_2_3: 1051306881
-      Enemy 2 0.20_2_5: -921883202
       Enemy 2 0.20_2_16: -1415633006
-      Enemy 2 0.20_2_22: 2072269063
       Enemy 2 0.20_2_51: 753739045
+      Enemy 2 0.20_2_5: -921883202
+      Enemy 2 0.20_2_22: 2072269063
       Enemy 2 0.20_2_55: 1042142314
       Enemy 2 0.20_2_18: 2082655960
       Enemy 2 0.20_2_48: -664257389

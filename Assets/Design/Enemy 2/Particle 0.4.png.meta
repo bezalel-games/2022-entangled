@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 550
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,7 +109,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 4752
         width: 432
         height: 432
       alignment: 0
@@ -129,8 +129,8 @@ TextureImporter:
       name: Particle 0.4_1
       rect:
         serializedVersion: 2
-        x: 432
-        y: 0
+        x: 0
+        y: 4320
         width: 432
         height: 432
       alignment: 0
@@ -150,8 +150,8 @@ TextureImporter:
       name: Particle 0.4_2
       rect:
         serializedVersion: 2
-        x: 864
-        y: 0
+        x: 0
+        y: 3888
         width: 432
         height: 432
       alignment: 0
@@ -171,8 +171,8 @@ TextureImporter:
       name: Particle 0.4_3
       rect:
         serializedVersion: 2
-        x: 1296
-        y: 0
+        x: 0
+        y: 3456
         width: 432
         height: 432
       alignment: 0
@@ -192,8 +192,8 @@ TextureImporter:
       name: Particle 0.4_4
       rect:
         serializedVersion: 2
-        x: 1728
-        y: 0
+        x: 0
+        y: 3024
         width: 432
         height: 432
       alignment: 0
@@ -213,8 +213,8 @@ TextureImporter:
       name: Particle 0.4_5
       rect:
         serializedVersion: 2
-        x: 2160
-        y: 0
+        x: 0
+        y: 2592
         width: 432
         height: 432
       alignment: 0
@@ -234,8 +234,8 @@ TextureImporter:
       name: Particle 0.4_6
       rect:
         serializedVersion: 2
-        x: 2592
-        y: 0
+        x: 0
+        y: 2160
         width: 432
         height: 432
       alignment: 0
@@ -255,8 +255,8 @@ TextureImporter:
       name: Particle 0.4_7
       rect:
         serializedVersion: 2
-        x: 3024
-        y: 0
+        x: 0
+        y: 1728
         width: 432
         height: 432
       alignment: 0
@@ -276,8 +276,8 @@ TextureImporter:
       name: Particle 0.4_8
       rect:
         serializedVersion: 2
-        x: 3456
-        y: 0
+        x: 0
+        y: 1296
         width: 432
         height: 432
       alignment: 0
@@ -297,8 +297,8 @@ TextureImporter:
       name: Particle 0.4_9
       rect:
         serializedVersion: 2
-        x: 3888
-        y: 0
+        x: 0
+        y: 864
         width: 432
         height: 432
       alignment: 0
@@ -318,8 +318,8 @@ TextureImporter:
       name: Particle 0.4_10
       rect:
         serializedVersion: 2
-        x: 4320
-        y: 0
+        x: 0
+        y: 432
         width: 432
         height: 432
       alignment: 0
@@ -339,7 +339,7 @@ TextureImporter:
       name: Particle 0.4_11
       rect:
         serializedVersion: 2
-        x: 4752
+        x: 0
         y: 0
         width: 432
         height: 432

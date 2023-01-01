@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 550
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -2969,8 +2969,8 @@ TextureImporter:
       Enemy 2 0.20_122: -534426150
       Enemy 2 0.20_51: -1548232670
       Enemy 2 0.20_75: -1977612192
-      Enemy 2 0.20_37: 1638896411
       Enemy 2 0.20_84: 914845809
+      Enemy 2 0.20_37: 1638896411
       Enemy 2 0.20_93: 990920268
       Enemy 2 0.20_109: 97098582
       Enemy 2 0.20_27: 2127707456
