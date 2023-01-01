@@ -1,3 +1,6 @@
-using Enemies;
-
-public class ShooterMove : MoveBehaviour<Shooter> { }
+namespace Enemies
+{
+    public class ShooterMove : MoveBehaviour<Shooter>
+    {
+    }
+}

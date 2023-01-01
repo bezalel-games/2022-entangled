@@ -1,14 +1,20 @@
-using Enemies;
 using UnityEngine;
 
-public class GoombaAttack : AttackBehaviour<Goomba>
+namespace Enemies
 {
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class GoombaAttack : AttackBehaviour<Goomba>
     {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
+        // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
 
-        ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
-        ThisEnemy.Attack((() => { animator.SetTrigger(Idle); ThisEnemy.Stop();}));
+            ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
+            ThisEnemy.Attack((() =>
+            {
+                animator.SetTrigger(Idle);
+                ThisEnemy.Stop();
+            }));
+        }
     }
 }

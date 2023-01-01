@@ -1,98 +1,101 @@
 using System.Collections.Generic;
-using Enemies;
 using UnityEngine;
 
-public class Shooter : Enemy
+namespace Enemies
 {
-    #region Serialized Fields
-
-    [Header("Shooter")] 
-    [SerializeField] private float shootCooldown;
-    [SerializeField] private Projectile _projectilePrefab;
-    [SerializeField] private float _projectileSpeed;
-
-    #endregion
-
-    #region Non-Serialized Fields
-
-    private static Stack<Projectile> _projectilePool = new Stack<Projectile>();
-
-    #endregion
-
-    #region Properties
-
-    [field: SerializeField] public int ShotsPerAttack { get; private set; }
-    public bool CanShoot { get; private set; }
-
-    #endregion
-
-    #region Function Events
-
-    protected override void Awake()
+    public class Shooter : Enemy
     {
-        base.Awake();
-        CanShoot = true;
-    }
+        #region Serialized Fields
 
-    #endregion
+        [Header("Shooter")]
+        [SerializeField] private float shootCooldown;
 
-    #region Public Methods
+        [SerializeField] private Projectile _projectilePrefab;
+        [SerializeField] private float _projectileSpeed;
 
-    public static void ClearProjectiles()
-    {
-        foreach (var proj in _projectilePool)
+        #endregion
+
+        #region Non-Serialized Fields
+
+        private static Stack<Projectile> _projectilePool = new Stack<Projectile>();
+
+        #endregion
+
+        #region Properties
+
+        [field: SerializeField] public int ShotsPerAttack { get; private set; }
+        public bool CanShoot { get; private set; }
+
+        #endregion
+
+        #region Function Events
+
+        protected override void Awake()
         {
-            Destroy(proj.gameObject);
+            base.Awake();
+            CanShoot = true;
         }
 
-        _projectilePool = new Stack<Projectile>();
-    }
+        #endregion
 
-    public void Shoot(Vector2 dir)
-    {
-        var projPos = transform.position;
-        
-        Projectile proj;
-        if (_projectilePool.Count > 0)
+        #region Public Methods
+
+        public static void ClearProjectiles()
         {
-            proj = _projectilePool.Pop();
-            proj.transform.position = projPos;
-            proj.gameObject.SetActive(true);
+            foreach (var proj in _projectilePool)
+            {
+                Destroy(proj.gameObject);
+            }
+
+            _projectilePool = new Stack<Projectile>();
         }
-        else
+
+        public void Shoot(Vector2 dir)
         {
-            proj = Instantiate(_projectilePrefab, projPos, Quaternion.identity);
+            var projPos = transform.position;
+
+            Projectile proj;
+            if (_projectilePool.Count > 0)
+            {
+                proj = _projectilePool.Pop();
+                proj.transform.position = projPos;
+                proj.gameObject.SetActive(true);
+            }
+            else
+            {
+                proj = Instantiate(_projectilePrefab, projPos, Quaternion.identity);
+            }
+
+            proj.Damage = _damage;
+            proj.Speed = _projectileSpeed;
+            proj.Direction = dir;
+            proj.OnDisappear = () =>
+            {
+                /*
+                 * since setActive(false) calls OnBecameInvisible, we must start by null-ing OnDisappear so it won't
+                 * get called twice
+                 */
+                proj.OnDisappear = null;
+                proj.gameObject.SetActive(false);
+                _projectilePool.Push(proj);
+            };
+
+            CanShoot = false;
+            DelayInvoke(() => { CanShoot = true; }, shootCooldown);
         }
-        
-        proj.Damage = _damage;
-        proj.Speed = _projectileSpeed;
-        proj.Direction = dir;
-        proj.OnDisappear = () =>
+
+        #endregion
+
+        #region Private Methods
+
+        protected override void Move()
         {
-            /*
-             * since setActive(false) calls OnBecameInvisible, we must start by null-ing OnDisappear so it won't
-             * get called twice
-             */
-            proj.OnDisappear = null;
-            proj.gameObject.SetActive(false);
-            _projectilePool.Push(proj);
-        };
-
-        CanShoot = false;
-        DelayInvoke(() => { CanShoot = true; }, shootCooldown);
-    }
-
-    #endregion
-
-    #region Private Methods
-    
-    protected override void Move()
-    {
-        if (!Attacking)
-        {
-            base.Move();
+            if (!Attacking)
+            {
+                base.Move();
+            }
         }
-    }
 
-    #endregion
+        #endregion
+    }
 }

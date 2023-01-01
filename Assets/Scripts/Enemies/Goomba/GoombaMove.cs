@@ -1,9 +1,10 @@
-using Enemies;
-
-public class GoombaMove : MoveBehaviour<Goomba>
+namespace Enemies
 {
-    // protected override Vector2 GetToPlayerDirection()
-    // {
-    //     return (Player.position - ThisEnemy.transform.position).normalized;
-    // }
+    public class GoombaMove : MoveBehaviour<Goomba>
+    {
+        // protected override Vector2 GetToPlayerDirection()
+        // {
+        //     return (Player.position - ThisEnemy.transform.position).normalized;
+        // }
+    }
 }
