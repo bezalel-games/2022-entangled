@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Managers;
+﻿using Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Enemies
 {
@@ -14,16 +12,16 @@ namespace Enemies
         protected Transform Player;
         protected T ThisEnemy;
 
-        private readonly int frameRate = 100;
+        private readonly int _frameRate = 100;
         
-        private int frameCount;
-        private int frameOffset; // add offset to frame count so enemies will make decisions at different times
+        private int _frameCount;
+        private int _frameOffset; // add offset to frame count so enemies will make decisions at different times
 
         #endregion
 
         #region Property
 
-        protected bool AtFrameRate => (frameCount + frameOffset) % frameRate == 0;
+        protected bool AtFrameRate => (_frameCount + _frameOffset) % _frameRate == 0;
 
         #endregion
 
@@ -40,7 +38,7 @@ namespace Enemies
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
-            frameCount++;
+            _frameCount++;
         }
 
         #endregion
@@ -49,7 +47,7 @@ namespace Enemies
 
         private void Init(Animator animator)
         {
-            frameOffset = UnityEngine.Random.Range(0, 100);
+            _frameOffset = Random.Range(0, 100);
             
             Player = GameManager.PlayerTransform;
             
@@ -58,9 +56,9 @@ namespace Enemies
             _init = true;
         }
         
-        protected void SetSpeedMultiplier(Animator animator, AnimatorStateInfo stateInfo, string parameterName, float wantedTime)
+        protected void SetSpeedMultiplier(Animator animator, AnimatorStateInfo stateInfo, int parameterHash, float wantedTime)
         {
-            var mult = animator.GetFloat(parameterName);
+            var mult = animator.GetFloat(parameterHash);
             var animationLength = stateInfo.length;
 
             if(animationLength == 0) return;
@@ -68,7 +66,7 @@ namespace Enemies
             // orig * mult = 1/wanted -> mult = wanted * orig
             var originalLength = animationLength * mult;
             var newMult = 1 / (wantedTime * originalLength);
-            animator.SetFloat(parameterName, newMult);
+            animator.SetFloat(parameterHash, newMult);
         }
 
         #endregion

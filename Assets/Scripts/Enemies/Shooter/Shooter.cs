@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
-using UnityEngine.Search;
-using Utils;
 
 public class Shooter : Enemy
 {

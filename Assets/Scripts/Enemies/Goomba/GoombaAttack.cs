@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class GoombaAttack : AttackBehaviour<Goomba>
 {
@@ -13,6 +9,6 @@ public class GoombaAttack : AttackBehaviour<Goomba>
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
         ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
-        ThisEnemy.Attack((() => { animator.SetTrigger("Idle"); ThisEnemy.Stop();}));
+        ThisEnemy.Attack((() => { animator.SetTrigger(Idle); ThisEnemy.Stop();}));
     }
 }

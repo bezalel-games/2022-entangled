@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Enemies
@@ -9,9 +8,10 @@ namespace Enemies
         
         #region Fields
         
-        private readonly float wallRaycastDistance = 1;
-        private readonly float enemyCastDistance = 1;
-        private int wallMask = 0;
+        private readonly float _wallRaycastDistance = 1;
+        private readonly float _enemyCastDistance = 1;
+        
+        private static readonly int WallMask = LayerMask.GetMask("Walls");
         private static readonly int Attack = Animator.StringToHash("Attack");
 
         #endregion
@@ -21,7 +21,6 @@ namespace Enemies
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            wallMask = LayerMask.GetMask("Walls");
 
             ThisEnemy.DesiredDirection = GetFlockingDirection();
         }
@@ -85,7 +84,7 @@ namespace Enemies
             var position = ThisEnemy.transform.position;
             
             var results = new Collider2D[10];
-            var size = Physics2D.OverlapCircleNonAlloc(position, enemyCastDistance, results, Enemy.Layer);
+            var size = Physics2D.OverlapCircleNonAlloc(position, _enemyCastDistance, results, Enemy.Layer);
             
             if (size > 0)
             {
@@ -139,12 +138,12 @@ namespace Enemies
                 var wall = Physics2D.Raycast(
                     enemyPosition, 
                     dir, 
-                    wallRaycastDistance, 
-                    wallMask);
+                    _wallRaycastDistance, 
+                    WallMask);
                 
                 if(wall.collider == null) continue;
                 
-                var factor = 1 - (wall.distance / wallRaycastDistance);
+                var factor = 1 - (wall.distance / _wallRaycastDistance);
                 direction = -1 * factor * dir;
             }
 
