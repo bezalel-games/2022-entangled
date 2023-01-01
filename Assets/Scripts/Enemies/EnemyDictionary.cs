@@ -73,6 +73,7 @@ namespace Enemies
 
             private const float ENEMY_SPAWN_CLEAR_RADIUS = 2;
             private float _maxHp;
+            private float _maxSpeed;
             private int _collisionLayerMask;
 
             #endregion
@@ -98,6 +99,16 @@ namespace Enemies
                 }
                 set => _maxHp = value;
             }
+            
+            public float MaxSpeed
+            {
+                get
+                {
+                    if (_maxSpeed == 0) _maxSpeed = Prefab.MaxSpeed;
+                    return _maxSpeed;
+                }
+                set => _maxSpeed = value;
+            }
 
             public string Name => Prefab.gameObject.name;
 
@@ -114,8 +125,12 @@ namespace Enemies
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
 
-                // subscribe a method to update enemy HP on it's enablement
-                spawnedEnemy.Enabled += () => spawnedEnemy.MaxHp = MaxHp;
+                // subscribe a method to update enemy type variables on it's enablement
+                spawnedEnemy.Enabled += () =>
+                {
+                    spawnedEnemy.MaxHp = MaxHp;
+                    spawnedEnemy.MaxSpeed = MaxSpeed;
+                };
 
                 return true;
             }

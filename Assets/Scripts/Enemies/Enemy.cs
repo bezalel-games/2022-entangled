@@ -1,6 +1,5 @@
 using System;
 using HP_System;
-using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -9,7 +8,7 @@ namespace Enemies
     {
         #region Serialized Fields
 
-        [Header("Enemy")] [SerializeField] private float _speed;
+        [Header("Enemy")] 
         [SerializeField] protected float _damage;
 
         #endregion
@@ -30,6 +29,7 @@ namespace Enemies
 
         #region Properties
 
+        [field: SerializeField] public float MaxSpeed { get; set; }
         [field: SerializeField] public float AttackCooldown { get; set; }
         [field: SerializeField] public float MpRestore { get; set; }
         [field: SerializeField] public float AttackDistance { get; private set; }
@@ -180,7 +180,7 @@ namespace Enemies
             }
             else
             {
-                Rigidbody.velocity = _desiredDirection * _speed;
+                Rigidbody.velocity = _desiredDirection * MaxSpeed;
             }
         }
 

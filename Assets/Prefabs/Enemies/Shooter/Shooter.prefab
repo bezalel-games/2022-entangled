@@ -248,8 +248,8 @@ MonoBehaviour:
   _maxMp: 0
   _pushbackFactor: 10
   _pushbackTime: 0.3
-  _speed: 1
   _damage: 2
+  <MaxSpeed>k__BackingField: 1
   <AttackCooldown>k__BackingField: 1
   <MpRestore>k__BackingField: 0
   <AttackDistance>k__BackingField: 6
