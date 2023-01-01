@@ -66,7 +66,6 @@ namespace Rooms
             public readonly int Width;
             public readonly int Height;
             public readonly int WallSize;
-            public readonly int GateWidth;
             public readonly int GateTop;
             public readonly int GateBottom;
             public readonly int GateLeft;
@@ -74,17 +73,20 @@ namespace Rooms
             public TileBase GroundTile { get;}
             public TileBase WallTile { get;}
             public TileBase GateTile { get;}
+            public TileBase GateFrameTile { get;}
+            public TileBase EmptyTile { get;}
 
             public Calculations(RoomProperties properties)
             {
                 Width = properties.Width;
                 Height = properties.Height;
                 WallSize = properties.WallSize;
-                GateWidth = properties.GateWidth;
                 
                 GroundTile = properties.GroundTile;
                 WallTile = properties.WallTile;
                 GateTile = properties.OpenedGateTile;
+                GateFrameTile = properties.GateFrameTile;
+                EmptyTile = properties.EmptyTile;
 
                 OrthoSize = Mathf.Max(Height / 2f, Width * WIDTH_TO_NEEDED_HEIGHT);
                 Offset = Height % 2 == 0 ? 1 : 0.5f;
@@ -94,7 +96,7 @@ namespace Rooms
                 Bottom = -Mathf.FloorToInt(halfHeight);
                 Right = Mathf.FloorToInt(halfWidth);
                 Left = -Mathf.CeilToInt(halfWidth);
-                var halfGateWidth = (GateWidth - 1) / 2f;
+                var halfGateWidth = (properties.GateWidth - 1) / 2f;
                 GateTop = Mathf.CeilToInt(halfGateWidth);
                 GateBottom = -Mathf.FloorToInt(halfGateWidth);
                 GateRight = Mathf.FloorToInt(halfGateWidth);

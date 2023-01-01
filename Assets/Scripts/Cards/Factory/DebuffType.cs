@@ -5,6 +5,8 @@
         MORE_GOOMBAS,
         MORE_SHOOTERS,
         TOUGHER_GOOMBAS,
-        TOUGHER_SHOOTERS
+        TOUGHER_SHOOTERS,
+        FASTER_GOOMBAS,
+        FASTER_SHOOTERS,
     }
 }

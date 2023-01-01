@@ -13,6 +13,6 @@ public class GoombaAttack : AttackBehaviour<Goomba>
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
         ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
-        ThisEnemy.Attack((() => { animator.SetTrigger("Idle"); }));
+        ThisEnemy.Attack((() => { animator.SetTrigger("Idle"); ThisEnemy.Stop();}));
     }
 }

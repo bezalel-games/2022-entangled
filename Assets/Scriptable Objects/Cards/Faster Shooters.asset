@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
-  m_Name: Explosive Yoyo
+  m_Name: Faster Shooters
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Spectral Pulse
-  <TitlePart>k__BackingField: Explosion
-  <Description>k__BackingField: Create a powerful pulse from your weapon by pressing
-    R1 when you are not holding it
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 4b31aaa71b6d5164ca4690d40828cdac, type: 3}
+  <Name>k__BackingField: Faster Shooters
+  <TitlePart>k__BackingField: Fast
+  <Description>k__BackingField: Ranged enemies will move faster
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 20c88a832838e2542bec8c033e16b899, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
-  <SingleUse>k__BackingField: 1
+  <SingleUse>k__BackingField: 0

@@ -4,17 +4,78 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public abstract class MoveBehaviour<T> : EnemyBehaviour<T> where T : Enemy
+    public class MoveBehaviour<T> : EnemyBehaviour<T> where T : Enemy
     {
+        
+        #region Fields
+        
         private readonly float wallRaycastDistance = 1;
         private readonly float enemyCastDistance = 1;
         private int wallMask = 0;
-        protected abstract Vector2 GetToPlayerDirection();
+        private static readonly int Attack = Animator.StringToHash("Attack");
+
+        #endregion
+
+        #region StateMachineBehaviour Methods
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             wallMask = LayerMask.GetMask("Walls");
+
+            ThisEnemy.DesiredDirection = GetFlockingDirection();
+        }
+        
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.ResetTrigger(Attack);
+        }
+
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
+            
+            if(!AtFrameRate) return;
+        
+            var playerPos = Player.position;
+            var goombaPos = ThisEnemy.transform.position;
+            var distance = Vector2.Distance(playerPos, goombaPos);
+            
+            if (ShouldAttack(distance))
+            {
+                animator.SetTrigger(Attack);
+            }
+            else
+            {
+                ThisEnemy.DesiredDirection = GetFlockingDirection();
+            }
+        }
+
+        #endregion
+
+        #region Flocking
+        
+        protected virtual Vector2 GetToPlayerDirection()
+        {
+            var playerPos = Player.position;
+            var shooterPos = ThisEnemy.transform.position;
+            var distance = Vector2.Distance(playerPos, shooterPos);
+        
+            var dir = ThisEnemy.DesiredDirection;
+            var towardsPlayerDirection = (playerPos - shooterPos);
+        
+            var t = (ThisEnemy.KeepDistance + distance) / (ThisEnemy.KeepDistance + ThisEnemy.AttackDistance);
+            var towardPlayerCoefficient = (t - 0.5f);
+
+            var keepDistanceMult = towardPlayerCoefficient < 0 ? 2 : 1;
+            return keepDistanceMult * (towardPlayerCoefficient * towardsPlayerDirection).normalized;
+        }
+        
+        protected virtual bool ShouldAttack(float distanceFromPlayer)
+        {
+            var validAttackDistance = 
+                distanceFromPlayer <= ThisEnemy.AttackDistance && distanceFromPlayer > ThisEnemy.KeepDistance / 2;
+            return ThisEnemy.CanAttack && validAttackDistance;
         }
 
         protected Vector2 GetFlockingDirection()
@@ -89,5 +150,7 @@ namespace Enemies
 
             return direction;
         }
+
+        #endregion
     }
 }

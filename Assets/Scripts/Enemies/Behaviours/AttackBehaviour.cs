@@ -4,6 +4,8 @@ namespace Enemies
 {
     public class AttackBehaviour<T> : EnemyBehaviour<T> where T : Enemy
     {
+        private static readonly int Idle = Animator.StringToHash("Idle");
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -18,7 +20,7 @@ namespace Enemies
             ThisEnemy.CanAttack = false;
             ThisEnemy.DelayInvoke(() => { ThisEnemy.CanAttack = true;}, ThisEnemy.AttackCooldown);
             
-            animator.ResetTrigger("Idle");
+            animator.ResetTrigger(Idle);
         }
     }
 }

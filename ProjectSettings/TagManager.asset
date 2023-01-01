@@ -43,7 +43,7 @@ TagManager:
   - name: Background
     uniqueID: 2034819169
     locked: 0
-  - name: Floor
+  - name: Room Background
     uniqueID: 171178255
     locked: 0
   - name: Default
@@ -51,6 +51,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3945494543
+    locked: 0
+  - name: Room Foreground
+    uniqueID: 2859989999
     locked: 0
   - name: Slowdown
     uniqueID: 2892944209

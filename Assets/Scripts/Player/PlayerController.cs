@@ -322,7 +322,7 @@ namespace Player
             Mp += _mpRecoveryOnHit;
 
             Invulnerable = true;
-            DelayInvoke((() => { Invulnerable = false; }), PushbackTime);
+            DelayInvoke((() => { Invulnerable = false; }), _pushbackTime);
         }
 
         #endregion

@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
-using static Cards.Rarity;
 
 namespace Cards.CardElementClasses
 {
