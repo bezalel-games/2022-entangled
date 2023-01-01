@@ -12,7 +12,8 @@ namespace Enemies
         private readonly float wallRaycastDistance = 1;
         private readonly float enemyCastDistance = 1;
         private int wallMask = 0;
-        
+        private static readonly int Attack = Animator.StringToHash("Attack");
+
         #endregion
 
         #region StateMachineBehaviour Methods
@@ -27,7 +28,7 @@ namespace Enemies
         
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.ResetTrigger("Attack");
+            animator.ResetTrigger(Attack);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -42,7 +43,7 @@ namespace Enemies
             
             if (ShouldAttack(distance))
             {
-                animator.SetTrigger("Attack");
+                animator.SetTrigger(Attack);
             }
             else
             {
