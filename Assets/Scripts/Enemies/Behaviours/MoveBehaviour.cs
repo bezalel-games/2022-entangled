@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemies
@@ -11,8 +12,18 @@ namespace Enemies
         private readonly float _wallRaycastDistance = 1;
         private readonly float _enemyCastDistance = 1;
         
-        private static readonly int WallMask = LayerMask.GetMask("Walls");
+        private static int WallMask = 0;
         private static readonly int Attack = Animator.StringToHash("Attack");
+
+        #endregion
+        
+        #region Function Events
+
+        private void Awake()
+        {
+            if (WallMask == 0)
+                WallMask = LayerMask.GetMask("Walls");
+        }
 
         #endregion
 
