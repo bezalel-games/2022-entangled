@@ -69,6 +69,10 @@ namespace Rooms
                             back.SetTile(pos, properties.GateTile);
                             front.SetTile(pos, properties.GateFrameTile);
                             front.SetTile(pos + Vector3Int.down * Math.Sign(y), properties.EmptyTile);
+                            if (front.GetTile(pos + Vector3Int.left) == null)
+                                front.SetTile(pos + Vector3Int.left, properties.EmptyTile);
+                            if (front.GetTile(pos + Vector3Int.right) == null)
+                                front.SetTile(pos + Vector3Int.right, properties.EmptyTile);
                             continue;
                         }
 
@@ -77,6 +81,10 @@ namespace Rooms
                             back.SetTile(pos, properties.GateTile);
                             front.SetTile(pos, properties.GateFrameTile);
                             front.SetTile(pos + Vector3Int.left * Math.Sign(x), properties.EmptyTile);
+                            if (front.GetTile(pos + Vector3Int.up) == null)
+                                front.SetTile(pos + Vector3Int.up, properties.EmptyTile);
+                            if (front.GetTile(pos + Vector3Int.down) == null)
+                                front.SetTile(pos + Vector3Int.down, properties.EmptyTile);
                             continue;
                         }
 
