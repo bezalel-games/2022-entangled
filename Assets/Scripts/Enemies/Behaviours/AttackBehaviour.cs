@@ -4,13 +4,14 @@ namespace Enemies
 {
     public class AttackBehaviour<T> : EnemyBehaviour<T> where T : Enemy
     {
-        private static readonly int Idle = Animator.StringToHash("Idle");
+        protected static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int AttackSpeed = Animator.StringToHash("Attack Speed");
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
         
-            SetSpeedMultiplier(animator, stateInfo, "Attack Speed", ThisEnemy.AttackTime);
+            SetSpeedMultiplier(animator, stateInfo, AttackSpeed, ThisEnemy.AttackTime);
         }
     
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

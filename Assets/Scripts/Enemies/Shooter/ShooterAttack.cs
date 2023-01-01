@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 
@@ -7,7 +5,7 @@ public class ShooterAttack : AttackBehaviour<Shooter>
 {
     private int shootCounter;
     private Vector2 dir;
-    
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -29,7 +27,7 @@ public class ShooterAttack : AttackBehaviour<Shooter>
 
         if (shootCounter >= ThisEnemy.ShotsPerAttack)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(Idle);
         }
     }
 }
