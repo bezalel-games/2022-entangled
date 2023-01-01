@@ -1,3 +1,6 @@
-﻿using Enemies;
-
-public class ShooterPrepareAttack : PrepareAttackBehaviour<Shooter> { }
+﻿namespace Enemies
+{
+    public class ShooterPrepareAttack : PrepareAttackBehaviour<Shooter>
+    {
+    }
+}

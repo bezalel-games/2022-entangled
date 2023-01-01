@@ -1,17 +1,19 @@
-﻿using Enemies;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GoombaPrepareAttack : PrepareAttackBehaviour<Goomba>
+namespace Enemies
 {
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class GoombaPrepareAttack : PrepareAttackBehaviour<Goomba>
     {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-        ThisEnemy.PreparingAttack = true;
-    }
-    
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-        ThisEnemy.PreparingAttack = false;
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            ThisEnemy.PreparingAttack = true;
+        }
+
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            ThisEnemy.PreparingAttack = false;
+        }
     }
 }

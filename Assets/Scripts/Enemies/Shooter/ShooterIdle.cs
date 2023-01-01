@@ -1,10 +1,12 @@
-using Enemies;
 using UnityEngine;
 
-public class ShooterIdle : IdleBehaviour<Shooter>
+namespace Enemies
 {
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class ShooterIdle : IdleBehaviour<Shooter>
     {
-        animator.SetBool(Move,true); 
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.SetBool(Move, true);
+        }
     }
 }

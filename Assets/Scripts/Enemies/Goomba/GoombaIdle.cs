@@ -1,10 +1,12 @@
-using Enemies;
 using UnityEngine;
 
-public class GoombaIdle : IdleBehaviour<Goomba>
+namespace Enemies
 {
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class GoombaIdle : IdleBehaviour<Goomba>
     {
-        animator.SetBool(Move,true);
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.SetBool(Move, true);
+        }
     }
 }
