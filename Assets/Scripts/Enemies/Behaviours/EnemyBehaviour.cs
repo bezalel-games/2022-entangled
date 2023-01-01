@@ -64,8 +64,10 @@ namespace Enemies
             var animationLength = stateInfo.length;
 
             if(animationLength == 0) return;
-        
-            var newMult = wantedTime * (animationLength * mult);
+
+            // orig * mult = 1/wanted -> mult = wanted * orig
+            var originalLength = animationLength * mult;
+            var newMult = 1 / (wantedTime * originalLength);
             animator.SetFloat(parameterName, newMult);
         }
 

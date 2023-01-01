@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public abstract class MoveBehaviour<T> : EnemyBehaviour<T> where T : Enemy
+    public class MoveBehaviour<T> : EnemyBehaviour<T> where T : Enemy
     {
         
         #region Fields
@@ -15,19 +15,14 @@ namespace Enemies
         
         #endregion
 
-        #region Abstract Methods
-
-        protected abstract Vector2 GetToPlayerDirection();
-        protected abstract bool ShouldAttack(float distanceFromPlayer);
-
-        #endregion
-
         #region StateMachineBehaviour Methods
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             wallMask = LayerMask.GetMask("Walls");
+
+            ThisEnemy.DesiredDirection = GetFlockingDirection();
         }
         
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -58,6 +53,29 @@ namespace Enemies
         #endregion
 
         #region Flocking
+        
+        protected virtual Vector2 GetToPlayerDirection()
+        {
+            var playerPos = Player.position;
+            var shooterPos = ThisEnemy.transform.position;
+            var distance = Vector2.Distance(playerPos, shooterPos);
+        
+            var dir = ThisEnemy.DesiredDirection;
+            var towardsPlayerDirection = (playerPos - shooterPos);
+        
+            var t = (ThisEnemy.KeepDistance + distance) / (ThisEnemy.KeepDistance + ThisEnemy.AttackDistance);
+            var towardPlayerCoefficient = (t - 0.5f);
+
+            var keepDistanceMult = towardPlayerCoefficient < 0 ? 2 : 1;
+            return keepDistanceMult * (towardPlayerCoefficient * towardsPlayerDirection).normalized;
+        }
+        
+        protected virtual bool ShouldAttack(float distanceFromPlayer)
+        {
+            var validAttackDistance = 
+                distanceFromPlayer <= ThisEnemy.AttackDistance && distanceFromPlayer > ThisEnemy.KeepDistance / 2;
+            return ThisEnemy.CanAttack && validAttackDistance;
+        }
 
         protected Vector2 GetFlockingDirection()
         {
