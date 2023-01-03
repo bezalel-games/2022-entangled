@@ -29,6 +29,11 @@ namespace Rooms
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
 
+        [Header("Maze settings")]
+        [SerializeField] private int _minDistanceFromBoss = 5;
+        [SerializeField] private int _maxDistanceFromBoss = 6;
+        [SerializeField] private int _totalNumberOfRooms = 40;
+
         #endregion
 
         #region Non-Serialized Fields
@@ -61,7 +66,7 @@ namespace Rooms
             _instance = this;
             GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
 
-            _strategy = new MazeStrategy(4, 6, 40);
+            _strategy = new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss, _totalNumberOfRooms);
         }
 
         private void Start()
