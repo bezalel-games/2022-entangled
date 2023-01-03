@@ -110,7 +110,7 @@ namespace Enemies
         protected override void Awake()
         {
             base.Awake();
-            _roomEnemies = transform.parent.GetComponent<RoomEnemies>();
+            _roomEnemies = transform.parent != null ? transform.parent.GetComponent<RoomEnemies>() : null;
             _collider = GetComponent<Collider2D>();
             Layer = LayerMask.GetMask("Enemies");
         }

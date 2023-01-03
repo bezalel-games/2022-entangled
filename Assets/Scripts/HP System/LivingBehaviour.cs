@@ -151,6 +151,9 @@ namespace HP_System
         {
             if (Invulnerable || IsDead) return;
             Hp -= damage;
+            
+            if (!attacker)
+                return;
 
             _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
             _hitTime = Time.time;

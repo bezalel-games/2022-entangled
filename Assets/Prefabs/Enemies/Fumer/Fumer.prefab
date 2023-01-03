@@ -10,7 +10,15 @@ PrefabInstance:
     - target: {fileID: 419094844763604487, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: bbcfb65dbf50bc94e941510f6b232bd2, type: 2}
+      objectReference: {fileID: 9100000, guid: f9d3d79a26639224d9d52e730162430c, type: 2}
+    - target: {fileID: 1456842425901656848, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1037177011, guid: 7b97eacebd4595f4d81666e559a4a5df, type: 3}
+    - target: {fileID: 4125554779391483649, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: _living
+      value: 
+      objectReference: {fileID: 6797589689884115477}
     - target: {fileID: 5714414330355541032, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -66,6 +74,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7897815488341969439, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
   m_PrefabInstance: {fileID: 2280911102070427536}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &637291194307113928
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231948757014709647}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.018}
+  serializedVersion: 2
+  m_Radius: 0.06
 --- !u!198 &5759592767006989763
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -1083,26 +1107,26 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 1
         - serializedVersion: 3
-          time: 0.15063913
-          value: 0.91304934
-          inSlope: 2.2229939
-          outSlope: 2.2229939
+          time: 0.16264942
+          value: 0.90338755
+          inSlope: 1.8939626
+          outSlope: 1.8939626
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.15080118
+          outWeight: 0.1295595
         - serializedVersion: 3
-          time: 0.80143887
-          value: 0.11244373
-          inSlope: -1.5608262
-          outSlope: -1.5608262
+          time: 0.91356045
+          value: 0.12692432
+          inSlope: -1.2367185
+          outSlope: -1.2367185
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.22266583
+          inWeight: 0.12733474
           outWeight: 0.38806793
         - serializedVersion: 3
           time: 1
-          value: 0
+          value: 0.04830918
           inSlope: -0.037101377
           outSlope: 1
           tangentMode: 1
@@ -3721,7 +3745,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     type: 1
     collisionMode: 1
@@ -3902,15 +3926,16 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 2
-    inside: 1
+    inside: 2
     outside: 0
     enter: 0
     exit: 0
-    colliderQueryMode: 0
+    colliderQueryMode: 1
     radiusScale: 1
-    primitives: []
+    primitives:
+    - {fileID: 0}
   SubModule:
     serializedVersion: 2
     enabled: 0
@@ -4939,14 +4964,15 @@ MonoBehaviour:
   _pushbackTime: 0.3
   _damage: 3
   <MaxSpeed>k__BackingField: 2
-  <AttackCooldown>k__BackingField: 1
+  <AttackCooldown>k__BackingField: 0.5
   <MpRestore>k__BackingField: 0
-  <AttackDistance>k__BackingField: 4
-  <KeepDistance>k__BackingField: 2
+  <AttackDistance>k__BackingField: 5
+  <KeepDistance>k__BackingField: 5
   <PrepareAttackTime>k__BackingField: 1
   <AttackTime>k__BackingField: 0.5
   <Rank>k__BackingField: 1
   <SeparationWeight>k__BackingField: 1
   <ToPlayerWeight>k__BackingField: 1
   <AwayFromWallWeight>k__BackingField: 1
-  _Speed: 5
+  _fumeDamage: 1
+  _fumeDamageInterval: 0.5
