@@ -1,4 +1,5 @@
 using System;
+using Cards.Buffs.ActiveBuffs;
 using Enemies;
 using HP_System;
 using Managers;
@@ -120,6 +121,8 @@ namespace Player
             get => _collider.transform.localScale.x;
             set => _collider.transform.localScale = Vector3.one * value;
         }
+        
+        public ExplosiveYoyo ExplosiveYoyo { get; set; }
 
         #endregion
 

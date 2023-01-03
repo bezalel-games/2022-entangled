@@ -29,6 +29,12 @@ namespace Cards.Factory
         [field: Tooltip("Teleports to the yoyo's location, using the specified amount of stamina")]
         [field: SerializeField] public FixedCardElementClass SwapPositionWithYoyo { get; private set; }
 
+        [field: Tooltip("Multiply the current yoyo explosion radius by given amount")]
+        [field: SerializeField] public VariableCardElementClass ExpandExplosion { get; private set; }
+
+        [field: Tooltip("Multiply the current yoyo explosion damage by given amount")]
+        [field: SerializeField] public VariableCardElementClass IncreaseExplosionDamage { get; private set; }
+
         #endregion
 
         #region Debuff Serialized Fields
@@ -39,25 +45,25 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiplies the number of Shooters by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
-        
+
         [field: Tooltip("Multiplies the number of Fumers by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreFumers { get; private set; }
-        
+
         [field: Tooltip("Multiplies Goomba HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
-        
+
         [field: Tooltip("Multiplies Shooter HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
-        
+
         [field: Tooltip("Multiplies Fumer HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherFumers { get; private set; }
-        
+
         [field: Tooltip("Multiplies Goomba speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterGoombas { get; private set; }
 
         [field: Tooltip("Multiplies Shooter speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterShooters { get; private set; }
-        
+
         [field: Tooltip("Multiplies Fumer speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterFumers { get; private set; }
 
@@ -70,9 +76,14 @@ namespace Cards.Factory
             Buff buff = buffType switch
             {
                 ENLARGE_YOYO => new EnlargeYoyo(EnlargeYoyo.Attributes, buffRarity, EnlargeYoyo[buffRarity]),
-                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity, ExplosiveYoyo.Parameter, ExplosionPrefab),
+                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity, ExplosiveYoyo.Parameter,
+                    ExplosionPrefab),
                 SWAP_POSITIONS_WITH_YOYO => new SwapPositionWithYoyo(SwapPositionWithYoyo.Attributes, buffRarity,
                     SwapPositionWithYoyo.Parameter),
+                EXPAND_EXPLOSION => new ExpandExplosion(ExpandExplosion.Attributes, buffRarity,
+                    ExpandExplosion[buffRarity]),
+                INCREASE_EXPLOSION_DAMAGE => new IncreaseExplosionDamage(IncreaseExplosionDamage.Attributes, buffRarity,
+                    IncreaseExplosionDamage[buffRarity]),
                 _ => throw new ArgumentOutOfRangeException(nameof(buffType), buffType, null)
             };
             Debuff debuff = debuffType switch

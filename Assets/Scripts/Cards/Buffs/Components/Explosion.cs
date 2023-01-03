@@ -10,7 +10,6 @@ namespace Cards.Buffs.Components
         [SerializeField] private AnimationCurve _explosionExpansionCurve;
         [SerializeField] private float _expansionTime = 1;
         [SerializeField] private float _dissolveTime = 0.5f;
-        [SerializeField] private float _damage = 1;
 
         #endregion
 
@@ -26,6 +25,7 @@ namespace Cards.Buffs.Components
         #region Properties
 
         public float Radius { get; set; }
+        public float Damage { get; set; } = 1;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Cards.Buffs.Components
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Enemy"))
-                other.GetComponent<IHittable>()?.OnHit(transform, _damage);
+                other.GetComponent<IHittable>()?.OnHit(transform, Damage);
         }
 
         #endregion

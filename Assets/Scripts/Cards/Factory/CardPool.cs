@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cards.Buffs.ActiveBuffs;
 using Random = UnityEngine.Random;
 
 namespace Cards.Factory

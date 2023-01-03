@@ -26,6 +26,16 @@ MonoBehaviour:
     <Rarity>k__BackingField: 1
     <Parameter>k__BackingField: 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
+  <ExpandExplosion>k__BackingField:
+    _commonVariant: 1.1
+    _rareVariant: 1.2
+    _epicVariant: 1.25
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 965125e0740a85349afa87c812e25f87, type: 2}
+  <IncreaseExplosionDamage>k__BackingField:
+    _commonVariant: 1.2
+    _rareVariant: 1.4
+    _epicVariant: 1.7
+    <Attributes>k__BackingField: {fileID: 11400000, guid: 5880ef4e5440cbb41baf69568bb293b5, type: 2}
   <MoreGoombas>k__BackingField:
     _commonVariant: 1.1
     _rareVariant: 1.3

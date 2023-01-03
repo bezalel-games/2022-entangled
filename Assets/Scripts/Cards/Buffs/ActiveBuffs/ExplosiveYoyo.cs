@@ -9,24 +9,30 @@ namespace Cards.Buffs.ActiveBuffs
 {
     public class ExplosiveYoyo : Buff
     {
-        private float _explosionRadius;
-        private readonly Explosion _explosion;
-
         #region Fields
 
+        private readonly Explosion _explosion;
         private Yoyo _yoyo;
+
+        #endregion
+        
+        #region Properties
+
+        public float ExplosionRadius { get; set; }
+        public float Damage { get; set; } = 1;
 
         #endregion
 
         #region Buff Implementation
+        
+        public override BuffType Type => BuffType.EXPLOSIVE_YOYO;
 
         public override void Apply(PlayerController playerController)
         {
             _yoyo = playerController.Yoyo;
             _yoyo.ReachedThrowPeak += BlowUpYoyo;
+            _yoyo.ExplosiveYoyo = this;
         }
-        
-        public override BuffType Type => BuffType.EXPLOSIVE_YOYO;
 
         #endregion
 
@@ -36,7 +42,7 @@ namespace Cards.Buffs.ActiveBuffs
             Explosion explosionPrefab)
             : base(attributes, rarity)
         {
-            _explosionRadius = explosionRadius;
+            ExplosionRadius = explosionRadius;
             _explosion = explosionPrefab;
         }
 
@@ -47,7 +53,8 @@ namespace Cards.Buffs.ActiveBuffs
         private void BlowUpYoyo()
         {
             var explosion = Object.Instantiate(_explosion, _yoyo.transform);
-            explosion.Radius = _explosionRadius;
+            explosion.Radius = ExplosionRadius;
+            explosion.Damage = Damage;
         }
 
         #endregion

@@ -4,6 +4,8 @@
     {
         EXPLOSIVE_YOYO,
         SWAP_POSITIONS_WITH_YOYO,
-        ENLARGE_YOYO
+        ENLARGE_YOYO,
+        EXPAND_EXPLOSION,
+        INCREASE_EXPLOSION_DAMAGE,
     }
 }

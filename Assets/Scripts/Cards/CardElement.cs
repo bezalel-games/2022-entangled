@@ -17,7 +17,7 @@ namespace Cards
             Rarity = rarity;
         }
 
-        public void UpdatePool(CardPool pool)
+        public virtual void UpdatePool(CardPool pool)
         {
             var allRarities = Rarities.All;
             foreach (var buff in _attributes.UnlockedBuffs)
