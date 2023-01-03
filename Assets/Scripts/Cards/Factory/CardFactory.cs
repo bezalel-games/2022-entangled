@@ -40,18 +40,26 @@ namespace Cards.Factory
         [field: Tooltip("Multiplies the number of Shooters by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
         
+        [field: Tooltip("Multiplies the number of Fumers by the specified amount")]
+        [field: SerializeField] public EnemyCardElementClass MoreFumers { get; private set; }
+        
         [field: Tooltip("Multiplies Goomba HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
         
         [field: Tooltip("Multiplies Shooter HP by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
         
+        [field: Tooltip("Multiplies Fumer HP by the specified amount")]
+        [field: SerializeField] public EnemyCardElementClass TougherFumers { get; private set; }
+        
         [field: Tooltip("Multiplies Goomba speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterGoombas { get; private set; }
 
-
         [field: Tooltip("Multiplies Shooter speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterShooters { get; private set; }
+        
+        [field: Tooltip("Multiplies Fumer speed by the specified amount")]
+        [field: SerializeField] public EnemyCardElementClass FasterFumers { get; private set; }
 
         #endregion
 
@@ -73,18 +81,26 @@ namespace Cards.Factory
                     MoreGoombas[debuffRarity]),
                 MORE_SHOOTERS => new MoreEnemies(MoreShooters.Attributes, debuffRarity, MoreShooters.EnemyIndex,
                     MoreShooters[debuffRarity]),
+                MORE_FUMERS => new MoreEnemies(MoreFumers.Attributes, debuffRarity, MoreFumers.EnemyIndex,
+                    MoreFumers[debuffRarity]),
                 TOUGHER_GOOMBAS => new TougherEnemies(TougherGoombas.Attributes, debuffRarity,
                     TougherGoombas.EnemyIndex,
                     TougherGoombas[debuffRarity]),
                 TOUGHER_SHOOTERS => new TougherEnemies(TougherShooters.Attributes, debuffRarity,
                     TougherShooters.EnemyIndex,
                     TougherShooters[debuffRarity]),
+                TOUGHER_FUMERS => new TougherEnemies(TougherFumers.Attributes, debuffRarity,
+                    TougherFumers.EnemyIndex,
+                    TougherFumers[debuffRarity]),
                 FASTER_GOOMBAS => new FasterEnemies(FasterGoombas.Attributes, debuffRarity,
                     FasterGoombas.EnemyIndex,
                     FasterGoombas[debuffRarity]),
                 FASTER_SHOOTERS => new FasterEnemies(FasterShooters.Attributes, debuffRarity,
                     FasterShooters.EnemyIndex,
                     FasterShooters[debuffRarity]),
+                FASTER_FUMERS => new FasterEnemies(FasterFumers.Attributes, debuffRarity,
+                    FasterFumers.EnemyIndex,
+                    FasterFumers[debuffRarity]),
                 _ => throw new ArgumentOutOfRangeException(nameof(debuffType), debuffType, null)
             };
             return new Card(buff, debuff);
