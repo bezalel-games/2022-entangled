@@ -60,7 +60,7 @@ namespace Enemies
                 ThisEnemy.DesiredDirection = GetFlockingDirection();
             }
         }
-
+        
         #endregion
 
         #region Flocking

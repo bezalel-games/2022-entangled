@@ -321,6 +321,9 @@ namespace Player
             base.OnHit(attacker, damage);
             Mp += _mpRecoveryOnHit;
 
+            if (!attacker)
+                return;
+            
             Invulnerable = true;
             DelayInvoke((() => { Invulnerable = false; }), _pushbackTime);
         }

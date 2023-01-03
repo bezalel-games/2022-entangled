@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Managers;
+using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -8,13 +11,16 @@ namespace Enemies
         #region Serialized Fields
 
         [Header("Fumer")]
-        [SerializeField] private float _Speed;
+        [SerializeField] private float _fumeDamage = 1;
+        [SerializeField] private float _fumeDamageInterval = 0.5f;
 
         #endregion
 
         #region Non-Serialized Fields
 
         private ParticleSystem _particleSystem;
+        private readonly List<ParticleSystem.Particle> _onTriggerParticleList = new();
+        private static float _nextHitMinTime = 0;
 
         #endregion
 
@@ -30,6 +36,28 @@ namespace Enemies
         {
             base.Awake();
             _particleSystem = GetComponent<ParticleSystem>();
+            _particleSystem.trigger.AddCollider(GameManager.PlayerTransform);
+            if (_nextHitMinTime > Time.time + _fumeDamageInterval)
+                _nextHitMinTime = 0;
+        }
+
+        private void OnParticleTrigger()
+        {
+            if (Time.time < _nextHitMinTime)
+                return;
+            
+            int numInside = _particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Inside, _onTriggerParticleList, out var colliderData);
+ 
+            for (int i = 0; i < numInside; i++)
+            {
+                var player = colliderData.GetCollider(i,0)?.GetComponent<PlayerController>();
+                if (player)
+                {
+                    player.OnHit(null, _fumeDamage);
+                    _nextHitMinTime = Time.time + _fumeDamageInterval;
+                    break;
+                }
+            }
         }
 
         #endregion
@@ -38,7 +66,7 @@ namespace Enemies
 
         public void Attack(Action onEnd)
         {
-            // _particleSystem.
+            _particleSystem.Play();
             DelayInvoke(() =>
             {
                 Attacking = false;
