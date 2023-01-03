@@ -255,7 +255,6 @@ namespace Player
             Hp = MaxHp;
             Mp = MaxMp;
             DashStartEvent = null;
-            QuickShotEvent = null;
             
             // enter "animation"
             OverrideMovement(Vector3.up, 0);

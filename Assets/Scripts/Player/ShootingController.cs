@@ -35,12 +35,6 @@ namespace Player
 
         #endregion
 
-        #region C# Events
-
-        public event Action<InputActionPhase> QuickShotEvent;
-
-        #endregion
-
         #region Function Events
 
         private void OnDrawGizmos()
@@ -72,7 +66,6 @@ namespace Player
 
         public void OnShoot(InputAction.CallbackContext context)
         {
-            QuickShotEvent?.Invoke(context.phase);
             switch (context.phase)
             {
                 case InputActionPhase.Started:

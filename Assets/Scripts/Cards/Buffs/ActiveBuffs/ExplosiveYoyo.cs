@@ -23,7 +23,7 @@ namespace Cards.Buffs.ActiveBuffs
         public override void Apply(PlayerController playerController)
         {
             _yoyo = playerController.Yoyo;
-            playerController.QuickShotEvent += BlowUpYoyo;
+            _yoyo.ReachedThrowPeak += BlowUpYoyo;
         }
         
         public override BuffType Type => BuffType.EXPLOSIVE_YOYO;
@@ -44,13 +44,10 @@ namespace Cards.Buffs.ActiveBuffs
 
         #region Private Methods
 
-        private void BlowUpYoyo(InputActionPhase phase)
+        private void BlowUpYoyo()
         {
-            if (phase is not InputActionPhase.Started || _yoyo.State is Yoyo.YoyoState.IDLE) return;
             var explosion = Object.Instantiate(_explosion, _yoyo.transform);
             explosion.Radius = _explosionRadius;
-            if (_yoyo.State is Yoyo.YoyoState.PRECISION)
-                _yoyo.CancelPrecision();
         }
 
         #endregion

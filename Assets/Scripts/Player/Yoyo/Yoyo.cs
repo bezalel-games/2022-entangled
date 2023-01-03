@@ -1,7 +1,7 @@
+using System;
 using Enemies;
 using HP_System;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using Utils;
 
@@ -19,20 +19,30 @@ namespace Player
 
         #region Serialized Fields
 
-        [Header("Quick Shot")] 
+        [Header("Quick Shot")]
         [SerializeField] private float _shootSpeed;
+
         [SerializeField] private float _maxDistance;
-        [SerializeField][Range(0f,1f)][Tooltip("Portion of \"Max Distance\" in which the weapon should slow down on quickshot")] 
+
+        [SerializeField] [Range(0f, 1f)]
+        [Tooltip("Portion of \"Max Distance\" in which the weapon should slow down on quickshot")]
         private float _easeDistance;
-        [SerializeField][Tooltip("The lower this is, the slower the weapon will become before going back on quick shot")] 
+
+        [SerializeField]
+        [Tooltip("The lower this is, the slower the weapon will become before going back on quick shot")]
         private float _easeVelocityThreshold = 1.5f;
+
         [SerializeField] private float _backSpeed;
-        [SerializeField][Tooltip("The time it will take the weapon to reach \"Back Speed\" when going back")] 
+
+        [SerializeField] [Tooltip("The time it will take the weapon to reach \"Back Speed\" when going back")]
         private float _backEaseDuration;
-        [SerializeField][Tooltip("The higher this is, the more turning the right stick during quickshots will effect the direction of the weapon")] 
+
+        [SerializeField]
+        [Tooltip(
+            "The higher this is, the more turning the right stick during quickshots will effect the direction of the weapon")]
         private float _turnFactor;
 
-        [Header("Precision Shot")] 
+        [Header("Precision Shot")]
         [SerializeField] private float _precisionRotationSpeed;
 
         [SerializeField] private float _precisionSpeed;
@@ -70,12 +80,27 @@ namespace Player
 
         #endregion
 
+        #region C# Events
+
+        public event Action ReachedThrowPeak;
+
+        #endregion
+
         #region Properties
 
         private Vector2 BackDirection =>
-            ((Vector2) _parent.transform.position - (Vector2) transform.position).normalized;
+            ((Vector2)_parent.transform.position - (Vector2)transform.position).normalized;
 
-        public YoyoState State => _state;
+        public YoyoState State
+        {
+            get => _state;
+            private set
+            {
+                if (_state != value && value == YoyoState.BACK)
+                    ReachedThrowPeak?.Invoke();
+                _state = value;
+            }
+        }
 
         public Vector2 PrecisionDirection
         {
@@ -111,7 +136,7 @@ namespace Player
         {
             base.Update();
 
-            switch (_state)
+            switch (State)
             {
                 case YoyoState.IDLE:
                     if (transform.position != _initPos.position)
@@ -127,7 +152,7 @@ namespace Player
         {
             base.FixedUpdate();
 
-            if (_state != YoyoState.IDLE)
+            if (State != YoyoState.IDLE)
             {
                 MoveYoyo();
             }
@@ -135,7 +160,7 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            switch (_state)
+            switch (State)
             {
                 case YoyoState.BACK:
                     if (other.CompareTag("Player"))
@@ -159,15 +184,15 @@ namespace Player
 
                     break;
                 case YoyoState.SHOOT:
-                    if(other.CompareTag("Player"))
+                    if (other.CompareTag("Player"))
                         return;
-                    
+
                     if (other.CompareTag("Enemy"))
                     {
                         Enemy enemy = other.GetComponent<Enemy>();
                         OnHitEnemy(enemy);
                     }
-                    
+
                     GoBack(true);
                     break;
             }
@@ -182,7 +207,7 @@ namespace Player
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            switch (_state)
+            switch (State)
             {
                 case YoyoState.BACK:
                     if (other.CompareTag("Player"))
@@ -193,7 +218,7 @@ namespace Player
                     {
                         Enemy enemy = other.GetComponent<Enemy>();
                         OnHitEnemy(enemy);
-                        
+
                         GoBack();
                     }
 
@@ -213,14 +238,14 @@ namespace Player
                 moveDirection = moveDirection.normalized;
 
                 var movePortionOnAim = Vector2Ext.GetAxisPortion(moveDirection, aimDirection);
-                var maxDistanceFactor = 
+                var maxDistanceFactor =
                     movePortionOnAim.magnitude * Mathf.Sign(Vector2.Dot(aimDirection, moveDirection));
 
                 if (Mathf.Abs(maxDistanceFactor) > 1)
                     maxDistanceFactor = Mathf.Sign(maxDistanceFactor);
-                _actualMaxDistance = _maxDistance * (1 + 0.5f*maxDistanceFactor);
-                
-                _state = YoyoState.SHOOT;
+                _actualMaxDistance = _maxDistance * (1 + 0.5f * maxDistanceFactor);
+
+                State = YoyoState.SHOOT;
                 _direction = aimDirection;
                 _rigidbody.velocity = aimDirection;
                 _quickShotLastPos = transform.position;
@@ -230,7 +255,7 @@ namespace Player
 
         public void PrecisionShoot()
         {
-            _state = YoyoState.PRECISION;
+            State = YoyoState.PRECISION;
 
             if (_currentLine != null)
             {
@@ -260,8 +285,8 @@ namespace Player
             Vector2 vel;
             Vector2 perpendicular;
             Vector2 velWithPerpendicular;
-            
-            switch (_state)
+
+            switch (State)
             {
                 case YoyoState.SHOOT:
 
@@ -269,11 +294,11 @@ namespace Player
 
                     _quickShotCumDistance += Vector2.Distance(position, _quickShotLastPos);
                     _quickShotLastPos = position;
-                    
+
                     vel = _rigidbody.velocity;
                     perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, vel);
-                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized; 
-                    
+                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized;
+
                     if (_quickShotCumDistance < _easeDistance * _actualMaxDistance)
                     {
                         _rigidbody.velocity = velWithPerpendicular * _shootSpeed;
@@ -284,13 +309,14 @@ namespace Player
                          * for d = cumulativeDistance, e = easeDistance, m = maxDistance
                          * if d > em -> d = e*m + (m - e*m)*t -> t = (d - e*m)/(m - e*m)
                          */
-                        var t = (_quickShotCumDistance - _easeDistance*_actualMaxDistance) / (_actualMaxDistance - _easeDistance*_actualMaxDistance);
+                        var t = (_quickShotCumDistance - _easeDistance * _actualMaxDistance) /
+                                (_actualMaxDistance - _easeDistance * _actualMaxDistance);
                         _rigidbody.velocity = Vector2.Lerp(velWithPerpendicular * vel.magnitude, Vector2.zero, t);
                     }
 
-                    if(vel.magnitude <= _easeVelocityThreshold)
+                    if (vel.magnitude <= _easeVelocityThreshold)
                         GoBack();
-                    
+
                     break;
 
                 case YoyoState.PRECISION:
@@ -301,8 +327,8 @@ namespace Player
                 case YoyoState.BACK:
                     vel = BackDirection * _backSpeed;
                     perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, -vel);
-                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized; 
-                    
+                    velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized;
+
                     if (Time.time > stopBackEase)
                     {
                         _rigidbody.velocity = velWithPerpendicular * _backSpeed;
@@ -310,8 +336,8 @@ namespace Player
                     else
                     {
                         var backT = 1 - ((stopBackEase - Time.time) / _backEaseDuration);
-                        _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity, 
-                             velWithPerpendicular * vel.magnitude, backT);
+                        _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity,
+                            velWithPerpendicular * vel.magnitude, backT);
                     }
 
                     break;
@@ -324,12 +350,12 @@ namespace Player
             hittable.OnHit(transform, _damage);
         }
 
-        private void GoBack(bool immediate=false)
+        private void GoBack(bool immediate = false)
         {
             stopBackEase = immediate ? Time.time : Time.time + _backEaseDuration;
             _collider.isTrigger = true;
             _rigidbody.velocity = Vector2.zero;
-            _state = YoyoState.BACK;
+            State = YoyoState.BACK;
         }
 
         private void Reset()
@@ -338,7 +364,7 @@ namespace Player
             _collider.isTrigger = true;
             transform.position = _initPos.position;
             _rigidbody.velocity = Vector2.zero;
-            _state = YoyoState.IDLE;
+            State = YoyoState.IDLE;
             transform.SetParent(_parent);
         }
 
