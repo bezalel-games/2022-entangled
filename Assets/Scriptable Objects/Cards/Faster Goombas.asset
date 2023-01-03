@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Faster Goombas
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Faster Goombas
-  <TitlePart>k__BackingField: Fast
-  <Description>k__BackingField: Melee enemies will move faster
+  <Description>k__BackingField: Charging enemies will move faster
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 20c88a832838e2542bec8c033e16b899, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

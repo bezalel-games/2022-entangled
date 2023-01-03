@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Swap Position With Yoyo
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Dimensional Glitch
-  <TitlePart>k__BackingField: Glitch
-  <Description>k__BackingField: "Instantly teleport to your weapon's position by\r
-    pressing L1 when you are not holding it"
+  <Description>k__BackingField: Teleport to your orb by dodging while your weapon
+    is thrown
   <CardSprite>k__BackingField: {fileID: 21300000, guid: df2f1c4903f2475449a9e3916eac94b1, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

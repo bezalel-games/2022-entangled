@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Explosive Yoyo
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Spectral Pulse
-  <TitlePart>k__BackingField: Explosion
-  <Description>k__BackingField: Create a powerful pulse from your weapon by pressing
-    R1 when you are not holding it
+  <Description>k__BackingField: A powerful pulse will radiate from your weapon when
+    throwing it
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 4b31aaa71b6d5164ca4690d40828cdac, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

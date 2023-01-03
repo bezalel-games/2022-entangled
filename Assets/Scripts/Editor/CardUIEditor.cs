@@ -24,11 +24,11 @@ namespace Editor
             
             GUILayout.Label("Card Buff Format:");
             _buffFormat.stringValue = GUILayout.TextArea(_buffFormat.stringValue);
-            GUILayout.Label("where  {0} = Name  {1} = Description  {2} = Rarity\n");
+            GUILayout.Label("where  {0} = Description  {1} = Rarity\n");
             
             GUILayout.Label("Card Debuff Format:");
             _debuffFormat.stringValue = GUILayout.TextArea(_debuffFormat.stringValue);
-            GUILayout.Label("where  {0} = Name  {1} = Description  {2} = Rarity\n");
+            GUILayout.Label("where  {0} = Description  {1} = Rarity\n");
 
             EditorGUILayout.PropertyField(_rarityIdentifierSprites);
             

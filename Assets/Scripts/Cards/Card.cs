@@ -40,9 +40,6 @@ namespace Cards
         public Sprite BuffSprite => _buff.CardSprite;
         public Sprite DebuffSprite => _debuff.CardSprite;
 
-        public string BuffTitlePart => _buff.TitlePart;
-        public string DebuffTitlePart => _debuff.TitlePart;
-
         public CardEssence Essence => new CardEssence(_buff, _debuff);
 
         #endregion
@@ -62,12 +59,12 @@ namespace Cards
 
         public string BuffString(string format)
         {
-            return string.Format(format, _buff?.Name, _buff?.Description, _buff?.Rarity);
+            return string.Format(format,_buff?.Description, _buff?.Rarity);
         }
 
         public string DebuffString(string format)
         {
-            return string.Format(format, _debuff?.Name, _debuff?.Description, _debuff?.Rarity);
+            return string.Format(format, _debuff?.Description, _debuff?.Rarity);
         }
 
         #endregion
