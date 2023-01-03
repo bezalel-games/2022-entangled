@@ -108,7 +108,6 @@ namespace HP_System
             Animator = GetComponentInChildren<Animator>();
             Renderer = GetComponentInChildren<SpriteRenderer>();
             Rigidbody = GetComponent<Rigidbody2D>();
-            print($"rigidBody: {Rigidbody}");
         }
 
         protected override void Update()

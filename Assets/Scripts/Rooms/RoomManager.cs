@@ -38,6 +38,8 @@ namespace Rooms
         private readonly List<Room> _roomPool = new();
         private RoomNode _nextRoom;
 
+        private INeighborsStrategy _strategy;
+
         #endregion
 
         #region Properties
@@ -58,6 +60,8 @@ namespace Rooms
                 throw new DoubleRoomManagerException();
             _instance = this;
             GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
+
+            _strategy = new MazeStrategy(4, 6, 40);
         }
 
         private void Start()
@@ -67,8 +71,11 @@ namespace Rooms
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
+            
             LoadNeighbors(_currentRoom);
             SpawnEnemiesInNeighbors();
+            
+            _currentRoom.Room.ShowOnMiniMap();
         }
 
         private void OnDestroy()
@@ -105,6 +112,7 @@ namespace Rooms
             foreach (Direction dir in DirectionExt.GetDirections())
             {
                 var neighborNode = _instance._currentRoom[dir];
+                if(neighborNode == null) continue;
                 neighborNode.ChooseEnemies();
                 _instance.SpawnEnemies(neighborNode);
             }
@@ -130,6 +138,7 @@ namespace Rooms
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
+            _instance._currentRoom.Room.ShowOnMiniMap();
             if (newRoom.Cleared)
                 SpawnEnemiesInNeighbors();
         }
@@ -153,8 +162,9 @@ namespace Rooms
         {
             foreach (Direction dir in DirectionExt.GetDirections())
             {
-                if (dir == dirOfNewRoom)
+                if (dir == dirOfNewRoom || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
                     continue;
+                
                 var neighbor = prevRoom[dir].Room;
                 _roomPool.Add(neighbor);
             }
@@ -166,6 +176,10 @@ namespace Rooms
             {
                 if (dir == dirOfOldRoom)
                     continue;
+
+                if (!_strategy.RoomExists(newRoomNode.Index + dir.ToVector()))
+                    newRoomNode[dir] = null;
+
                 var neighborNode = newRoomNode[dir];
                 if (neighborNode == null)
                     // no neighbor node yet

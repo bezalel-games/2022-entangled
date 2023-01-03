@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Enemies;
+using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,7 +17,10 @@ namespace Rooms
         [SerializeField] private int _outPriority;
         [SerializeField] private CinemachineVirtualCamera _vCam;
         [SerializeField] private Tilemap _tilemap;
+        [SerializeField] private Tilemap _frameTilemap;
         [SerializeField] private float _doorAnimationDuration = 0.5f;
+
+        [SerializeField] private GameObject _miniMap;
 
         #endregion
 
@@ -109,9 +113,32 @@ namespace Rooms
                 _sleepCoroutine = StartCoroutine(SleepWithDelay(sleepDelay));
         }
 
+        public void ShowDoor(Direction dir, bool show = true)
+        {
+            foreach (var gateTilePos in RoomManager.RoomProperties.GatePositions)
+            {
+                var vec2 = new Vector2Int(gateTilePos.x, gateTilePos.y);
+                if (vec2.ToDirectionRounded() == dir)
+                {
+                    var tile = show ? RoomManager.RoomProperties.GateFrameTile : RoomManager.RoomProperties.WallTile;
+                    _frameTilemap.SetTile(gateTilePos, tile);
+                }
+            }
+        }
+
+        public void ShowOnMiniMap()
+        {
+            if (!MinimapManager.HasRoom(Node.Index))
+                Instantiate(MinimapManager.MinimapRoomPrefab, transform);
+        }
+
         #endregion
 
         #region Private Methods
+        
+        
+        
+        
 
         private IEnumerator SleepWithDelay(float sleepDelay)
         {

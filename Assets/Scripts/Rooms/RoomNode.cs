@@ -40,8 +40,12 @@ namespace Rooms
 
         public RoomNode this[Direction dir]
         {
-            get => _nodes[(byte)dir];
-            set => _nodes[(byte)dir] = value;
+            get => _nodes[(byte) dir];
+            set
+            {
+                _nodes[(byte) dir] = value;
+                Room.ShowDoor(dir, value != null);
+            }
         }
 
         #endregion
@@ -54,6 +58,11 @@ namespace Rooms
             Index = index;
             Rank = rank;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
+            if(Room != null)
+                foreach (Direction dir in DirectionExt.GetDirections())
+                {
+                    Room.ShowDoor(dir, false);
+                }
         }
 
         #endregion
@@ -72,6 +81,7 @@ namespace Rooms
                 Enemies[chosenInd]++;
                 rankDelta -= enemyDict.GetRankByIndex(chosenInd);
             }
+
             Cleared = Enemies.Sum() == 0;
         }
 

@@ -71,6 +71,15 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Minimap"",
+                    ""type"": ""Button"",
+                    ""id"": ""15f47d0d-ec42-4a70-89c2-63852f4aeb10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +300,28 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PrecisionShot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31c8fca5-7616-4cbf-8fd6-0c1f0e93fee0"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minimap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b556a8be-eb9b-4e3e-96bf-8c43e2e4667c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minimap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -822,6 +853,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_PrecisionShot = m_Player.FindAction("PrecisionShot", throwIfNotFound: true);
+        m_Player_Minimap = m_Player.FindAction("Minimap", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -898,6 +930,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_PrecisionShot;
+    private readonly InputAction m_Player_Minimap;
     public struct PlayerActions
     {
         private @CharacterMap m_Wrapper;
@@ -907,6 +940,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @PrecisionShot => m_Wrapper.m_Player_PrecisionShot;
+        public InputAction @Minimap => m_Wrapper.m_Player_Minimap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -931,6 +965,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @PrecisionShot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
                 @PrecisionShot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
                 @PrecisionShot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionShot;
+                @Minimap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMinimap;
+                @Minimap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMinimap;
+                @Minimap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMinimap;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -950,6 +987,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @PrecisionShot.started += instance.OnPrecisionShot;
                 @PrecisionShot.performed += instance.OnPrecisionShot;
                 @PrecisionShot.canceled += instance.OnPrecisionShot;
+                @Minimap.started += instance.OnMinimap;
+                @Minimap.performed += instance.OnMinimap;
+                @Minimap.canceled += instance.OnMinimap;
             }
         }
     }
@@ -1066,6 +1106,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnPrecisionShot(InputAction.CallbackContext context);
+        void OnMinimap(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

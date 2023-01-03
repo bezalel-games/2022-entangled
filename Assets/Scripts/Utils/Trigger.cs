@@ -23,6 +23,7 @@ public class Trigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         _onTrigger.Invoke();
+        gameObject.SetActive(false);
     }
 
     #endregion

@@ -139,14 +139,13 @@ namespace Managers
                 _instance.ActionMapInUse = ActionMap.UI;
             }
         }
-        
+
         #endregion
 
         #region Private Methods
         
         private static void CardChosen()
         {
-            print("chosen");
             _instance.ActionMapInUse = ActionMap.PLAYER;
             FinishedCurrentRoom?.Invoke();
         }

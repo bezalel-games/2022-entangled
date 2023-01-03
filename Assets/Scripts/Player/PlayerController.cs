@@ -176,6 +176,19 @@ namespace Player
             }
         }
 
+        public void OnMinimap(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    MinimapManager.ToggleMinimap(true);
+                    break;
+                case InputActionPhase.Canceled:
+                    MinimapManager.ToggleMinimap(false);
+                    break;
+            }
+        }
+
         #endregion
 
         #region Public Methods

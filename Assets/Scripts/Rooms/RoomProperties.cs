@@ -91,7 +91,9 @@ namespace Rooms
                     if (x - left >= WallSize && right - x >= WallSize && y - bottom >= WallSize &&
                         top - y >= WallSize) continue;
                     if (x >= gateLeft && x <= gateRight || y >= gateBottom && y <= gateTop)
+                    {
                         _gatePositions.Add(pos);
+                    }
                 }
         }
     }

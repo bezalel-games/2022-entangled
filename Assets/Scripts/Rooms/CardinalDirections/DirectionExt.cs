@@ -32,6 +32,16 @@ namespace Rooms.CardinalDirections
             return dir.y > 0 ? NORTH : SOUTH;
         }
 
+        public static Direction ToDirectionRounded(this Vector2Int dir)
+        {
+            var absX = Math.Abs(dir.x);
+            var absY = Math.Abs(dir.y);
+
+            if (absX >= absY)
+                return dir.x >= 0 ? EAST : WEST;
+            return dir.y >= 0 ? NORTH : SOUTH;
+        }
+
         public static Vector2Int ToVector(this Direction dir)
         {
             return dir switch

@@ -27,7 +27,7 @@ namespace Rooms
             _minDistanceToBoss = minDistanceToBoss;
             _maxDistanceToBoss = maxDistanceToBoss;
             
-            _totalRooms = Math.Min(Math.Max(totalRooms, maxDistanceToBoss), maxDistanceToBoss*maxDistanceToBoss);
+            _totalRooms = Math.Min(Math.Max(totalRooms, maxDistanceToBoss), Mathf.Pow(2*maxDistanceToBoss + 1, 2));
 
             _rooms = new HashSet<Vector2Int>(); 
             CreateMaze();
@@ -46,6 +46,30 @@ namespace Rooms
         #endregion
         
         #region Private Methods
+
+        private void PrintMaze()
+        {
+            string s = "";
+            for (int row = _maxDistanceToBoss; row >= -_maxDistanceToBoss; row--)
+            {
+                for (int col = -_maxDistanceToBoss; col <= _maxDistanceToBoss; col++)
+                {
+                    var room = new Vector2Int(col, row);
+                    if (!RoomExists(room))
+                        s += " - ";
+                    else
+                    {
+                        if (room == Vector2Int.zero)
+                            s += " O ";
+                        else
+                            s += IsBossRoom(room) ? " X " : " v ";
+                    }
+                }
+
+                s += "\n";
+            }
+            Debug.Log(s);
+        }
         
         private void CreateMaze()
         {
@@ -53,6 +77,8 @@ namespace Rooms
 
             CreatePathToBoss();
             PopulateMaze();
+
+            PrintMaze();
         }
 
         //randomly add rooms to Set (using BFS to make sure they're all reachable)
@@ -138,7 +164,7 @@ namespace Rooms
                 {
                     Vector2Int newCurr = currRoom + dir.ToVector();
                     if (_rooms.Contains(newCurr) ||
-                        Vector2Int.Distance(newCurr, _bossIndex) > _maxDistanceToBoss) continue;
+                        Vector2Int.Distance(newCurr, _bossIndex) > roomsLeft-1) continue;
                     
                     possible.Add(dir.ToVector());
                 }

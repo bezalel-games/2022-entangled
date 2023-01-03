@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_Name
-      value: Room
+      value: Hub
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889571050249511095, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6451296004720908365, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
       propertyPath: m_RootOrder
