@@ -70,7 +70,7 @@ namespace Enemies
 
         public bool CanAttack
         {
-            get => _canAttack && NumberOfAttacking < MaxCanAttack;
+            get => _canAttack && NumberOfAttacking < MaxCanAttack && !Frozen;
             set => _canAttack = value;
         }
 
