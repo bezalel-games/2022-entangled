@@ -34,6 +34,8 @@ namespace HP_System
         #region Properties
 
         protected virtual bool Invulnerable { get; set; }
+        
+        protected virtual bool Frozen { get; set; }
 
         public event Action<float, float> OnHpChange;
         public event Action<float, float> OnMpChange;

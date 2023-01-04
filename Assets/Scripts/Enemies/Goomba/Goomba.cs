@@ -36,7 +36,7 @@ public class Goomba : Enemy
 
   protected override void Move()
   {
-    if (!Attacking || IsDead)
+    if (!Attacking || IsDead || Frozen)
     {
       base.Move();
     }

@@ -225,6 +225,7 @@ namespace Player
         public void OnPrecision()
         {
             Mp -= _mpPrecisionReduction * Time.unscaledDeltaTime;
+            print(Mp);
             if (Mp <= 0)
             {
                 Yoyo.CancelPrecision();

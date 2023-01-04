@@ -71,6 +71,8 @@ namespace Player
         #endregion
 
         #region Properties
+        
+        [field: SerializeField] public float EnemyFreezeTime { get; private set; } 
 
         private Vector2 BackDirection =>
             ((Vector2) _parent.transform.position - (Vector2) transform.position).normalized;
@@ -241,6 +243,7 @@ namespace Player
 
             transform.SetParent(null);
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
+            _currentLine.EnemyFreezeTime = EnemyFreezeTime;
         }
 
         public void CancelPrecision()
