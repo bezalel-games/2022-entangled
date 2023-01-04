@@ -183,7 +183,10 @@ namespace Rooms
                     continue;
 
                 if (!_strategy.RoomExists(newRoomNode.Index + dir.ToVector()))
+                {
                     newRoomNode[dir] = null;
+                    continue;
+                }
 
                 var neighborNode = newRoomNode[dir];
                 if (neighborNode == null)
