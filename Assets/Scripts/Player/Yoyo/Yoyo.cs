@@ -353,7 +353,7 @@ namespace Player
         private void DoDamage(IHittable hittable)
         {
             if (hittable == null) return;
-            hittable.OnHit(transform, _damage);
+            hittable.OnHit(transform, _damage, State != YoyoState.PRECISION);
         }
 
         private void GoBack(bool immediate = false)

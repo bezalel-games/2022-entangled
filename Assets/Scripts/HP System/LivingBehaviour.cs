@@ -149,7 +149,7 @@ namespace HP_System
 
         #region IHittable
 
-        public virtual void OnHit(Transform attacker, float damage)
+        public virtual void OnHit(Transform attacker, float damage, bool pushBack=true)
         {
             if (Invulnerable || IsDead) return;
             Hp -= damage;
@@ -157,7 +157,9 @@ namespace HP_System
             if (!attacker)
                 return;
 
-            _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
+            if(pushBack)
+                _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
+            
             _hitTime = Time.time;
         }
 

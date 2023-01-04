@@ -156,7 +156,7 @@ namespace Player
             {
                 case InputActionPhase.Started:
                     DashStartEvent?.Invoke();
-                    if (!_canDash || _dashing) return;
+                    if (!_canDash || _dashing || IsDead) return;
                     
                     _dashDirection = _direction.normalized;
                     
@@ -327,11 +327,11 @@ namespace Player
             Animator.SetTrigger("Dead");
         }
 
-        public override void OnHit(Transform attacker, float damage)
+        public override void OnHit(Transform attacker, float damage, bool pushBack = true)
         {
             if (Invulnerable) return;
 
-            base.OnHit(attacker, damage);
+            base.OnHit(attacker, damage, pushBack);
             Mp += _mpRecoveryOnHit;
 
             if (!attacker)
