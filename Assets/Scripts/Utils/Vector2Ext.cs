@@ -40,6 +40,20 @@ namespace Utils
         {
             return GetProjection(v, axis);
         }
+
+        // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+        public static bool Intersect(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4)
+        {
+            (float x1, float x2, float x3, float x4) = (p1.x, p2.x, p3.x, p4.x);
+            (float y1, float y2, float y3, float y4) = (p1.y, p2.y, p3.y, p4.y);
+
+            var t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) /
+                    ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+            var u = ((x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)) /
+                    ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+
+            return t is >= 0 and <= 1 && u is >= 0 and <= 1;
+        }
     }
 }
 

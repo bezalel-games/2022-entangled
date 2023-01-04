@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Enemies
 {
     public class Goomba : Enemy
+
     {
         #region Serialized Fields
 
@@ -45,7 +46,7 @@ namespace Enemies
 
         protected override void Move()
         {
-            if (!Attacking || IsDead)
+            if (!Attacking || IsDead || Frozen)
             {
                 base.Move();
             }

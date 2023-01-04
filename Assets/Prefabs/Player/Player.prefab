@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 20
-  _maxMp: 10
+  _maxMp: 20
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _speed: 5.1
@@ -211,7 +211,7 @@ MonoBehaviour:
   _dashCooldown: 0.5
   _mpRecoveryOnAttack: 0.5
   _mpRecoveryOnHit: 0.2
-  _mpPrecisionReduction: 3
+  _mpPrecisionReduction: 2
   _rotationSpeed: 20
   _aimLine: {fileID: 9192621023942638117}
   _aimPivot: {fileID: 2259985184979704619}

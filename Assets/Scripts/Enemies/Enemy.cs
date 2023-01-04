@@ -1,5 +1,6 @@
 using System;
 using HP_System;
+using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -138,6 +139,25 @@ namespace Enemies
             }
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Precision"))
+            {
+                Line line = other.GetComponent<Line>();
+                
+                if(line == null) return;
+                
+                Stop();
+                Renderer.color = Color.black;
+                Frozen = true;
+                DelayInvoke((() => 
+                {
+                    Renderer.color = Color.white;
+                    Frozen = false;
+                }), line.EnemyFreezeTime);
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -171,7 +191,7 @@ namespace Enemies
 
         protected virtual void Move()
         {
-            if (Rigidbody.bodyType == RigidbodyType2D.Static || IsDead)
+            if (Rigidbody.bodyType == RigidbodyType2D.Static || IsDead || Frozen)
                 return;
 
             if (PushbackVector != Vector2.zero)
