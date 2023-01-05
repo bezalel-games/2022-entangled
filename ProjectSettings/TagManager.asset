@@ -53,12 +53,12 @@ TagManager:
   - name: Player
     uniqueID: 3945494543
     locked: 0
+  - name: Yoyo
+    uniqueID: 1047097729
+    locked: 0
   - name: Room Foreground
     uniqueID: 2859989999
     locked: 0
   - name: Slowdown
     uniqueID: 2892944209
-    locked: 0
-  - name: Yoyo
-    uniqueID: 1047097729
     locked: 0
