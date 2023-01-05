@@ -88,6 +88,7 @@ namespace Managers
         #region Events
 
         public static event Action FinishedCurrentRoom;
+        public static event Action<float> TimeScaleChanged;
         
         #endregion
 
@@ -128,7 +129,7 @@ namespace Managers
             Time.timeScale = timeScale;
             Time.fixedDeltaTime = timeScale * _fixedTimeScale;
             
-            UIManager.ToggleSlowdownFilter(timeScale != 1);
+            TimeScaleChanged?.Invoke(timeScale);
         }
         
         public static void RoomCleared()
