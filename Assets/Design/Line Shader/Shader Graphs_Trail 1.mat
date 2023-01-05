@@ -41,6 +41,7 @@ Material:
     - _DissolveScale: 35
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _StepPower: 0.001
     m_Colors:
     - _Color01: {r: 0, g: 0.9019608, b: 0.945098, a: 0}
     - _Color02: {r: 0.682353, g: 0.9764706, b: 1, a: 0}

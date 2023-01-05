@@ -128,25 +128,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 30762363, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
   m_PrefabInstance: {fileID: 1848715559}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &234430180 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6927644189689441888, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-  m_PrefabInstance: {fileID: 670769347}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &234430183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234430180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e0a93dda7f428e9d65ef9207b49ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitionSpeed: 3
-  _maxIntensityAddition: 0.4
 --- !u!1 &568354742
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +213,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1108436284939699414, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _transitionSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -304,10 +289,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3737412912224777993, guid: b8f2a6e5e5e6a8e47a98a3ae496713cd, type: 3}
-      propertyPath: _transitionSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4945377541238860609, guid: b8f2a6e5e5e6a8e47a98a3ae496713cd, type: 3}
       propertyPath: m_Name
       value: Global Lighting
