@@ -28,6 +28,7 @@ namespace Rooms
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
+        [SerializeField][Range(0f,1f)] private float _ghostChange = 0.66f;
 
         [Header("Maze settings")]
         [SerializeField] private int _minDistanceFromBoss = 5;
@@ -48,6 +49,8 @@ namespace Rooms
         #endregion
 
         #region Properties
+        
+        public static float GhostChance => _instance._ghostChange;
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
         public static RoomProperties RoomProperties => _instance._roomProperties;

@@ -27,7 +27,7 @@ namespace Player
 
         [Header("Other Stats")]
         [SerializeField] private float _mpRecoveryOnAttack;
-
+        [SerializeField][Range(0f,1f)][Tooltip("In percentages of maxHP")] private float _mpRecoveryPerSec; 
         [SerializeField] private float _mpRecoveryOnHit;
         [SerializeField] private float _mpPrecisionReduction;
 
@@ -104,6 +104,9 @@ namespace Player
 
             if(IsDead) return;
             
+            if(Yoyo.State != Yoyo.YoyoState.PRECISION)
+                Mp += MaxMp * _mpRecoveryPerSec * Time.deltaTime;
+
             SetAim();
         }
 
@@ -225,7 +228,6 @@ namespace Player
         public void OnPrecision()
         {
             Mp -= _mpPrecisionReduction * Time.unscaledDeltaTime;
-            print(Mp);
             if (Mp <= 0)
             {
                 Yoyo.CancelPrecision();

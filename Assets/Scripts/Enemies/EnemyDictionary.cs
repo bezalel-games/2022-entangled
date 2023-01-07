@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Rooms;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -124,6 +125,7 @@ namespace Enemies
                     return false;
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
+                spawnedEnemy.ToggleBarrier(Random.value >= RoomManager.GhostChance);
 
                 // subscribe a method to update enemy type variables on it's enablement
                 spawnedEnemy.Enabled += () =>
