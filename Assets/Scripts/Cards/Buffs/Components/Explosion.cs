@@ -1,4 +1,5 @@
-﻿using HP_System;
+﻿using System.Collections.Generic;
+using HP_System;
 using UnityEngine;
 
 namespace Cards.Buffs.Components
@@ -9,7 +10,6 @@ namespace Cards.Buffs.Components
 
         [SerializeField] private AnimationCurve _explosionExpansionCurve;
         [SerializeField] private float _expansionTime = 1;
-        [SerializeField] private float _dissolveTime = 0.5f;
 
         #endregion
 
@@ -17,70 +17,60 @@ namespace Cards.Buffs.Components
 
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody;
-        private bool _expanding = true;
+        private HashSet<IHittable> _hitObjects;
         private float _startTime;
+        private bool _expanding;
 
         #endregion
 
         #region Properties
 
-        public float Radius { get; set; }
+        [field: SerializeField] public float Radius { get; set; } = 1f;
         public float Damage { get; set; } = 1;
 
         #endregion
 
         #region Function Events
 
-        private void Awake()
-        {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _rigidbody = GetComponent<Rigidbody2D>();
-        }
-
         private void OnEnable()
         {
-            _rigidbody.velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
             transform.SetParent(null);
-            _expanding = true;
+            _hitObjects = new HashSet<IHittable>();
+            transform.localScale = Vector3.one;
             _startTime = Time.time;
-            transform.localScale = Vector3.one * 0.01f;
         }
 
         private void Update()
         {
-            if (_expanding)
+            var t = (Time.time - _startTime) / _expansionTime;
+            if (t < 1)
             {
-                var t = (Time.time - _startTime) / _expansionTime;
-                if (t < 1)
-                {
-                    transform.localScale = Vector3.one * (Radius * _explosionExpansionCurve.Evaluate(t));
-                    return;
-                }
-
-                transform.localScale = Vector3.one * Radius;
-                _expanding = false;
+                transform.localScale = Vector3.one * (Radius * _explosionExpansionCurve.Evaluate(t));
                 return;
             }
 
-            if (_spriteRenderer.color.a <= 0)
-                Destroy(gameObject);
-            _spriteRenderer.color -= Color.black * Time.deltaTime / _dissolveTime;
+            transform.localScale = Vector3.one * Radius;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Enemy"))
-                other.GetComponent<IHittable>()?.OnHit(transform, Damage);
+            if (!other.CompareTag("Enemy")) return;
+
+            var hittableObj = other.GetComponent<IHittable>();
+            if (hittableObj == null || _hitObjects.Contains(hittableObj)) return;
+            hittableObj.OnHit(transform, Damage);
+            _hitObjects.Add(hittableObj);
         }
 
         #endregion
 
         #region Public Methods
 
-        #endregion
-
-        #region Private Methods
-
+        public void DestroyObject()
+        {
+            Destroy(gameObject);
+        }
+        
         #endregion
     }
 }
