@@ -206,8 +206,11 @@ namespace Player
         private void OnHitEnemy(Enemy enemy)
         {
             if (enemy == null) return;
-            DoDamage(enemy);
-            _player.OnHitEnemy(enemy);
+            if (!enemy.HasBarrier)
+            {
+                DoDamage(enemy);
+                _player.OnHitEnemy(enemy);
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)

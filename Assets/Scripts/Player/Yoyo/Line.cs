@@ -105,7 +105,6 @@ namespace Player
             {
                 if (Vector2Ext.Intersect(points[i], points[i + 1], points[^2], points[^1]))
                 {
-                    print($"Collision: {i},{i+1} and {points.Count-2},{points.Count-1}");
                     return i;
                 }
             }

@@ -143,10 +143,16 @@ namespace Enemies
         {
             if (other.gameObject.CompareTag("Precision"))
             {
+                if (HasBarrier)
+                {
+                    ToggleBarrier(false);
+                    return;
+                }
+                
                 Line line = other.GetComponent<Line>();
                 
                 if(line == null) return;
-                
+
                 Stop();
                 Renderer.color = Color.black;
                 Frozen = true;

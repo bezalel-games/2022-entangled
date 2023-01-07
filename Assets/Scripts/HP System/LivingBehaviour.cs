@@ -12,6 +12,7 @@ namespace HP_System
         [SerializeField] private float _maxMp;
         [SerializeField] private float _pushbackFactor = 0.4f;
         [SerializeField] protected float _pushbackTime = 0.3f;
+        [SerializeField] private SpiritualBarrier _barrier;
 
         #endregion
 
@@ -20,7 +21,7 @@ namespace HP_System
         private float _hp;
         private float _mp;
         private float _hitTime;
-        
+
         protected Rigidbody2D Rigidbody;
         
         protected Vector2 PushbackVector;
@@ -32,6 +33,8 @@ namespace HP_System
         #endregion
 
         #region Properties
+
+        public bool HasBarrier => _barrier != null && _barrier.gameObject.activeSelf; 
 
         protected virtual bool Invulnerable { get; set; }
         
@@ -131,14 +134,20 @@ namespace HP_System
             }
         }
 
-        #endregion
-
-        #region Public Methods
-        
         protected virtual void OnEnable()
         {
             Hp = MaxHp;
             Mp = MaxMp;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ToggleBarrier(bool turnOn)
+        {
+            if(_barrier == null || _barrier.enabled == turnOn) return;
+            _barrier.gameObject.SetActive(turnOn);
         }
 
         #endregion
@@ -151,7 +160,7 @@ namespace HP_System
 
         public virtual void OnHit(Transform attacker, float damage, bool pushBack=true)
         {
-            if (Invulnerable || IsDead) return;
+            if (Invulnerable || IsDead || HasBarrier) return;
             Hp -= damage;
             
             if (!attacker)
