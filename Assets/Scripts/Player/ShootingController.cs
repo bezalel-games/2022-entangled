@@ -174,8 +174,8 @@ namespace Player
 
             float t = immediate ? 1 : Time.deltaTime * _rotationSpeed;
 
-            _aimPivot.transform.rotation =
-                Quaternion.Slerp(_aimPivot.transform.rotation, q, t);
+            _aimPivot.transform.localRotation =
+                Quaternion.Slerp(_aimPivot.transform.localRotation, q, t);
         }
 
         private Collider2D RayCastEnemy(Vector2 direction)
