@@ -470,6 +470,7 @@ MonoBehaviour:
   _rank: 20
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
+  _ghostChange: 0.66
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40
@@ -484,6 +485,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2083341936}
+    - target: {fileID: 3625274621126112640, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: _living
+      value: 
+      objectReference: {fileID: 670769348}
     - target: {fileID: 3631422925528125522, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -540,7 +545,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2083341936}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5944900461693135748, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
 --- !u!114 &1431893202 stripped
 MonoBehaviour:

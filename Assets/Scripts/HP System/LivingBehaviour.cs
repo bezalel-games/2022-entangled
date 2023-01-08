@@ -55,10 +55,10 @@ namespace HP_System
           }
         }
 
-        protected float Hp
+        public float Hp
         {
             get => _hp;
-            set
+            protected set
             {
                 _hp = Mathf.Min(Mathf.Max(value, 0), _maxHp);
                 
@@ -71,7 +71,7 @@ namespace HP_System
             }
         }
 
-        protected float MaxMp
+        public float MaxMp
         {
             get => _maxMp;
             set
@@ -81,10 +81,10 @@ namespace HP_System
             }
         }
 
-        protected float Mp
+        public float Mp
         {
             get => _mp;
-            set
+            protected set
             {
                 _mp = Mathf.Min(Mathf.Max(value, 0), _maxMp);
                 
