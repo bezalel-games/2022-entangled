@@ -10,6 +10,7 @@ namespace Rooms
         #region Serialized Fields
 
         [field: SerializeField] private Room Prefab { get; set; }
+        [SerializeField] private bool _keepInCenter = true;
 
         [Space(20)]
         [SerializeField] private bool _useRatio;

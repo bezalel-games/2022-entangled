@@ -57,8 +57,9 @@ namespace Rooms
         {
             private const float WIDTH_TO_NEEDED_HEIGHT = (float)(9 / 32d);
 
+            public readonly bool KeepInCenter;
             public readonly float OrthoSize;
-            public readonly float Offset;
+            public readonly Vector3 Offset;
             public readonly int Top;
             public readonly int Bottom;
             public readonly int Left;
@@ -78,6 +79,7 @@ namespace Rooms
 
             public Calculations(RoomProperties properties)
             {
+                KeepInCenter = properties._keepInCenter;
                 Width = properties.Width;
                 Height = properties.Height;
                 WallSize = properties.WallSize;
@@ -89,7 +91,7 @@ namespace Rooms
                 EmptyTile = properties.EmptyTile;
 
                 OrthoSize = Mathf.Max(Height / 2f, Width * WIDTH_TO_NEEDED_HEIGHT);
-                Offset = Height % 2 == 0 ? 1 : 0.5f;
+                Offset = new Vector3 (Width % 2 == 0 ? 0 : 0.5f, Height % 2 == 0 ? 1 : 0.5f);
                 var halfHeight = (Height - 1) / 2f;
                 var halfWidth = (Width - 1) / 2f;
                 Top = Mathf.CeilToInt(halfHeight);

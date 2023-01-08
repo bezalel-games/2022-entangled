@@ -36,8 +36,8 @@ namespace Rooms
         {
             var cam = GetComponentInChildren(typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
             cam.m_Lens.OrthographicSize = properties.OrthoSize;
-            var camPosition = cam.transform.position;
-            camPosition.y = properties.Offset;
+            var camPosition = properties.Offset;
+            camPosition.y += properties.KeepInCenter ? 0 : properties.OrthoSize - properties.Height/2f;
             cam.transform.position = camPosition;
         }
 
@@ -45,7 +45,7 @@ namespace Rooms
         {
             var collider = GetComponent<BoxCollider2D>();
             collider.size = new Vector2(properties.Width, properties.Height);
-            collider.offset = new Vector2(0, properties.Offset);
+            collider.offset = properties.Offset;
         }
 
         private void SetTileMap(RoomProperties.Calculations properties)

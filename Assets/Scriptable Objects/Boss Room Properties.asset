@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8d26acd9b567d044a2446af417b98b0, type: 3}
-  m_Name: Room Properties
+  m_Name: Boss Room Properties
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
-  _keepInCenter: 1
-  _useRatio: 1
+  <Prefab>k__BackingField: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
+  _keepInCenter: 0
+  _useRatio: 0
   _ratioMultiplicationFactor: 1
   _ratio: {x: 16, y: 9}
   <Width>k__BackingField: 16
-  <Height>k__BackingField: 9
+  <Height>k__BackingField: 7
   <VerticalIntersection>k__BackingField: 0
   <HorizontalIntersection>k__BackingField: 0
   <WallSize>k__BackingField: 1
@@ -32,4 +32,4 @@ MonoBehaviour:
   <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 3bff82585f6cc604e8d5cebc8f97d742, type: 2}
   <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
   _update: 0
-  _updateContinuously: 0
+  _updateContinuously: 1

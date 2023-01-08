@@ -44,6 +44,9 @@ TagManager:
   - name: Background
     uniqueID: 2034819169
     locked: 0
+  - name: Boss Body
+    uniqueID: 3610371085
+    locked: 0
   - name: Room Background
     uniqueID: 171178255
     locked: 0
@@ -58,6 +61,9 @@ TagManager:
     locked: 0
   - name: Room Foreground
     uniqueID: 2859989999
+    locked: 0
+  - name: Boss Head
+    uniqueID: 3118316443
     locked: 0
   - name: Slowdown
     uniqueID: 2892944209
