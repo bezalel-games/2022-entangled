@@ -1,17 +1,13 @@
 using System;
 using System.Collections;
 using Managers;
-using Enemies;
 using HP_System;
-using Rooms;
-using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
 namespace Player
 {
-    public partial class PlayerController : LivingBehaviour, CharacterMap.IPlayerActions
+    public partial class PlayerController : YoyoOwner, CharacterMap.IPlayerActions
     {
         #region Serialized Fields
 
@@ -219,13 +215,13 @@ namespace Player
             StartCoroutine(StopOverrideOnThresholdPass(passThresholdTest));
         }
 
-        public void OnHitEnemy(Enemy enemy)
+        public override void OnSuccessfulHit()
         {
             if (Yoyo.State != Yoyo.YoyoState.PRECISION)
                 Mp += _mpRecoveryOnAttack;
         }
 
-        public void OnPrecision()
+        public override void OnPrecision()
         {
             Mp -= _mpPrecisionReduction * Time.unscaledDeltaTime;
             if (Mp <= 0)

@@ -71,11 +71,11 @@ namespace Player
         private float _actualMaxDistance;
 
         private YoyoState _state = YoyoState.IDLE;
-        private PlayerController _player;
+        private YoyoOwner _owner;
 
         private Line _currentLine;
 
-        private float stopBackEase;
+        private float _stopBackEase;
 
         #endregion
 
@@ -91,6 +91,8 @@ namespace Player
         [field: SerializeField] public float Damage { get; private set; }
 
         public Line LinePrefab => _linePrefab;
+
+        [field: SerializeField] public float EnemyFreezeTime { get; private set; }
 
         private Vector2 BackDirection =>
             ((Vector2)_parent.transform.position - (Vector2)transform.position).normalized;
@@ -124,7 +126,7 @@ namespace Player
             get => _collider.transform.localScale.x;
             set => _collider.transform.localScale = Vector3.one * value;
         }
-        
+
         public ExplosiveYoyo ExplosiveYoyo { get; set; }
 
         #endregion
@@ -133,7 +135,7 @@ namespace Player
 
         private void Start()
         {
-            _player = GetComponentInParent<PlayerController>();
+            _owner = GetComponentInParent<PlayerController>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponentInChildren<Collider2D>();
 
@@ -169,72 +171,39 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (IsOwner(other))
+            {
+                if (State == YoyoState.BACK)
+                    Reset();
+                return;
+            }
+
             switch (State)
             {
                 case YoyoState.BACK:
-                    if (other.CompareTag("Player"))
-                    {
-                        Reset();
-                    }
-
-                    if (other.CompareTag("Enemy"))
-                    {
-                        Enemy enemy = other.GetComponent<Enemy>();
-                        OnHitEnemy(enemy);
-                    }
-
-                    break;
                 case YoyoState.PRECISION:
-                    if (other.CompareTag("Enemy"))
-                    {
-                        Enemy enemy = other.GetComponent<Enemy>();
-                        OnHitEnemy(enemy);
-                    }
-
+                    OnHitEnemy(other.GetComponent<IHittable>());
                     break;
                 case YoyoState.SHOOT:
-                    if (other.CompareTag("Player"))
-                        return;
-
-                    if (other.CompareTag("Enemy"))
-                    {
-                        Enemy enemy = other.GetComponent<Enemy>();
-                        OnHitEnemy(enemy);
-                    }
-
+                    OnHitEnemy(other.GetComponent<IHittable>());
                     GoBack(true);
                     break;
             }
         }
 
-        private void OnHitEnemy(Enemy enemy)
-        {
-            if (enemy == null) return;
-            if (!enemy.HasBarrier)
-            {
-                DoDamage(enemy);
-                _player.OnHitEnemy(enemy);
-            }
-        }
-
         private void OnTriggerStay2D(Collider2D other)
         {
-            switch (State)
+            if (IsOwner(other))
             {
-                case YoyoState.BACK:
-                    if (other.CompareTag("Player"))
-                        Reset();
-                    break;
-                case YoyoState.SHOOT:
-                    if (other.CompareTag("Enemy"))
-                    {
-                        Enemy enemy = other.GetComponent<Enemy>();
-                        OnHitEnemy(enemy);
+                if (State == YoyoState.BACK)
+                    Reset();
+                return;
+            }
 
-                        GoBack();
-                    }
-
-                    break;
+            if (State == YoyoState.SHOOT)
+            {
+                OnHitEnemy(other.GetComponent<IHittable>());
+                GoBack();
             }
         }
 
@@ -307,10 +276,25 @@ namespace Player
             
             GoBack();
         }
+        
+        public void LeaveTrail()
+        {
+            if(_currentLine == null) return;
+            _currentLine.CreateCollider();
+        }
 
         #endregion
 
         #region Private Methods
+
+        private void OnHitEnemy(IHittable hittableObj)
+        {
+            if (hittableObj is null or Enemy { HasBarrier: true }) return;
+            hittableObj.OnHit(transform, Damage, State != YoyoState.PRECISION);
+            _owner.OnSuccessfulHit();
+        }
+
+        private bool IsOwner(Component other) => other.GetComponent<YoyoOwner>() == _owner;
 
         private void MoveYoyo()
         {
@@ -352,8 +336,8 @@ namespace Player
                     break;
 
                 case YoyoState.PRECISION:
-                    _rigidbody.velocity = PrecisionDirection.normalized * _precisionSpeed * (1 / _timeScale);
-                    _player.OnPrecision();
+                    _rigidbody.velocity = PrecisionDirection.normalized * (_precisionSpeed / _timeScale);
+                    _owner.OnPrecision();
                     break;
 
                 case YoyoState.BACK:
@@ -361,13 +345,13 @@ namespace Player
                     perpendicular = Vector2Ext.GetPerpendicularPortion(QuickShotDirection, -vel);
                     velWithPerpendicular = (vel + _turnFactor * perpendicular).normalized;
 
-                    if (Time.time > stopBackEase)
+                    if (Time.time > _stopBackEase)
                     {
                         _rigidbody.velocity = velWithPerpendicular * _backSpeed;
                     }
                     else
                     {
-                        var backT = 1 - ((stopBackEase - Time.time) / _backEaseDuration);
+                        var backT = 1 - ((_stopBackEase - Time.time) / _backEaseDuration);
                         _rigidbody.velocity = Vector2.Lerp(_rigidbody.velocity,
                             velWithPerpendicular * vel.magnitude, backT);
                     }
@@ -376,15 +360,9 @@ namespace Player
             }
         }
 
-        private void DoDamage(IHittable hittable)
-        {
-            if (hittable == null) return;
-            hittable.OnHit(transform, Damage, State != YoyoState.PRECISION);
-        }
-
         private void GoBack(bool immediate = false)
         {
-            stopBackEase = immediate ? Time.time : Time.time + _backEaseDuration;
+            _stopBackEase = immediate ? Time.time : Time.time + _backEaseDuration;
             _collider.isTrigger = true;
             _rigidbody.velocity = Vector2.zero;
             State = YoyoState.BACK;
@@ -420,11 +398,5 @@ namespace Player
         }
 
         #endregion
-
-        public void LeaveTrail()
-        {
-            if(_currentLine == null) return;
-            _currentLine.CreateCollider();
-        }
     }
 }

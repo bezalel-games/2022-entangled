@@ -58,11 +58,9 @@ namespace Rooms
             Index = index;
             Rank = rank;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
-            if(Room != null)
-                foreach (Direction dir in DirectionExt.GetDirections())
-                {
-                    Room.ShowDoor(dir, false);
-                }
+            if (Room == null) return;
+            foreach (Direction dir in DirectionExt.GetDirections())
+                Room.ShowDoor(dir, false);
         }
 
         #endregion

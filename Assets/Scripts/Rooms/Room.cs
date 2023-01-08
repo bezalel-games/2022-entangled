@@ -135,10 +135,6 @@ namespace Rooms
         #endregion
 
         #region Private Methods
-        
-        
-        
-        
 
         private IEnumerator SleepWithDelay(float sleepDelay)
         {
