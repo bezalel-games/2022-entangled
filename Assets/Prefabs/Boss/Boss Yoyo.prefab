@@ -25,11 +25,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _shootSpeed
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _maxDistance
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _easeDistance
+      value: 0.309
       objectReference: {fileID: 0}
     - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Layer
@@ -38,6 +42,10 @@ PrefabInstance:
     - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218044006668404598, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5373774459956894482, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Layer

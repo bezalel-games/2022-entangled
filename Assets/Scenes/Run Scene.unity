@@ -471,7 +471,7 @@ MonoBehaviour:
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
   _ghostChange: 0.66
-  _playMode: 0
+  _playMode: 2
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40
@@ -586,34 +586,6 @@ PrefabInstance:
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
