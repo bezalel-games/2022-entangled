@@ -135,7 +135,7 @@ namespace Player
 
         private void Start()
         {
-            _owner = GetComponentInParent<PlayerController>();
+            _owner = GetComponentInParent<YoyoOwner>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponentInChildren<Collider2D>();
 
@@ -377,6 +377,7 @@ namespace Player
             _rigidbody.velocity = Vector2.zero;
             State = YoyoState.IDLE;
             transform.SetParent(_parent);
+            _owner.OnYoyoReturn();
         }
 
         private void DrawPath()

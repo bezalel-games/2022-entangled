@@ -4,8 +4,16 @@ namespace Player
 {
     public abstract class YoyoOwner : LivingBehaviour
     {
-        public abstract void OnSuccessfulHit();
+        public virtual void OnSuccessfulHit()
+        {
+        }
 
-        public abstract void OnPrecision();
+        public virtual void OnPrecision()
+        {
+        }
+        
+        public virtual void OnYoyoReturn()
+        {
+        }
     }
 }

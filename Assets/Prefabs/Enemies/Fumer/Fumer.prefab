@@ -4972,7 +4972,7 @@ MonoBehaviour:
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _barrier: {fileID: 7628284627113293073}
-  _damage: 3
+  _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 0.5
   <MpRestore>k__BackingField: 0
@@ -4984,7 +4984,7 @@ MonoBehaviour:
   <SeparationWeight>k__BackingField: 1
   <ToPlayerWeight>k__BackingField: 1
   <AwayFromWallWeight>k__BackingField: 1
-  _fumeDamage: 1
+  _fumeDamage: 5
   _fumeDamageInterval: 0.5
 --- !u!1001 &2877977600854364201
 PrefabInstance:

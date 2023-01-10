@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256dd75ab0cfd849aa09a5e75ede91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 20
+  _maxHp: 100
   _maxMp: 20
   _pushbackFactor: 10
   _pushbackTime: 0.3
