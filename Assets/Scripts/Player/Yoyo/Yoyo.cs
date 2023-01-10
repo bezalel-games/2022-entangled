@@ -87,12 +87,10 @@ namespace Player
         #endregion
 
         #region Properties
-        
+
         [field: SerializeField] public float Damage { get; private set; }
 
         public Line LinePrefab => _linePrefab;
-
-        [field: SerializeField] public float EnemyFreezeTime { get; private set; }
 
         private Vector2 BackDirection =>
             ((Vector2)_parent.transform.position - (Vector2)transform.position).normalized;
@@ -208,6 +206,13 @@ namespace Player
             }
         }
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            transform.rotation = Quaternion.identity;
+        }
+#endif
+
         #endregion
 
         #region Public Methods
@@ -247,7 +252,7 @@ namespace Player
             GameManager.ScaleTime(_timeScale);
 
             transform.SetParent(null);
-            
+
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
             _currentLine.Damage = _linePrefab.Damage;
             _currentLine.StayTime = _linePrefab.StayTime;
@@ -256,17 +261,17 @@ namespace Player
         public void CancelPrecision()
         {
             if (_currentLine == null) return;
-            
+
             GameManager.ScaleTime(1);
             if (FinishedPrecision != null)
             {
                 FinishedPrecision.Invoke();
             }
-            
-            if(_currentLine.StayTime > 0)
+
+            if (_currentLine.StayTime > 0)
             {
                 Line l = _currentLine;
-                DelayInvoke((() => {RemovePath(l);}), _currentLine.StayTime);
+                DelayInvoke((() => { RemovePath(l); }), _currentLine.StayTime);
 
                 _currentLine = null;
             }
@@ -274,13 +279,13 @@ namespace Player
             {
                 RemovePath(_currentLine);
             }
-            
+
             GoBack();
         }
-        
+
         public void LeaveTrail()
         {
-            if(_currentLine == null) return;
+            if (_currentLine == null) return;
             _currentLine.CreateCollider();
         }
 
