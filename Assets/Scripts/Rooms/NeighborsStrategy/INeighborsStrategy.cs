@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Rooms.CardinalDirections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Rooms
+namespace Rooms.NeighborsStrategy
 {
     public interface INeighborsStrategy
     {

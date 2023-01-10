@@ -528,9 +528,11 @@ MonoBehaviour:
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
   _ghostChange: 0.66
+  _playMode: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40
+  _bossRoomPrefab: {fileID: 0}
 --- !u!114 &1006228300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,22 +865,6 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 4.5
       objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.15120225
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.13929714
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.41509432
-      objectReference: {fileID: 0}
-    - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 61439
-      objectReference: {fileID: 0}
     - target: {fileID: 745331109023313606, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -1028,81 +1014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a30de08849c40109ba01f6811e5df7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &6949696618190410754
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2005108948183878034, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058187354160370391, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617542262838, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915584, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617704915587, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_Name
-      value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 6949696617734507922, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6949696617542262836, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-    - {fileID: 6949696617734507917, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 5708558a823fe204ab5279d036ac138d, type: 3}
 --- !u!1001 &9018174138968661833
 PrefabInstance:
   m_ObjectHideFlags: 0

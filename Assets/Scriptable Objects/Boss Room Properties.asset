@@ -32,4 +32,4 @@ MonoBehaviour:
   <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 3bff82585f6cc604e8d5cebc8f97d742, type: 2}
   <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
   _update: 0
-  _updateContinuously: 1
+  _updateContinuously: 0

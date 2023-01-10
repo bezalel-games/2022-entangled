@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rooms.CardinalDirections;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Rooms.CardinalDirections;
+using Rooms.NeighborsStrategy;
+using Direction = Rooms.CardinalDirections.Direction;
 using Enemies;
 using Managers;
 using Player;
-using Direction = Rooms.CardinalDirections.Direction;
-using Random = UnityEngine.Random;
 
 namespace Rooms
 {
@@ -28,12 +29,19 @@ namespace Rooms
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
-        [SerializeField][Range(0f,1f)] private float _ghostChange = 0.66f;
+        [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
+
+        [Header("Play mode")]
+        [SerializeField] private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
 
         [Header("Maze settings")]
         [SerializeField] private int _minDistanceFromBoss = 5;
+
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
+
+        [Header("Boss room")]
+        [SerializeField] private Room _bossRoomPrefab;
 
         #endregion
 
@@ -49,7 +57,7 @@ namespace Rooms
         #endregion
 
         #region Properties
-        
+
         public static float GhostChance => _instance._ghostChange;
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
@@ -68,8 +76,7 @@ namespace Rooms
                 throw new DoubleRoomManagerException();
             _instance = this;
             GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
-
-            _strategy = new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss, _totalNumberOfRooms);
+            InitStrategy();
         }
 
         private void Start()
@@ -79,10 +86,10 @@ namespace Rooms
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
-            
+
             LoadNeighbors(_currentRoom);
             SpawnEnemiesInNeighbors();
-            
+
             _currentRoom.Room.ShowOnMiniMap();
         }
 
@@ -120,7 +127,7 @@ namespace Rooms
             foreach (Direction dir in DirectionExt.GetDirections())
             {
                 var neighborNode = _instance._currentRoom[dir];
-                if(neighborNode == null) continue;
+                if (neighborNode == null) continue;
                 neighborNode.ChooseEnemies();
                 _instance.SpawnEnemies(neighborNode);
             }
@@ -172,7 +179,7 @@ namespace Rooms
             {
                 if (dir == dirOfNewRoom || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
                     continue;
-                
+
                 var neighbor = prevRoom[dir].Room;
                 _roomPool.Add(neighbor);
             }
@@ -184,8 +191,9 @@ namespace Rooms
             {
                 if (dir == dirOfOldRoom)
                     continue;
+                var roomIndex = newRoomNode.Index + dir.ToVector();
 
-                if (!_strategy.RoomExists(newRoomNode.Index + dir.ToVector()))
+                if (!_strategy.RoomExists(roomIndex))
                 {
                     newRoomNode[dir] = null;
                     continue;
@@ -195,9 +203,9 @@ namespace Rooms
                 if (neighborNode == null)
                     // no neighbor node yet
                 {
-                    var index = newRoomNode.Index + dir.ToVector();
-                    var room = GetRoom(index);
-                    room.Node = new RoomNode(room, index, _rank);
+                    var isBossRoom = _strategy.IsBossRoom(roomIndex);
+                    var room = GetRoom(roomIndex, isBossRoom: isBossRoom);
+                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : _rank);
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
                     continue;
@@ -206,8 +214,8 @@ namespace Rooms
                 if (neighborNode.Room != null && neighborNode.Room.Node == neighborNode)
                     // neighbor node exists and still has a room that is linked to it
                 {
-                    var index = _roomPool.FindIndex(room => room == neighborNode.Room);
-                    RemoveAndReplaceFromPool(index);
+                    var poolIndex = _roomPool.FindIndex(room => room == neighborNode.Room);
+                    RemoveAndReplaceFromPool(poolIndex);
                     continue;
                 }
 
@@ -231,9 +239,16 @@ namespace Rooms
                     SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
-        private Room GetRoom(Vector2Int index, RoomNode roomNode = null)
+        private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)
         {
             Room room;
+            if (isBossRoom)
+            {
+                room = Instantiate(_bossRoomPrefab, GetPosition(index), Quaternion.identity, transform);
+                room.Node = roomNode;
+                return room;
+            }
+
             if (_roomPool.Count == 0)
             {
                 room = Instantiate(_roomPrefab, GetPosition(index), Quaternion.identity, transform);
@@ -292,12 +307,31 @@ namespace Rooms
             enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true);
         }
 
+        private void InitStrategy()
+        {
+            _strategy = _playMode switch
+            {
+                NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
+                    _totalNumberOfRooms),
+                NeighborsStrategy.ENDLESS => new EndlessStrategy(),
+                NeighborsStrategy.BOSS => new BossStrategy(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
         #endregion
 
-        #region Classes
+        #region Types
 
         private class DoubleRoomManagerException : Exception
         {
+        }
+
+        private enum NeighborsStrategy : byte
+        {
+            MAZE,
+            ENDLESS,
+            BOSS,
         }
 
         #endregion

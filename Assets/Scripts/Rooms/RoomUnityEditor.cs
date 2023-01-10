@@ -45,7 +45,9 @@ namespace Rooms
         {
             var collider = GetComponent<BoxCollider2D>();
             collider.size = new Vector2(properties.Width, properties.Height);
-            collider.offset = properties.Offset;
+            var offset = properties.Offset;
+            offset.y -= properties.KeepInCenter ? 0 : properties.OrthoSize - properties.Height/2f;
+            collider.offset = offset;
         }
 
         private void SetTileMap(RoomProperties.Calculations properties)

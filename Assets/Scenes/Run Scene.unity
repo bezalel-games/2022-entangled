@@ -471,9 +471,11 @@ MonoBehaviour:
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
   _ghostChange: 0.66
+  _playMode: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40
+  _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
 --- !u!1001 &1431893201
 PrefabInstance:
   m_ObjectHideFlags: 0

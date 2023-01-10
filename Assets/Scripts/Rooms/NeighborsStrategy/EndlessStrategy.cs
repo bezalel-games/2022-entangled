@@ -1,7 +1,6 @@
-﻿using Rooms.CardinalDirections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Rooms
+namespace Rooms.NeighborsStrategy
 {
     public class EndlessStrategy : INeighborsStrategy
     {

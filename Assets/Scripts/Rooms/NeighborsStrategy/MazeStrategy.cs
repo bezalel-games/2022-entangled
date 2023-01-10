@@ -4,7 +4,7 @@ using Rooms.CardinalDirections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Rooms
+namespace Rooms.NeighborsStrategy
 {
     public class MazeStrategy : INeighborsStrategy
     {
