@@ -217,8 +217,7 @@ MonoBehaviour:
   _waitForReturn: 0
   _parent: {fileID: 0}
   _initPos: {fileID: 0}
-  _damage: 20
-  <EnemyFreezeTime>k__BackingField: 3
+  <Damage>k__BackingField: 20
 --- !u!1 &6143497779323870012
 GameObject:
   m_ObjectHideFlags: 0

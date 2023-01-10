@@ -56,8 +56,6 @@ namespace Player
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _initPos;
 
-        [SerializeField] private float _damage;
-
         #endregion
 
         #region Non-Serialized Fields
@@ -84,12 +82,15 @@ namespace Player
         #region C# Events
 
         public event Action ReachedThrowPeak;
+        public event Action FinishedPrecision;
 
         #endregion
 
         #region Properties
         
-        [field: SerializeField] public float EnemyFreezeTime { get; private set; } 
+        [field: SerializeField] public float Damage { get; private set; }
+
+        public Line LinePrefab => _linePrefab;
 
         private Vector2 BackDirection =>
             ((Vector2)_parent.transform.position - (Vector2)transform.position).normalized;
@@ -135,6 +136,9 @@ namespace Player
             _player = GetComponentInParent<PlayerController>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponentInChildren<Collider2D>();
+
+            _linePrefab.Damage = 0;
+            _linePrefab.StayTime = 0;
         }
 
         protected override void Update()
@@ -267,21 +271,40 @@ namespace Player
 
             if (_currentLine != null)
             {
-                RemovePath();
+                RemovePath(_currentLine);
             }
 
             GameManager.ScaleTime(_timeScale);
 
             transform.SetParent(null);
+            
             _currentLine = Instantiate(_linePrefab, transform.position, Quaternion.identity);
-            _currentLine.EnemyFreezeTime = EnemyFreezeTime;
+            _currentLine.Damage = _linePrefab.Damage;
+            _currentLine.StayTime = _linePrefab.StayTime;
         }
 
         public void CancelPrecision()
         {
             if (_currentLine == null) return;
+            
             GameManager.ScaleTime(1);
-            RemovePath();
+            if (FinishedPrecision != null)
+            {
+                FinishedPrecision.Invoke();
+            }
+            
+            if(_currentLine.StayTime > 0)
+            {
+                Line l = _currentLine;
+                DelayInvoke((() => {RemovePath(l);}), _currentLine.StayTime);
+
+                _currentLine = null;
+            }
+            else
+            {
+                RemovePath(_currentLine);
+            }
+            
             GoBack();
         }
 
@@ -356,7 +379,7 @@ namespace Player
         private void DoDamage(IHittable hittable)
         {
             if (hittable == null) return;
-            hittable.OnHit(transform, _damage, State != YoyoState.PRECISION);
+            hittable.OnHit(transform, Damage, State != YoyoState.PRECISION);
         }
 
         private void GoBack(bool immediate = false)
@@ -389,14 +412,19 @@ namespace Player
             }
         }
 
-        private void RemovePath()
+        private void RemovePath(Line l)
         {
-            if (_currentLine == null) return;
+            if (l == null) return;
 
-            Destroy(_currentLine.gameObject);
-            _currentLine = null;
+            Destroy(l.gameObject);
         }
 
         #endregion
+
+        public void LeaveTrail()
+        {
+            if(_currentLine == null) return;
+            _currentLine.CreateCollider();
+        }
     }
 }

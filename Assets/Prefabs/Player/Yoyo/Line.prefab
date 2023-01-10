@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf5602935837c748a0b75a4a484f973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <EnemyFreezeTime>k__BackingField: 3
+  <DamageCooldown>k__BackingField: 1
 --- !u!68 &1811650331634443950
 EdgeCollider2D:
   m_ObjectHideFlags: 0

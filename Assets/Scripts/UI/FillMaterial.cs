@@ -67,7 +67,6 @@ namespace UI
           
           protected virtual void UpdateHPUI(float hp, float maxHp)
           {
-            print($"{_hpMaterial},{hp},{maxHp}");
             if (_hpMaterial == null) return;
         
             _hpMaterial.SetFloat(Value, hp);

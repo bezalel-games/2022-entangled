@@ -20,7 +20,10 @@ namespace Cards.Factory
         [field: Header("Buffs")]
         [field: Tooltip("Multiply the current size of the yoyo by given amount")]
         [field: SerializeField] public VariableCardElementClass EnlargeYoyo { get; private set; }
-
+        
+        [field: Tooltip("Leave the trail of the precision shot on the map, dealing damage on touch")]
+        [field: SerializeField] public FixedCardElementClass LeaveTrail { get; private set; }
+        
         [field: Tooltip("Create an explosion with the given radius around the yoyo")]
         [field: SerializeField] public FixedCardElementClass ExplosiveYoyo { get; private set; }
 
@@ -34,7 +37,12 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiply the current yoyo explosion damage by given amount")]
         [field: SerializeField] public VariableCardElementClass IncreaseExplosionDamage { get; private set; }
-
+        
+        [field: Tooltip("Multiply the current trail stay time by given amount")]
+        [field: SerializeField] public VariableCardElementClass IncreaseTrailStay { get; private set; }
+        
+        [field: Tooltip("Multiply the current trail damage by given amount")]
+        [field: SerializeField] public VariableCardElementClass IncreaseTrailDamage { get; private set; }
         #endregion
 
         #region Debuff Serialized Fields
@@ -76,14 +84,20 @@ namespace Cards.Factory
             Buff buff = buffType switch
             {
                 ENLARGE_YOYO => new EnlargeYoyo(EnlargeYoyo.Attributes, buffRarity, EnlargeYoyo[buffRarity]),
-                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity, ExplosiveYoyo.Parameter,
+                EXPLOSIVE_YOYO => new ExplosiveYoyo(ExplosiveYoyo.Attributes, buffRarity, ExplosiveYoyo.Parameters[0],
                     ExplosionPrefab),
                 SWAP_POSITIONS_WITH_YOYO => new SwapPositionWithYoyo(SwapPositionWithYoyo.Attributes, buffRarity,
-                    SwapPositionWithYoyo.Parameter),
+                    SwapPositionWithYoyo.Parameters[0]),
                 EXPAND_EXPLOSION => new ExpandExplosion(ExpandExplosion.Attributes, buffRarity,
                     ExpandExplosion[buffRarity]),
                 INCREASE_EXPLOSION_DAMAGE => new IncreaseExplosionDamage(IncreaseExplosionDamage.Attributes, buffRarity,
                     IncreaseExplosionDamage[buffRarity]),
+                LEAVE_TRAIL => new LeaveTrail(LeaveTrail.Attributes, buffRarity, 
+                    LeaveTrail.Parameters[0], LeaveTrail.Parameters[1]),
+                INCREASE_TRAIL_STAY => new IncreaseTrailStay(IncreaseTrailStay.Attributes, buffRarity, 
+                    IncreaseTrailStay[buffRarity]),
+                INCREASE_TRAIL_DAMAGE => new IncreaseTrailDamage(IncreaseTrailDamage.Attributes, buffRarity, 
+                    IncreaseTrailDamage[buffRarity]),
                 _ => throw new ArgumentOutOfRangeException(nameof(buffType), buffType, null)
             };
             Debuff debuff = debuffType switch

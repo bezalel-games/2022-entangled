@@ -15,7 +15,7 @@ namespace Player
 
         private LineRenderer _renderer;
         private List<Vector2> points = new();
-        // private EdgeCollider2D _collider;
+        private EdgeCollider2D _collider;
         private PolygonCollider2D _polygonCollider;
 
         private static int Mask = -1;
@@ -27,8 +27,12 @@ namespace Player
         public Vector2 CurrentPosition => _renderer != null && _renderer.positionCount > 0
             ? _renderer.GetPosition(_renderer.positionCount - 1)
             : transform.position;
-        
-        public float EnemyFreezeTime { get; set; }
+
+        [field: SerializeField] public float EnemyFreezeTime { get; set; } = 3;
+        [field: SerializeField] public float DamageCooldown { get; private set; } = 1;
+
+        public float StayTime { get; set; }
+        public float Damage { get; set; }
 
         #endregion
 
@@ -37,7 +41,7 @@ namespace Player
         private void Start()
         {
             _renderer = GetComponent<LineRenderer>();
-            // _collider = GetComponent<EdgeCollider2D>();
+            _collider = GetComponent<EdgeCollider2D>();
             _polygonCollider = GetComponent<PolygonCollider2D>();
             if(Mask != -1)
                 Mask = LayerMask.GetMask("YoyoLine");
@@ -58,7 +62,7 @@ namespace Player
             {
                 _renderer.transform.position = pos;
                 _polygonCollider.offset = -pos;
-                // _collider.offset = -pos;
+                _collider.offset = -pos;
             }
             
             points.Add(pos);
@@ -68,6 +72,12 @@ namespace Player
             {
                 _polygonCollider.points = points.GetRange(start, points.Count - start).ToArray();
             }
+        }
+        
+        public void CreateCollider()
+        {
+            _collider.SetPoints(points);
+            _polygonCollider.enabled = false;
         }
 
         #endregion
@@ -80,24 +90,6 @@ namespace Player
          */
         private int CheckCollision()
         {
-            // var hit = Physics2D.Linecast(points[^1], pos, LayerMask.GetMask("YoyoLine"));
-            // if (hit.collider == null)
-            //     return -1;
-            //
-            // var hitPos = hit.collider.transform.position;
-            // var edgePos = _collider.ClosestPoint(hitPos);
-            //
-            // int index = points.IndexOf(edgePos);
-            // print($"Collision? {index != -1}.");
-            // print($"Collision at {hitPos}. CollisionPoint {edgePos} at index: {index}");
-            // if (index == 0)
-            //     return 0;
-            // if (index == points.Count - 1)
-            //     return index - 1;
-            // return Vector2.Distance(edgePos, points[index - 1]) < Vector2.Distance(edgePos, points[index + 1])
-            //     ? index - 1
-            //     : index;
-            
             if (points.Count < 2)
                 return -1;
             

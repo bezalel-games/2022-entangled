@@ -26,6 +26,8 @@ namespace Enemies
 
         private Collider2D _collider;
 
+        private bool _canTrailDamage = true;
+
         #endregion
 
         #region Properties
@@ -143,24 +145,46 @@ namespace Enemies
         {
             if (other.gameObject.CompareTag("Precision"))
             {
-                if (HasBarrier)
-                {
-                    ToggleBarrier(false);
-                    return;
-                }
-                
                 Line line = other.GetComponent<Line>();
                 
                 if(line == null) return;
 
-                Stop();
-                Renderer.color = Color.black;
-                Frozen = true;
-                DelayInvoke((() => 
+                if (other is PolygonCollider2D)
                 {
-                    Renderer.color = Color.white;
-                    Frozen = false;
-                }), line.EnemyFreezeTime);
+                    if (HasBarrier)
+                    {
+                        ToggleBarrier(false);
+                        return;
+                    }
+                    Stop();
+                    Renderer.color = Color.black;
+                    Frozen = true;
+                    DelayInvoke((() => 
+                    {
+                        Renderer.color = Color.white;
+                        Frozen = false;
+                    }), line.EnemyFreezeTime);
+                }
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Precision"))
+            {
+                Line line = other.GetComponent<Line>();
+
+                if (line == null) return;
+                
+                if (other is EdgeCollider2D)
+                {
+                    if (!_canTrailDamage) return;
+
+                    _canTrailDamage = false;
+                    print($"damage: {line.Damage}");
+                    OnHit(line.transform, line.Damage, false);
+                    DelayInvoke((() => { _canTrailDamage = true; }), line.DamageCooldown);
+                }
             }
         }
 

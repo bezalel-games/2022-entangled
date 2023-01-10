@@ -85,10 +85,11 @@ namespace Cards
             _cardPool.Add(DebuffType.FASTER_GOOMBAS, allRarities);
             _cardPool.Add(DebuffType.FASTER_SHOOTERS, allRarities);
             _cardPool.Add(DebuffType.FASTER_FUMERS, allRarities);
-            
+            //
             _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
             _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
             _cardPool.Add(BuffType.SWAP_POSITIONS_WITH_YOYO, _factory.SwapPositionWithYoyo.Rarity);
+            _cardPool.Add(BuffType.LEAVE_TRAIL, allRarities);
         }
         
         // private void InitDecks()
