@@ -1,5 +1,45 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4058187354160370391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005108948183878034}
+  m_Layer: 6
+  m_Name: Yoyo Rotation Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2005108948183878034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058187354160370391}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5113070290507296120}
+  - {fileID: 1810994833617230798}
+  - {fileID: 7400757935407364451}
+  - {fileID: 1126904778914713740}
+  - {fileID: 5293958488722809598}
+  - {fileID: 4202521659401728951}
+  - {fileID: 3373608851143167397}
+  - {fileID: 3902699330232495830}
+  - {fileID: 6960376681911430219}
+  m_Father: {fileID: 6949696617704915584}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!1 &6949696617542262838
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +50,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6949696617542262839}
   - component: {fileID: 6949696617542262837}
-  - component: {fileID: 6949696617542262836}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -85,26 +124,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6949696617542262836
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6949696617542262838}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53c8cb7fb8cf456448a14a5738c18526, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6949696617704915587
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +133,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6949696617704915584}
-  m_Layer: 7
+  - component: {fileID: 5768815224657029508}
+  - component: {fileID: 8898886453309428343}
+  - component: {fileID: 4892766367308271823}
+  m_Layer: 14
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,9 +157,67 @@ Transform:
   m_Children:
   - {fileID: 6949696617734507916}
   - {fileID: 6949696617542262839}
+  - {fileID: 2005108948183878034}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5768815224657029508
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949696617704915587}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd86a947c21814b44a42f58a87df1904, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8898886453309428343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949696617704915587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a638fc10424b27a297cdeff9a31341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 300
+  _maxMp: 300
+  _pushbackFactor: 0
+  _pushbackTime: 0
+  _barrier: {fileID: 0}
+  _yoyoRotationPlane: {fileID: 2005108948183878034}
+  <ThrowSetInterval>k__BackingField: 0.5
+  <AttackInterval>k__BackingField:
+  - 1.5
+--- !u!70 &4892766367308271823
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949696617704915587}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.25, y: 4}
+  m_Direction: 0
 --- !u!1 &6949696617734507919
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6949696617734507916}
   - component: {fileID: 6949696617734507922}
-  - component: {fileID: 6949696617734507917}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -209,9 +288,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -684596211
-  m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingLayerID: -1176650853
+  m_SortingLayer: 4
+  m_SortingOrder: -1
   m_Sprite: {fileID: -36261598, guid: bac5382d766114f4695df79c88933d9d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -223,23 +302,561 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6949696617734507917
-Animator:
-  serializedVersion: 4
+--- !u!1001 &323815311634678976
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7660444
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6427877
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 280
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &3902699330232495830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 323815311634678976}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6949696617734507919}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1b339c2f3340ea341a6bfaced19b8077, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &577898073997351329
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.17364809
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &4202521659401728951 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 577898073997351329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2055391244233238451
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.8660254
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &3373608851143167397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 2055391244233238451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3131886469957448152
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9396927
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.3420201
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &1810994833617230798 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 3131886469957448152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4464424025516292762
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.49999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.86602545
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &1126904778914713740 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 4464424025516292762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5967121778873910877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.9396926
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.34202027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &6960376681911430219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 5967121778873910877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6116880275820712821
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7660445
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6427876
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &7400757935407364451 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 6116880275820712821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8404286746643302254
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &5113070290507296120 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 8404286746643302254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8872279419889404136
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2005108948183878034}
+    m_Modifications:
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo Aim Pivot (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+--- !u!4 &5293958488722809598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3627438472626235926, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
+  m_PrefabInstance: {fileID: 8872279419889404136}
+  m_PrefabAsset: {fileID: 0}

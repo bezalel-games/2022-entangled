@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3627438472272037123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3627438472272037122}
+  m_Layer: 0
+  m_Name: YoyoPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3627438472272037122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627438472272037123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3627438472626235926}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3627438472626235927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3627438472626235926}
+  m_Layer: 0
+  m_Name: Boss Yoyo Aim Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3627438472626235926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627438472626235927}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1236679985946335967}
+  - {fileID: 3627438472272037122}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3627438471062869033
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3627438472626235926}
+    m_Modifications:
+    - target: {fileID: 2557712497572531958, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557712497572531958, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557712497572531958, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557712497572531958, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663485613403350269, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_Name
+      value: Boss Yoyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 4022627869566810382, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250689294384741757, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 3627438472626235926}
+    - target: {fileID: 8250689294384741757, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: _initPos
+      value: 
+      objectReference: {fileID: 3627438472272037122}
+    - target: {fileID: 9152837515727004860, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+--- !u!4 &1236679985946335967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2557712497572531958, guid: 8766ced857beb2747b24f5fd8f7976fb, type: 3}
+  m_PrefabInstance: {fileID: 3627438471062869033}
+  m_PrefabAsset: {fileID: 0}

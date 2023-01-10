@@ -170,7 +170,7 @@ MonoBehaviour:
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _barrier: {fileID: 1222314868618934884}
-  _damage: 3
+  _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1
   <MpRestore>k__BackingField: 0
