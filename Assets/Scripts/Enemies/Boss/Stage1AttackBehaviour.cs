@@ -64,7 +64,7 @@ namespace Enemies.Boss
             Debug.Log("One at a time");
             for (int i = 0; i < count; ++i)
             {
-                yield return i;
+                yield return (i + _nextThrowIndex) % count;
                 yield return null;
             }
         }

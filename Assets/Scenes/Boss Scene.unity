@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!20 &30762363 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 30762363, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
-  m_PrefabInstance: {fileID: 1848715559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &500972876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6997350185261311841, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
@@ -560,6 +555,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2083341936}
+    - target: {fileID: 3625274621126112640, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: _living
+      value: 
+      objectReference: {fileID: 670769348}
     - target: {fileID: 3631422925528125522, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -876,6 +875,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.41509432
       objectReference: {fileID: 0}
+    - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 61439
+      objectReference: {fileID: 0}
     - target: {fileID: 745331109023313606, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -959,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 7766218729720609928, guid: 9743c40c859699b42af732fc6b6f3a5f, type: 3}
       propertyPath: _minimapCamera
       value: 
-      objectReference: {fileID: 30762363}
+      objectReference: {fileID: 0}
     - target: {fileID: 7766218729720609928, guid: 9743c40c859699b42af732fc6b6f3a5f, type: 3}
       propertyPath: _playerController
       value: 
@@ -1166,6 +1169,6 @@ PrefabInstance:
     - target: {fileID: 9018174138758838285, guid: 34eca0f7d35c28946b6b7a26f74933db, type: 3}
       propertyPath: _minimapCamera
       value: 
-      objectReference: {fileID: 30762363}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34eca0f7d35c28946b6b7a26f74933db, type: 3}
