@@ -1,5 +1,4 @@
-﻿using System;
-using Player;
+﻿using Player;
 using UnityEngine;
 
 namespace Enemies.Boss
@@ -35,12 +34,6 @@ namespace Enemies.Boss
         public float[] AttackInterval { get; private set; }
         
         public float NextAttackTime { get; private set; }
-
-        #endregion
-
-        #region Events
-
-        public event Action<int> Idle;
 
         #endregion
 
