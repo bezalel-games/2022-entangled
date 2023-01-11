@@ -39,13 +39,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Hp: 50
-<<<<<<< HEAD
-    - _Max_Value: 100
-    - _Value: 100
-=======
     - _Max_Value: 20
     - _Value: 16
->>>>>>> enemy_hp_ui
     - _maxHp: 100
     m_Colors:
     - _EmptyColor: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}
