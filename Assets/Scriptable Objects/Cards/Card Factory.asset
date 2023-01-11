@@ -19,24 +19,18 @@ MonoBehaviour:
     <Attributes>k__BackingField: {fileID: 11400000, guid: dcf55da2f32ace841a5c78a4a7f72346, type: 2}
   <LeaveTrail>k__BackingField:
     <Rarity>k__BackingField: 1
-    <Parameter>k__BackingField: 0.5
-    <Parameter2>k__BackingField: 5
     <Parameters>k__BackingField:
-    - 0.5
-    - 5
+    - 0.2
+    - 3
     <Attributes>k__BackingField: {fileID: 11400000, guid: 7fcf394c4efd5f842bc2ea6969848ccc, type: 2}
   <ExplosiveYoyo>k__BackingField:
     <Rarity>k__BackingField: 1
-    <Parameter>k__BackingField: 1
-    <Parameter2>k__BackingField: 0
     <Parameters>k__BackingField:
     - 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: 0d9972c13a27afd48b5b725e96c774fc, type: 2}
   <ExplosionPrefab>k__BackingField: {fileID: 8425698979349536843, guid: bd36b89a2e1c9314aac89784051d3f5c, type: 3}
   <SwapPositionWithYoyo>k__BackingField:
     <Rarity>k__BackingField: 1
-    <Parameter>k__BackingField: 1
-    <Parameter2>k__BackingField: 0
     <Parameters>k__BackingField:
     - 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
@@ -51,9 +45,9 @@ MonoBehaviour:
     _epicVariant: 1.7
     <Attributes>k__BackingField: {fileID: 11400000, guid: 5880ef4e5440cbb41baf69568bb293b5, type: 2}
   <IncreaseTrailStay>k__BackingField:
-    _commonVariant: 1.2
-    _rareVariant: 1.35
-    _epicVariant: 1.5
+    _commonVariant: 1.5
+    _rareVariant: 1.75
+    _epicVariant: 1.2
     <Attributes>k__BackingField: {fileID: 11400000, guid: f049c2ac268264f49a919e3a5b4affc0, type: 2}
   <IncreaseTrailDamage>k__BackingField:
     _commonVariant: 1.2

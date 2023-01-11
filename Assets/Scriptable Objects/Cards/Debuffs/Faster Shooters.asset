@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Faster Shooters
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Faster Shooters
-  <TitlePart>k__BackingField: Fast
   <Description>k__BackingField: Ranged enemies will move faster
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 20c88a832838e2542bec8c033e16b899, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 69e8bd44c8e5565498305d3094756db3, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
