@@ -44,7 +44,7 @@ namespace Player
 
         private const float DEC_THRESHOLD = 0.2f;
 
-        private int OnlyWallLayer;
+        private int DashLayer;
         private int PlayerLayer;
 
         #endregion
@@ -57,7 +57,7 @@ namespace Player
             set
             {
                 _invulnerable = value;
-                gameObject.layer = value ? OnlyWallLayer : PlayerLayer;
+                gameObject.layer = value ? DashLayer : PlayerLayer;
             }
         }
 
@@ -239,7 +239,7 @@ namespace Player
             Yoyo = GetComponentInChildren<Yoyo>();
 
             PlayerLayer = LayerMask.NameToLayer("Player");
-            OnlyWallLayer = LayerMask.NameToLayer("OnlyWall");
+            DashLayer = LayerMask.NameToLayer("Dash");
 
             switch (LoadManager.CurrentScene)
             {
