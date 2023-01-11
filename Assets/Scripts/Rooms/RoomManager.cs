@@ -24,8 +24,8 @@ namespace Rooms
         [Tooltip("A scriptable object containing all the enemies to spawn in the game")] [SerializeField]
         private EnemyDictionary _enemyDictionary;
 
-        [Tooltip("The global rank of all rooms. ~Temporary")] [SerializeField]
-        private int _rank = 8;
+        [SerializeField]
+        private int _minRoomRank = 20;
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
@@ -39,6 +39,7 @@ namespace Rooms
 
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
+        [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         [Header("Boss room")]
         [SerializeField] private Room _bossRoomPrefab;
@@ -83,7 +84,8 @@ namespace Rooms
         private void Start()
         {
             _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
-            _currentRoom = new RoomNode(null, new Vector2Int(0, 0), _rank);
+            var firstRoomIndex = Vector2Int.zero;
+            _currentRoom = new RoomNode(null, firstRoomIndex, RoomRank(firstRoomIndex));
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
@@ -196,7 +198,7 @@ namespace Rooms
                 {
                     var isBossRoom = _strategy.IsBossRoom(roomIndex);
                     var room = GetRoom(roomIndex, isBossRoom: isBossRoom);
-                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : _rank);
+                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : RoomRank(roomIndex));
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
                     continue;
@@ -217,6 +219,8 @@ namespace Rooms
                 newRoomNode[dir] = neighborNode;
             }
         }
+
+        private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, index, _distanceToRankFunction);
 
         private void SpawnEnemies(RoomNode roomNode)
         {
@@ -309,8 +313,8 @@ namespace Rooms
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-        
-        
+
+
         private static void SpawnEnemiesInNeighbors()
         {
             foreach (Direction dir in DirectionExt.GetDirections())

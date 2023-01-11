@@ -54,6 +54,16 @@ namespace Utils
 
             return t is >= 0 and <= 1 && u is >= 0 and <= 1;
         }
+
+        public static float L1Norm(this Vector2 v)
+        {
+            return Mathf.Abs(v.x) + Mathf.Abs(v.y);
+        }
+        
+        public static int L1Norm(this Vector2Int v)
+        {
+            return Mathf.Abs(v.x) + Mathf.Abs(v.y);
+        }
     }
 }
 
