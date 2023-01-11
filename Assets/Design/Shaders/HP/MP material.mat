@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _Hp: 18.82
     - _Max_Value: 20
-    - _Value: 20
+    - _Value: 11.30388
     - _maxHp: 20
     m_Colors:
     - _EmptyColor: {r: 0.3372549, g: 0.3372549, b: 0.3372549, a: 1}
