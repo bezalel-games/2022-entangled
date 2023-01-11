@@ -288,8 +288,8 @@ namespace Rooms
 
         private Vector3 RandomPosInRoom()
         {
-            float halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize;
-            float halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize;
+            float halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize - _roomProperties.EnemySpawnMargin;
+            float halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize - _roomProperties.EnemySpawnMargin;
             var x = Random.Range(-halfWidth, halfWidth);
             var y = Random.Range(-halfHeight, halfHeight);
             return new Vector3(x, y);
