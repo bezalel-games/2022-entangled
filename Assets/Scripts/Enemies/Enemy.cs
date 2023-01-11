@@ -181,7 +181,6 @@ namespace Enemies
                     if (!_canTrailDamage) return;
 
                     _canTrailDamage = false;
-                    print($"damage: {line.Damage}");
                     OnHit(line.transform, line.Damage, false);
                     DelayInvoke((() => { _canTrailDamage = true; }), line.DamageCooldown);
                 }
