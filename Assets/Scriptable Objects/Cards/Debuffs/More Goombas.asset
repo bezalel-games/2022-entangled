@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: More Goombas
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Charging enemies will appear more
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: aff64c5131fe2104fab56eee52f4d0a3, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: f7220d3c0eb9e714b8f3af3cc5db4c37, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
