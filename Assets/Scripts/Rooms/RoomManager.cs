@@ -76,6 +76,7 @@ namespace Rooms
                 throw new DoubleRoomManagerException();
             _instance = this;
             GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
+            GameManager.FinishedCurrentRoom += OpenCurrentRoomDoors;
             InitStrategy();
         }
 
@@ -96,6 +97,7 @@ namespace Rooms
         private void OnDestroy()
         {
             GameManager.FinishedCurrentRoom -= SpawnEnemiesInNeighbors;
+            GameManager.FinishedCurrentRoom -= OpenCurrentRoomDoors;
         }
 
         #endregion
@@ -120,17 +122,6 @@ namespace Rooms
             room.transform.position = _instance.GetPosition(room.Node.Index);
             room.Enemies.RemoveEnemies();
             _instance.SpawnEnemies(room.Node);
-        }
-
-        public static void SpawnEnemiesInNeighbors()
-        {
-            foreach (Direction dir in DirectionExt.GetDirections())
-            {
-                var neighborNode = _instance._currentRoom[dir];
-                if (neighborNode == null) continue;
-                neighborNode.ChooseEnemies();
-                _instance.SpawnEnemies(neighborNode);
-            }
         }
 
         #endregion
@@ -317,6 +308,23 @@ namespace Rooms
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+        
+        
+        private static void SpawnEnemiesInNeighbors()
+        {
+            foreach (Direction dir in DirectionExt.GetDirections())
+            {
+                var neighborNode = _instance._currentRoom[dir];
+                if (neighborNode == null) continue;
+                neighborNode.ChooseEnemies();
+                _instance.SpawnEnemies(neighborNode);
+            }
+        }
+
+        private void OpenCurrentRoomDoors()
+        {
+            _currentRoom.Cleared = true;
         }
 
         #endregion

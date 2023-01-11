@@ -39,6 +39,7 @@ namespace Rooms
             cam.m_Lens.OrthographicSize = calculations.OrthoSize;
             var camPosition = calculations.Offset;
             camPosition.y += calculations.KeepInCenter ? 0 : calculations.OrthoSize - calculations.Height / 2f;
+            camPosition.z = -100;
             cam.transform.position = camPosition;
         }
 

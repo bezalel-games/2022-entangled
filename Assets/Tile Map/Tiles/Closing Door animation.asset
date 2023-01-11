@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad9710867ae84fcd89343fdab931b901, type: 3}
-  m_Name: Open Door animation
+  m_Name: Closing Door animation
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
   m_DefaultGameObject: {fileID: 0}
@@ -18,15 +18,16 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 1875963346, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 1380672113, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 88800036, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 658590311, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -866614025, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -2076862416, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 88800036, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1380672113, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1835172520, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1875963346, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1573171954, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1875963346, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
-    m_MinAnimationSpeed: 1
-    m_MaxAnimationSpeed: 0.1
+    m_MinAnimationSpeed: 7
+    m_MaxAnimationSpeed: 7
     m_PerlinScale: 0.5
     m_Output: 2
     m_ColliderType: 1
@@ -40,15 +41,16 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 1
     m_Sprites:
-    - {fileID: 2058626850, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 262535820, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -10791926, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -1878110216, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 1049494464, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 1284020697, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -10791926, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 262535820, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1792012723, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 2058626850, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 865392112, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 2058626850, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
-    m_MinAnimationSpeed: 1
-    m_MaxAnimationSpeed: 0.1
+    m_MinAnimationSpeed: 7
+    m_MaxAnimationSpeed: 7
     m_PerlinScale: 0.5
     m_Output: 2
     m_ColliderType: 1
@@ -62,15 +64,16 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 2
     m_Sprites:
-    - {fileID: -1701757511, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 1612809290, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -1912852188, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -258836980, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -50854763, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -345580129, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1912852188, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1612809290, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1851490618, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1701757511, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 576045726, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1701757511, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
-    m_MinAnimationSpeed: 1
-    m_MaxAnimationSpeed: 0.1
+    m_MinAnimationSpeed: 7
+    m_MaxAnimationSpeed: 7
     m_PerlinScale: 0.5
     m_Output: 2
     m_ColliderType: 1
@@ -84,15 +87,16 @@ MonoBehaviour:
     m_RuleTransform: 2
   - m_Id: 3
     m_Sprites:
-    - {fileID: 1340006741, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -2017034356, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 75604627, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: 1604794928, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -190327232, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
-    - {fileID: -322673200, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 75604627, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -2017034356, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1539134364, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1340006741, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1958945561, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1340006741, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
-    m_MinAnimationSpeed: 1
-    m_MaxAnimationSpeed: 0.1
+    m_MinAnimationSpeed: 7
+    m_MaxAnimationSpeed: 7
     m_PerlinScale: 0.5
     m_Output: 2
     m_ColliderType: 1
