@@ -18,11 +18,12 @@ namespace Rooms
 
         #region Public Methods
 
-        public void ChangeStructure(RoomProperties.Calculations properties)
+        public void ChangeStructure(RoomProperties.Calculations calculations, RoomProperties properties)
         {
-            SetCam(properties);
-            SetCollider(properties);
-            SetTileMap(properties);
+            RoomProperties = properties;
+            SetCam(calculations);
+            SetCollider(calculations);
+            SetTileMap(calculations);
 
             if (Application.isPlaying)
                 RoomManager.RepositionRoom(this);
@@ -32,69 +33,72 @@ namespace Rooms
 
         #region Private Methods
 
-        private void SetCam(RoomProperties.Calculations properties)
+        private void SetCam(RoomProperties.Calculations calculations)
         {
             var cam = GetComponentInChildren(typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
-            cam.m_Lens.OrthographicSize = properties.OrthoSize;
-            var camPosition = properties.Offset;
-            camPosition.y += properties.KeepInCenter ? 0 : properties.OrthoSize - properties.Height/2f;
+            cam.m_Lens.OrthographicSize = calculations.OrthoSize;
+            var camPosition = calculations.Offset;
+            camPosition.y += calculations.KeepInCenter ? 0 : calculations.OrthoSize - calculations.Height / 2f;
             cam.transform.position = camPosition;
         }
 
-        private void SetCollider(RoomProperties.Calculations properties)
+        private void SetCollider(RoomProperties.Calculations calculations)
         {
             var collider = GetComponent<BoxCollider2D>();
-            collider.size = new Vector2(properties.Width, properties.Height);
-            var offset = properties.Offset;
-            offset.y -= properties.KeepInCenter ? 0 : properties.OrthoSize - properties.Height/2f;
+            collider.size = new Vector2(calculations.Width, calculations.Height);
+            var offset = calculations.Offset;
+            offset.y -= calculations.KeepInCenter ? 0 : calculations.OrthoSize - calculations.Height / 2f;
             collider.offset = offset;
         }
 
-        private void SetTileMap(RoomProperties.Calculations properties)
+        private void SetTileMap(RoomProperties.Calculations calculations)
         {
             Tilemap back = RoomContent.transform.Find("Background Tilemap").GetComponent<Tilemap>();
             Tilemap front = RoomContent.transform.Find("Foreground Tilemap").GetComponent<Tilemap>();
-                
+
             back.ClearAllTiles();
             front.ClearAllTiles();
             var pos = Vector3Int.zero;
-            for (int x = properties.Left; x <= properties.Right; x++)
-                for (int y = properties.Bottom; y <= properties.Top; y++)
+            for (int x = calculations.Left; x <= calculations.Right; x++)
+                for (int y = calculations.Bottom; y <= calculations.Top; y++)
                 {
                     pos.x = x;
                     pos.y = y;
-                    if (x - properties.Left < properties.WallSize || properties.Right - x < properties.WallSize ||
-                        y - properties.Bottom < properties.WallSize || properties.Top - y < properties.WallSize)
+                    var topOrBottomWall = y - calculations.Bottom < calculations.WallSize ||
+                              calculations.Top - y < calculations.WallSize;
+                    var leftOrRightWall = x - calculations.Left < calculations.WallSize ||
+                              calculations.Right - x < calculations.WallSize;
+                    if (topOrBottomWall && x >= calculations.GateLeft && x <= calculations.GateRight)
                     {
-                        if (x >= properties.GateLeft && x <= properties.GateRight)
-                        {
-                            back.SetTile(pos, properties.GateTile);
-                            front.SetTile(pos, properties.GateFrameTile);
-                            front.SetTile(pos + Vector3Int.down * Math.Sign(y), properties.EmptyTile);
-                            if (front.GetTile(pos + Vector3Int.left) == null)
-                                front.SetTile(pos + Vector3Int.left, properties.EmptyTile);
-                            if (front.GetTile(pos + Vector3Int.right) == null)
-                                front.SetTile(pos + Vector3Int.right, properties.EmptyTile);
-                            continue;
-                        }
-
-                        if (y >= properties.GateBottom && y <= properties.GateTop)
-                        {
-                            back.SetTile(pos, properties.GateTile);
-                            front.SetTile(pos, properties.GateFrameTile);
-                            front.SetTile(pos + Vector3Int.left * Math.Sign(x), properties.EmptyTile);
-                            if (front.GetTile(pos + Vector3Int.up) == null)
-                                front.SetTile(pos + Vector3Int.up, properties.EmptyTile);
-                            if (front.GetTile(pos + Vector3Int.down) == null)
-                                front.SetTile(pos + Vector3Int.down, properties.EmptyTile);
-                            continue;
-                        }
-
-                        back.SetTile(pos, properties.WallTile);
+                        back.SetTile(pos, calculations.GateTile);
+                        front.SetTile(pos, calculations.GateFrameTile);
+                        front.SetTile(pos + Vector3Int.down * Math.Sign(y), calculations.EmptyTile);
+                        if (front.GetTile(pos + Vector3Int.left) == null)
+                            front.SetTile(pos + Vector3Int.left, calculations.EmptyTile);
+                        if (front.GetTile(pos + Vector3Int.right) == null)
+                            front.SetTile(pos + Vector3Int.right, calculations.EmptyTile);
                         continue;
                     }
 
-                    back.SetTile(pos, properties.GroundTile);
+                    if (leftOrRightWall && y >= calculations.GateBottom && y <= calculations.GateTop)
+                    {
+                        back.SetTile(pos, calculations.GateTile);
+                        front.SetTile(pos, calculations.GateFrameTile);
+                        front.SetTile(pos + Vector3Int.left * Math.Sign(x), calculations.EmptyTile);
+                        if (front.GetTile(pos + Vector3Int.up) == null)
+                            front.SetTile(pos + Vector3Int.up, calculations.EmptyTile);
+                        if (front.GetTile(pos + Vector3Int.down) == null)
+                            front.SetTile(pos + Vector3Int.down, calculations.EmptyTile);
+                        continue;
+                    }
+                    if (topOrBottomWall || leftOrRightWall)
+                    {
+
+                        back.SetTile(pos, calculations.WallTile);
+                        continue;
+                    }
+
+                    back.SetTile(pos, calculations.GroundTile);
                 }
         }
 

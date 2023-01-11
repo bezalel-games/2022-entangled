@@ -18,14 +18,14 @@ TagManager:
   - Enemies
   - Projectiles
   - Walls
-  - OnlyWall
+  - Rigid Yoyo
   - Yoyo
   - MiniMap
   - YoyoLine
   - Boss
   - Boss Yoyo
   - Dash
-  - 
+  - Boss Rigid Yoyo
   - 
   - 
   - 

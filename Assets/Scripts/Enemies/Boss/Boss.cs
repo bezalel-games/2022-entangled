@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using HP_System;
 using Player;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Enemies.Boss
         [SerializeField] private float _yoyoDrawDistance = 0.5f;
         [SerializeField] private float _yoyoDrawTime = 0.5f;
         [SerializeField] private GameObject _yoyoAimPivotPrefab;
+        [SerializeField] private float _meleeDamage = 10;
 
         #endregion
 
@@ -67,6 +69,12 @@ namespace Enemies.Boss
             if (Time.time < NextAttackTime) return;
             NextAttackTime = float.PositiveInfinity;
             _animator.SetBool(AttackingFlag, true);
+        }
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+                other.gameObject.GetComponent<IHittable>()?.OnHit(transform, _meleeDamage);
         }
 
         #endregion
