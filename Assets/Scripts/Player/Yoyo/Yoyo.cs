@@ -51,8 +51,11 @@ namespace Player
         [SerializeField] private Line _linePrefab;
         [SerializeField] private float _timeScale;
 
-        [Header("Other")] [SerializeField] private float _waitForReturn;
-
+        [Header("Other")]
+        [Tooltip("On collision with a non-hittable object return to owner")]
+        [SerializeField] private bool _defaultToReturn;
+        [Tooltip("Hit hittable objects when yoyo is not thrown")]
+        [SerializeField] private bool _idleHit;
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _initPos;
 
@@ -179,13 +182,14 @@ namespace Player
 
             switch (State)
             {
+                case YoyoState.IDLE when _idleHit:
                 case YoyoState.BACK:
                 case YoyoState.PRECISION:
                     OnHitEnemy(other.GetComponent<IHittable>());
                     break;
                 case YoyoState.SHOOT:
-                    OnHitEnemy(other.GetComponent<IHittable>());
-                    GoBack(true);
+                    if (!OnHitEnemy(other.GetComponent<IHittable>()) && _defaultToReturn)
+                        GoBack(true);
                     break;
             }
         }
@@ -201,8 +205,8 @@ namespace Player
 
             if (State == YoyoState.SHOOT)
             {
-                OnHitEnemy(other.GetComponent<IHittable>());
-                GoBack();
+                if (!OnHitEnemy(other.GetComponent<IHittable>()) && _defaultToReturn)
+                    GoBack(true);
             }
         }
 
@@ -293,11 +297,20 @@ namespace Player
 
         #region Private Methods
 
-        private void OnHitEnemy(IHittable hittableObj)
+        /* Returns true if hit, false otherwise. */
+        private bool OnHitEnemy(IHittable hittableObj)
         {
-            if (hittableObj is null or Enemy { HasBarrier: true }) return;
+            switch (hittableObj)
+            {
+                case null:
+                    return false;
+                case Enemy { HasBarrier: true }:
+                    return true;
+            }
+
             hittableObj.OnHit(transform, Damage, State != YoyoState.PRECISION);
             _owner.OnSuccessfulHit();
+            return true;
         }
 
         private bool IsOwner(Component other) => other.GetComponent<YoyoOwner>() == _owner;

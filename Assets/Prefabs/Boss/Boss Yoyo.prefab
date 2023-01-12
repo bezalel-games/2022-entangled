@@ -24,27 +24,35 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _idleHit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _shootSpeed
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _maxDistance
-      value: 7
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _easeDistance
-      value: 0.309
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _defaultToReturn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: _easeVelocityThreshold
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5218044006668404598, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
-      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5373774459956894482, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
@@ -69,15 +77,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 0.90000004
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 0.90000004
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.90000004
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,7 +7,7 @@ namespace UI
     public class FillMaterial : MonoBehaviour
     {
         #region Serialized Fields
-        
+          
           [SerializeField] private Image _hpImage;
           [SerializeField] private Image _mpImage;
           [SerializeField] LivingBehaviour _living;
@@ -32,10 +32,17 @@ namespace UI
           private void Awake()
           {
             if (_hpImage != null)
-              _hpMaterial = _hpImage.material;
-            
+            {
+              _hpMaterial = new Material(_hpImage.material);
+              _hpImage.material = _hpMaterial;
+            }
+
             if (_mpImage != null)
-              _mpMaterial = _mpImage.material;
+            {
+              _mpMaterial = new Material(_mpImage.material);
+              _mpImage.material = _mpMaterial;
+            }
+              
             
             UpdateHPUI(_living.Hp, _living.MaxHp);
             UpdateMPUI(_living.Mp, _living.MaxMp);

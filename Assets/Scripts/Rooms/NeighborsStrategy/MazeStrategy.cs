@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Rooms.CardinalDirections;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace Rooms.NeighborsStrategy
@@ -19,20 +20,20 @@ namespace Rooms.NeighborsStrategy
         private HashSet<Vector2Int> _rooms;
 
         #endregion
-        
+
         #region Public Methods
-        
+
         public MazeStrategy(int minDistanceToBoss, int maxDistanceToBoss, int totalRooms)
         {
             _minDistanceToBoss = minDistanceToBoss;
             _maxDistanceToBoss = maxDistanceToBoss;
-            
-            _totalRooms = Math.Min(Math.Max(totalRooms, maxDistanceToBoss), Mathf.Pow(2*maxDistanceToBoss + 1, 2));
 
-            _rooms = new HashSet<Vector2Int>(); 
+            _totalRooms = Math.Min(Math.Max(totalRooms, maxDistanceToBoss), Mathf.Pow(2 * maxDistanceToBoss + 1, 2));
+
+            _rooms = new HashSet<Vector2Int>();
             CreateMaze();
         }
-        
+
         public bool RoomExists(Vector2Int index)
         {
             return _rooms.Contains(index);
@@ -43,8 +44,14 @@ namespace Rooms.NeighborsStrategy
             return index == _bossIndex;
         }
 
+        public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
+        {
+            return minRoomRank + 
+                   (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) * minRoomRank);
+        }
+
         #endregion
-        
+
         #region Private Methods
 
         private void PrintMaze()
@@ -68,9 +75,10 @@ namespace Rooms.NeighborsStrategy
 
                 s += "\n";
             }
+
             Debug.Log(s);
         }
-        
+
         private void CreateMaze()
         {
             _rooms.Add(Vector2Int.zero);
@@ -89,7 +97,7 @@ namespace Rooms.NeighborsStrategy
 
             roomsToAdd.Enqueue(Vector2Int.zero);
             queued.Add(Vector2Int.zero);
-            
+
             //BFS until we populate enough rooms
             while (_rooms.Count < _totalRooms)
             {
@@ -99,15 +107,15 @@ namespace Rooms.NeighborsStrategy
                     queued.Clear();
                     queued.Add(Vector2Int.zero);
                 }
-                
+
                 var currRoom = roomsToAdd.Dequeue();
                 _rooms.Add(currRoom);
-                
+
                 foreach (Direction dir in DirectionExt.GetDirections())
                 {
                     var newRoom = currRoom + dir.ToVector();
-                    if(queued.Contains(newRoom) || 
-                       Vector2Int.Distance(Vector2Int.zero, newRoom) > _maxDistanceToBoss) continue;
+                    if (queued.Contains(newRoom) ||
+                        Vector2Int.Distance(Vector2Int.zero, newRoom) > _maxDistanceToBoss) continue;
 
                     /*
                      * might prefer to try 'if (Random.value > 0.5f || _rooms.Contains(newRoom))' for faster generation 
@@ -131,10 +139,10 @@ namespace Rooms.NeighborsStrategy
 
             row *= (Random.value > 0.5) ? 1 : -1;
             col *= (Random.value > 0.5) ? 1 : -1;
-            
+
             _bossIndex = new Vector2Int(col, row);
-            
-            
+
+
             Vector2Int currRoom = Vector2Int.zero;
             int roomCount = 0;
             Vector2Int lastDir = Vector2Int.zero;
@@ -142,14 +150,14 @@ namespace Rooms.NeighborsStrategy
             while (currRoom != _bossIndex)
             {
                 int roomsLeft = _maxDistanceToBoss - roomCount;
-                int distance = (int) Vector2Int.Distance(currRoom, _bossIndex);
+                int distance = (int)Vector2Int.Distance(currRoom, _bossIndex);
 
                 if (distance > roomsLeft)
                 {
                     throw new Exception(
                         "Got too far from bossRoom. this shouldn't happen, something is wrong with the algorithm");
                 }
-                
+
                 //if needed create shortest path
                 if (distance == roomsLeft)
                 {
@@ -164,8 +172,8 @@ namespace Rooms.NeighborsStrategy
                 {
                     Vector2Int newCurr = currRoom + dir.ToVector();
                     if (_rooms.Contains(newCurr) ||
-                        Vector2Int.Distance(newCurr, _bossIndex) > roomsLeft-1) continue;
-                    
+                        Vector2Int.Distance(newCurr, _bossIndex) > roomsLeft - 1) continue;
+
                     possible.Add(dir.ToVector());
                 }
 
@@ -197,13 +205,13 @@ namespace Rooms.NeighborsStrategy
 
             Vector2Int yDir = Math.Sign(to.y - from.y) * Vector2Int.up;
             Vector2Int xDir = Math.Sign(to.x - from.x) * Vector2Int.right;
-            
+
             while (curr != to)
             {
                 var dir = Vector2Int.zero;
-                if(curr.x == to.x)
-                    dir =  yDir;
-                else if(curr.y == to.y)
+                if (curr.x == to.x)
+                    dir = yDir;
+                else if (curr.y == to.y)
                     dir = xDir;
                 else
                     dir = (Random.value > 0.5f) ? yDir : xDir;

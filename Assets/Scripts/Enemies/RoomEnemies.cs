@@ -38,8 +38,6 @@ namespace Enemies
         public void EnemyKilled()
         {
             if (--_numOfLivingEnemies > 0) return;
-            if (Node != null)
-                Node.Cleared = true;
             GameManager.RoomCleared();
             
         }

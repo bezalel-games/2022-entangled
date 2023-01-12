@@ -9,7 +9,7 @@ namespace Rooms
     {
         #region Events
 
-        public static event Action<Calculations> Changed;
+        public static event Action<Calculations, RoomProperties> Changed;
 
         #endregion
 
@@ -44,9 +44,9 @@ namespace Rooms
         private void AfterValidate()
         {
             var calculations = new Calculations(this);
-            Changed?.Invoke(calculations);
+            Changed?.Invoke(calculations, this);
             if (Prefab != null)
-                Prefab.ChangeStructure(calculations);
+                Prefab.ChangeStructure(calculations, this);
         }
 
         #endregion

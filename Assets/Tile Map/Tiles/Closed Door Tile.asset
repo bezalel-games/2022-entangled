@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad9710867ae84fcd89343fdab931b901, type: 3}
-  m_Name: Door Tile
+  m_Name: Closed Door Tile
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
   m_DefaultGameObject: {fileID: 0}
@@ -18,7 +18,7 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -46302589, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1875963346, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 1
     m_Sprites:
-    - {fileID: 1320257961, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 2058626850, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -52,7 +52,7 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 2
     m_Sprites:
-    - {fileID: -80761716, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1701757511, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
     m_RuleTransform: 2
   - m_Id: 3
     m_Sprites:
-    - {fileID: 800609178, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 1340006741, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

@@ -14,5 +14,10 @@ namespace Rooms.NeighborsStrategy
         {
             return index == BossRoom;
         }
+
+        public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
+        {
+            return 0;
+        }
     }
 }

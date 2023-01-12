@@ -37,10 +37,11 @@ namespace Rooms
         [field: SerializeField] public GameObject RoomContent { get; private set; }
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
+        [field: SerializeField] private RoomProperties RoomProperties { get; set; }
 
         public bool GateClosed
         {
-            set { GateState = value ? GateState.CLOSING : GateState.OPENING; }
+            set => GateState = value ? GateState.CLOSING : GateState.OPENING;
         }
 
         private GateState GateState
@@ -58,7 +59,7 @@ namespace Rooms
                     GateState.OPEN => RoomManager.RoomProperties.OpenedGateTile,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 };
-                foreach (var gateTilePos in RoomManager.RoomProperties.GatePositions)
+                foreach (var gateTilePos in RoomProperties.GatePositions)
                 {
                     _tilemap.SetTile(gateTilePos, tile);
                 }

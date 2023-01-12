@@ -139,6 +139,10 @@ namespace Managers
                 _instance._cardManager.ShowCards(CardChosen);
                 _instance.ActionMapInUse = ActionMap.UI;
             }
+            else
+            {
+                FinishedCurrentRoom?.Invoke();
+            }
         }
 
         #endregion

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Teleport to your orb by dodging while your weapon
     is thrown
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: df2f1c4903f2475449a9e3916eac94b1, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 2866e03f50b23244fa48e30f360048c6, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 1

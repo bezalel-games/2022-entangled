@@ -34,6 +34,8 @@ namespace Rooms
         [field: SerializeField] public int WallSize { get; private set; } = 1;
         [field: SerializeField] public int GateWidth { get; private set; } = 2;
 
+        [field: SerializeField] public float EnemySpawnMargin { get; private set; } = 2.5f;
+
         [field: Header("Tiles")]
         [field: SerializeField] public TileBase GroundTile { get; private set; }
 

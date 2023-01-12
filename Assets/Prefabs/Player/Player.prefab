@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 100
   _maxMp: 20
-  _pushbackFactor: 10
+  _pushbackFactor: 20
   _pushbackTime: 0.3
   _barrier: {fileID: 0}
   _speed: 5.1
@@ -323,7 +323,7 @@ MonoBehaviour:
   _dashBonus: 4
   _dashCooldown: 0.5
   _mpRecoveryOnAttack: 0.5
-  _mpRecoveryPerSec: 0.02
+  _mpRecoveryPerSec: 0.1
   _mpRecoveryOnHit: 0.1
   _mpPrecisionReduction: 5
   _rotationSpeed: 20
@@ -652,6 +652,22 @@ PrefabInstance:
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

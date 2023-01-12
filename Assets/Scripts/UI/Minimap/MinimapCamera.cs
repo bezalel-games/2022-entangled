@@ -30,7 +30,11 @@ public class MinimapCamera : MonoBehaviour
     }
     else
     {
-      transform.position = _playerTransform.position;
+      var pos = transform.position;
+      var playerPos = _playerTransform.position;
+      pos.x = playerPos.x;
+      pos.y = playerPos.y;
+      transform.position = pos;
     }
   }
 

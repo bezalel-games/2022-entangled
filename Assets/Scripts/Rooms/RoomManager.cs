@@ -24,8 +24,8 @@ namespace Rooms
         [Tooltip("A scriptable object containing all the enemies to spawn in the game")] [SerializeField]
         private EnemyDictionary _enemyDictionary;
 
-        [Tooltip("The global rank of all rooms. ~Temporary")] [SerializeField]
-        private int _rank = 8;
+        [SerializeField]
+        private int _minRoomRank = 20;
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
@@ -39,6 +39,7 @@ namespace Rooms
 
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
+        [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         [Header("Boss room")]
         [SerializeField] private Room _bossRoomPrefab;
@@ -76,13 +77,15 @@ namespace Rooms
                 throw new DoubleRoomManagerException();
             _instance = this;
             GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
+            GameManager.FinishedCurrentRoom += OpenCurrentRoomDoors;
             InitStrategy();
         }
 
         private void Start()
         {
             _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
-            _currentRoom = new RoomNode(null, new Vector2Int(0, 0), _rank);
+            var firstRoomIndex = Vector2Int.zero;
+            _currentRoom = new RoomNode(null, firstRoomIndex, RoomRank(firstRoomIndex));
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
@@ -96,6 +99,7 @@ namespace Rooms
         private void OnDestroy()
         {
             GameManager.FinishedCurrentRoom -= SpawnEnemiesInNeighbors;
+            GameManager.FinishedCurrentRoom -= OpenCurrentRoomDoors;
         }
 
         #endregion
@@ -120,17 +124,6 @@ namespace Rooms
             room.transform.position = _instance.GetPosition(room.Node.Index);
             room.Enemies.RemoveEnemies();
             _instance.SpawnEnemies(room.Node);
-        }
-
-        public static void SpawnEnemiesInNeighbors()
-        {
-            foreach (Direction dir in DirectionExt.GetDirections())
-            {
-                var neighborNode = _instance._currentRoom[dir];
-                if (neighborNode == null) continue;
-                neighborNode.ChooseEnemies();
-                _instance.SpawnEnemies(neighborNode);
-            }
         }
 
         #endregion
@@ -205,7 +198,7 @@ namespace Rooms
                 {
                     var isBossRoom = _strategy.IsBossRoom(roomIndex);
                     var room = GetRoom(roomIndex, isBossRoom: isBossRoom);
-                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : _rank);
+                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : RoomRank(roomIndex));
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
                     continue;
@@ -226,6 +219,8 @@ namespace Rooms
                 newRoomNode[dir] = neighborNode;
             }
         }
+
+        private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, index, _distanceToRankFunction);
 
         private void SpawnEnemies(RoomNode roomNode)
         {
@@ -288,8 +283,8 @@ namespace Rooms
 
         private Vector3 RandomPosInRoom()
         {
-            float halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize;
-            float halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize;
+            float halfWidth = _roomProperties.Width / 2 - _roomProperties.WallSize - _roomProperties.EnemySpawnMargin;
+            float halfHeight = _roomProperties.Height / 2 - _roomProperties.WallSize - _roomProperties.EnemySpawnMargin;
             var x = Random.Range(-halfWidth, halfWidth);
             var y = Random.Range(-halfHeight, halfHeight);
             return new Vector3(x, y);
@@ -317,6 +312,23 @@ namespace Rooms
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+
+        private static void SpawnEnemiesInNeighbors()
+        {
+            foreach (Direction dir in DirectionExt.GetDirections())
+            {
+                var neighborNode = _instance._currentRoom[dir];
+                if (neighborNode == null) continue;
+                neighborNode.ChooseEnemies();
+                _instance.SpawnEnemies(neighborNode);
+            }
+        }
+
+        private void OpenCurrentRoomDoors()
+        {
+            _currentRoom.Cleared = true;
         }
 
         #endregion
