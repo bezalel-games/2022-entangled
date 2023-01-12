@@ -146,6 +146,16 @@ namespace Rooms
 
         #endregion
     }
+
+    public enum RoomType
+    {
+        MONSTERS,
+        BOSS,
+        TREASURE,
+        FOUNTAIN,
+        START,
+        NONE
+    }
 }
 
 public enum GateState

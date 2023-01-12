@@ -64,6 +64,11 @@ namespace Utils
         {
             return Mathf.Abs(v.x) + Mathf.Abs(v.y);
         }
+
+        public static int L1Distance(Vector2Int a, Vector2Int b)
+        {
+            return (a - b).L1Norm();
+        }
     }
 }
 

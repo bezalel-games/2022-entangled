@@ -39,6 +39,8 @@ namespace Rooms
 
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
+        [SerializeField] private int _fountainCount = 1;
+        [SerializeField] private int _treasureCount = 2;
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         [Header("Boss room")]
@@ -307,7 +309,7 @@ namespace Rooms
             _strategy = _playMode switch
             {
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
-                    _totalNumberOfRooms),
+                    _totalNumberOfRooms, _fountainCount, _treasureCount),
                 NeighborsStrategy.ENDLESS => new EndlessStrategy(),
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
