@@ -524,14 +524,23 @@ MonoBehaviour:
   _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   _previousRoomSleepDelay: 0.5
   _enemyDictionary: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
-  _rank: 20
+  _minRoomRank: 20
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
   _ghostChange: 0.66
+  _interactablePairs: []
   _playMode: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40
+  _fountainCount: 1
+  _treasureCount: 2
+  _distanceToRankFunction:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _bossRoomPrefab: {fileID: 0}
 --- !u!114 &1006228300
 MonoBehaviour:
@@ -648,6 +657,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1006228298}
     m_Modifications:
+    - target: {fileID: 1601690431499554789, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3916490117102824572, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
       propertyPath: m_ChunkCullingBounds.y
       value: 0
@@ -863,7 +876,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: orthographic size
-      value: 4.5
+      value: 5.0625
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313606, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_Name
@@ -879,11 +892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 1.0625
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalRotation.w

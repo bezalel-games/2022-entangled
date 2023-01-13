@@ -17,8 +17,8 @@ MonoBehaviour:
   _useRatio: 0
   _ratioMultiplicationFactor: 1
   _ratio: {x: 16, y: 9}
-  <Width>k__BackingField: 16
-  <Height>k__BackingField: 7
+  <Width>k__BackingField: 18
+  <Height>k__BackingField: 9
   <VerticalIntersection>k__BackingField: 0
   <HorizontalIntersection>k__BackingField: 0
   <WallSize>k__BackingField: 1

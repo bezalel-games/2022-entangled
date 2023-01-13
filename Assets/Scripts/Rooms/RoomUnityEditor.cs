@@ -48,7 +48,6 @@ namespace Rooms
             var collider = GetComponent<BoxCollider2D>();
             collider.size = new Vector2(calculations.Width, calculations.Height);
             var offset = calculations.Offset;
-            offset.y -= calculations.KeepInCenter ? 0 : calculations.OrthoSize - calculations.Height / 2f;
             collider.offset = offset;
         }
 

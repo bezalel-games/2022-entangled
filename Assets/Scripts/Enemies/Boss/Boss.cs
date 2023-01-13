@@ -55,7 +55,7 @@ namespace Enemies.Boss
             _yoyos = new Yoyo[YoyoCount];
             for (int i = 0; i < YoyoCount; ++i)
             {
-                var rotation = Quaternion.Euler( 0, 0, 360f * i / YoyoCount);
+                var rotation = _yoyoRotationPlane.rotation * Quaternion.Euler( 0, 0, 360f * i / YoyoCount);
                 var yoyoParent = Instantiate(_yoyoAimPivotPrefab, _yoyoRotationPlane.position, rotation,
                     _yoyoRotationPlane);
                 _yoyos[i] = yoyoParent.GetComponentInChildren<Yoyo>();

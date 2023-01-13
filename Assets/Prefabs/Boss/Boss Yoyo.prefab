@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _easeVelocityThreshold
-      value: 0.5
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Layer

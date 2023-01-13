@@ -19,7 +19,8 @@ namespace Rooms
         [SerializeField] private CinemachineVirtualCamera _vCam;
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private Tilemap _frameTilemap;
-        [SerializeField] private float _doorAnimationDuration = 0.5f;
+        [SerializeField] private float _doorOpeningAnimationDuration = 1;
+        [SerializeField] private float _doorClosingAnimationDuration = 1;
 
         [SerializeField] private GameObject _miniMap;
 
@@ -56,10 +57,10 @@ namespace Rooms
                 _gateState = value;
                 var tile = value switch
                 {
-                    GateState.CLOSING => RoomManager.RoomProperties.ClosingGateTile,
-                    GateState.CLOSED => RoomManager.RoomProperties.ClosedGateTile,
-                    GateState.OPENING => RoomManager.RoomProperties.OpeningGateTile,
-                    GateState.OPEN => RoomManager.RoomProperties.OpenedGateTile,
+                    GateState.CLOSING => RoomProperties.ClosingGateTile,
+                    GateState.CLOSED => RoomProperties.ClosedGateTile,
+                    GateState.OPENING => RoomProperties.OpeningGateTile,
+                    GateState.OPEN => RoomProperties.OpenedGateTile,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 };
                 foreach (var gateTilePos in RoomProperties.GatePositions)
@@ -67,8 +68,10 @@ namespace Rooms
                     _tilemap.SetTile(gateTilePos, tile);
                 }
 
-                if (value is GateState.CLOSING or GateState.OPENING)
-                    DelayInvoke(() => GateState = value + 1, _doorAnimationDuration);
+                if (value is GateState.CLOSING)
+                    DelayInvoke(() => GateState = GateState.CLOSED, _doorClosingAnimationDuration);
+                else if (value is GateState.OPENING)
+                    DelayInvoke(() => GateState = GateState.OPEN, _doorOpeningAnimationDuration);
             }
         }
 
@@ -128,12 +131,11 @@ namespace Rooms
 
         public void ShowDoor(Direction dir, bool show = true)
         {
-            foreach (var gateTilePos in RoomManager.RoomProperties.GatePositions)
+            foreach (var gateTilePos in RoomProperties.GatePositions)
             {
-                var vec2 = new Vector2Int(gateTilePos.x, gateTilePos.y);
-                if (vec2.ToDirectionRounded() == dir)
+                if (((Vector2Int)gateTilePos).ToDirectionRounded() == dir)
                 {
-                    var tile = show ? RoomManager.RoomProperties.GateFrameTile : RoomManager.RoomProperties.WallTile;
+                    var tile = show ? RoomProperties.GateFrameTile : RoomProperties.WallTile;
                     _frameTilemap.SetTile(gateTilePos, tile);
                 }
             }

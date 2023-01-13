@@ -38,7 +38,6 @@ namespace Rooms
 
         [field: Header("Tiles")]
         [field: SerializeField] public TileBase GroundTile { get; private set; }
-
         [field: SerializeField] public TileBase WallTile { get; private set; }
         [field: SerializeField] public TileBase ClosingGateTile { get; private set; }
         [field: SerializeField] public TileBase ClosedGateTile { get; private set; }
@@ -54,7 +53,7 @@ namespace Rooms
 
         #region Non-Serialized Fields
 
-        private List<Vector3Int> _gatePositions = new();
+        private readonly List<Vector3Int> _gatePositions = new();
 
         #endregion
 
@@ -91,12 +90,11 @@ namespace Rooms
                 {
                     pos.x = x;
                     pos.y = y;
-                    if (x - left >= WallSize && right - x >= WallSize && y - bottom >= WallSize &&
-                        top - y >= WallSize) continue;
-                    if (x >= gateLeft && x <= gateRight || y >= gateBottom && y <= gateTop)
-                    {
+                    var topOrBottomWall = y - bottom < WallSize || top - y < WallSize;
+                    var leftOrRightWall = x - left < WallSize || right - x < WallSize;
+                    if ((topOrBottomWall && x >= gateLeft && x <= gateRight) ||
+                        leftOrRightWall && y >= gateBottom && y <= gateTop)
                         _gatePositions.Add(pos);
-                    }
                 }
         }
     }
