@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Enemies;
+using Interactables;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -38,6 +39,8 @@ namespace Rooms
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
         [field: SerializeField] private RoomProperties RoomProperties { get; set; }
+        
+        public Interactable Interactable { get; private set; }
 
         public bool GateClosed
         {
@@ -95,6 +98,9 @@ namespace Rooms
                 _sleepCoroutine = null;
             }
 
+            if (!RoomManager.Nodes.ContainsKey(Node.Index))
+                RoomManager.Nodes[Node.Index] = Node;
+            
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
             Enemies.Node = Node;
@@ -103,6 +109,12 @@ namespace Rooms
                 Enemies.Activate();
                 GateClosed = true;
             }
+        }
+        
+        public void Clean()
+        {
+            Enemies.RemoveEnemies();
+            RemoveInteractable();
         }
 
         public void Exit(float sleepDelay = 0)
@@ -132,6 +144,21 @@ namespace Rooms
             if (!MinimapManager.HasRoom(Node.Index))
                 Instantiate(MinimapManager.MinimapRoomPrefab, transform);
         }
+        
+        public void InitInteractable(RoomType type)
+        {
+            if (Interactable != null)
+                Interactable.gameObject.SetActive(true);
+            else
+                Interactable = Instantiate(RoomManager.Interactables[type], transform);
+
+            Interactable.ParentNode = Node;
+            if (Node.Interacted)
+            {
+                Debug.Log("call from Room:155");
+                Interactable.SetToAfter();
+            }
+        }
 
         #endregion
 
@@ -143,8 +170,27 @@ namespace Rooms
             RoomContent.SetActive(false);
             _sleepCoroutine = null;
         }
+        
+        private void RemoveInteractable()
+        {
+            if (Interactable != null)
+            {
+                Destroy(Interactable.gameObject);
+                Interactable = null;
+            }
+        }
 
         #endregion
+    }
+
+    public enum RoomType
+    {
+        MONSTERS,
+        BOSS,
+        TREASURE,
+        FOUNTAIN,
+        START,
+        NONE
     }
 }
 

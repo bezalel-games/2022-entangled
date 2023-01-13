@@ -6,6 +6,7 @@ using Rooms.CardinalDirections;
 using Rooms.NeighborsStrategy;
 using Direction = Rooms.CardinalDirections.Direction;
 using Enemies;
+using Interactables;
 using Managers;
 using Player;
 
@@ -30,6 +31,7 @@ namespace Rooms
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
         [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
+        [SerializeField] private InteractablePair[] _interactablePairs;
 
         [Header("Play mode")]
         [SerializeField] private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
@@ -39,6 +41,8 @@ namespace Rooms
 
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
+        [SerializeField] private int _fountainCount = 1;
+        [SerializeField] private int _treasureCount = 2;
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         [Header("Boss room")]
@@ -51,9 +55,11 @@ namespace Rooms
         private RoomNode _currentRoom;
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
+        public static Dictionary<Vector2Int, RoomNode> Nodes { get; private set; } = new();
         private RoomNode _nextRoom;
 
         private INeighborsStrategy _strategy;
+        public static Dictionary<RoomType, Interactable> Interactables { get; private set; } = new();
 
         #endregion
 
@@ -77,6 +83,12 @@ namespace Rooms
                 throw new DoubleRoomManagerException();
             _instance = this;
             GameManager.FinishedCurrentRoom += FinishedCurrentRoom;
+
+            foreach (InteractablePair pair in _interactablePairs)
+            {
+                Interactables[pair.RoomType] = pair.Interactable;
+            }
+            
             InitStrategy();
         }
 
@@ -90,7 +102,7 @@ namespace Rooms
             _currentRoom.Room.Enter();
 
             LoadNeighbors(_currentRoom);
-            SpawnEnemiesInNeighbors();
+            InitContentInNeighbors();
 
             _currentRoom.Room.ShowOnMiniMap();
         }
@@ -120,7 +132,7 @@ namespace Rooms
         public static void RepositionRoom(Room room)
         {
             room.transform.position = _instance.GetPosition(room.Node.Index);
-            room.Enemies.RemoveEnemies();
+            room.Clean();
             _instance.SpawnEnemies(room.Node);
         }
 
@@ -138,7 +150,7 @@ namespace Rooms
             {
                 MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
             }
-
+            
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
@@ -146,7 +158,7 @@ namespace Rooms
             _instance._currentRoom = newRoom;
             _instance._currentRoom.Room.ShowOnMiniMap();
             if (newRoom.Cleared)
-                SpawnEnemiesInNeighbors();
+                InitContentInNeighbors();
         }
 
         private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
@@ -190,7 +202,7 @@ namespace Rooms
                     continue;
                 }
 
-                var neighborNode = newRoomNode[dir];
+                var neighborNode = Nodes.ContainsKey(roomIndex) ? Nodes[roomIndex] : null;
                 if (neighborNode == null)
                     // no neighbor node yet
                 {
@@ -209,7 +221,7 @@ namespace Rooms
                     RemoveAndReplaceFromPool(poolIndex);
                     continue;
                 }
-
+                
                 // neighbor node exists but needs a new room
                 var neighborRoom = GetRoom(neighborNode.Index, neighborNode);
                 neighborNode.Room = neighborRoom;
@@ -223,7 +235,7 @@ namespace Rooms
         private void SpawnEnemies(RoomNode roomNode)
         {
             if (!_spawnEnemies || roomNode.Cleared) return;
-            roomNode.Room.Enemies.RemoveEnemies();
+            roomNode.Room.Clean();
             var roomCenter = GetPosition(roomNode.Index);
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
@@ -250,7 +262,7 @@ namespace Rooms
             }
 
             room = PopFromPool();
-            room.Enemies.RemoveEnemies();
+            room.Clean();
             room.Node.Room = null;
             room.Node = roomNode;
             room.transform.position = GetPosition(index);
@@ -305,7 +317,7 @@ namespace Rooms
             _strategy = _playMode switch
             {
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
-                    _totalNumberOfRooms),
+                    _totalNumberOfRooms, _fountainCount, _treasureCount),
                 NeighborsStrategy.ENDLESS => new EndlessStrategy(),
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
@@ -313,21 +325,38 @@ namespace Rooms
         }
 
 
-        private static void SpawnEnemiesInNeighbors()
+        private static void InitContentInNeighbors()
+        {
+            _instance.InitContentInNeighbors_Inner();
+        }
+
+        private void InitContentInNeighbors_Inner()
         {
             foreach (Direction dir in DirectionExt.GetDirections())
             {
-                var neighborNode = _instance._currentRoom[dir];
-                if (neighborNode == null || neighborNode.Cleared) continue;
-                neighborNode.ChooseEnemies();
-                _instance.SpawnEnemies(neighborNode);
+                var neighborNode = _currentRoom[dir];
+                if (neighborNode == null) continue;
+
+                RoomType type = _strategy.RoomType(neighborNode.Index);
+                switch (type)
+                {
+                    case RoomType.MONSTERS when !neighborNode.Cleared:
+                        neighborNode.ChooseEnemies();
+                        SpawnEnemies(neighborNode);
+                        break;
+                    case RoomType.FOUNTAIN:
+                    case RoomType.TREASURE:
+                        neighborNode.Room.InitInteractable(type);
+                        neighborNode.Cleared = true;
+                        break;
+                }
             }
         }
 
         private void FinishedCurrentRoom()
         {
             _currentRoom.Cleared = true;
-            SpawnEnemiesInNeighbors();
+            InitContentInNeighbors_Inner();
         }
 
         #endregion
@@ -343,6 +372,13 @@ namespace Rooms
             MAZE,
             ENDLESS,
             BOSS,
+        }
+        
+        [Serializable]
+        public struct InteractablePair
+        {
+            public RoomType RoomType;
+            public Interactable Interactable;
         }
 
         #endregion

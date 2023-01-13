@@ -19,5 +19,10 @@ namespace Rooms.NeighborsStrategy
         {
             return minRoomRank + (int)Mathf.Log(1 + index.L1Norm());
         }
+
+        public RoomType RoomType(Vector2Int index)
+        {
+            return Rooms.RoomType.MONSTERS;
+        }
     }
 }

@@ -13,30 +13,38 @@ namespace Rooms.NeighborsStrategy
 
         private readonly int _maxDistanceToBoss;
         private readonly int _minDistanceToBoss;
-        private readonly float _totalRooms; // number of rooms will be (maxDistance * roomPopulation)
+        private readonly int _totalRooms; // number of rooms will be (maxDistance * roomPopulation)
 
         private Vector2Int _bossIndex;
 
-        private HashSet<Vector2Int> _rooms;
+        private readonly Dictionary<Vector2Int, RoomType> _rooms;
+
+        private readonly int _fountainDistance;
+        private readonly int _treasureDistance;
+        private int _fountainCount;
+        private int _treasureCount;
 
         #endregion
 
         #region Public Methods
 
-        public MazeStrategy(int minDistanceToBoss, int maxDistanceToBoss, int totalRooms)
+        public MazeStrategy(int minDistanceToBoss, int maxDistanceToBoss, int totalRooms, int numFountains=0, int numTreasure=0)
         {
             _minDistanceToBoss = minDistanceToBoss;
             _maxDistanceToBoss = maxDistanceToBoss;
 
-            _totalRooms = Math.Min(Math.Max(totalRooms, maxDistanceToBoss), Mathf.Pow(2 * maxDistanceToBoss + 1, 2));
+            _totalRooms = (int)Math.Min(Math.Max(totalRooms, maxDistanceToBoss), Mathf.Pow(2 * maxDistanceToBoss + 1, 2));
 
-            _rooms = new HashSet<Vector2Int>();
+            _fountainDistance = (int) Mathf.Ceil(((float)_totalRooms / ((numFountains + 1) * _totalRooms)) * _maxDistanceToBoss);
+            _treasureDistance = (int) Mathf.Ceil(((float)_totalRooms / ((numTreasure + 1) * _totalRooms)) * _maxDistanceToBoss);
+
+            _rooms = new();
             CreateMaze();
         }
 
         public bool RoomExists(Vector2Int index)
         {
-            return _rooms.Contains(index);
+            return _rooms.ContainsKey(index);
         }
 
         public bool IsBossRoom(Vector2Int index)
@@ -48,6 +56,14 @@ namespace Rooms.NeighborsStrategy
         {
             return minRoomRank + 
                    (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) * minRoomRank);
+        }
+
+        public RoomType RoomType(Vector2Int index)
+        {
+            if (!RoomExists(index))
+                return Rooms.RoomType.NONE;
+
+            return _rooms[index];
         }
 
         #endregion
@@ -66,10 +82,15 @@ namespace Rooms.NeighborsStrategy
                         s += " - ";
                     else
                     {
-                        if (room == Vector2Int.zero)
-                            s += " O ";
-                        else
-                            s += IsBossRoom(room) ? " X " : " v ";
+                        s += _rooms[room] switch
+                        {
+                            Rooms.RoomType.START => " S ",
+                            Rooms.RoomType.BOSS => " B ",
+                            Rooms.RoomType.TREASURE => " T ",
+                            Rooms.RoomType.FOUNTAIN => " F ",
+                            Rooms.RoomType.MONSTERS => " m ",
+                            _ => " - "
+                        };
                     }
                 }
 
@@ -81,7 +102,7 @@ namespace Rooms.NeighborsStrategy
 
         private void CreateMaze()
         {
-            _rooms.Add(Vector2Int.zero);
+            AddRoom(Vector2Int.zero);
 
             CreatePathToBoss();
             PopulateMaze();
@@ -109,13 +130,13 @@ namespace Rooms.NeighborsStrategy
                 }
 
                 var currRoom = roomsToAdd.Dequeue();
-                _rooms.Add(currRoom);
+                AddRoom(currRoom);
 
                 foreach (Direction dir in DirectionExt.GetDirections())
                 {
                     var newRoom = currRoom + dir.ToVector();
                     if (queued.Contains(newRoom) ||
-                        Vector2Int.Distance(Vector2Int.zero, newRoom) > _maxDistanceToBoss) continue;
+                        Vector2Ext.L1Distance(Vector2Int.zero, newRoom) > _maxDistanceToBoss) continue;
 
                     /*
                      * might prefer to try 'if (Random.value > 0.5f || _rooms.Contains(newRoom))' for faster generation 
@@ -150,7 +171,7 @@ namespace Rooms.NeighborsStrategy
             while (currRoom != _bossIndex)
             {
                 int roomsLeft = _maxDistanceToBoss - roomCount;
-                int distance = (int)Vector2Int.Distance(currRoom, _bossIndex);
+                int distance = Vector2Ext.L1Distance(currRoom, _bossIndex);
 
                 if (distance > roomsLeft)
                 {
@@ -171,8 +192,8 @@ namespace Rooms.NeighborsStrategy
                 foreach (Direction dir in DirectionExt.GetDirections())
                 {
                     Vector2Int newCurr = currRoom + dir.ToVector();
-                    if (_rooms.Contains(newCurr) ||
-                        Vector2Int.Distance(newCurr, _bossIndex) > roomsLeft - 1) continue;
+                    if (_rooms.ContainsKey(newCurr) ||
+                        Vector2Ext.L1Distance(newCurr, _bossIndex) > roomsLeft - 1) continue;
 
                     possible.Add(dir.ToVector());
                 }
@@ -189,7 +210,7 @@ namespace Rooms.NeighborsStrategy
                     Vector2Int moveDir = possible[Random.Range(0, possible.Count)];
                     currRoom += moveDir;
 
-                    _rooms.Add(currRoom);
+                    AddRoom(currRoom);
                     roomCount++;
                 }
             }
@@ -201,7 +222,7 @@ namespace Rooms.NeighborsStrategy
         private void CreateStraightPath(Vector2Int from, Vector2Int to)
         {
             Vector2Int curr = from;
-            _rooms.Add(curr);
+            AddRoom(curr);
 
             Vector2Int yDir = Math.Sign(to.y - from.y) * Vector2Int.up;
             Vector2Int xDir = Math.Sign(to.x - from.x) * Vector2Int.right;
@@ -217,8 +238,46 @@ namespace Rooms.NeighborsStrategy
                     dir = (Random.value > 0.5f) ? yDir : xDir;
 
                 curr += dir;
-                _rooms.Add(curr);
+                AddRoom(curr);
             }
+        }
+
+        private void AddRoom(Vector2Int index)
+        {
+            if(_rooms.ContainsKey(index))
+                return;
+            
+            _rooms[index] = GenerateType(index);
+        }
+
+        private RoomType GenerateType(Vector2Int index)
+        {
+            if (index == Vector2Int.zero)
+                return Rooms.RoomType.START;
+            if (index == _bossIndex)
+                return Rooms.RoomType.BOSS;
+
+            var dist = index.L1Norm(); // equivalent to L1Distance(zero, index)
+            if (_fountainDistance > 0)
+            {
+                var poss = _rooms.Count / (_fountainDistance * (_fountainCount + 1) + _fountainDistance);
+                if (dist / _fountainDistance > _fountainCount && Random.value < poss)
+                {
+                    _fountainCount++;
+                    return Rooms.RoomType.FOUNTAIN;
+                }
+            }
+            if (_treasureDistance > 0)
+            {
+                var poss = _rooms.Count / (_treasureDistance * (_treasureCount + 1) + _treasureDistance);
+                if (dist / _treasureDistance > _treasureCount && Random.value < poss)
+                {
+                    _treasureCount++;
+                    return Rooms.RoomType.TREASURE;
+                }
+            }
+
+            return Rooms.RoomType.MONSTERS;
         }
 
         #endregion

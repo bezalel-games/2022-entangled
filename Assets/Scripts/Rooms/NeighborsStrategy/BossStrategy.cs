@@ -19,5 +19,10 @@ namespace Rooms.NeighborsStrategy
         {
             return 0;
         }
+
+        public RoomType RoomType(Vector2Int index)
+        {
+            return Rooms.RoomType.BOSS;
+        }
     }
 }

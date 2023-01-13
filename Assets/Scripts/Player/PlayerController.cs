@@ -83,6 +83,7 @@ namespace Player
         #region C# Events
 
         public event Action DashStartEvent;
+        public Action InteractEvent;
 
         #endregion
 
@@ -100,7 +101,7 @@ namespace Player
 
             if(IsDead) return;
             
-            if(Yoyo.State != Yoyo.YoyoState.PRECISION)
+            if(Yoyo != null && Yoyo.State != Yoyo.YoyoState.PRECISION)
                 Mp += MaxMp * _mpRecoveryPerSec * Time.deltaTime;
 
             SetAim();
@@ -145,6 +146,17 @@ namespace Player
                 case InputActionPhase.Canceled:
                     Direction = Vector2.zero;
                     Animator.SetBool(Walking, false);
+                    break;
+            }
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    InteractEvent?.Invoke();
+                    InteractEvent = null;
                     break;
             }
         }
