@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 931053292524576400}
   - component: {fileID: 4209900696098792105}
   m_Layer: 12
-  m_Name: minimapRoom
+  m_Name: Minimap Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
