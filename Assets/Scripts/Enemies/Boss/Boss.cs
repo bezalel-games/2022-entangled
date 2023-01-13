@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using HP_System;
+using Managers;
 using Player;
 using UnityEngine;
 
@@ -100,6 +101,11 @@ namespace Enemies.Boss
         public override void OnDie()
         {
             _animator.SetTrigger(DieTrigger);
+        }
+        
+        public void AfterDeathAnimation()
+        {
+            GameManager.BossKilled();
         }
 
         #endregion

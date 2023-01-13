@@ -145,6 +145,16 @@ namespace Managers
             }
         }
 
+        public static void PlayerKilled()
+        {
+            LoadManager.ReloadStartingScene();
+        }
+        
+        public static void BossKilled()
+        {
+            LoadManager.ReloadStartingScene();
+        }
+
         #endregion
 
         #region Private Methods

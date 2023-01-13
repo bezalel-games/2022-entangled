@@ -206,7 +206,7 @@ namespace Player
 
         public void AfterDeathAnimation()
         {
-            LoadManager.LoadHub();
+            GameManager.PlayerKilled();
         }
 
         public void OverrideMovement(Vector3 dir, float threshold)
@@ -255,7 +255,7 @@ namespace Player
 
             switch (LoadManager.CurrentScene)
             {
-                case LoadManager.Scenes.RUN:
+                case LoadManager.Scene.RUN:
                     StartRun();
                     break;
             }

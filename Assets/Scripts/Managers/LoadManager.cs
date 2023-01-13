@@ -6,18 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class LoadManager : MonoBehaviour
 {
-    public enum Scenes
+    public enum Scene
     {
         HUB, RUN
     }
     
     #region Serialized Fields
 
+    [SerializeField] private string _hubSceneName = "Hub Scene";
+    [SerializeField] private string _runSceneName = "Run Scene";
+    
     #endregion
 
     #region Non-Serialized Fields
 
     private CanvasGroup _loadingCanvas;
+    private Scene _startScene;
 
     private static LoadManager _instance;
     private static readonly float _durationTime = 0.5f;
@@ -27,7 +31,7 @@ public class LoadManager : MonoBehaviour
 
     #region Properties
     
-    public static Scenes CurrentScene { get; private set; }
+    public static Scene CurrentScene { get; private set; }
 
     #endregion
 
@@ -40,9 +44,10 @@ public class LoadManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         _instance = this;
         _loadingCanvas = GetComponentInChildren<CanvasGroup>();
+        _startScene = SceneManager.GetActiveScene().name == _hubSceneName ? Scene.HUB : Scene.RUN;
+        transform.SetParent(null);
         DontDestroyOnLoad(_instance.gameObject);
     }
 
@@ -50,14 +55,29 @@ public class LoadManager : MonoBehaviour
 
     #region Public Methods
 
+    public static void ReloadStartingScene()
+    {
+        switch (_instance._startScene)
+        {
+            case Scene.HUB:
+                LoadHub();
+                break;
+            case Scene.RUN:
+                LoadRun();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
     public static void LoadHub()
     {
-        _instance.LoadScene("Hub Scene", onLoad: (() => { CurrentScene = Scenes.HUB;}));
+        _instance.LoadScene(_instance._hubSceneName, onLoad: (() => { CurrentScene = Scene.HUB;}));
     }
 
     public static void LoadRun()
     {
-        _instance.LoadScene("Run Scene", onLoad: (() => { CurrentScene = Scenes.RUN;}));
+        _instance.LoadScene(_instance._runSceneName, onLoad: (() => { CurrentScene = Scene.RUN;}));
     }
     
     private void LoadScene(string name, LoadSceneMode mode = LoadSceneMode.Single, Action beforeFade = null,
