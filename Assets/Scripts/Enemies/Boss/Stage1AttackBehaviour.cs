@@ -45,7 +45,6 @@ namespace Enemies.Boss
                     yield return (i + _nextThrowIndex) % count;
                 yield return null;
             }
-            
         }
 
         private IEnumerator<int?> Triples(int count)

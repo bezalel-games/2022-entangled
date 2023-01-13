@@ -76,8 +76,7 @@ namespace Rooms
             if (_instance != null)
                 throw new DoubleRoomManagerException();
             _instance = this;
-            GameManager.FinishedCurrentRoom += SpawnEnemiesInNeighbors;
-            GameManager.FinishedCurrentRoom += OpenCurrentRoomDoors;
+            GameManager.FinishedCurrentRoom += FinishedCurrentRoom;
             InitStrategy();
         }
 
@@ -98,8 +97,7 @@ namespace Rooms
 
         private void OnDestroy()
         {
-            GameManager.FinishedCurrentRoom -= SpawnEnemiesInNeighbors;
-            GameManager.FinishedCurrentRoom -= OpenCurrentRoomDoors;
+            GameManager.FinishedCurrentRoom -= FinishedCurrentRoom;
         }
 
         #endregion
@@ -320,15 +318,16 @@ namespace Rooms
             foreach (Direction dir in DirectionExt.GetDirections())
             {
                 var neighborNode = _instance._currentRoom[dir];
-                if (neighborNode == null) continue;
+                if (neighborNode == null || neighborNode.Cleared) continue;
                 neighborNode.ChooseEnemies();
                 _instance.SpawnEnemies(neighborNode);
             }
         }
 
-        private void OpenCurrentRoomDoors()
+        private void FinishedCurrentRoom()
         {
             _currentRoom.Cleared = true;
+            SpawnEnemiesInNeighbors();
         }
 
         #endregion
