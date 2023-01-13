@@ -155,34 +155,37 @@ namespace Rooms.NeighborsStrategy
             /*
              * minDistance < row+col < maxDistance -> minDistance-row < col < maxDistance-row
              */
-            var row = Random.Range(0, _maxDistanceToBoss + 1);
+            var row = Random.Range(0, _maxDistanceToBoss);
             var col = Random.Range(_minDistanceToBoss - row, _maxDistanceToBoss - row);
 
             row *= (Random.value > 0.5) ? 1 : -1;
             col *= (Random.value > 0.5) ? 1 : -1;
 
             _bossIndex = new Vector2Int(col, row);
+            AddRoom(_bossIndex);
 
-
-            Vector2Int currRoom = Vector2Int.zero;
-            int roomCount = 0;
+            Vector2Int currRoom = _bossIndex + Vector2Int.down;
+            AddRoom(currRoom);
+            int roomCount = 1;
             Vector2Int lastDir = Vector2Int.zero;
 
-            while (currRoom != _bossIndex)
+            while (currRoom != Vector2Int.zero)
             {
                 int roomsLeft = _maxDistanceToBoss - roomCount;
-                int distance = Vector2Ext.L1Distance(currRoom, _bossIndex);
+                int distance = Vector2Ext.L1Norm(currRoom);
 
-                if (distance > roomsLeft)
+                if (distance > roomsLeft+1)
                 {
+                    PrintMaze();
+                    Debug.Log($"Distance: {distance}, RoomsLeft: {roomsLeft}");
                     throw new Exception(
-                        "Got too far from bossRoom. this shouldn't happen, something is wrong with the algorithm");
+                        "Got too far from start. this shouldn't happen, something is wrong with the algorithm");
                 }
 
                 //if needed create shortest path
-                if (distance == roomsLeft)
+                if (distance >= roomsLeft)
                 {
-                    CreateStraightPath(currRoom, _bossIndex);
+                    CreateStraightPath(currRoom, Vector2Int.zero);
                     break;
                 }
 
@@ -193,7 +196,7 @@ namespace Rooms.NeighborsStrategy
                 {
                     Vector2Int newCurr = currRoom + dir.ToVector();
                     if (_rooms.ContainsKey(newCurr) ||
-                        Vector2Ext.L1Distance(newCurr, _bossIndex) > roomsLeft - 1) continue;
+                        Vector2Ext.L1Distance(newCurr, Vector2Int.zero) > roomsLeft - 1) continue;
 
                     possible.Add(dir.ToVector());
                 }

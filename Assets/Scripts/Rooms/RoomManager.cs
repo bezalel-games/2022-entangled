@@ -180,9 +180,14 @@ namespace Rooms
         {
             foreach (Direction dir in DirectionExt.GetDirections())
             {
-                if (dir == dirOfNewRoom || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
+                if (dir == dirOfNewRoom 
+                    || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
                     continue;
 
+                // Don't add room to pool if not existing or if boss room
+                if(prevRoom[dir] == null || _strategy.IsBossRoom(prevRoom.Index + dir.ToVector()))
+                    continue;
+                
                 var neighbor = prevRoom[dir].Room;
                 _roomPool.Add(neighbor);
             }
@@ -196,7 +201,7 @@ namespace Rooms
                     continue;
                 var roomIndex = newRoomNode.Index + dir.ToVector();
 
-                if (!_strategy.RoomExists(roomIndex))
+                if (!_strategy.RoomExists(roomIndex) || (_strategy.IsBossRoom(roomIndex) && dir != Direction.NORTH))
                 {
                     newRoomNode[dir] = null;
                     continue;
