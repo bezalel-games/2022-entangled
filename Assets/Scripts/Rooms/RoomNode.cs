@@ -25,9 +25,11 @@ namespace Rooms
             {
                 _cleared = value;
                 if (Room != null)
-                    Room.GateClosed = false;
+                    Room.GateClosed = !value;
             }
         }
+
+        public bool Interacted { get; set; }
 
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }

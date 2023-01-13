@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3033486312102769486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3033486312102769484}
+  - component: {fileID: 3033486312102769487}
+  - component: {fileID: 3033486312102769485}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3033486312102769484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033486312102769486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!156049354 &3033486312102769487
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033486312102769486}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
+--- !u!114 &3033486312102769485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033486312102769486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598812362fdc45d3ab4e03a5f0222265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+  _previousRoomSleepDelay: 0.5
+  _enemyDictionary: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
+  _minRoomRank: 20
+  _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
+  _spawnEnemies: 1
+  _ghostChange: 0.66
+  _interactablePairs:
+  - RoomType: 3
+    Interactable: {fileID: 2952913734692303305, guid: 92a7904e52367044abd2fe7792336a8c, type: 3}
+  - RoomType: 2
+    Interactable: {fileID: 8081535492457954214, guid: f32a6a1ec4cfc4640abe68c897a0aaa7, type: 3}
+  _playMode: 0
+  _minDistanceFromBoss: 5
+  _maxDistanceFromBoss: 6
+  _totalNumberOfRooms: 40
+  _fountainCount: 1
+  _treasureCount: 2
+  _distanceToRankFunction:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0036008214
+      value: 0.007744229
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2613859
+      value: 0.52044725
+      inSlope: 1.6165932
+      outSlope: 1.6165932
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3657136
+    - serializedVersion: 3
+      time: 0.44264483
+      value: 0.67448324
+      inSlope: 1.2727807
+      outSlope: 1.2727807
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.81594306
+    - serializedVersion: 3
+      time: 0.5246008
+      value: 0.8337795
+      inSlope: 0.94350046
+      outSlope: 0.94350046
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7021089
+      value: 0.7006817
+      inSlope: -0.02760051
+      outSlope: -0.02760051
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.95961833
+    - serializedVersion: 3
+      time: 0.8803988
+      value: 1.0000037
+      inSlope: 0.000011151607
+      outSlope: 0.000011151607
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39014232
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.804377
+      inSlope: -2.987242
+      outSlope: -2.987242
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.48816565
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
