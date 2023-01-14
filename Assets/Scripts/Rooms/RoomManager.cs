@@ -104,7 +104,7 @@ namespace Rooms
 
             LoadNeighbors(_currentRoom);
             InitContentInNeighbors();
-            
+
             MinimapManager.AddRoom(Vector2Int.zero);
         }
 
@@ -137,10 +137,7 @@ namespace Rooms
             _instance.SpawnEnemies(room.Node);
         }
 
-        public static Vector3 GetPosition(Vector2Int index)
-        {
-            return _instance.GetPosition_Inner(index);
-        }
+        public static Vector3 GetPosition(Vector2Int index) => _instance.GetPosition_Inner(index);
 
         public static RoomType GetRoomType(Vector2Int index) => _instance._strategy.RoomType(index);
 
@@ -188,12 +185,11 @@ namespace Rooms
         {
             foreach (Direction dir in DirectionExt.GetDirections())
             {
-                if (dir == dirOfNewRoom
-                    || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
+                if (dir == dirOfNewRoom || prevRoom[dir] == null)
                     continue;
 
                 // Don't add room to pool if not existing or if boss room
-                if (prevRoom[dir] == null || _strategy.IsBossRoom(prevRoom.Index + dir.ToVector()))
+                if (_strategy.RoomType(prevRoom.Index + dir.ToVector()) is RoomType.NONE or RoomType.BOSS)
                     continue;
 
                 var neighbor = prevRoom[dir].Room;
@@ -208,8 +204,8 @@ namespace Rooms
                 if (dir == dirOfOldRoom)
                     continue;
                 var roomIndex = newRoomNode.Index + dir.ToVector();
-
-                if (!_strategy.RoomExists(roomIndex) || (_strategy.IsBossRoom(roomIndex) && dir != Direction.NORTH))
+                var roomType = _strategy.RoomType(roomIndex);
+                if (roomType is RoomType.NONE || (roomType is RoomType.BOSS && dir is not Direction.NORTH))
                 {
                     newRoomNode[dir] = null;
                     continue;
@@ -219,7 +215,7 @@ namespace Rooms
                 if (neighborNode == null)
                     // no neighbor node yet
                 {
-                    var isBossRoom = _strategy.IsBossRoom(roomIndex);
+                    var isBossRoom = roomType is RoomType.BOSS;
                     var room = GetRoom(roomIndex, isBossRoom: isBossRoom);
                     room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : RoomRank(roomIndex));
                     room.Node[dir.Inverse()] = newRoomNode;

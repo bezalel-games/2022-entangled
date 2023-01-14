@@ -4,11 +4,18 @@ namespace Rooms.NeighborsStrategy
 {
     public interface INeighborsStrategy
     {
+        #region Abstract Methods
+
         public RoomType RoomType(Vector2Int index);
-        public bool RoomExists(Vector2Int index);
-        public bool IsBossRoom(Vector2Int index);
         public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction);
-        
-        
+
+        #endregion
+
+        #region Default Methods
+
+        public bool RoomExists(Vector2Int index) => RoomType(index) != Rooms.RoomType.NONE;
+        public bool IsBossRoom(Vector2Int index) => RoomType(index) == Rooms.RoomType.BOSS;
+
+        #endregion
     }
 }

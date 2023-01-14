@@ -5,15 +5,7 @@ namespace Rooms.NeighborsStrategy
 {
     public class EndlessStrategy : INeighborsStrategy
     {
-        public bool RoomExists(Vector2Int index)
-        {
-            return true;
-        }
-
-        public bool IsBossRoom(Vector2Int index)
-        {
-            return false;
-        }
+        #region INeighborsStrategy Implementation
 
         public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
@@ -24,5 +16,7 @@ namespace Rooms.NeighborsStrategy
         {
             return Rooms.RoomType.MONSTERS;
         }
+
+        #endregion
     }
 }
