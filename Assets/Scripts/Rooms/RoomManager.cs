@@ -103,8 +103,8 @@ namespace Rooms
 
             LoadNeighbors(_currentRoom);
             InitContentInNeighbors();
-
-            _currentRoom.Room.ShowOnMiniMap();
+            
+            MinimapManager.AddRoom(Vector2Int.zero);
         }
 
         private void OnDestroy()
@@ -131,10 +131,17 @@ namespace Rooms
 
         public static void RepositionRoom(Room room)
         {
-            room.transform.position = _instance.GetPosition(room.Node.Index);
+            room.transform.position = _instance.GetPosition_Inner(room.Node.Index);
             room.Clean();
             _instance.SpawnEnemies(room.Node);
         }
+
+        public static Vector3 GetPosition(Vector2Int index)
+        {
+            return _instance.GetPosition_Inner(index);
+        }
+
+        public static RoomType GetRoomType(Vector2Int index) => _instance._strategy.RoomType(index);
 
         #endregion
 
@@ -156,7 +163,7 @@ namespace Rooms
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             _instance._currentRoom = newRoom;
-            _instance._currentRoom.Room.ShowOnMiniMap();
+            MinimapManager.AddRoom(newRoom.Index);
             if (newRoom.Cleared)
                 InitContentInNeighbors();
         }
@@ -164,7 +171,7 @@ namespace Rooms
         private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
             PlayerController player)
         {
-            var nextRoomPosition = _instance.GetPosition(newRoomIndex);
+            var nextRoomPosition = _instance.GetPosition_Inner(newRoomIndex);
             float threshold = dirOfNewRoom switch
             {
                 Direction.WEST => nextRoomPosition.x + _instance.ActualHalfWidth,
@@ -241,7 +248,7 @@ namespace Rooms
         {
             if (!_spawnEnemies || roomNode.Cleared) return;
             roomNode.Room.Clean();
-            var roomCenter = GetPosition(roomNode.Index);
+            var roomCenter = GetPosition_Inner(roomNode.Index);
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
@@ -254,14 +261,14 @@ namespace Rooms
             Room room;
             if (isBossRoom)
             {
-                room = Instantiate(_bossRoomPrefab, GetPosition(index), Quaternion.identity, transform);
+                room = Instantiate(_bossRoomPrefab, GetPosition_Inner(index), Quaternion.identity, transform);
                 room.Node = roomNode;
                 return room;
             }
 
             if (_roomPool.Count == 0)
             {
-                room = Instantiate(_roomPrefab, GetPosition(index), Quaternion.identity, transform);
+                room = Instantiate(_roomPrefab, GetPosition_Inner(index), Quaternion.identity, transform);
                 room.Node = roomNode;
                 return room;
             }
@@ -270,11 +277,11 @@ namespace Rooms
             room.Clean();
             room.Node.Room = null;
             room.Node = roomNode;
-            room.transform.position = GetPosition(index);
+            room.transform.position = GetPosition_Inner(index);
             return room;
         }
 
-        private Vector3 GetPosition(Vector2Int roomIndex)
+        private Vector3 GetPosition_Inner(Vector2Int roomIndex)
         {
             return new Vector3(roomIndex.x * (_roomProperties.Width - _roomProperties.VerticalIntersection),
                 roomIndex.y * (_roomProperties.Height - _roomProperties.HorizontalIntersection));
@@ -348,6 +355,7 @@ namespace Rooms
                     case RoomType.MONSTERS when !neighborNode.Cleared:
                         neighborNode.ChooseEnemies();
                         SpawnEnemies(neighborNode);
+                        neighborNode.Interacted = true;
                         break;
                     case RoomType.FOUNTAIN:
                     case RoomType.TREASURE:

@@ -43,8 +43,14 @@ namespace Cards.Buffs.ActiveBuffs
         private void SwapPositions()
         {
             if (_yoyo.State is Yoyo.YoyoState.IDLE) return;
+            
             //TODO: animation?
-            _playerController.transform.position = _yoyo.transform.position;
+            var playerPos = _playerController.transform.position;
+            var yoyoPos = _yoyo.transform.position;
+            playerPos.x = yoyoPos.x;
+            playerPos.y = yoyoPos.y;
+            _playerController.transform.position = playerPos;
+            
             if (_yoyo.State is Yoyo.YoyoState.PRECISION)
                 _yoyo.CancelPrecision();
         }

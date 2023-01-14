@@ -537,6 +537,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 986756720}
     - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _zoomInSize
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _minimapCamera
       value: 
       objectReference: {fileID: 30762363}

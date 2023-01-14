@@ -141,12 +141,6 @@ namespace Rooms
             }
         }
 
-        public void ShowOnMiniMap()
-        {
-            if (!MinimapManager.HasRoom(Node.Index))
-                Instantiate(MinimapManager.MinimapRoomPrefab, transform);
-        }
-        
         public void InitInteractable(RoomType type)
         {
             if (Interactable != null)

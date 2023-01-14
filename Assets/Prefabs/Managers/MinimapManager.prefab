@@ -46,7 +46,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minimapCamera: {fileID: 0}
   _zoomOutSize: 15
-  _zoomInSize: 100
+  _zoomInSize: 75
   _outMap: {fileID: 0}
   _inMap: {fileID: 0}
   _minimapRoomPrefab: {fileID: 4209900696098792105, guid: 18c149da2d8ea3e4b9d6096a4dc43629, type: 3}
+  _minimapSprites:
+  - _roomType: 0
+    _spriteBefore: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    _spriteAfter: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+  - _roomType: 1
+    _spriteBefore: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    _spriteAfter: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+  - _roomType: 2
+    _spriteBefore: {fileID: -1108926582, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    _spriteAfter: {fileID: -120023668, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+  - _roomType: 3
+    _spriteBefore: {fileID: 1749917546, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    _spriteAfter: {fileID: 1727657897, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+  - _roomType: 4
+    _spriteBefore: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    _spriteAfter: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}

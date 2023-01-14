@@ -8,12 +8,15 @@ public class MinimapRoom : MonoBehaviour
   #region Serialized Fields
 
   [SerializeField] private GameObject[] _connections = new GameObject[4];
-  
+
   #endregion
   #region Non-Serialized Fields
   
   #endregion
   #region Properties
+  
+  [field: SerializeField] public SpriteRenderer Renderer { get; private set; }
+  public Vector2Int Index { get; private set; }
   
   #endregion
   #region Function Events
@@ -21,20 +24,26 @@ public class MinimapRoom : MonoBehaviour
   #endregion
   #region Public Methods
 
-  private void Awake()
+  public void Init(Vector2Int index)
   {
-    Room room = GetComponentInParent<Room>();
-    RoomNode node = room.Node;
-    MinimapManager.AddRoom(node.Index);
-    foreach (Direction dir in DirectionExt.GetDirections())
-    {
-      _connections[(byte) dir].SetActive(node[dir]!=null);
-    }
+    Index = index;
+    Renderer.sprite = MinimapManager.Sprites[RoomManager.GetRoomType(Index)].before;
+    SetConnections();
   }
 
-  private void Start()
+  public void SetCleared()
   {
-    transform.parent = MinimapManager.MinimapParent;
+    Renderer.sprite = MinimapManager.Sprites[RoomManager.GetRoomType(Index)].after;
+  }
+
+  private void SetConnections()
+  {
+    foreach (Direction dir in DirectionExt.GetDirections())
+    {
+      var newIndex = Index + dir.ToVector();
+      bool shouldShow = RoomManager.GetRoomType(newIndex) != RoomType.NONE && !MinimapManager.HasRoom(newIndex);
+      _connections[(byte) dir].SetActive(shouldShow);
+    }
   }
 
   #endregion

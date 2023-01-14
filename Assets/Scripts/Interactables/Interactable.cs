@@ -52,7 +52,6 @@ namespace Interactables
 
       _interactAction = () =>
       {
-        Debug.Log("call from Interactable:55");
         ParentNode.Interacted = true;
         SetToAfter();
         OnInteract();

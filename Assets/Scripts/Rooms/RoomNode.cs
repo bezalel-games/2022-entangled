@@ -13,6 +13,7 @@ namespace Rooms
 
         [NonSerialized] private RoomNode[] _nodes = new RoomNode[4];
         private bool _cleared = false;
+        private bool _interacted = false;
 
         #endregion
 
@@ -26,10 +27,21 @@ namespace Rooms
                 _cleared = value;
                 if (Room != null)
                     Room.GateClosed = !value;
+                if(_cleared && _interacted)
+                    MinimapManager.SetCleared(Index);
             }
         }
 
-        public bool Interacted { get; set; }
+        public bool Interacted
+        {
+            get => _interacted;
+            set
+            {
+                _interacted = value;
+                if(_cleared && _interacted)
+                    MinimapManager.SetCleared(Index);
+            }
+        }
 
         [field: SerializeField] public Vector2Int Index { get; private set; }
         [field: SerializeField] public Room Room { get; set; }

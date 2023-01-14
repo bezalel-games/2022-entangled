@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Rooms;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class MinimapManager : MonoBehaviour
   #region Serialized Fields
   
   [SerializeField] private Camera _minimapCamera;
+
   [SerializeField] private float _zoomOutSize;
   [SerializeField] private float _zoomInSize;
 
@@ -16,20 +18,26 @@ public class MinimapManager : MonoBehaviour
 
   [SerializeField] private MinimapRoom _minimapRoomPrefab;
 
+  [SerializeField] private List<MinimapPair> _minimapSprites = new();
+
   #endregion
   #region Non-Serialized Fields
   
   private static MinimapManager _instance;
-  private HashSet<Vector2Int> _rooms = new HashSet<Vector2Int>();
+  private readonly Dictionary<Vector2Int, MinimapRoom> _rooms = new();
+  private readonly Dictionary<RoomType, (Sprite before, Sprite after)> _sprites = new();
 
   #endregion
   #region Properties
 
+  public static Dictionary<RoomType, (Sprite before, Sprite after)> Sprites => _instance._sprites;
   public static Transform MinimapParent => _instance.transform;
   public static MinimapRoom MinimapRoomPrefab => _instance._minimapRoomPrefab;
+
+  private static bool ShouldCreate(Vector2Int index) => !HasRoom(index) && RoomManager.GetRoomType(index) != RoomType.NONE;
   
   public static bool ZoomedIn { get; private set; }
-  public static bool HasRoom(Vector2Int index) => _instance._rooms.Contains(index);
+  public static bool HasRoom(Vector2Int index) => _instance._rooms.ContainsKey(index);
   
   #endregion
   #region Function Events
@@ -44,6 +52,8 @@ public class MinimapManager : MonoBehaviour
 
     _instance = this;
     _minimapCamera.orthographicSize = _zoomOutSize;
+
+    foreach (MinimapPair pair in _minimapSprites) { _sprites[pair._roomType] = (pair._spriteBefore, pair._spriteAfter); }
   }
 
   #endregion
@@ -57,9 +67,25 @@ public class MinimapManager : MonoBehaviour
 
   public static void AddRoom(Vector2Int index)
   {
-    _instance._rooms.Add(index);
+    if(!ShouldCreate(index))
+      return;
+    _instance.AddRoom_Inner(index);
   }
-  
+
+  public static void SetCleared(Vector2Int index)
+  {
+    if(!HasRoom(index))
+      return;
+    _instance._rooms[index].SetCleared();
+  }
+
+  private void AddRoom_Inner(Vector2Int index)
+  {
+    var minimap = Instantiate(_minimapRoomPrefab, RoomManager.GetPosition(index), Quaternion.identity, transform);
+    minimap.Init(index);
+    _instance._rooms[index] = minimap;
+  }
+
   #endregion
   #region Private Methods
 
@@ -77,7 +103,19 @@ public class MinimapManager : MonoBehaviour
       _outMap.gameObject.SetActive(true);
     }
   }
-  
+
+  #endregion
+
+  #region Classes
+
+  [Serializable]
+  public struct MinimapPair
+  {
+    public RoomType _roomType;
+    public Sprite _spriteBefore;
+    public Sprite _spriteAfter;
+  }
+
   #endregion
 }
 
