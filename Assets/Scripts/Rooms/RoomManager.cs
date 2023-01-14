@@ -55,20 +55,21 @@ namespace Rooms
         private RoomNode _currentRoom;
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
-        public static Dictionary<Vector2Int, RoomNode> Nodes { get; private set; } = new();
         private RoomNode _nextRoom;
-
         private INeighborsStrategy _strategy;
-        public static Dictionary<RoomType, Interactable> Interactables { get; private set; } = new();
+        private readonly Dictionary<Vector2Int, RoomNode> _nodes = new();
+        private readonly Dictionary<RoomType, Interactable> _interactables = new();
 
         #endregion
 
         #region Properties
 
+        public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
+        public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
+
         public static float GhostChance => _instance._ghostChange;
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
-        public static RoomProperties RoomProperties => _instance._roomProperties;
 
         private int ActualHalfWidth => _roomProperties.Width / 2 - _roomProperties.WallSize;
         private int ActualHalfHeight => _roomProperties.Height / 2 - _roomProperties.WallSize;
@@ -88,7 +89,7 @@ namespace Rooms
             {
                 Interactables[pair.RoomType] = pair.Interactable;
             }
-            
+
             InitStrategy();
         }
 
@@ -157,7 +158,7 @@ namespace Rooms
             {
                 MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
             }
-            
+
             newRoom.Room.Enter();
             _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
             _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
@@ -187,14 +188,14 @@ namespace Rooms
         {
             foreach (Direction dir in DirectionExt.GetDirections())
             {
-                if (dir == dirOfNewRoom 
+                if (dir == dirOfNewRoom
                     || !_strategy.RoomExists(prevRoom.Index + dir.ToVector()))
                     continue;
 
                 // Don't add room to pool if not existing or if boss room
-                if(prevRoom[dir] == null || _strategy.IsBossRoom(prevRoom.Index + dir.ToVector()))
+                if (prevRoom[dir] == null || _strategy.IsBossRoom(prevRoom.Index + dir.ToVector()))
                     continue;
-                
+
                 var neighbor = prevRoom[dir].Room;
                 _roomPool.Add(neighbor);
             }
@@ -233,7 +234,7 @@ namespace Rooms
                     RemoveAndReplaceFromPool(poolIndex);
                     continue;
                 }
-                
+
                 // neighbor node exists but needs a new room
                 var neighborRoom = GetRoom(neighborNode.Index, neighborNode);
                 neighborNode.Room = neighborRoom;
@@ -386,7 +387,7 @@ namespace Rooms
             ENDLESS,
             BOSS,
         }
-        
+
         [Serializable]
         public struct InteractablePair
         {
