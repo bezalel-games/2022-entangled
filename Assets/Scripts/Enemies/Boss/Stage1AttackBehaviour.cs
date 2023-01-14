@@ -12,7 +12,7 @@ namespace Enemies.Boss
 
         #region Non-Serialized Fields
 
-        private delegate IEnumerator<int?> ThrowOrder(int count);
+        private delegate IEnumerator<int?> ThrowOrder(int min, int max);
 
         private ThrowOrder[] _throws;
         private int _nextThrowIndex = 0;
@@ -36,41 +36,41 @@ namespace Enemies.Boss
 
         #region Enumerators
 
-        private IEnumerator<int?> ThreeSets(int count)
+        private IEnumerator<int?> ThreeSets(int min, int max)
         {
             Debug.Log("Three sets");
             for (int set = 0; set < 3; ++set)
             {
-                for (int i = set; i < count; i += 3)
-                    yield return (i + _nextThrowIndex) % count;
+                for (int i = set + min; i <= max; i += 3)
+                    yield return i;
                 yield return null;
             }
         }
 
-        private IEnumerator<int?> Triples(int count)
+        private IEnumerator<int?> Triples(int min, int max)
         {
             Debug.Log("Triples");
-            for (int i = 0; i < count; ++i)
+            for (int i = min; i <= max; ++i)
             {
-                if (i > 0 && i % 3 == 0)
+                if (i > min && i % 3 == 0)
                     yield return null;
-                yield return (i + _nextThrowIndex) % count;
+                yield return i;
             }
         }
 
-        private IEnumerator<int?> OneAtATime(int count)
+        private IEnumerator<int?> OneAtATime(int min, int max)
         {
             Debug.Log("One at a time");
-            for (int i = 0; i < count; ++i)
+            for (int i = min; i <= max; ++i)
             {
-                yield return (i + _nextThrowIndex) % count;
+                yield return i;
                 yield return null;
             }
         }
 
         private IEnumerator ThrowYoyos(ThrowOrder throwOrder)
         {
-            var enumerator = throwOrder(Boss.YoyoCount);
+            var enumerator = throwOrder(Boss.MinYoyoInRoom, Boss.MaxYoyoInRoom);
             while (enumerator.MoveNext())
             {
                 if (enumerator.Current.HasValue)

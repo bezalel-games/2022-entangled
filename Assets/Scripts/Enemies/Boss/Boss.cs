@@ -43,6 +43,8 @@ namespace Enemies.Boss
         public float[] AttackInterval { get; private set; }
 
         public float NextAttackTime { get; private set; }
+        public int MinYoyoInRoom { get; private set; } = -1;
+        public int MaxYoyoInRoom { get; private set; } = -1;
 
         #endregion
 
@@ -55,10 +57,13 @@ namespace Enemies.Boss
             _yoyos = new Yoyo[YoyoCount];
             for (int i = 0; i < YoyoCount; ++i)
             {
-                var rotation = _yoyoRotationPlane.rotation * Quaternion.Euler( 0, 0, 360f * i / YoyoCount);
+                var degrees = 360f * i / YoyoCount;
+                var rotation = _yoyoRotationPlane.rotation * Quaternion.Euler( 0, 0, degrees);
                 var yoyoParent = Instantiate(_yoyoAimPivotPrefab, _yoyoRotationPlane.position, rotation,
                     _yoyoRotationPlane);
                 _yoyos[i] = yoyoParent.GetComponentInChildren<Yoyo>();
+                if (MinYoyoInRoom == -1 && degrees >= 90) MinYoyoInRoom = i;
+                if (degrees is >= 90 and <= 270) MaxYoyoInRoom = i;
             }
 
             _idleYoyoNum = YoyoCount;

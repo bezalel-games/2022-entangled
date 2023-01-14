@@ -185,10 +185,10 @@ namespace Player
                 case YoyoState.IDLE when _idleHit:
                 case YoyoState.BACK:
                 case YoyoState.PRECISION:
-                    OnHitEnemy(other.GetComponent<IHittable>());
+                    HitObject(other.GetComponent<IHittable>());
                     break;
                 case YoyoState.SHOOT:
-                    if (!OnHitEnemy(other.GetComponent<IHittable>()) && _defaultToReturn)
+                    if (!HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
                         GoBack(true);
                     break;
             }
@@ -205,7 +205,7 @@ namespace Player
 
             if (State == YoyoState.SHOOT)
             {
-                if (!OnHitEnemy(other.GetComponent<IHittable>()) && _defaultToReturn)
+                if (!HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
                     GoBack(true);
             }
         }
@@ -298,7 +298,7 @@ namespace Player
         #region Private Methods
 
         /* Returns true if hit, false otherwise. */
-        private bool OnHitEnemy(IHittable hittableObj)
+        private bool HitObject(IHittable hittableObj)
         {
             switch (hittableObj)
             {

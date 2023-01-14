@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 6949696617704915584}
   - component: {fileID: 5768815224657029508}
   - component: {fileID: 8898886453309428343}
-  - component: {fileID: 4892766367308271823}
+  - component: {fileID: 1400841166670746961}
   m_Layer: 14
   m_Name: Boss
   m_TagString: Untagged
@@ -300,8 +300,8 @@ MonoBehaviour:
   <ThrowSetInterval>k__BackingField: 0.3
   <AttackInterval>k__BackingField:
   - 1.5
---- !u!70 &4892766367308271823
-CapsuleCollider2D:
+--- !u!58 &1400841166670746961
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -313,9 +313,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.25, y: 4}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.6}
+  serializedVersion: 2
+  m_Radius: 0.6
 --- !u!1 &6949696617734507919
 GameObject:
   m_ObjectHideFlags: 0
