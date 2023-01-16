@@ -77,6 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+--- !u!198 &7378664290198677333 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+  m_PrefabInstance: {fileID: 2280911102070427536}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7494580475672388911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8621426443569654463, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
@@ -4976,6 +4981,7 @@ MonoBehaviour:
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _barrier: {fileID: 7628284627113293073}
+  _hitParticles: {fileID: 7378664290198677333}
   _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 0.5

@@ -35,7 +35,8 @@ namespace Rooms
         #endregion
 
         #region Properties
-
+        
+        public CinemachineBasicMultiChannelPerlin ChannelPerlin { get; private set; }
         [field: SerializeField] public GameObject RoomContent { get; private set; }
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
@@ -79,6 +80,11 @@ namespace Rooms
 
         #region Function Events
 
+        private void Start()
+        {
+            ChannelPerlin = _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             RoomManager.EnteredRoom(Node);
@@ -103,7 +109,11 @@ namespace Rooms
 
             if (!RoomManager.Nodes.ContainsKey(Node.Index))
                 RoomManager.Nodes[Node.Index] = Node;
-            
+
+            if (RoomManager.CameraPerlin != null)
+                RoomManager.CameraPerlin.m_AmplitudeGain = 0;
+
+            RoomManager.CameraPerlin = ChannelPerlin;
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
             Enemies.Node = Node;

@@ -192,10 +192,10 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    MinimapManager.ToggleMinimap(true);
+                    CameraManager.ToggleMinimap(true);
                     break;
                 case InputActionPhase.Canceled:
-                    MinimapManager.ToggleMinimap(false);
+                    CameraManager.ToggleMinimap(false);
                     break;
             }
         }

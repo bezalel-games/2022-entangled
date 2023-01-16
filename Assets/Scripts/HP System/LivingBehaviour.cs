@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Utils;
 
 namespace HP_System
 {
@@ -13,6 +14,7 @@ namespace HP_System
         [SerializeField] private float _pushbackFactor = 0.4f;
         [SerializeField] protected float _pushbackTime = 0.3f;
         [SerializeField] private SpiritualBarrier _barrier;
+        [SerializeField] private ParticleSystem _hitParticles;
 
         #endregion
 
@@ -21,6 +23,7 @@ namespace HP_System
         private float _hp;
         private float _mp;
         private float _hitTime;
+        private bool _isPlayer;
 
         protected Rigidbody2D Rigidbody;
         
@@ -113,6 +116,8 @@ namespace HP_System
             Animator = GetComponentInChildren<Animator>();
             Renderer = GetComponentInChildren<SpriteRenderer>();
             Rigidbody = GetComponent<Rigidbody2D>();
+
+            _isPlayer = CompareTag("Player");
         }
 
         protected override void Update()
@@ -170,6 +175,24 @@ namespace HP_System
                 _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
             
             _hitTime = Time.time;
+            
+            if(_isPlayer)
+                CameraManager.PlayerHitShake();
+            else
+                CameraManager.EnemyHitShake();
+
+            EmitParticles(attacker);
+        }
+
+        private void EmitParticles(Transform attacker)
+        {
+            if(_hitParticles == null)
+                return;
+
+            Vector2 dir = (attacker.position - transform.position).normalized;
+            var angles = dir.Angles(); //add 90 since emission is aimed down originally
+            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
+            _hitParticles.Play();
         }
 
         public void OnHeal(float health)

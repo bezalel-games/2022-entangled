@@ -24,7 +24,7 @@ public class MinimapCamera : MonoBehaviour
 
   private void LateUpdate()
   {
-    if (MinimapManager.ZoomedIn)
+    if (CameraManager.ZoomedIn)
     {
       if(transform.position != Vector3.zero) transform.position = Vector3.zero;
     }

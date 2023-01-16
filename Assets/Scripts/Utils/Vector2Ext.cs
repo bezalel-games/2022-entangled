@@ -69,6 +69,16 @@ namespace Utils
         {
             return (a - b).L1Norm();
         }
+
+        public static float Angles(this Vector2 v, Vector2 other)
+        {
+            return Vector2.SignedAngle(v, other);
+        }
+        
+        public static float Angles(this Vector2 v)
+        {
+            return Vector2.right.Angles(v);
+        }
     }
 }
 

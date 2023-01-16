@@ -209,6 +209,7 @@ MonoBehaviour:
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _barrier: {fileID: 8125090376939393136}
+  _hitParticles: {fileID: 9036689958147670020}
   _damage: 10
   <MaxSpeed>k__BackingField: 1
   <AttackCooldown>k__BackingField: 1
@@ -228,6 +229,11 @@ MonoBehaviour:
 --- !u!4 &8290164345709150846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8621426443569654463, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+  m_PrefabInstance: {fileID: 336047177081727169}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9036689958147670020 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
   m_PrefabInstance: {fileID: 336047177081727169}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4535023346424182088

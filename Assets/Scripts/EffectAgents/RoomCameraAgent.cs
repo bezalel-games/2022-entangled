@@ -2,6 +2,7 @@
 using System.Collections;
 using Cinemachine;
 using Managers;
+using Rooms;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

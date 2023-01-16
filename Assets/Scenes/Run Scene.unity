@@ -438,6 +438,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
+--- !u!20 &1848715560 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 745331109023313605, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
+  m_PrefabInstance: {fileID: 1848715559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1946876639 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 559025678, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
@@ -524,21 +529,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _playMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _inMap
       value: 
       objectReference: {fileID: 1946876639}
-    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _outMap
       value: 
       objectReference: {fileID: 986756720}
-    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _zoomInSize
-      value: 75
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 1848715560}
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minimapCamera
+      value: 
+      objectReference: {fileID: 30762363}
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _enemyHitMagnitude
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _playerHitMagnitude
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _minimapCamera
