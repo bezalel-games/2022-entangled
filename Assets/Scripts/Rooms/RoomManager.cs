@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cinemachine;
+using EffectAgents;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Rooms.CardinalDirections;
@@ -55,6 +57,8 @@ namespace Rooms
         private RoomNode _currentRoom;
         private static RoomManager _instance;
         private readonly List<Room> _roomPool = new();
+
+        private CinemachineBasicMultiChannelPerlin _cameraPerlin;
         private RoomNode _nextRoom;
         private INeighborsStrategy _strategy;
         private readonly Dictionary<Vector2Int, RoomNode> _nodes = new();
@@ -63,9 +67,14 @@ namespace Rooms
         #endregion
 
         #region Properties
-
+        
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
         public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
+        public static CinemachineBasicMultiChannelPerlin CameraPerlin
+        {
+            get => _instance._cameraPerlin;
+            set => _instance._cameraPerlin = value;
+        }
 
         public static float GhostChance => _instance._ghostChange;
 

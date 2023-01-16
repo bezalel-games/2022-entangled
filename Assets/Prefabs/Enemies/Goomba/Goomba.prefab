@@ -71,6 +71,18 @@ PrefabInstance:
       propertyPath: _living
       value: 
       objectReference: {fileID: -5456139093824870760}
+    - target: {fileID: 2976473969126426055, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976473969126426055, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976473969126426055, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3829520020349340871, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_Mass
       value: 2
@@ -190,6 +202,7 @@ MonoBehaviour:
   _pushbackFactor: 10
   _pushbackTime: 0.3
   _barrier: {fileID: 1222314868618934884}
+  _hitParticles: {fileID: 4017445775492915955}
   _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1
@@ -203,6 +216,11 @@ MonoBehaviour:
   <ToPlayerWeight>k__BackingField: 1
   <AwayFromWallWeight>k__BackingField: 1
   _attackSpeed: 10
+--- !u!198 &4017445775492915955 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+  m_PrefabInstance: {fileID: 5621038956480547382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4153590485380178057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8621426443569654463, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}

@@ -188,7 +188,7 @@ namespace Player
                     HitObject(other.GetComponent<IHittable>());
                     break;
                 case YoyoState.SHOOT:
-                    if (!HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
+                    if (HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
                         GoBack(true);
                     break;
             }
@@ -205,7 +205,7 @@ namespace Player
 
             if (State == YoyoState.SHOOT)
             {
-                if (!HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
+                if (HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
                     GoBack(true);
             }
         }
