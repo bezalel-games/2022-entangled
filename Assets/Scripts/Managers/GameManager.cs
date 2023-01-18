@@ -147,12 +147,14 @@ namespace Managers
 
         public static void PlayerKilled()
         {
-            LoadManager.ReloadStartingScene();
+            // LoadManager.ReloadStartingScene();
+            LoadManager.LoadLose();
         }
         
         public static void BossKilled()
         {
-            LoadManager.ReloadStartingScene();
+            // LoadManager.ReloadStartingScene();
+            LoadManager.LoadWin();
         }
 
         #endregion

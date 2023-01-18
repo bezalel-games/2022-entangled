@@ -8,13 +8,16 @@ public class LoadManager : MonoBehaviour
 {
     public enum Scene
     {
-        HUB, RUN
+        MENU, RUN, HUB, WIN, LOSE
     }
     
     #region Serialized Fields
 
     [SerializeField] private string _hubSceneName = "Hub Scene";
     [SerializeField] private string _runSceneName = "Run Scene";
+    [SerializeField] private string _menuSceneName = "Menu Scene";
+    [SerializeField] private string _winSceneName = "Win Scene";
+    [SerializeField] private string _loseSceneName = "Lose Scene";
     
     #endregion
 
@@ -46,7 +49,7 @@ public class LoadManager : MonoBehaviour
         }
         _instance = this;
         _loadingCanvas = GetComponentInChildren<CanvasGroup>();
-        _startScene = SceneManager.GetActiveScene().name == _hubSceneName ? Scene.HUB : Scene.RUN;
+        _startScene = SceneManager.GetActiveScene().name == _menuSceneName ? Scene.MENU : Scene.RUN;
         transform.SetParent(null);
         DontDestroyOnLoad(_instance.gameObject);
     }
@@ -59,8 +62,8 @@ public class LoadManager : MonoBehaviour
     {
         switch (_instance._startScene)
         {
-            case Scene.HUB:
-                LoadHub();
+            case Scene.MENU:
+                LoadMenu();
                 break;
             case Scene.RUN:
                 LoadRun();
@@ -78,6 +81,21 @@ public class LoadManager : MonoBehaviour
     public static void LoadRun()
     {
         _instance.LoadScene(_instance._runSceneName, onLoad: (() => { CurrentScene = Scene.RUN;}));
+    }
+    
+    public static void LoadWin()
+    {
+        _instance.LoadScene(_instance._winSceneName, onLoad: (() => { CurrentScene = Scene.WIN;}));
+    }
+    
+    public static void LoadLose()
+    {
+        _instance.LoadScene(_instance._loseSceneName, onLoad: (() => { CurrentScene = Scene.LOSE;}));
+    }
+    
+    public static void LoadMenu()
+    {
+        _instance.LoadScene(_instance._menuSceneName, onLoad: (() => { CurrentScene = Scene.MENU;}));
     }
     
     private void LoadScene(string name, LoadSceneMode mode = LoadSceneMode.Single, Action beforeFade = null,
