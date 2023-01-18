@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decrease Shot Distance
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Decrease your quickshot's throw distance
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 424e49dcc88dc434d8cb80dda64dc674, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: d0d22c66c60cc584b92747c2ad37db7e, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0

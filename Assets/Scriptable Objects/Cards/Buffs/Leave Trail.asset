@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Your weapon leaves a trail of energy, damaging enemies
     on touch
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 9577568097a777c4883154ec050d4a70, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 87aec739b9e084d4d92d5b9bea4e31d9, type: 3}
   <UnlockedBuffs>k__BackingField: 0600000007000000
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 1

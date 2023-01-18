@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decrease MP Regen
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Your MP regenerates slower
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 424e49dcc88dc434d8cb80dda64dc674, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 93ad88bf409e15748aa295055e5c33de, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0

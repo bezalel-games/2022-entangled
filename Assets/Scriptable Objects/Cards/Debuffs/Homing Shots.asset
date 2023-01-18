@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Homing Shots
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Ranged enemies' shoot homing projectiles
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 424e49dcc88dc434d8cb80dda64dc674, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 1d011aba5287e784d810c165ca7dedca, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
-  <SingleUse>k__BackingField: 0
+  <SingleUse>k__BackingField: 1

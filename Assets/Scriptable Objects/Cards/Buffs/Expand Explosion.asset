@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Expand Explosion
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Increase the radius of your weapon's pulse
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: de020aecfd255454ab228c6d25ab7e67, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 3a3d5b19cfb859b428fcaff29f22fddb, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
