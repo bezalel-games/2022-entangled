@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d118015162f0c848bb15141ebf8e77b
+guid: 7ae222dafbf49d44ca5c9d70b45d527a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,76 +105,160 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Door Frames_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 360
-        width: 360
-        height: 360
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb5985dcd21d757499d32efd727d6b1c
-      internalID: 888940596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Door Frames_1
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 360
-        width: 360
-        height: 360
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3805a8345c6539e47a3c882aca60ae38
-      internalID: 307252245
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Door Frames_2
+      name: New MINI MAP UI_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 360
-        height: 360
+        width: 195
+        height: 110
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9aa82575ca9d924a82fd742ad7c1457
-      internalID: 1362119316
+      spriteID: dbfb4b9bfac111e47a7204bfb9a80416
+      internalID: 1579518174
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door Frames_3
+      name: New MINI MAP UI_1
       rect:
         serializedVersion: 2
-        x: 360
+        x: 195
         y: 0
-        width: 360
-        height: 360
+        width: 195
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2582c9d00f3b5314d843ac1ff5151680
+      internalID: 778207692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_2
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 0
+        width: 195
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5e8fa9a2c421a44a1b46bd7d66ff36
+      internalID: -1919052992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_3
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 0
+        width: 195
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1be47a30fec08449b3d65dc3af650c5
+      internalID: -1884000892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_4
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 195
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e21ceb793439d33468a09354df9d5b28
+      internalID: 463288662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_5
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 0
+        width: 46
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe7addaaeb29f143923104c97dec45f
+      internalID: 474851736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_6
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 59
+        width: 56
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d490491c083e774478e0d0b272116e16
+      internalID: 683208333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI_7
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 12
+        width: 25
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +266,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85fa7ef78f0c6ea43867917bfb105502
-      internalID: 1307027992
+      spriteID: ab6f2e2f285161a45a261db430ca0762
+      internalID: 1372452882
       vertices: []
       indices: 
       edges: []
@@ -199,10 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Door Frames_3: 1307027992
-      Door Frames_2: 1362119316
-      Door Frames_0: 888940596
-      Door Frames_1: 307252245
+      New MINI MAP UI_4: 463288662
+      New MINI MAP UI_7: 1372452882
+      New MINI MAP UI_2: -1919052992
+      New MINI MAP UI_3: -1884000892
+      New MINI MAP UI_6: 683208333
+      New MINI MAP UI_5: 474851736
+      New MINI MAP UI_1: 778207692
+      New MINI MAP UI_0: 1579518174
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

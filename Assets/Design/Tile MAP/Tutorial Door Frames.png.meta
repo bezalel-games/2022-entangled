@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d118015162f0c848bb15141ebf8e77b
+guid: 9b5677c53049d9640898ba65b195ce35
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Door Frames_0
+      name: Tutorial Door Frames_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb5985dcd21d757499d32efd727d6b1c
-      internalID: 888940596
+      spriteID: 00135ee3460534642a818f3a3d41c7aa
+      internalID: 1649341165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door Frames_1
+      name: Tutorial Door Frames_1
       rect:
         serializedVersion: 2
         x: 360
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3805a8345c6539e47a3c882aca60ae38
-      internalID: 307252245
+      spriteID: aadd64683e32fe74995b5de5b27a04d4
+      internalID: 1038315375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door Frames_2
+      name: Tutorial Door Frames_2
       rect:
         serializedVersion: 2
         x: 0
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9aa82575ca9d924a82fd742ad7c1457
-      internalID: 1362119316
+      spriteID: 1085214f5b8862a4aad33cdd25dc457a
+      internalID: 1421462424
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Door Frames_3
+      name: Tutorial Door Frames_3
       rect:
         serializedVersion: 2
         x: 360
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85fa7ef78f0c6ea43867917bfb105502
-      internalID: 1307027992
+      spriteID: 8364bfc83926e6c4395316831d7f66c9
+      internalID: -296806403
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Door Frames_3: 1307027992
-      Door Frames_2: 1362119316
-      Door Frames_0: 888940596
-      Door Frames_1: 307252245
+      Tutorial Door Frames_2: 1421462424
+      Tutorial Door Frames_0: 1649341165
+      Tutorial Door Frames_1: 1038315375
+      Tutorial Door Frames_3: -296806403
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
