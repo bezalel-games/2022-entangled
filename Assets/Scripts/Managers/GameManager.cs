@@ -6,6 +6,7 @@ using Rooms;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utils;
 using Utils.SaveUtils;
 using Object = UnityEngine.Object;
@@ -20,6 +21,7 @@ namespace Managers
         [SerializeField] private UIController _uiController;
         [SerializeField] private bool _chooseCards = true;
         [SerializeField] private CardManager _cardManager;
+        [SerializeField] private int _numberOfRoomsToCard = 2;
 
         #endregion
 
@@ -30,6 +32,7 @@ namespace Managers
         private bool _playerControllerEnabled;
         private bool _uiControllerEnabled;
         private ActionMap _actionMapInUse;
+        private int _roomsSinceLastCard = 0;
 
         private static float _fixedTimeScale;
 
@@ -87,6 +90,7 @@ namespace Managers
         
         #region Events
 
+        public static event Action<float> NextCardProgressionUpdated;
         public static event Action FinishedCurrentRoom;
         public static event Action<float> TimeScaleChanged;
         
@@ -131,10 +135,15 @@ namespace Managers
             
             TimeScaleChanged?.Invoke(timeScale);
         }
+
+        public static void UpdateRoomCompletion(float part)
+        {
+            NextCardProgressionUpdated?.Invoke((_instance._roomsSinceLastCard + part) / _instance._numberOfRoomsToCard);
+        }
         
         public static void RoomCleared()
         {
-            if (_instance._chooseCards)
+            if (_instance._chooseCards && ++_instance._roomsSinceLastCard == _instance._numberOfRoomsToCard)
             {
                 _instance._cardManager.ShowCards(CardChosen);
                 _instance.ActionMapInUse = ActionMap.UI;
@@ -163,7 +172,9 @@ namespace Managers
         
         private static void CardChosen()
         {
+            _instance._roomsSinceLastCard = 0;
             _instance.ActionMapInUse = ActionMap.PLAYER;
+            NextCardProgressionUpdated?.Invoke(0);
             FinishedCurrentRoom?.Invoke();
         }
 

@@ -27,6 +27,8 @@ namespace Enemies
         private Collider2D _collider;
 
         private bool _canTrailDamage = true;
+        private static readonly int DeadAnimationID = Animator.StringToHash("Dead");
+        private static readonly int MoveAnimationID = Animator.StringToHash("Move");
 
         #endregion
 
@@ -195,7 +197,7 @@ namespace Enemies
         {
             _collider.enabled = false;
             Stop();
-            Animator.SetTrigger("Dead");
+            Animator.SetTrigger(DeadAnimationID);
         }
 
         public void AfterDeathAnimation()
@@ -209,7 +211,7 @@ namespace Enemies
 
         public void Stop()
         {
-            Animator.SetBool("Move",false);
+            Animator.SetBool(MoveAnimationID,false);
             DesiredDirection = Vector2.zero;
             Rigidbody.velocity = Vector2.zero;
         }

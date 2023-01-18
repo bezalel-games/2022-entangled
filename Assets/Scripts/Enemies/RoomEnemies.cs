@@ -9,6 +9,7 @@ namespace Enemies
         #region Non-Serialized Fields
 
         private int _numOfLivingEnemies;
+        private int _enemiesTotal;
 
         #endregion
 
@@ -22,10 +23,10 @@ namespace Enemies
 
         public void Activate()
         {
-            var transformChildCount = transform.childCount;
-            for (int i = 0; i < transformChildCount; ++i)
+            _enemiesTotal = transform.childCount;
+            for (int i = 0; i < _enemiesTotal; ++i)
                 transform.GetChild(i).gameObject.SetActive(true);
-            _numOfLivingEnemies = transformChildCount;
+            _numOfLivingEnemies = _enemiesTotal;
         }
 
         public void RemoveEnemies()
@@ -37,9 +38,9 @@ namespace Enemies
 
         public void EnemyKilled()
         {
-            if (--_numOfLivingEnemies > 0) return;
+            GameManager.UpdateRoomCompletion(1 - (--_numOfLivingEnemies / (float)_enemiesTotal));
+            if (_numOfLivingEnemies > 0) return;
             GameManager.RoomCleared();
-            
         }
 
         #endregion
