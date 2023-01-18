@@ -74,7 +74,16 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiplies Fumer speed by the specified amount")]
         [field: SerializeField] public EnemyCardElementClass FasterFumers { get; private set; }
-
+        
+        [field: Tooltip("Multiplies Quickshot's damage by the specified amount")]
+        [field: SerializeField] public VariableCardElementClass DecreaseDamage { get; private set; }
+        
+        [field: Tooltip("Multiplies Quickshot's distance by the specified amount")]
+        [field: SerializeField] public VariableCardElementClass DecreaseShotDistance { get; private set; }
+        
+        [field: Tooltip("Multiplies MP regeneration per second by the specified amount")]
+        [field: SerializeField] public VariableCardElementClass DecreaseMpRegen { get; private set; }
+        
         #endregion
 
         #region Public Methods
@@ -126,6 +135,12 @@ namespace Cards.Factory
                 FASTER_FUMERS => new FasterEnemies(FasterFumers.Attributes, debuffRarity,
                     FasterFumers.EnemyIndex,
                     FasterFumers[debuffRarity]),
+                DECREASE_DAMAGE => new DecreaseDamage(DecreaseDamage.Attributes, debuffRarity, 
+                    DecreaseDamage[debuffRarity]),
+                DECREASE_SHOT_DISTANCE => new DecreaseShotDistance(DecreaseShotDistance.Attributes, debuffRarity, 
+                    DecreaseShotDistance[debuffRarity]),
+                DECREASE_MP_REGEN => new DecreaseMpRegeneration(DecreaseMpRegen.Attributes, debuffRarity, 
+                    DecreaseMpRegen[debuffRarity]),
                 _ => throw new ArgumentOutOfRangeException(nameof(debuffType), debuffType, null)
             };
             return new Card(buff, debuff);

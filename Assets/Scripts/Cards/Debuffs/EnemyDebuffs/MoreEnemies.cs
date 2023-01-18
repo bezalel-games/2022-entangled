@@ -5,7 +5,7 @@ using Enemies;
 
 namespace Cards.Debuffs
 {
-    public class MoreEnemies : Debuff
+    public class MoreEnemies : EnemyDebuff
     {
         #region Fields
 

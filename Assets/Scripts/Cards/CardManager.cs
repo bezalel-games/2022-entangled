@@ -85,6 +85,9 @@ namespace Cards
             _cardPool.Add(DebuffType.FASTER_GOOMBAS, allRarities);
             _cardPool.Add(DebuffType.FASTER_SHOOTERS, allRarities);
             _cardPool.Add(DebuffType.FASTER_FUMERS, allRarities);
+            _cardPool.Add(DebuffType.DECREASE_DAMAGE, allRarities);
+            _cardPool.Add(DebuffType.DECREASE_SHOT_DISTANCE, allRarities);
+            _cardPool.Add(DebuffType.DECREASE_MP_REGEN, allRarities);
             //
             _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
             _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);

@@ -91,13 +91,21 @@ namespace Player
 
         #region Properties
 
-        [field: SerializeField] public float Damage { get; private set; }
+        [field: SerializeField] public float Damage { get; set; }
+        
+        public float OriginalDamage { get; private set; }
 
         public Line LinePrefab => _linePrefab;
 
         private Vector2 BackDirection =>
             ((Vector2)_parent.transform.position - (Vector2)transform.position).normalized;
 
+        public float MaxDistance
+        {
+            get => _maxDistance;
+            set => _maxDistance = value;
+        }
+        
         public YoyoState State
         {
             get => _state;
@@ -136,6 +144,7 @@ namespace Player
 
         private void Start()
         {
+            OriginalDamage = Damage;
             _owner = GetComponentInParent<YoyoOwner>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponentInChildren<Collider2D>();

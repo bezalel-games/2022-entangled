@@ -50,7 +50,17 @@ namespace Cards
         {
             if (_applied) return;
             _buff.Apply(GameManager.PlayerController);
-            _debuff.Apply(RoomManager.EnemyDictionary);
+            
+            switch (_debuff)
+            {
+                case EnemyDebuff debuff:
+                    debuff.Apply(RoomManager.EnemyDictionary);
+                    break;
+                case PlayerDebuff debuff:
+                    debuff.Apply(GameManager.PlayerController);
+                    break;
+            }
+            
             _buff.UpdatePool(pool);
             _debuff.UpdatePool(pool);
             pool.FinishedUpdating();

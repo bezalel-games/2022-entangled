@@ -4,12 +4,12 @@ using Enemies;
 
 namespace Cards.Debuffs
 {
-    public class FasterEnemies : Debuff
+    public class TougherEnemies : EnemyDebuff
     {
         #region Fields
 
         private readonly int _enemyType;
-        private readonly float _speedMultiplier;
+        private readonly float _hpMultiplier;
 
         #endregion
 
@@ -17,20 +17,20 @@ namespace Cards.Debuffs
 
         public override void Apply(EnemyDictionary enemyDictionary)
         {
-            enemyDictionary[_enemyType].MaxSpeed *= _speedMultiplier;
+            enemyDictionary[_enemyType].MaxHp *= _hpMultiplier;
         }
 
-        public override DebuffType Type => DebuffType.FASTER_GOOMBAS + _enemyType;
+        public override DebuffType Type => DebuffType.TOUGHER_GOOMBAS + _enemyType;
 
         #endregion
 
         #region Constructor
 
-        public FasterEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float speedMultiplier)
+        public TougherEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float hpMultiplier)
             : base(attributes, rarity)
         {
             _enemyType = enemyType;
-            _speedMultiplier = speedMultiplier;
+            _hpMultiplier = hpMultiplier;
         }
 
         #endregion

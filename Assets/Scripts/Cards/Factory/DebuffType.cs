@@ -11,5 +11,8 @@
         FASTER_GOOMBAS,
         FASTER_SHOOTERS,
         FASTER_FUMERS,
+        DECREASE_DAMAGE,
+        DECREASE_SHOT_DISTANCE,
+        DECREASE_MP_REGEN
     }
 }

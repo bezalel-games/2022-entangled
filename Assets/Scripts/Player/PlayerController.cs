@@ -23,7 +23,7 @@ namespace Player
 
         [Header("Other Stats")]
         [SerializeField] private float _mpRecoveryOnAttack;
-        [SerializeField][Range(0f,1f)][Tooltip("In percentages of maxHP")] private float _mpRecoveryPerSec; 
+        [SerializeField][Range(0f,1f)][Tooltip("In percentages of maxMP")] private float _mpRecoveryPerSec; 
         [SerializeField] private float _mpRecoveryOnHit;
         [SerializeField] private float _mpPrecisionReduction;
 
@@ -50,6 +50,12 @@ namespace Player
         #endregion
 
         #region Properties
+
+        public float MpRecovery
+        {
+            get => _mpRecoveryPerSec;
+            set => _mpRecoveryPerSec = value;
+        }
 
         protected override bool Invulnerable
         {

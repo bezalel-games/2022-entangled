@@ -29,7 +29,7 @@ namespace Cards.Buffs.ActiveBuffs
             var yoyo = playerController.Yoyo;
 
             yoyo.FinishedPrecision += yoyo.LeaveTrail;
-            yoyo.LinePrefab.Damage = _initDamage * yoyo.Damage;
+            yoyo.LinePrefab.Damage = _initDamage * yoyo.OriginalDamage;
             yoyo.LinePrefab.StayTime = _initStayTime;
         }
 
