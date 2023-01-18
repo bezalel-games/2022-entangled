@@ -209,7 +209,7 @@ MonoBehaviour:
   _backSpeed: 23.5
   _backEaseDuration: 1.25
   _turnFactor: 20.5
-  _precisionRotationSpeed: 10
+  _precisionRotationSpeed: 50
   _precisionSpeed: 6.07
   _resolution: 0.1
   _linePrefab: {fileID: 1141267205715262119, guid: e6e4d0824b707774e898d5b95766b56f, type: 3}

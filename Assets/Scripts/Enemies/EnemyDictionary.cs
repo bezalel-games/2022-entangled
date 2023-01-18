@@ -112,6 +112,7 @@ namespace Enemies
             }
 
             public string Name => Prefab.gameObject.name;
+            public bool HomingShots { get; set; }
 
             #endregion
 
@@ -132,6 +133,9 @@ namespace Enemies
                 {
                     spawnedEnemy.MaxHp = MaxHp;
                     spawnedEnemy.MaxSpeed = MaxSpeed;
+
+                    if (spawnedEnemy is Shooter)
+                        ((Shooter) spawnedEnemy).HomingShots = HomingShots;
                 };
 
                 return true;

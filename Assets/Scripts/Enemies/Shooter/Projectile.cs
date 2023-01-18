@@ -1,5 +1,7 @@
 using System;
 using HP_System;
+using Managers;
+using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -15,10 +17,26 @@ namespace Enemies
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
         private float _speed;
+        private float _lifeTime = 10f;
+
+        private Transform _player;
+        private float _disappearTime;
 
         #endregion
 
         #region Properties
+        
+        public float RotationSpeed { get; set; }
+
+        public float Lifetime
+        {
+            get => _lifeTime;
+            set
+            {
+                _lifeTime = value;
+                _disappearTime = Time.time + _lifeTime;
+            }
+        }
 
         public Vector2 Direction
         {
@@ -40,6 +58,7 @@ namespace Enemies
         public float Damage { get; set; }
 
         public Action OnDisappear { get; set; }
+        public bool Homing { get; set; }
 
         #endregion
 
@@ -50,8 +69,18 @@ namespace Enemies
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
+        private void Start()
+        {
+            _player = GameManager.PlayerTransform;
+        }
+
         private void FixedUpdate()
         {
+            var t = Homing ? RotationSpeed : 0;
+            
+            var playerDir = (Vector2) (_player.position - transform.position);
+            Direction = 
+                Vector2.Lerp(Direction.normalized, playerDir.normalized, t * playerDir.magnitude * Time.deltaTime);
             _rigidbody.velocity = Direction * _speed;
         }
 
@@ -69,6 +98,19 @@ namespace Enemies
         private void OnBecameInvisible()
         {
             OnDisappear?.Invoke();
+        }
+
+        private void OnEnable()
+        {
+            _disappearTime = Time.time + Lifetime;
+        }
+
+        private void Update()
+        {
+            if (Time.time > _disappearTime)
+            {
+                OnDisappear?.Invoke();
+            }
         }
 
         #endregion

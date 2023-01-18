@@ -8,8 +8,7 @@ namespace Cards.Debuffs
     public class MoreEnemies : EnemyDebuff
     {
         #region Fields
-
-        private readonly int _enemyType;
+        
         private readonly float _enemyRankMultiplier;
 
         #endregion
@@ -29,9 +28,8 @@ namespace Cards.Debuffs
         #region Constructor
 
         public MoreEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float enemyQuantityMultiplier)
-            : base(attributes, rarity)
+            : base(attributes, rarity, enemyType)
         {
-            _enemyType = enemyType;
             _enemyRankMultiplier = 1 / enemyQuantityMultiplier;
         }
 

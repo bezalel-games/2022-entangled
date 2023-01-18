@@ -121,7 +121,7 @@ namespace Player
         {
             get => _precisionDirection;
             set => _precisionDirection =
-                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.unscaledTime);
+                Vector2.Lerp(_precisionDirection, value, _precisionRotationSpeed * Time.deltaTime);
         }
 
         public Vector2 QuickShotDirection

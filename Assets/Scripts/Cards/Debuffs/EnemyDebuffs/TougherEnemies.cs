@@ -7,8 +7,7 @@ namespace Cards.Debuffs
     public class TougherEnemies : EnemyDebuff
     {
         #region Fields
-
-        private readonly int _enemyType;
+        
         private readonly float _hpMultiplier;
 
         #endregion
@@ -27,9 +26,8 @@ namespace Cards.Debuffs
         #region Constructor
 
         public TougherEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float hpMultiplier)
-            : base(attributes, rarity)
+            : base(attributes, rarity, enemyType)
         {
-            _enemyType = enemyType;
             _hpMultiplier = hpMultiplier;
         }
 

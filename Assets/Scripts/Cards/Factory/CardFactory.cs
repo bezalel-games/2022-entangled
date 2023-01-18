@@ -49,31 +49,31 @@ namespace Cards.Factory
 
         [field: Header("Debuffs")]
         [field: Tooltip("Multiplies the number of Goombas by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass MoreGoombas { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass MoreGoombas { get; private set; }
 
         [field: Tooltip("Multiplies the number of Shooters by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass MoreShooters { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass MoreShooters { get; private set; }
 
         [field: Tooltip("Multiplies the number of Fumers by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass MoreFumers { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass MoreFumers { get; private set; }
 
         [field: Tooltip("Multiplies Goomba HP by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass TougherGoombas { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass TougherGoombas { get; private set; }
 
         [field: Tooltip("Multiplies Shooter HP by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass TougherShooters { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass TougherShooters { get; private set; }
 
         [field: Tooltip("Multiplies Fumer HP by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass TougherFumers { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass TougherFumers { get; private set; }
 
         [field: Tooltip("Multiplies Goomba speed by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass FasterGoombas { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass FasterGoombas { get; private set; }
 
         [field: Tooltip("Multiplies Shooter speed by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass FasterShooters { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass FasterShooters { get; private set; }
 
         [field: Tooltip("Multiplies Fumer speed by the specified amount")]
-        [field: SerializeField] public EnemyCardElementClass FasterFumers { get; private set; }
+        [field: SerializeField] public EnemyVariableCardElementClass FasterFumers { get; private set; }
         
         [field: Tooltip("Multiplies Quickshot's damage by the specified amount")]
         [field: SerializeField] public VariableCardElementClass DecreaseDamage { get; private set; }
@@ -83,6 +83,9 @@ namespace Cards.Factory
         
         [field: Tooltip("Multiplies MP regeneration per second by the specified amount")]
         [field: SerializeField] public VariableCardElementClass DecreaseMpRegen { get; private set; }
+        
+        [field: Tooltip("Shooters' projectiles follow the player")]
+        [field: SerializeField] public EnemyFixedCardElementClass HomingProjectiles { get; private set; }
         
         #endregion
 
@@ -141,6 +144,8 @@ namespace Cards.Factory
                     DecreaseShotDistance[debuffRarity]),
                 DECREASE_MP_REGEN => new DecreaseMpRegeneration(DecreaseMpRegen.Attributes, debuffRarity, 
                     DecreaseMpRegen[debuffRarity]),
+                HOMING_SHOTS => new HomingShots(HomingProjectiles.Attributes, debuffRarity, 
+                    HomingProjectiles.EnemyIndex),
                 _ => throw new ArgumentOutOfRangeException(nameof(debuffType), debuffType, null)
             };
             return new Card(buff, debuff);

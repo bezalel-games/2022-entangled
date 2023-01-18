@@ -7,8 +7,7 @@ namespace Cards.Debuffs
     public class FasterEnemies : EnemyDebuff
     {
         #region Fields
-
-        private readonly int _enemyType;
+        
         private readonly float _speedMultiplier;
 
         #endregion
@@ -27,9 +26,8 @@ namespace Cards.Debuffs
         #region Constructor
 
         public FasterEnemies(CardElementClassAttributes attributes, Rarity rarity, int enemyType, float speedMultiplier)
-            : base(attributes, rarity)
+            : base(attributes, rarity, enemyType)
         {
-            _enemyType = enemyType;
             _speedMultiplier = speedMultiplier;
         }
 

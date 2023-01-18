@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -10,8 +12,11 @@ namespace Enemies
         [Header("Shooter")]
         [SerializeField] private float shootCooldown;
 
+        [Header("Projectile")]
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private float _projectileSpeed;
+        [SerializeField] private float _projectileRotationSpeed;
+        [SerializeField] private float _projectileLifeTime;
 
         #endregion
 
@@ -24,7 +29,9 @@ namespace Enemies
         #region Properties
 
         [field: SerializeField] public int ShotsPerAttack { get; private set; }
+        
         public bool CanShoot { get; private set; }
+        public bool HomingShots { get; set; }
 
         #endregion
 
@@ -66,6 +73,9 @@ namespace Enemies
                 proj = Instantiate(_projectilePrefab, projPos, Quaternion.identity);
             }
 
+            proj.Homing = HomingShots;
+            proj.RotationSpeed = _projectileRotationSpeed;
+            proj.Lifetime = _projectileLifeTime;
             proj.Damage = _damage;
             proj.Speed = _projectileSpeed;
             proj.Direction = dir;
