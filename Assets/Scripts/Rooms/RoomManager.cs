@@ -196,12 +196,14 @@ namespace Rooms
             {
                 if (dir == dirOfNewRoom || prevRoom[dir] == null)
                     continue;
-
+                
+                var neighbor = prevRoom[dir].Room;
+                neighbor.GateClosed = false;
+                
                 // Don't add room to pool if not existing or if boss room
                 if (_strategy.RoomType(prevRoom.Index + dir.ToVector()) is RoomType.NONE or RoomType.BOSS)
                     continue;
 
-                var neighbor = prevRoom[dir].Room;
                 _roomPool.Add(neighbor);
             }
         }
@@ -297,8 +299,7 @@ namespace Rooms
         {
             var last = PopFromPool();
             if (index == _roomPool.Count) return;
-            _roomPool.RemoveAt(index);
-            _roomPool.Insert(index, last);
+            _roomPool[index] = last;
         }
 
         private Room PopFromPool()
