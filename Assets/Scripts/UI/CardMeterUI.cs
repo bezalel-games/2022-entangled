@@ -34,6 +34,7 @@ namespace UI
 
         private void OnDestroy()
         {
+            _material.SetFloat(_fillPropertyName, 0);
             GameManager.NextCardProgressionUpdated -= UpdateFill;
         }
 
