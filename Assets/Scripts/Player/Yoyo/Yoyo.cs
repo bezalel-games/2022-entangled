@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cards.Buffs.ActiveBuffs;
 using Enemies;
 using HP_System;
@@ -79,6 +80,8 @@ namespace Player
         private Line _currentLine;
 
         private float _stopBackEase;
+
+        private HashSet<int> _precisionHits = new ();
 
         #endregion
 
@@ -194,7 +197,12 @@ namespace Player
                 case YoyoState.IDLE when _idleHit:
                 case YoyoState.BACK:
                 case YoyoState.PRECISION:
-                    HitObject(other.GetComponent<IHittable>());
+                    int id = other.GetInstanceID();
+                    if (!_precisionHits.Contains(id))
+                    {
+                        _precisionHits.Add(id);
+                        HitObject(other.GetComponent<IHittable>());
+                    }
                     break;
                 case YoyoState.SHOOT:
                     if (HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
@@ -293,6 +301,7 @@ namespace Player
                 RemovePath(_currentLine);
             }
 
+            _precisionHits.Clear();
             GoBack();
         }
 
