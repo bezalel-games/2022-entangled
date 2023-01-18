@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Utils;
@@ -24,6 +25,8 @@ namespace Rooms.NeighborsStrategy
         private int _fountainCount;
         private int _treasureCount;
 
+        private HashSet<Vector2Int> _specialLocations;
+
         #endregion
 
         #region Construcors
@@ -43,6 +46,7 @@ namespace Rooms.NeighborsStrategy
                 (int)Mathf.Ceil(((float)_totalRooms / ((numTreasure + 1) * _totalRooms)) * _maxDistanceToBoss);
 
             _rooms = new();
+            _specialLocations = new();
             CreateMaze();
         }
 
@@ -253,22 +257,26 @@ namespace Rooms.NeighborsStrategy
                 return Rooms.RoomType.BOSS;
 
             var dist = index.L1Norm(); // equivalent to L1Distance(zero, index)
-            if (_fountainDistance > 0)
+            if (_fountainDistance > 0 
+                && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) > _fountainDistance))
             {
                 var poss = _rooms.Count / (_fountainDistance * (_fountainCount + 1) + _fountainDistance);
                 if (dist / _fountainDistance > _fountainCount && Random.value < poss)
                 {
                     _fountainCount++;
+                    _specialLocations.Add(index);
                     return Rooms.RoomType.FOUNTAIN;
                 }
             }
 
-            if (_treasureDistance > 0)
+            if (_treasureDistance > 0 
+                && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) > _treasureDistance))
             {
                 var poss = _rooms.Count / (_treasureDistance * (_treasureCount + 1) + _treasureDistance);
                 if (dist / _treasureDistance > _treasureCount && Random.value < poss)
                 {
                     _treasureCount++;
+                    _specialLocations.Add(index);
                     return Rooms.RoomType.TREASURE;
                 }
             }
