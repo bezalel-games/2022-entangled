@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Increase Explosion Damage
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Increase the damage caused by your weapon's pulse
+  <Description>k__BackingField: Increase explosion damage
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 36fe9e446affa31478b188a5c7aec665, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

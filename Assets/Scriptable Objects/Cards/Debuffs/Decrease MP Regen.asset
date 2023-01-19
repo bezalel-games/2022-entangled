@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Decrease MP Regen
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Your MP regenerates slower
+  <Description>k__BackingField: Decrease stamina regeneration
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 93ad88bf409e15748aa295055e5c33de, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

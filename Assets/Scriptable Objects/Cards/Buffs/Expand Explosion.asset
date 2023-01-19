@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Expand Explosion
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Increase the radius of your weapon's pulse
+  <Description>k__BackingField: Increase explosion radius
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 3a3d5b19cfb859b428fcaff29f22fddb, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

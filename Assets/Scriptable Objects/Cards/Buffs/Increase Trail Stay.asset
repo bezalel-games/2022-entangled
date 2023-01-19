@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Increase Trail Stay
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: The trail left by your weapon stays for longer
+  <Description>k__BackingField: Extends trail stay duration
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 0e70ac4092fceba4584e4bc3e190bcab, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 

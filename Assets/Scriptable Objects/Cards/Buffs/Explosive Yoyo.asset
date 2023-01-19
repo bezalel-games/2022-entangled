@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Explosive Yoyo
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: A powerful pulse will radiate from your weapon when
-    throwing it
+  <Description>k__BackingField: Weapon explodes on impact
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 1c17b5fb9536dac40a81bf641f76b610, type: 3}
   <UnlockedBuffs>k__BackingField: 0300000004000000
   <UnlockedDebuffs>k__BackingField: 

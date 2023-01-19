@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Faster Fumers
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Fume enemies will move faster
+  <Description>k__BackingField: Fumers move faster
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 6c72446b1f0339d49b85b5f578cb356f, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
