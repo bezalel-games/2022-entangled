@@ -18,14 +18,17 @@ namespace Enemies.Boss
         [SerializeField] private GameObject _yoyoAimPivotPrefab;
         [SerializeField] private float _meleeDamage = 10;
 
+        [SerializeField] private float _spinSpeed;
+
         #endregion
 
         #region Non-Serialized Fields
 
         private Animator _animator;
         private Yoyo[] _yoyos;
+        private GameObject _shield;
         private int _idleYoyoNum;
-        private int _stage;
+        private int _phase;
         private static readonly int DieTrigger = Animator.StringToHash("Die");
         private static readonly int AttackingFlag = Animator.StringToHash("Attacking");
 
@@ -54,11 +57,12 @@ namespace Enemies.Boss
         {
             base.Awake();
             _animator = GetComponent<Animator>();
+            _shield = _yoyoRotationPlane.GetChild(0).gameObject;
             _yoyos = new Yoyo[YoyoCount];
             for (int i = 0; i < YoyoCount; ++i)
             {
                 var degrees = 360f * i / YoyoCount;
-                var rotation = _yoyoRotationPlane.rotation * Quaternion.Euler( 0, 0, degrees);
+                var rotation = _yoyoRotationPlane.rotation * Quaternion.Euler(0, 0, degrees);
                 var yoyoParent = Instantiate(_yoyoAimPivotPrefab, _yoyoRotationPlane.position, rotation,
                     _yoyoRotationPlane);
                 _yoyos[i] = yoyoParent.GetComponentInChildren<Yoyo>();
@@ -76,7 +80,7 @@ namespace Enemies.Boss
             NextAttackTime = float.PositiveInfinity;
             _animator.SetBool(AttackingFlag, true);
         }
-        
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
@@ -91,7 +95,7 @@ namespace Enemies.Boss
         {
             if (++_idleYoyoNum != _yoyos.Length) return;
             _animator.SetBool(AttackingFlag, false);
-            NextAttackTime = Time.time + AttackInterval[_stage];
+            NextAttackTime = Time.time + AttackInterval[_phase];
         }
 
         #endregion
@@ -107,7 +111,7 @@ namespace Enemies.Boss
         {
             _animator.SetTrigger(DieTrigger);
         }
-        
+
         public void AfterDeathAnimation()
         {
             GameManager.BossKilled();
@@ -122,6 +126,13 @@ namespace Enemies.Boss
             StartCoroutine(DrawAndShootYoyo(_yoyos[yoyoIndex]));
             --_idleYoyoNum;
         }
+
+        public void SpinYoyos(float t)
+        {
+            _yoyoRotationPlane.localRotation *= Quaternion.AngleAxis(t * _spinSpeed, transform.forward);
+        }
+
+        public void ShieldActive(bool isActive) => _shield.SetActive(isActive);
 
         #endregion
 
