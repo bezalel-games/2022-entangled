@@ -14,6 +14,9 @@
         DECREASE_DAMAGE,
         DECREASE_SHOT_DISTANCE,
         DECREASE_MP_REGEN,
-        HOMING_SHOTS
+        HOMING_SHOTS,
+        SPLIT_GOOMBAS,
+        SPLIT_SHOOTERS,
+        SPLIT_FUMERS
     }
 }

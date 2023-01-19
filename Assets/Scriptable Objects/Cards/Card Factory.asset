@@ -128,3 +128,21 @@ MonoBehaviour:
     <Parameters>k__BackingField: []
     <Attributes>k__BackingField: {fileID: 11400000, guid: 3c1930f9323b1ec44969ac3ac3cf3c4c, type: 2}
     <EnemyIndex>k__BackingField: 1
+  <SplittingGoombas>k__BackingField:
+    <Rarity>k__BackingField: 1
+    <Parameters>k__BackingField:
+    - 1
+    <Attributes>k__BackingField: {fileID: 11400000, guid: ad28447674c5a1a42ab3e8e4c3dc9c2a, type: 2}
+    <EnemyIndex>k__BackingField: 0
+  <SplittingShooters>k__BackingField:
+    <Rarity>k__BackingField: 1
+    <Parameters>k__BackingField:
+    - 1
+    <Attributes>k__BackingField: {fileID: 11400000, guid: d8689afc2209dc640ba3b41cd41a0bab, type: 2}
+    <EnemyIndex>k__BackingField: 1
+  <SplittingFumers>k__BackingField:
+    <Rarity>k__BackingField: 1
+    <Parameters>k__BackingField:
+    - 1
+    <Attributes>k__BackingField: {fileID: 11400000, guid: d0daf6459fbd81645af40d6b43f619f1, type: 2}
+    <EnemyIndex>k__BackingField: 2

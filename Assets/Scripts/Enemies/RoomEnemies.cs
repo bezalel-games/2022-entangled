@@ -35,6 +35,15 @@ namespace Enemies
             for (int i = 0; i < transformChildCount; ++i)
                 Destroy(transform.GetChild(i).gameObject);
         }
+        
+        /*
+         * adds count to current number of living enemies
+         */
+        public void AddLivingCount(int count)
+        {
+            _numOfLivingEnemies += count;
+            _enemiesTotal += count;
+        }
 
         public void EnemyKilled()
         {

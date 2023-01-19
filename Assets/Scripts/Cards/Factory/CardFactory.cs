@@ -87,6 +87,15 @@ namespace Cards.Factory
         [field: Tooltip("Shooters' projectiles follow the player")]
         [field: SerializeField] public EnemyFixedCardElementClass HomingProjectiles { get; private set; }
         
+        [field: Tooltip("Goombas split to two on death")]
+        [field: SerializeField] public EnemyFixedCardElementClass SplittingGoombas { get; private set; }
+        
+        [field: Tooltip("Shooters split to two on death")]
+        [field: SerializeField] public EnemyFixedCardElementClass SplittingShooters { get; private set; }
+        
+        [field: Tooltip("Fumers split to two on death")]
+        [field: SerializeField] public EnemyFixedCardElementClass SplittingFumers { get; private set; }
+        
         #endregion
 
         #region Public Methods
@@ -146,6 +155,12 @@ namespace Cards.Factory
                     DecreaseMpRegen[debuffRarity]),
                 HOMING_SHOTS => new HomingShots(HomingProjectiles.Attributes, debuffRarity, 
                     HomingProjectiles.EnemyIndex),
+                SPLIT_GOOMBAS => new SplitOnDeath(SplittingGoombas.Attributes, debuffRarity,
+                    SplittingGoombas.EnemyIndex, (int)SplittingGoombas.Parameters[0]),
+                SPLIT_SHOOTERS => new SplitOnDeath(SplittingShooters.Attributes, debuffRarity,
+                    SplittingShooters.EnemyIndex, (int)SplittingShooters.Parameters[0]),
+                SPLIT_FUMERS => new SplitOnDeath(SplittingFumers.Attributes, debuffRarity,
+                    SplittingFumers.EnemyIndex, (int)SplittingFumers.Parameters[0]),
                 _ => throw new ArgumentOutOfRangeException(nameof(debuffType), debuffType, null)
             };
             return new Card(buff, debuff);

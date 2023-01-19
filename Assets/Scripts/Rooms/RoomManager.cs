@@ -324,7 +324,7 @@ namespace Rooms
         {
             for (int i = 0; i < 20; i++)
             {
-                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform))
+                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform).success)
                     return;
             }
 

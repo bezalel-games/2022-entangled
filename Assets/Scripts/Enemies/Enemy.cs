@@ -1,6 +1,7 @@
 using System;
 using HP_System;
 using Player;
+using Rooms;
 using UnityEngine;
 
 namespace Enemies
@@ -102,6 +103,9 @@ namespace Enemies
             }
         }
 
+        public int SplitCount { get; set; }
+        public int Index { get; set; }
+
         #endregion
 
         #region Events
@@ -123,6 +127,13 @@ namespace Enemies
         protected override void OnEnable()
         {
             Enabled?.Invoke();
+            Frozen = true;
+            Invulnerable = true;
+            DelayInvoke((() =>
+            {
+                Frozen = false;
+                Invulnerable = false;
+            }), 0.5f);
             base.OnEnable();
         }
 
@@ -197,6 +208,20 @@ namespace Enemies
         {
             _collider.enabled = false;
             Stop();
+            if (SplitCount > 0)
+            {
+                for(int i=0; i<2; i++)
+                {
+                    var split = RoomManager.EnemyDictionary[Index].Spawn(transform.position, transform.parent, true).enemy;
+                    split.Enabled?.Invoke();
+                    split.ToggleBarrier(false);
+                    split.SplitCount = SplitCount-1;
+                }
+                _roomEnemies.AddLivingCount(2);
+                AfterDeathAnimation();
+                return;
+            }
+            
             Animator.SetTrigger(DeadAnimationID);
         }
 

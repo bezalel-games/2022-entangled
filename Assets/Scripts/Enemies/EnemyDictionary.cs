@@ -37,6 +37,10 @@ namespace Enemies
         {
             if (Enemies == null) return;
             Array.Sort(Enemies, (a, b) => Comparer<int>.Default.Compare(a.Rank, b.Rank));
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                Enemies[i].IndexInDictionary = i;
+            }
         }
 
         #endregion
@@ -113,17 +117,20 @@ namespace Enemies
 
             public string Name => Prefab.gameObject.name;
             public bool HomingShots { get; set; }
+            public int SplitCount { get; set; }
+
+            public int IndexInDictionary;
 
             #endregion
 
             #region Public Methods
 
-            public bool Spawn(Vector3 position, Transform parent, bool force = false)
+            public (bool success, Enemy enemy) Spawn(Vector3 position, Transform parent, bool force = false)
             {
                 if (_collisionLayerMask == 0)
                     _collisionLayerMask = Physics2D.GetLayerCollisionMask(Prefab.gameObject.layer);
                 if (Physics2D.OverlapCircle(position, ENEMY_SPAWN_CLEAR_RADIUS, _collisionLayerMask) == null && !force)
-                    return false;
+                    return (false, null);
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
                 spawnedEnemy.ToggleBarrier(Random.value >= RoomManager.GhostChance);
@@ -131,14 +138,16 @@ namespace Enemies
                 // subscribe a method to update enemy type variables on it's enablement
                 spawnedEnemy.Enabled += () =>
                 {
+                    spawnedEnemy.Index = IndexInDictionary;
                     spawnedEnemy.MaxHp = MaxHp;
                     spawnedEnemy.MaxSpeed = MaxSpeed;
+                    spawnedEnemy.SplitCount = SplitCount;
 
                     if (spawnedEnemy is Shooter)
                         ((Shooter) spawnedEnemy).HomingShots = HomingShots;
                 };
 
-                return true;
+                return (true, spawnedEnemy);
             }
 
             #endregion
