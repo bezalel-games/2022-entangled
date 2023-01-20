@@ -22,6 +22,7 @@ namespace Managers
         [SerializeField] private bool _chooseCards = true;
         [SerializeField] private CardManager _cardManager;
         [SerializeField] private int _numberOfRoomsToCard = 2;
+        [SerializeField] private Effect _effectPrefab;
 
         #endregion
 
@@ -127,6 +128,12 @@ namespace Managers
         #endregion
 
         #region Public Methods
+
+        public static void PlayEffect(Vector3 position, Effect.EffectType type)
+        {
+            Effect e = Instantiate(_instance._effectPrefab, position, Quaternion.identity);
+            e.Type = type;
+        }
 
         public static void ScaleTime(float timeScale)
         {

@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -179,7 +180,9 @@ namespace HP_System
             if(_isPlayer)
                 CameraManager.PlayerHitShake();
             else
+            {
                 CameraManager.EnemyHitShake();
+            }
 
             EmitParticles(attacker);
         }

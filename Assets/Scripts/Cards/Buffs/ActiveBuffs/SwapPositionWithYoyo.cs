@@ -1,5 +1,6 @@
 ﻿using Cards.CardElementClasses;
 using Cards.Factory;
+using Managers;
 using Player;
 
 namespace Cards.Buffs.ActiveBuffs
@@ -46,6 +47,8 @@ namespace Cards.Buffs.ActiveBuffs
             
             //TODO: animation?
             var playerPos = _playerController.transform.position;
+            GameManager.PlayEffect(playerPos, Effect.EffectType.TELEPORT);
+            
             var yoyoPos = _yoyo.transform.position;
             playerPos.x = yoyoPos.x;
             playerPos.y = yoyoPos.y;

@@ -315,6 +315,7 @@ MonoBehaviour:
   _pushbackFactor: 20
   _pushbackTime: 0.3
   _barrier: {fileID: 0}
+  _hitParticles: {fileID: 0}
   _speed: 5.1
   _maxSpeed: 6
   _acceleration: 7
@@ -559,8 +560,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9192621023942638117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.4, z: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 934194646650880964}
@@ -607,8 +608,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9263356, a: 0.7019608}
+  m_Sprite: {fileID: 21300000, guid: 73a9e080af709fd45ae79eff29e53a1e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -636,6 +637,10 @@ PrefabInstance:
     - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Name
       value: Yoyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_RootOrder

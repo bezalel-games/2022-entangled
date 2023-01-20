@@ -68,3 +68,6 @@ TagManager:
   - name: Slowdown
     uniqueID: 2892944209
     locked: 0
+  - name: Effect
+    uniqueID: 4232568335
+    locked: 0

@@ -702,6 +702,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _effectPrefab
+      value: 
+      objectReference: {fileID: 5737355293133291687, guid: 48f307f0283e9a5439c047ed0876ef2b, type: 3}
+    - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _uiController
       value: 
       objectReference: {fileID: 1431893202}

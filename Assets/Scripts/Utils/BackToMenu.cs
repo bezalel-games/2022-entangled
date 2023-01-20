@@ -28,7 +28,7 @@ public class BackToMenu : MonoBehaviour
 
   private void Update()
   {
-    if (Time.time > _menuTime)
+    if (Time.time > _menuTime || Input.anyKeyDown)
     {
       LoadManager.LoadMenu();
       Destroy(gameObject);

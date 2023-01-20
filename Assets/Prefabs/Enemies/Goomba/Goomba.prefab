@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: ce2d7952a84cc374e918b5d33608756e, type: 2}
+    - target: {fileID: 2335183290142720355, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35a5cf2efb45d954681c2abb546fa7f9, type: 2}
     - target: {fileID: 2402789989581408798, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: _living
       value: 
@@ -158,6 +162,38 @@ PrefabInstance:
     - target: {fileID: 7897815488341969439, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
       propertyPath: m_Name
       value: Goomba
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: UVModule.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773333698398513349, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2050991525924800270, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}

@@ -1,5 +1,6 @@
 using System;
 using HP_System;
+using Managers;
 using Player;
 using Rooms;
 using UnityEngine;
@@ -166,19 +167,27 @@ namespace Enemies
                 {
                     if (HasBarrier)
                     {
+                        GameManager.PlayEffect(transform.position, Effect.EffectType.SHIELD_BREAK);
                         ToggleBarrier(false);
                         return;
                     }
-                    Stop();
-                    Renderer.color = Color.black;
-                    Frozen = true;
-                    DelayInvoke((() => 
-                    {
-                        Renderer.color = Color.white;
-                        Frozen = false;
-                    }), line.EnemyFreezeTime);
+
+                    Stun(line);
                 }
             }
+        }
+
+        private void Stun(Line line)
+        {
+            GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
+            Stop();
+            Renderer.color = Color.black;
+            Frozen = true;
+            DelayInvoke((() =>
+            {
+                Renderer.color = Color.white;
+                Frozen = false;
+            }), line.EnemyFreezeTime);
         }
 
         private void OnTriggerStay2D(Collider2D other)
