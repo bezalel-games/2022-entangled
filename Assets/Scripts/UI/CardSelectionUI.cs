@@ -8,6 +8,8 @@ namespace UI
     {
         #region Serialized Fields
 
+        [SerializeField] private Color _goodColor;
+        [SerializeField] private Color _badColor;
         [SerializeField] private GameObject _firstSelectedCard;
         [SerializeField] private CardUI _leftCard;
         [SerializeField] private CardUI _rightCard;

@@ -34,6 +34,9 @@ namespace Cards
         public Rarity Rarity =>
             _buff.Rarity <= _debuff.Rarity ? Rarity.COMMON : (Rarity)(_buff.Rarity - _debuff.Rarity);
 
+        public Rarity BuffRarity => _buff.Rarity;
+        public Rarity DebuffRarity => _debuff.Rarity;
+
         public BuffType BuffType => _buff.Type;
         public DebuffType DebuffType => _debuff.Type;
 

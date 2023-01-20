@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6114ca3310ecf4588cb97c7cb9fd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goodColor: {r: 0, g: 0, b: 0, a: 0}
+  _badColor: {r: 0, g: 0, b: 0, a: 0}
   _firstSelectedCard: {fileID: 6902590243591667766}
   _leftCard: {fileID: 2969410887038418367}
   _rightCard: {fileID: 7625692662771905617}
@@ -85,7 +87,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6016630116582161521}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -423,6 +425,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4761189471462649290}
     m_Modifications:
+    - target: {fileID: 373977606534158873, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: d7670cba836d2944aa35e2aa7889d8a9, type: 2}
+    - target: {fileID: 2699543863546921112, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: d7670cba836d2944aa35e2aa7889d8a9, type: 2}
     - target: {fileID: 4348741986614986279, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
       propertyPath: m_Name
       value: Right Card
@@ -591,9 +601,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4761189471462649290}
     m_Modifications:
+    - target: {fileID: 373977606534158873, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 014b715e8ce92c94192618df2fb5a107, type: 2}
     - target: {fileID: 462538506484386096, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699543863546921112, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 014b715e8ce92c94192618df2fb5a107, type: 2}
+    - target: {fileID: 4033636404874698204, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4348741986614986279, guid: ba82ca87affda3247828129f0e2d7145, type: 3}
       propertyPath: m_Name
