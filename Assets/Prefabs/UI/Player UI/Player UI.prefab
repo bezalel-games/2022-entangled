@@ -232,6 +232,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6336215023864624252}
     m_Modifications:
+    - target: {fileID: 7080798307538983446, guid: f1b0a30a88636044482136448f50e9b6, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 08d4d9efe63398749909e2e6a77caa26, type: 2}
     - target: {fileID: 7080798307538983464, guid: f1b0a30a88636044482136448f50e9b6, type: 3}
       propertyPath: m_Name
       value: HP
@@ -348,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 7080798307538983446, guid: f1b0a30a88636044482136448f50e9b6, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 2100000, guid: 0b9e78a3cca306343abe449efe26ebf8, type: 2}
+      objectReference: {fileID: 2100000, guid: 1295a98792fe1f240abbf60f6449f2e3, type: 2}
     - target: {fileID: 7080798307538983464, guid: f1b0a30a88636044482136448f50e9b6, type: 3}
       propertyPath: m_Name
       value: MP

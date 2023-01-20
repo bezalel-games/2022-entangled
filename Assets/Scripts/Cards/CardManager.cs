@@ -17,10 +17,14 @@ namespace Cards
         [SerializeField] private int _commonWeight;
         [SerializeField] private int _rareWeight;
         [SerializeField] private int _epicWeight;
+        [SerializeField] private Color _buffColor;
+        [SerializeField] private Color _debuffColor;
 
         #endregion
 
         #region Non-Serialized Fields
+
+        private static CardManager _instamce;
 
         // private PlayerDeck _playerDeck;
         // private RunDeck _runDeck;
@@ -31,10 +35,24 @@ namespace Cards
 
         #endregion
 
+        #region Properties
+
+        public static Color BuffColor => _instamce._buffColor;
+        public static Color DebuffColor => _instamce._debuffColor;
+
+        #endregion
+
         #region Function Events
 
         private void Awake()
         {
+            if (_instamce != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            _instamce = this;
             InitPool();
         }
 

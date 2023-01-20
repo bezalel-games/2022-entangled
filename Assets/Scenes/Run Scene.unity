@@ -334,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2449019992080640769, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1340
       objectReference: {fileID: 0}
     - target: {fileID: 2449019992080640769, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -393,14 +393,6 @@ PrefabInstance:
       value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 3631422926741012483, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1848715560}
-    - target: {fileID: 3631422926741012483, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3631422926741012483, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -408,6 +400,10 @@ PrefabInstance:
       propertyPath: _living
       value: 
       objectReference: {fileID: 670769348}
+    - target: {fileID: 3996344015015647851, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6925904911371137145, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -426,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996969704602706671, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 580
       objectReference: {fileID: 0}
     - target: {fileID: 6996969704602706671, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -434,23 +430,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7903688325546090167, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903688325546090167, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903688325546090167, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 7903688325546090167, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -540
       objectReference: {fileID: 0}
     - target: {fileID: 8103738729594893163, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5944900461693135748, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
@@ -717,6 +713,38 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1431893203}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffColor.g
+      value: 0.8832901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffColor.r
+      value: 0.4009434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _debuffColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _debuffColor.b
+      value: 0.33490568
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _debuffColor.g
+      value: 0.33490568
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _debuffColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7413706062836178159, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: m_Name
       value: Managers

@@ -10,7 +10,7 @@ namespace UI
     public class CardUI : MonoBehaviour
     {
         #region Serialized Fields
-
+        
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
         [SerializeField] private RarityIdentifierSprites _rarityIdentifierSprites;
@@ -21,9 +21,14 @@ namespace UI
 
         private Image _buffImage;
         private Image _debuffImage;
+        private Image _borderGlow;
+        private Image _circleGlow;
         private TextMeshProUGUI _buffText;
         private TextMeshProUGUI _debuffText;
         private Image _rarityIdentifier;
+
+        private Rarity _buffRariy;
+        private Rarity _debuffRariy;
 
         #endregion
 
@@ -38,6 +43,10 @@ namespace UI
                 _rarityIdentifier.sprite = _rarityIdentifierSprites[value.Rarity];
                 AssignImage(_buffImage, value.BuffSprite);
                 AssignImage(_debuffImage, value.DebuffSprite);
+
+                _buffRariy = value.BuffRarity;
+                _debuffRariy = value.DebuffRarity;
+                SetGlowColor();
             }
         }
 
@@ -47,13 +56,36 @@ namespace UI
 
         private void Awake()
         {
-            var buffObject = transform.GetChild(0);
+            var borderGlowObject = transform.GetChild(0);
+            var circleGlowObject = transform.GetChild(5);
+            _borderGlow = borderGlowObject.GetComponentInChildren(typeof(Image), true) as Image;
+            _circleGlow = circleGlowObject.GetComponentInChildren(typeof(Image), true) as Image;
+            
+            var buffObject = transform.GetChild(1);
             _buffImage = buffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _buffText = buffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
-            var debuffObject = transform.GetChild(1);
+            var debuffObject = transform.GetChild(2);
             _debuffImage = debuffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _debuffText = debuffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
-            _rarityIdentifier = transform.GetChild(2).GetComponent<Image>();
+            _rarityIdentifier = transform.GetChild(3).GetComponent<Image>();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SetGlowColor()
+        {
+            /*
+             * moving from [-d,d] to [0,1]: x/(2*d) + 0.5f
+             */
+            int d = (int) Rarity.EPIC;
+            int value = (int) _buffRariy - (int) _debuffRariy;
+            float t = (value / (2f * d)) + 0.5f;
+            
+            Color c = (1 - t) * CardManager.DebuffColor + t * CardManager.BuffColor;
+            _borderGlow.color = c;
+            _circleGlow.color = c;
         }
 
         #endregion
