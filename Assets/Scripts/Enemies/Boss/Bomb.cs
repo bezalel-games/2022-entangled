@@ -5,27 +5,30 @@ using UnityEngine;
 
 namespace Enemies.Boss
 {
-    public class Bomb : MonoBehaviour, IHittable
+    public class Bomb : MonoBehaviour, IBarrierable
     {
-        private SpiritualBarrier _barrier;
-        private Rigidbody2D _rigidBody;
 
         #region Serialized Fields
 
         [SerializeField] private float _timeToExplosion;
         [SerializeField] private float _scaleSpeed;
         [Range(0, 2)] [SerializeField] private float _maxAdditionalScale = 0.3f;
+        [SerializeField] private float _pushbackFactor = 10;
         [SerializeField] private Explosion _explosionPrefab;
+        [Tooltip("Damage given to player on touch")][SerializeField] private float _touchDamage = 5;
 
         #endregion
 
         #region Non-Serialized Fields
 
         private float _explosionTime;
-        [SerializeField] private float _pushbackFactor = 10;
         private Vector3 _baseScale;
         private bool _active = false;
         
+        private SpiritualBarrier _barrier;
+        private Rigidbody2D _rigidBody;
+        private Collider2D _collider;
+
         #endregion
 
         #region Properties
@@ -42,6 +45,8 @@ namespace Enemies.Boss
         }
         private float TimeLeftToExplosion => _explosionTime - Time.time;
 
+        public bool HasBarrier => _barrier.Active;
+
         #endregion
 
         #region Function Events
@@ -49,6 +54,7 @@ namespace Enemies.Boss
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<Collider2D>();
             _barrier = GetComponentInChildren<SpiritualBarrier>();
             _barrier.Active = true;
             _baseScale = transform.localScale;
@@ -59,7 +65,7 @@ namespace Enemies.Boss
             if (!Active) return;
             if (TimeLeftToExplosion <= 0)
             {
-                Instantiate(_explosionPrefab);
+                Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
             var sinTSquared = Mathf.Sin(Mathf.Pow(_scaleSpeed * (1 - TimeLeftToExplosion / _timeToExplosion), 2));
@@ -72,6 +78,22 @@ namespace Enemies.Boss
             if (!other.gameObject.CompareTag("Precision")) return;
             if (other.GetComponent<Line>() == null || other is not PolygonCollider2D) return;
             _barrier.Active = false;
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            _collider.isTrigger = false;
+        }
+        
+        protected virtual void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                var hittable = other.gameObject.GetComponent<IHittable>();
+                if (hittable == null) return;
+
+                hittable.OnHit(transform, _touchDamage);
+            }
         }
 
         #endregion

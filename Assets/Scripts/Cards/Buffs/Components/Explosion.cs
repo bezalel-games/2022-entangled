@@ -20,13 +20,14 @@ namespace Cards.Buffs.Components
         private HashSet<IHittable> _hitObjects;
         private float _startTime;
         private bool _expanding;
+        [SerializeField] private bool _canHitPlayer;
 
         #endregion
 
         #region Properties
 
         [field: SerializeField] public float Radius { get; set; } = 1f;
-        public float Damage { get; set; } = 1;
+        [field: SerializeField] public float Damage { get; set; } = 1;
 
         #endregion
 
@@ -54,7 +55,7 @@ namespace Cards.Buffs.Components
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Enemy")) return;
+            if (!_canHitPlayer && other.CompareTag("Player")) return;
 
             var hittableObj = other.GetComponent<IHittable>();
             if (hittableObj == null || _hitObjects.Contains(hittableObj)) return;

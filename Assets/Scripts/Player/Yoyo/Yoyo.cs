@@ -192,7 +192,6 @@ namespace Player
                     Reset();
                 return;
             }
-            print(other.gameObject.name);
             switch (State)
             {
                 case YoyoState.IDLE when _idleHit:
@@ -324,7 +323,7 @@ namespace Player
                 case null: //not IHittable, i.e. a wall
                     GameManager.PlayEffect(transform.position, Effect.EffectType.WALL_HIT);
                     return true;
-                case Enemy { HasBarrier: true }:
+                case IBarrierable { HasBarrier: true }:
                     return false;
             }
 

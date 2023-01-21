@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6993114292675659208}
   - component: {fileID: 7310843025436406067}
   - component: {fileID: 4363286533594577520}
-  m_Layer: 7
+  m_Layer: 20
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,8 +44,8 @@ CircleCollider2D:
   m_GameObject: {fileID: 301193564178948871}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_Material: {fileID: 6200000, guid: cdcabd872de954346a81d19643de8f14, type: 2}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -64,7 +64,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.8
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -84,11 +84,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d43b51f608f0bf44a21428a53d6bd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToExplosion: 15
-  _scaleSpeed: 10
-  _maxAdditionalScale: 0.3
+  _timeToExplosion: 10
+  _scaleSpeed: 15
+  _maxAdditionalScale: 0.4
+  _pushbackFactor: 40
   _explosionPrefab: {fileID: 7945216905868025943, guid: 6878f9b79c1d0664ebbc5409d7f80a52, type: 3}
-  _pushbackFactor: 10
+  _touchDamage: 5
 --- !u!1 &2743148646096245621
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3059552528263956533}
   - component: {fileID: 5283391675941581205}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,8 +161,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1176650853
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 74275cbc73e7a1d4a8f879633af05dea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -228,6 +229,14 @@ PrefabInstance:
     - target: {fileID: 5577727000067886155, guid: 94aa2bb264421314aa4fb7781d6a5a60, type: 3}
       propertyPath: m_Name
       value: Ghost Barrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577727000067886155, guid: 94aa2bb264421314aa4fb7781d6a5a60, type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806962425846388457, guid: 94aa2bb264421314aa4fb7781d6a5a60, type: 3}
+      propertyPath: m_Layer
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94aa2bb264421314aa4fb7781d6a5a60, type: 3}

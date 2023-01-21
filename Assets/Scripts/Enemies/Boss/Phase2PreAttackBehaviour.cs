@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Managers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemies.Boss
 {
-    public class Phase2AttackBehaviour : BossBehaviour
+    public class Phase2PreAttackBehaviour : BossBehaviour
     {
         #region Serialized Fields
 
         #endregion
 
         #region Non-Serialized Fields
-        
 
         #endregion
 
@@ -25,7 +21,7 @@ namespace Enemies.Boss
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            Boss.ThrowBomb(GameManager.PlayerTransform.position);
+            Boss.CreateBomb();
         }
 
         #endregion

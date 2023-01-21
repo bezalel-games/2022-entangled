@@ -73,7 +73,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _expansionTime: 0.5833333
-  <Radius>k__BackingField: 1
+  _canHitPlayer: 1
+  <Radius>k__BackingField: 1.5
+  <Damage>k__BackingField: 20
 --- !u!58 &5094455229071905611
 CircleCollider2D:
   m_ObjectHideFlags: 0

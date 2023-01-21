@@ -250,7 +250,7 @@ namespace Player
             }
         }
 
-        public virtual void Stun(float stunDuration)
+        public override void Stun(float stunDuration)
         {
             Yoyo.CancelPrecision();
             base.Stun(stunDuration);

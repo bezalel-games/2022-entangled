@@ -5,7 +5,7 @@ using Utils;
 
 namespace HP_System
 {
-    public abstract class LivingBehaviour : MonoBehaviourExt, IHittable
+    public abstract class LivingBehaviour : MonoBehaviourExt, IBarrierable
     {
         #region Serialized Fields
 
@@ -59,7 +59,7 @@ namespace HP_System
           }
         }
 
-        public float Hp
+        public virtual float Hp
         {
             get => _hp;
             protected set

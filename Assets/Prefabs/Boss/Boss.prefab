@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6871399650029582655}
   - component: {fileID: 3755349825610820360}
-  m_Layer: 14
+  m_Layer: 15
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,19 +340,23 @@ MonoBehaviour:
   _pushbackFactor: 0
   _pushbackTime: 0
   _hitParticles: {fileID: 0}
+  _confusion: {fileID: 0}
   <Barrier>k__BackingField: {fileID: 0}
   _yoyoRotationPlane: {fileID: 2005108948183878034}
+  _numberOfPhases: 2
   _yoyoDrawDistance: 0.5
   _yoyoDrawTime: 1
   _yoyoAimPivotPrefab: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
   _meleeDamage: 10
   _spinSpeed: 4
   _bombPrefab: {fileID: 4363286533594577520, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
-  _bombThrowSpeed: 1
+  _bombThrowSpeed: 10
+  _bombOffset: {x: 0, y: -0.8, z: -0.5}
   <YoyoCount>k__BackingField: 12
   <ThrowSetInterval>k__BackingField: 0.3
   <AttackInterval>k__BackingField:
   - 1.5
+  - 8
 --- !u!58 &1400841166670746961
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -368,7 +372,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.6}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.7
 --- !u!1 &6949696617734507919
 GameObject:
   m_ObjectHideFlags: 0

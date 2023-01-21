@@ -12,16 +12,22 @@ namespace Enemies.Boss
 
         [Header("Boss")]
         [SerializeField] private Transform _yoyoRotationPlane;
+
+        [SerializeField] private int _numberOfPhases = 2;
+
         [Header("Phase 1")]
         [SerializeField] private float _yoyoDrawDistance = 0.5f;
+
         [SerializeField] private float _yoyoDrawTime = 0.5f;
         [SerializeField] private GameObject _yoyoAimPivotPrefab;
         [SerializeField] private float _meleeDamage = 10;
-        
+
         [Header("Phase 2")]
         [SerializeField] private float _spinSpeed;
+
         [SerializeField] private Bomb _bombPrefab;
         [SerializeField] private float _bombThrowSpeed = 1;
+        [SerializeField] private Vector3 _bombOffset = new Vector3(0, -1, -0.5f);
 
         #endregion
 
@@ -31,14 +37,25 @@ namespace Enemies.Boss
         private Yoyo[] _yoyos;
         private GameObject _shield;
         private int _idleYoyoNum;
-        private int _phase;
         private static readonly int DieTrigger = Animator.StringToHash("Die");
         private static readonly int AttackingFlag = Animator.StringToHash("Attacking");
-        private const float EPSILON = 0.003f;
+        private static readonly int PhaseNumber = Animator.StringToHash("Phase");
+        private Bomb _bomb;
+        private int _phase = 1;
 
         #endregion
 
         #region Properties
+
+        private int Phase
+        {
+            get => _phase;
+            set
+            {
+                _phase = value;
+                Animator.SetInteger(PhaseNumber, _phase);
+            }
+        }
 
         [Tooltip("Number of boss yoyos")] [field: SerializeField]
         public int YoyoCount { get; private set; }
@@ -52,6 +69,17 @@ namespace Enemies.Boss
         public float NextAttackTime { get; private set; }
         public int MinYoyoInRoom { get; private set; } = -1;
         public int MaxYoyoInRoom { get; private set; } = -1;
+
+        public override float Hp
+        {
+            get => base.Hp;
+            protected set
+            {
+                base.Hp = value;
+                if (value < (1 - (Phase / (float)_numberOfPhases)) * MaxHp)
+                    ++Phase;
+            }
+        }
 
         #endregion
 
@@ -99,7 +127,7 @@ namespace Enemies.Boss
         {
             if (++_idleYoyoNum != _yoyos.Length) return;
             _animator.SetBool(AttackingFlag, false);
-            NextAttackTime = Time.time + AttackInterval[_phase];
+            NextAttackTime = Time.time + AttackInterval[Phase - 1];
         }
 
         #endregion
@@ -120,7 +148,7 @@ namespace Enemies.Boss
         {
             GameManager.BossKilled();
         }
-        
+
         protected override void HitShake() => CameraManager.EnemyHitShake();
 
         #endregion
@@ -136,6 +164,21 @@ namespace Enemies.Boss
         public void SpinYoyos(float t)
         {
             _yoyoRotationPlane.localRotation *= Quaternion.AngleAxis(t * _spinSpeed, transform.forward);
+        }
+
+        public void CreateBomb()
+        {
+            _bomb = Instantiate(_bombPrefab, transform.position + _bombOffset, Quaternion.identity);
+            StartCoroutine(CreateBombAnimation());
+        }
+
+        public void ThrowBomb(Vector3 targetPosition)
+        {
+            _bomb.GetComponent<Rigidbody2D>()
+                .AddForce((targetPosition - transform.position).normalized * _bombThrowSpeed, ForceMode2D.Impulse);
+            _bomb.Active = true;
+            Animator.SetBool(AttackingFlag, false);
+            NextAttackTime = Time.time + AttackInterval[Phase - 1];
         }
 
         public void ShieldActive(bool isActive) => _shield.SetActive(isActive);
@@ -160,29 +203,23 @@ namespace Enemies.Boss
             yoyo.Shoot(yoyo.transform.parent.rotation * Vector3.up, Vector3.zero);
         }
 
-        #endregion
-
-        public void ThrowBomb(Vector3 targetPosition)
+        private IEnumerator CreateBombAnimation()
         {
-            StartCoroutine(ThrowBombCoroutine(transform.position, targetPosition));
-        }
-
-        public IEnumerator ThrowBombCoroutine(Vector3 originPosition, Vector3 targetPosition)
-        {
-            Vector3 pos = originPosition;
-            var bomb = Instantiate(_bombPrefab);
-            var bombTransform = bomb.transform;
-            while ((targetPosition - pos).Sum() < EPSILON)
+            var bombTransform = _bomb.transform;
+            var startTime = Time.time;
+            var startScale = bombTransform.localScale;
+            bombTransform.localScale = 0.0001f * startScale;
+            float t = 0;
+            while (t < 1)
             {
                 yield return null;
-                pos = Vector3.Lerp(pos, targetPosition, Time.deltaTime * _bombThrowSpeed);
-                bombTransform.position = pos;
+                t = Time.time - startTime;
+                bombTransform.localScale = startScale * t;
             }
-        }
-    }
-}
 
-static class Vector3Ext
-{
-    public static float Sum(this Vector3 vec) => vec.x + vec.y + vec.z;
+            bombTransform.localScale = startScale;
+        }
+
+        #endregion
+    }
 }
