@@ -1,53 +1,52 @@
-using System;
+using Rooms;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-  #region Serialized Fields
-  
-  #endregion
-  #region Non-Serialized Fields
+    #region Non-Serialized Fields
 
-  private static MenuManager _instance;
+    private static MenuManager _instance;
+    private CharacterMap _controls;
 
-  #endregion
+    #endregion
 
-  #region Properties
+    #region Function Events
 
-  #endregion
-
-  #region Function Events
-
-  private void Awake()
-  {
-    if (_instance != null)
+    private void Awake()
     {
-      Destroy(gameObject);
-      return;
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        _controls = new CharacterMap();
+        var controller = GetComponent<MenuController>();
+        _controls.Menu.SetCallbacks(controller);
+        _controls.Menu.Enable();
     }
 
-    _instance = this;
-  }
+    #endregion
 
-  #endregion
+    #region Public Methods
 
-  #region Public Methods
+    public static void StartRun()
+    {
+        SceneManager.LoadScene("Run Scene");
+    }
 
-  public static void StartRun()
-  {
-    SceneManager.LoadScene("Run Scene");
-  }
-  
-  public static void StartEndless()
-  {
-    SceneManager.LoadScene("Endless Scene");
-  }
+    public static void StartEndless()
+    {
+        SceneManager.LoadScene("Endless Scene");
+    }
+    
+    public static void StartBoss()
+    {
+        SceneManager.LoadScene("Boss Scene");
+    }
 
-  #endregion
-
-  #region Private Methods
-
-  #endregion
+    #endregion
 }
-

@@ -967,6 +967,15 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BossOption"",
+                    ""type"": ""Button"",
+                    ""id"": ""70dd5a60-af25-49b4-a157-a72aff20721c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1387,6 +1396,28 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23f11104-6ccd-41b8-bee2-fcbd7524dd21"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BossOption"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59b151aa-9ecb-4c68-8fc3-a17ce541d2b5"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BossOption"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1426,6 +1457,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         m_Menu_RightClick = m_Menu.FindAction("RightClick", throwIfNotFound: true);
         m_Menu_TrackedDevicePosition = m_Menu.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_Menu_TrackedDeviceOrientation = m_Menu.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_Menu_BossOption = m_Menu.FindAction("BossOption", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1681,6 +1713,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_RightClick;
     private readonly InputAction m_Menu_TrackedDevicePosition;
     private readonly InputAction m_Menu_TrackedDeviceOrientation;
+    private readonly InputAction m_Menu_BossOption;
     public struct MenuActions
     {
         private @CharacterMap m_Wrapper;
@@ -1695,6 +1728,7 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_Menu_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_Menu_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_Menu_TrackedDeviceOrientation;
+        public InputAction @BossOption => m_Wrapper.m_Menu_BossOption;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1734,6 +1768,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @BossOption.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnBossOption;
+                @BossOption.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnBossOption;
+                @BossOption.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnBossOption;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -1768,6 +1805,9 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @BossOption.started += instance.OnBossOption;
+                @BossOption.performed += instance.OnBossOption;
+                @BossOption.canceled += instance.OnBossOption;
             }
         }
     }
@@ -1807,5 +1847,6 @@ public partial class @CharacterMap : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnBossOption(InputAction.CallbackContext context);
     }
 }

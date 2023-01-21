@@ -35,8 +35,8 @@ namespace Rooms
         [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
         [SerializeField] private InteractablePair[] _interactablePairs;
 
-        [Header("Play mode")]
-        [SerializeField] private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
+        [field: Header("Play mode")]
+        [field: SerializeField] public NeighborsStrategy PlayMode { get; set; } = NeighborsStrategy.MAZE;
 
         [Header("Maze settings")]
         [SerializeField] private int _minDistanceFromBoss = 5;
@@ -333,7 +333,7 @@ namespace Rooms
 
         private void InitStrategy()
         {
-            _strategy = _playMode switch
+            _strategy = PlayMode switch
             {
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
                     _totalNumberOfRooms, _fountainCount, _treasureCount),
@@ -387,7 +387,7 @@ namespace Rooms
         {
         }
 
-        private enum NeighborsStrategy : byte
+        public enum NeighborsStrategy : byte
         {
             MAZE,
             ENDLESS,
