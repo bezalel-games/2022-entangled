@@ -205,7 +205,6 @@ namespace Player
                     }
                     break;
                 case YoyoState.SHOOT:
-                    PlayHitEffect(other);
                     if (HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
                         GoBack(true);
                     break;
@@ -315,32 +314,21 @@ namespace Player
         #endregion
 
         #region Private Methods
-        
-        private void PlayHitEffect(Collider2D other)
-        {
-            Effect.EffectType type = other.tag switch
-            {
-                "Enemy" => Effect.EffectType.ENEMY_HIT,
-                "Wall" => Effect.EffectType.WALL_HIT,
-                _ => Effect.EffectType.NONE
-            };
-            
-            if(type == Effect.EffectType.NONE) return;
-            GameManager.PlayEffect(transform.position, type);
-        }
 
         /* Returns true if hit, false otherwise. */
         private bool HitObject(IHittable hittableObj)
         {
             switch (hittableObj)
             {
-                case null:
-                    return false;
-                case Enemy { HasBarrier: true }:
+                case null: //not IHittable, i.e. a wall
+                    GameManager.PlayEffect(transform.position, Effect.EffectType.WALL_HIT);
                     return true;
+                case Enemy { HasBarrier: true }:
+                    return false;
             }
 
             hittableObj.OnHit(transform, Damage, State != YoyoState.PRECISION);
+            GameManager.PlayEffect(transform.position, Effect.EffectType.ENEMY_HIT);
             _owner.OnSuccessfulHit();
             return true;
         }
