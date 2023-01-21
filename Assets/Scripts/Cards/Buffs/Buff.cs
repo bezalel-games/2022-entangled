@@ -10,7 +10,7 @@ namespace Cards.Buffs
         {
         }
 
-        protected override void RemoveSelfFromPool(CardPool pool) => pool.Remove(Type);
+        protected override void RemoveSelfFromPool(CardPool pool) => pool.Remove(Type, Rarity);
 
         public abstract void Apply(PlayerController playerController);
         

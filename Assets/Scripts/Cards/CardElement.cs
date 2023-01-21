@@ -24,8 +24,8 @@ namespace Cards
                 pool.Add(buff, allRarities);
             foreach (var debuff in _attributes.UnlockedDebuffs)
                 pool.Add(debuff, allRarities);
-            if (_attributes.SingleUse)
-                RemoveSelfFromPool(pool);
+            // if (_attributes.SingleUse)
+            RemoveSelfFromPool(pool);
         }
 
         protected abstract void RemoveSelfFromPool(CardPool pool);

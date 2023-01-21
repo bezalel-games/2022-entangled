@@ -64,10 +64,11 @@ namespace Cards
                     break;
             }
             
+            _applied = true;
+            if (pool == null) return;
             _buff.UpdatePool(pool);
             _debuff.UpdatePool(pool);
             pool.FinishedUpdating();
-            _applied = true;
         }
 
         public string BuffString(string format)

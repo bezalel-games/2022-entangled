@@ -26,7 +26,7 @@ MonoBehaviour:
   <ExplosiveYoyo>k__BackingField:
     <Rarity>k__BackingField: 1
     <Parameters>k__BackingField:
-    - 1
+    - 2
     <Attributes>k__BackingField: {fileID: 11400000, guid: 0d9972c13a27afd48b5b725e96c774fc, type: 2}
   <ExplosionPrefab>k__BackingField: {fileID: 8425698979349536843, guid: bd36b89a2e1c9314aac89784051d3f5c, type: 3}
   <SwapPositionWithYoyo>k__BackingField:
@@ -146,3 +146,7 @@ MonoBehaviour:
     - 1
     <Attributes>k__BackingField: {fileID: 11400000, guid: d0daf6459fbd81645af40d6b43f619f1, type: 2}
     <EnemyIndex>k__BackingField: 2
+  _buffToApply: 0
+  _buffRarity: 0
+  _debuffToApply: 0
+  _debuffRarity: 0

@@ -6,6 +6,7 @@ using Cards.Buffs.Components;
 using Cards.Buffs.PassiveBuffs;
 using Cards.CardElementClasses;
 using Cards.Debuffs;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Cards.Factory.BuffType;
 using static Cards.Factory.DebuffType;
@@ -20,10 +21,10 @@ namespace Cards.Factory
         [field: Header("Buffs")]
         [field: Tooltip("Multiply the current size of the yoyo by given amount")]
         [field: SerializeField] public VariableCardElementClass EnlargeYoyo { get; private set; }
-        
+
         [field: Tooltip("Leave the trail of the precision shot on the map, dealing damage on touch")]
         [field: SerializeField] public FixedCardElementClass LeaveTrail { get; private set; }
-        
+
         [field: Tooltip("Create an explosion with the given radius around the yoyo")]
         [field: SerializeField] public FixedCardElementClass ExplosiveYoyo { get; private set; }
 
@@ -37,12 +38,13 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiply the current yoyo explosion damage by given amount")]
         [field: SerializeField] public VariableCardElementClass IncreaseExplosionDamage { get; private set; }
-        
+
         [field: Tooltip("Multiply the current trail stay time by given amount")]
         [field: SerializeField] public VariableCardElementClass IncreaseTrailStay { get; private set; }
-        
+
         [field: Tooltip("Multiply the current trail damage by given amount")]
         [field: SerializeField] public VariableCardElementClass IncreaseTrailDamage { get; private set; }
+
         #endregion
 
         #region Debuff Serialized Fields
@@ -74,28 +76,38 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiplies Fumer speed by the specified amount")]
         [field: SerializeField] public EnemyVariableCardElementClass FasterFumers { get; private set; }
-        
+
         [field: Tooltip("Multiplies Quickshot's damage by the specified amount")]
         [field: SerializeField] public VariableCardElementClass DecreaseDamage { get; private set; }
-        
+
         [field: Tooltip("Multiplies Quickshot's distance by the specified amount")]
         [field: SerializeField] public VariableCardElementClass DecreaseShotDistance { get; private set; }
-        
+
         [field: Tooltip("Multiplies MP regeneration per second by the specified amount")]
         [field: SerializeField] public VariableCardElementClass DecreaseMpRegen { get; private set; }
-        
+
         [field: Tooltip("Shooters' projectiles follow the player")]
         [field: SerializeField] public EnemyFixedCardElementClass HomingProjectiles { get; private set; }
-        
+
         [field: Tooltip("Goombas split to two on death")]
         [field: SerializeField] public EnemyFixedCardElementClass SplittingGoombas { get; private set; }
-        
+
         [field: Tooltip("Shooters split to two on death")]
         [field: SerializeField] public EnemyFixedCardElementClass SplittingShooters { get; private set; }
-        
+
         [field: Tooltip("Fumers split to two on death")]
         [field: SerializeField] public EnemyFixedCardElementClass SplittingFumers { get; private set; }
-        
+
+        #endregion
+
+        #region Apply
+
+        [Header("Buff and debuff to apply")] [SerializeField]
+        private BuffType _buffToApply;
+        [SerializeField] private Rarity _buffRarity;
+        [SerializeField] private DebuffType _debuffToApply;
+        [SerializeField] private Rarity _debuffRarity;
+
         #endregion
 
         #region Public Methods
@@ -113,11 +125,11 @@ namespace Cards.Factory
                     ExpandExplosion[buffRarity]),
                 INCREASE_EXPLOSION_DAMAGE => new IncreaseExplosionDamage(IncreaseExplosionDamage.Attributes, buffRarity,
                     IncreaseExplosionDamage[buffRarity]),
-                LEAVE_TRAIL => new LeaveTrail(LeaveTrail.Attributes, buffRarity, 
+                LEAVE_TRAIL => new LeaveTrail(LeaveTrail.Attributes, buffRarity,
                     LeaveTrail.Parameters[0], LeaveTrail.Parameters[1]),
-                INCREASE_TRAIL_STAY => new IncreaseTrailStay(IncreaseTrailStay.Attributes, buffRarity, 
+                INCREASE_TRAIL_STAY => new IncreaseTrailStay(IncreaseTrailStay.Attributes, buffRarity,
                     IncreaseTrailStay[buffRarity]),
-                INCREASE_TRAIL_DAMAGE => new IncreaseTrailDamage(IncreaseTrailDamage.Attributes, buffRarity, 
+                INCREASE_TRAIL_DAMAGE => new IncreaseTrailDamage(IncreaseTrailDamage.Attributes, buffRarity,
                     IncreaseTrailDamage[buffRarity]),
                 _ => throw new ArgumentOutOfRangeException(nameof(buffType), buffType, null)
             };
@@ -147,13 +159,13 @@ namespace Cards.Factory
                 FASTER_FUMERS => new FasterEnemies(FasterFumers.Attributes, debuffRarity,
                     FasterFumers.EnemyIndex,
                     FasterFumers[debuffRarity]),
-                DECREASE_DAMAGE => new DecreaseDamage(DecreaseDamage.Attributes, debuffRarity, 
+                DECREASE_DAMAGE => new DecreaseDamage(DecreaseDamage.Attributes, debuffRarity,
                     DecreaseDamage[debuffRarity]),
-                DECREASE_SHOT_DISTANCE => new DecreaseShotDistance(DecreaseShotDistance.Attributes, debuffRarity, 
+                DECREASE_SHOT_DISTANCE => new DecreaseShotDistance(DecreaseShotDistance.Attributes, debuffRarity,
                     DecreaseShotDistance[debuffRarity]),
-                DECREASE_MP_REGEN => new DecreaseMpRegeneration(DecreaseMpRegen.Attributes, debuffRarity, 
+                DECREASE_MP_REGEN => new DecreaseMpRegeneration(DecreaseMpRegen.Attributes, debuffRarity,
                     DecreaseMpRegen[debuffRarity]),
-                HOMING_SHOTS => new HomingShots(HomingProjectiles.Attributes, debuffRarity, 
+                HOMING_SHOTS => new HomingShots(HomingProjectiles.Attributes, debuffRarity,
                     HomingProjectiles.EnemyIndex),
                 SPLIT_GOOMBAS => new SplitOnDeath(SplittingGoombas.Attributes, debuffRarity,
                     SplittingGoombas.EnemyIndex, (int)SplittingGoombas.Parameters[0]),

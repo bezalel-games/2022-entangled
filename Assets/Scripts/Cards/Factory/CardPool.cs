@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Cards.Buffs.ActiveBuffs;
 using Random = UnityEngine.Random;
 
@@ -40,8 +41,8 @@ namespace Cards.Factory
         public bool Contains(BuffType buff) => _buffPool.ContainedElements[(int)buff];
         public bool Contains(DebuffType debuff) => _debuffPool.ContainedElements[(int)debuff];
 
-        public void Remove(BuffType buff) => _buffPool.Remove(buff);
-        public void Remove(DebuffType debuff) => _debuffPool.Remove(debuff);
+        public void Remove(BuffType buff, Rarities rarities) => _buffPool.Remove(buff, rarities);
+        public void Remove(DebuffType debuff, Rarities rarities) => _debuffPool.Remove(debuff, rarities);
 
         public (BuffType type, Rarity rarity) GetRandomBuff() => _buffPool.GetRandom(_weights);
         public (DebuffType type, Rarity rarity) GetRandomDebuff() => _debuffPool.GetRandom(_weights);
@@ -72,10 +73,18 @@ namespace Cards.Factory
                 ContainedElements[type.IntValue()] = true;
             }
 
-            public void Remove(T type)
+            public void Remove(T type, Rarities rarities)
             {
                 if (!ContainedElements[type.IntValue()]) return;
-                _pool.RemoveAll(element => element.type.Equals(type));
+                var index = _pool.FindIndex(element => element.type.Equals(type));
+                var updatedRarities = (int)_pool[index].rarities & ~(int)rarities;
+                if (updatedRarities == 0)
+                    _pool.RemoveAt(index);
+                else
+                {
+                    _pool[index] = (type, updatedRarities);
+                    ContainedElements[type.IntValue()] = false;
+                }
             }
 
             public (T, Rarity) GetRandom(int[] weights)

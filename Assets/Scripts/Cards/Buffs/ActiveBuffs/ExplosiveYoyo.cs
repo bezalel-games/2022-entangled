@@ -19,7 +19,7 @@ namespace Cards.Buffs.ActiveBuffs
         #region Properties
 
         public float ExplosionRadius { get; set; }
-        public float Damage { get; set; } = 1;
+        public float Damage { get; set; } = 8;
 
         #endregion
 

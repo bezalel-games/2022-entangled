@@ -31,5 +31,7 @@
         }
 
         public static implicit operator Rarities(Rarity rarity) => new Rarities(rarity);
+        public static implicit operator int(Rarities rarities) => rarities.Bits;
+        public static implicit operator Rarities(int bitValue) => new Rarities(bitValue);
     }
 }
