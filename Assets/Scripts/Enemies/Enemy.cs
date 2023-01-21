@@ -1,4 +1,5 @@
 using System;
+using Effects;
 using HP_System;
 using Managers;
 using Player;
@@ -11,7 +12,7 @@ namespace Enemies
     {
         #region Serialized Fields
 
-        [Header("Enemy")] 
+        [Header("Enemy")]
         [SerializeField] protected float _damage;
 
         #endregion
@@ -160,20 +161,15 @@ namespace Enemies
             if (other.gameObject.CompareTag("Precision"))
             {
                 Line line = other.GetComponent<Line>();
-                
-                if(line == null) return;
 
-                if (other is PolygonCollider2D)
+                if (line == null || other is not PolygonCollider2D) return;
+                if (HasBarrier)
                 {
-                    if (HasBarrier)
-                    {
-                        GameManager.PlayEffect(transform.position, Effect.EffectType.SHIELD_BREAK);
-                        ToggleBarrier(false);
-                        return;
-                    }
-
-                    Stun(line);
+                    Barrier.Active = false;
+                    return;
                 }
+
+                Stun(line);
             }
         }
 
@@ -197,7 +193,7 @@ namespace Enemies
                 Line line = other.GetComponent<Line>();
 
                 if (line == null) return;
-                
+
                 if (other is EdgeCollider2D)
                 {
                     if (!_canTrailDamage) return;
@@ -219,18 +215,19 @@ namespace Enemies
             Stop();
             if (SplitCount > 0)
             {
-                for(int i=0; i<2; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    var split = RoomManager.EnemyDictionary[Index].Spawn(transform.position, transform.parent, true).enemy;
+                    var split = RoomManager.EnemyDictionary[Index].Spawn(transform.position, transform.parent, true)
+                        .enemy;
                     split.Enabled?.Invoke();
-                    split.ToggleBarrier(false);
-                    split.SplitCount = SplitCount-1;
+                    split.SplitCount = SplitCount - 1;
                 }
+
                 _roomEnemies.AddLivingCount(2);
                 AfterDeathAnimation();
                 return;
             }
-            
+
             Animator.SetTrigger(DeadAnimationID);
         }
 
@@ -238,14 +235,14 @@ namespace Enemies
         {
             if (_attacking)
                 NumberOfAttacking--;
-            
+
             gameObject.SetActive(false);
             _roomEnemies.EnemyKilled();
         }
 
         public void Stop()
         {
-            Animator.SetBool(MoveAnimationID,false);
+            Animator.SetBool(MoveAnimationID, false);
             DesiredDirection = Vector2.zero;
             Rigidbody.velocity = Vector2.zero;
         }
@@ -268,6 +265,8 @@ namespace Enemies
                 Rigidbody.velocity = _desiredDirection * MaxSpeed;
             }
         }
+        
+        protected override void HitShake() => CameraManager.EnemyHitShake();
 
         #endregion
     }

@@ -16,13 +16,20 @@ namespace Enemies.Boss
         protected override void OnFirstStateEnter()
         {
             Boss.StartCoroutine(Accelerate());
+            Boss.ShieldActive(true);
+            Boss.
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
-
             Boss.SpinYoyos(_t);
+        }
+        
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (stateInfo.IsName("Phase 2"))
+                Boss.ShieldActive(false);
         }
 
         #endregion

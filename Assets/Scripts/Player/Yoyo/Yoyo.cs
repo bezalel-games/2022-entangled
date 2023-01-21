@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cards.Buffs.ActiveBuffs;
+using Effects;
 using Enemies;
 using HP_System;
 using Managers;
@@ -191,7 +192,7 @@ namespace Player
                     Reset();
                 return;
             }
-
+            print(other.gameObject.name);
             switch (State)
             {
                 case YoyoState.IDLE when _idleHit:

@@ -332,6 +332,8 @@ namespace Player
             Direction = Vector2.zero;
             _overridenMovement = false;
         }
+        
+        protected override void HitShake() => CameraManager.PlayerHitShake();
 
         #endregion
 

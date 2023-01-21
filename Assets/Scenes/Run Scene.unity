@@ -702,10 +702,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _effectPrefab
-      value: 
-      objectReference: {fileID: 5737355293133291687, guid: 48f307f0283e9a5439c047ed0876ef2b, type: 3}
-    - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _uiController
       value: 
       objectReference: {fileID: 1431893202}
@@ -717,38 +713,6 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1431893203}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.g
-      value: 0.8832901
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.r
-      value: 0.4009434
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.b
-      value: 0.33490568
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.g
-      value: 0.33490568
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7413706062836178159, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: m_Name
       value: Managers

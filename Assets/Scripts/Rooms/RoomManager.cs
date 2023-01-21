@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cinemachine;
-using EffectAgents;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Rooms.CardinalDirections;

@@ -149,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6871399650029582655
 Transform:
   m_ObjectHideFlags: 0
@@ -339,14 +339,16 @@ MonoBehaviour:
   _maxMp: 300
   _pushbackFactor: 0
   _pushbackTime: 0
-  _barrier: {fileID: 0}
   _hitParticles: {fileID: 0}
+  <Barrier>k__BackingField: {fileID: 0}
   _yoyoRotationPlane: {fileID: 2005108948183878034}
   _yoyoDrawDistance: 0.5
   _yoyoDrawTime: 1
   _yoyoAimPivotPrefab: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
   _meleeDamage: 10
   _spinSpeed: 4
+  _bombPrefab: {fileID: 4363286533594577520, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+  _bombThrowSpeed: 1
   <YoyoCount>k__BackingField: 12
   <ThrowSetInterval>k__BackingField: 0.3
   <AttackInterval>k__BackingField:

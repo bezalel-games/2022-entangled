@@ -133,7 +133,7 @@ namespace Enemies
                     return (false, null);
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
-                spawnedEnemy.ToggleBarrier(Random.value >= RoomManager.GhostChance);
+                spawnedEnemy.Barrier.Active = Random.value >= RoomManager.GhostChance;
 
                 // subscribe a method to update enemy type variables on it's enablement
                 spawnedEnemy.Enabled += () =>

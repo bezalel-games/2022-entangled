@@ -1,40 +1,57 @@
-using System;
+using Effects;
+using Managers;
 using UnityEngine;
 
-public class SpiritualBarrier : MonoBehaviour
+namespace Enemies
 {
-  #region Serialized Fields
+    public class SpiritualBarrier : MonoBehaviour
+    {
+        #region Serialized Fields
 
-  [SerializeField] private Material _regularMaterial;
-  [SerializeField] private Material _ghostMaterial;
+        [SerializeField] private Material _regularMaterial;
+        [SerializeField] private Material _ghostMaterial;
 
-  #endregion
+        #endregion
 
-  #region Non-Serialized Fields
+        #region Properties
 
-  private SpriteRenderer _renderer;
+        public bool Active
+        {
+            get => gameObject.activeSelf;
+            set
+            {
+                if (gameObject.activeSelf == value) return;
+                if (!value)
+                    GameManager.PlayEffect(transform.position, Effect.EffectType.SHIELD_BREAK);
+                gameObject.SetActive(value);
+            }
+        }
 
-  #endregion
-  
-  #region Function Events
+        #endregion
 
-  private void Awake()
-  {
-    _renderer = GetComponentInParent<SpriteRenderer>();
-  }
+        #region Non-Serialized Fields
 
-  private void OnEnable()
-  {
-    if(_renderer == null) return;
-    _renderer.material = _ghostMaterial;
-  }
+        private SpriteRenderer _renderer;
 
-  private void OnDisable()
-  {
-    if(_renderer == null) return;
-    _renderer.material = _regularMaterial;
-  }
+        #endregion
 
-  #endregion
+        #region Function Events
+
+        private void Awake()
+        {
+            _renderer = GetComponentInParent<SpriteRenderer>();
+        }
+
+        private void OnEnable()
+        {
+            _renderer.material = _ghostMaterial;
+        }
+
+        private void OnDisable()
+        {
+            _renderer.material = _regularMaterial;
+        }
+
+        #endregion
+    }
 }
-

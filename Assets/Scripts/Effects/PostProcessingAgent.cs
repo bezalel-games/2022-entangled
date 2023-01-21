@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace EffectAgents
+namespace Effects
 {
     public class PostProcessingAgent : MonoBehaviour
     {

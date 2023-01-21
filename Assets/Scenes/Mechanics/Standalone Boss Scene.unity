@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &309240606
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 301193564178948871, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_Name
+      value: Bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370832212328042114, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
 --- !u!4 &500972876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6997350185261311841, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
@@ -529,7 +586,7 @@ MonoBehaviour:
   _spawnEnemies: 1
   _ghostChange: 0.66
   _interactablePairs: []
-  _playMode: 0
+  <PlayMode>k__BackingField: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40

@@ -1,4 +1,5 @@
 using System;
+using Enemies;
 using Managers;
 using UnityEngine;
 using Utils;
@@ -14,7 +15,6 @@ namespace HP_System
         [SerializeField] private float _maxMp;
         [SerializeField] private float _pushbackFactor = 0.4f;
         [SerializeField] protected float _pushbackTime = 0.3f;
-        [SerializeField] private SpiritualBarrier _barrier;
         [SerializeField] private ParticleSystem _hitParticles;
 
         #endregion
@@ -38,7 +38,8 @@ namespace HP_System
 
         #region Properties
 
-        public bool HasBarrier => _barrier != null && _barrier.gameObject.activeSelf; 
+        [field: SerializeField] public SpiritualBarrier Barrier { get; private set; }
+        public bool HasBarrier => Barrier != null && Barrier.Active;
 
         protected virtual bool Invulnerable { get; set; }
         
@@ -148,16 +149,6 @@ namespace HP_System
 
         #endregion
 
-        #region Public Methods
-
-        public void ToggleBarrier(bool turnOn)
-        {
-            if(_barrier == null || _barrier.enabled == turnOn) return;
-            _barrier.gameObject.SetActive(turnOn);
-        }
-
-        #endregion
-
         #region Private Methods
 
         #endregion
@@ -172,20 +163,14 @@ namespace HP_System
             if (!attacker)
                 return;
 
+            HitShake();
             if(pushBack)
                 _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
-            
             _hitTime = Time.time;
-            
-            if(_isPlayer)
-                CameraManager.PlayerHitShake();
-            else
-            {
-                CameraManager.EnemyHitShake();
-            }
-
             EmitParticles(attacker);
         }
+
+        protected abstract void HitShake();
 
         private void EmitParticles(Transform attacker)
         {

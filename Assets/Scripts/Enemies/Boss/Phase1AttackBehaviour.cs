@@ -24,19 +24,12 @@ namespace Enemies.Boss
         protected override void OnFirstStateEnter()
         {
             _throws = new ThrowOrder[] { OneAtATime, Triples, ThreeSets };
-            Boss.ShieldActive(true);
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             Boss.StartCoroutine(ThrowYoyos(_throws[_nextThrowIndex++ % _throws.Length]));
-        }
-        
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            if (stateInfo.IsName("Phase 2"))
-                Boss.ShieldActive(false);
         }
 
         #endregion

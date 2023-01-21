@@ -49,6 +49,8 @@ MonoBehaviour:
   _uiController: {fileID: 0}
   _chooseCards: 1
   _cardManager: {fileID: 7235197585445724460}
+  _numberOfRoomsToCard: 2
+  _effectPrefab: {fileID: 5737355293133291687, guid: 48f307f0283e9a5439c047ed0876ef2b, type: 3}
 --- !u!114 &7235197585445724460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,3 +68,5 @@ MonoBehaviour:
   _commonWeight: 5
   _rareWeight: 4
   _epicWeight: 3
+  _buffColor: {r: 0.4009434, g: 0.8832901, b: 1, a: 1}
+  _debuffColor: {r: 1, g: 0.33490568, b: 0.33490568, a: 1}

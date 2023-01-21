@@ -12,13 +12,16 @@ namespace Enemies.Boss
 
         [Header("Boss")]
         [SerializeField] private Transform _yoyoRotationPlane;
-
+        [Header("Phase 1")]
         [SerializeField] private float _yoyoDrawDistance = 0.5f;
         [SerializeField] private float _yoyoDrawTime = 0.5f;
         [SerializeField] private GameObject _yoyoAimPivotPrefab;
         [SerializeField] private float _meleeDamage = 10;
-
+        
+        [Header("Phase 2")]
         [SerializeField] private float _spinSpeed;
+        [SerializeField] private Bomb _bombPrefab;
+        [SerializeField] private float _bombThrowSpeed = 1;
 
         #endregion
 
@@ -31,6 +34,7 @@ namespace Enemies.Boss
         private int _phase;
         private static readonly int DieTrigger = Animator.StringToHash("Die");
         private static readonly int AttackingFlag = Animator.StringToHash("Attacking");
+        private const float EPSILON = 0.003f;
 
         #endregion
 
@@ -116,6 +120,8 @@ namespace Enemies.Boss
         {
             GameManager.BossKilled();
         }
+        
+        protected override void HitShake() => CameraManager.EnemyHitShake();
 
         #endregion
 
@@ -155,5 +161,28 @@ namespace Enemies.Boss
         }
 
         #endregion
+
+        public void ThrowBomb(Vector3 targetPosition)
+        {
+            StartCoroutine(ThrowBombCoroutine(transform.position, targetPosition));
+        }
+
+        public IEnumerator ThrowBombCoroutine(Vector3 originPosition, Vector3 targetPosition)
+        {
+            Vector3 pos = originPosition;
+            var bomb = Instantiate(_bombPrefab);
+            var bombTransform = bomb.transform;
+            while ((targetPosition - pos).Sum() < EPSILON)
+            {
+                yield return null;
+                pos = Vector3.Lerp(pos, targetPosition, Time.deltaTime * _bombThrowSpeed);
+                bombTransform.position = pos;
+            }
+        }
     }
+}
+
+static class Vector3Ext
+{
+    public static float Sum(this Vector3 vec) => vec.x + vec.y + vec.z;
 }

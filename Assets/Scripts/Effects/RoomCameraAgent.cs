@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Cinemachine;
 using Managers;
-using Rooms;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
-namespace EffectAgents
+namespace Effects
 {
     public class RoomCameraAgent : MonoBehaviour
     {
