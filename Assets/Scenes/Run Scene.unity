@@ -213,6 +213,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1489229911919675126, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489229911919675126, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[7]
+      value: -62398961
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368573063946589667, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -603,6 +615,14 @@ PrefabInstance:
     - target: {fileID: 5953720032463609752, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
       propertyPath: m_Name
       value: Global Effectors
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641503635140821084, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641503635140821084, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[9]
+      value: -62398961
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}

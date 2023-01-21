@@ -44,7 +44,7 @@ namespace Cards.Factory
 
         [field: Tooltip("Multiply the current trail damage by given amount")]
         [field: SerializeField] public VariableCardElementClass IncreaseTrailDamage { get; private set; }
-
+        
         #endregion
 
         #region Debuff Serialized Fields
@@ -97,6 +97,9 @@ namespace Cards.Factory
 
         [field: Tooltip("Fumers split to two on death")]
         [field: SerializeField] public EnemyFixedCardElementClass SplittingFumers { get; private set; }
+        
+        [field: Tooltip("Goombas' attacks stun the player")]
+        [field: SerializeField] public EnemyFixedCardElementClass StunningGoombas { get; private set; }
 
         #endregion
 
@@ -107,7 +110,7 @@ namespace Cards.Factory
         [SerializeField] private Rarity _buffRarity;
         [SerializeField] private DebuffType _debuffToApply;
         [SerializeField] private Rarity _debuffRarity;
-
+        
         #endregion
 
         #region Public Methods
@@ -173,6 +176,8 @@ namespace Cards.Factory
                     SplittingShooters.EnemyIndex, (int)SplittingShooters.Parameters[0]),
                 SPLIT_FUMERS => new SplitOnDeath(SplittingFumers.Attributes, debuffRarity,
                     SplittingFumers.EnemyIndex, (int)SplittingFumers.Parameters[0]),
+                STUNNING_GOOMBAS => new StunningGoombas(StunningGoombas.Attributes, debuffRarity, 
+                    StunningGoombas.EnemyIndex, StunningGoombas.Parameters[0]),
                 _ => throw new ArgumentOutOfRangeException(nameof(debuffType), debuffType, null)
             };
             return new Card(buff, debuff);

@@ -84,7 +84,10 @@ namespace Enemies
             #endregion
 
             #region Properties
+            
+            public int IndexInDictionary;
 
+            // More Enemies Debuff
             public int Rank
             {
                 get => _rank;
@@ -95,6 +98,7 @@ namespace Enemies
                 }
             }
 
+            // Stronger Enemies Debuff
             public float MaxHp
             {
                 get
@@ -105,6 +109,7 @@ namespace Enemies
                 set => _maxHp = value;
             }
             
+            // Faster Enemies Debuff
             public float MaxSpeed
             {
                 get
@@ -116,10 +121,18 @@ namespace Enemies
             }
 
             public string Name => Prefab.gameObject.name;
+            
+            // Homing Shot Debuff
             public bool HomingShots { get; set; }
+            
+            // Splitting Enemy Debuff
             public int SplitCount { get; set; }
+            
+            // Stunning Goombas Debuff
+            public bool StunningAttack { get; set; }
+            public float StunDuration { get; set; }
 
-            public int IndexInDictionary;
+            
 
             #endregion
 
@@ -143,8 +156,16 @@ namespace Enemies
                     spawnedEnemy.MaxSpeed = MaxSpeed;
                     spawnedEnemy.SplitCount = SplitCount;
 
-                    if (spawnedEnemy is Shooter)
-                        ((Shooter) spawnedEnemy).HomingShots = HomingShots;
+                    switch (spawnedEnemy)
+                    {
+                        case Shooter shooter:
+                            shooter.HomingShots = HomingShots;
+                            break;
+                        case Goomba goomba:
+                            goomba.StunningAttack = StunningAttack;
+                            goomba.StunDuration = StunDuration;
+                            break;
+                    }
                 };
 
                 return (true, spawnedEnemy);
