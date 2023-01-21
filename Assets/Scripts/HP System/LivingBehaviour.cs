@@ -1,6 +1,5 @@
 using System;
 using Enemies;
-using Managers;
 using UnityEngine;
 using Utils;
 
@@ -16,6 +15,7 @@ namespace HP_System
         [SerializeField] private float _pushbackFactor = 0.4f;
         [SerializeField] protected float _pushbackTime = 0.3f;
         [SerializeField] private ParticleSystem _hitParticles;
+        [SerializeField] private GameObject _confusion;
 
         #endregion
 
@@ -24,7 +24,6 @@ namespace HP_System
         private float _hp;
         private float _mp;
         private float _hitTime;
-        private bool _isPlayer;
 
         protected Rigidbody2D Rigidbody;
         
@@ -118,8 +117,6 @@ namespace HP_System
             Animator = GetComponentInChildren<Animator>();
             Renderer = GetComponentInChildren<SpriteRenderer>();
             Rigidbody = GetComponent<Rigidbody2D>();
-
-            _isPlayer = CompareTag("Player");
         }
 
         protected override void Update()
@@ -149,7 +146,39 @@ namespace HP_System
 
         #endregion
 
+        #region Public Methods
+
+        public virtual void Stop()
+        {
+            Rigidbody.velocity = Vector2.zero;
+        }
+
+        public virtual void Stun(float duration)
+        {
+            Stop();
+            _confusion.gameObject.SetActive(true);
+            Frozen = true;
+            DelayInvoke((() =>
+            {
+                _confusion.gameObject.SetActive(false);
+                Frozen = false;
+            }), duration);
+        }
+
+        #endregion
+
         #region Private Methods
+
+        private void EmitParticles(Transform attacker)
+        {
+            if(_hitParticles == null)
+                return;
+
+            Vector2 dir = (attacker.position - transform.position).normalized;
+            var angles = dir.Angles(); //add 90 since emission is aimed down originally
+            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
+            _hitParticles.Play();
+        }
 
         #endregion
 
@@ -171,17 +200,6 @@ namespace HP_System
         }
 
         protected abstract void HitShake();
-
-        private void EmitParticles(Transform attacker)
-        {
-            if(_hitParticles == null)
-                return;
-
-            Vector2 dir = (attacker.position - transform.position).normalized;
-            var angles = dir.Angles(); //add 90 since emission is aimed down originally
-            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
-            _hitParticles.Play();
-        }
 
         public void OnHeal(float health)
         {

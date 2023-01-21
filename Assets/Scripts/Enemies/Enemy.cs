@@ -12,7 +12,7 @@ namespace Enemies
     {
         #region Serialized Fields
 
-        [Header("Enemy")]
+        [Header("Enemy")] 
         [SerializeField] protected float _damage;
 
         #endregion
@@ -161,6 +161,8 @@ namespace Enemies
             if (other.gameObject.CompareTag("Precision"))
             {
                 Line line = other.GetComponent<Line>();
+                
+                if(line == null) return;
 
                 if (line == null || other is not PolygonCollider2D) return;
                 if (HasBarrier)
@@ -169,21 +171,8 @@ namespace Enemies
                     return;
                 }
 
-                Stun(line);
+                Stun(line.EnemyFreezeTime);
             }
-        }
-
-        private void Stun(Line line)
-        {
-            GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
-            Stop();
-            Renderer.color = Color.black;
-            Frozen = true;
-            DelayInvoke((() =>
-            {
-                Renderer.color = Color.white;
-                Frozen = false;
-            }), line.EnemyFreezeTime);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -193,7 +182,7 @@ namespace Enemies
                 Line line = other.GetComponent<Line>();
 
                 if (line == null) return;
-
+                
                 if (other is EdgeCollider2D)
                 {
                     if (!_canTrailDamage) return;
@@ -227,7 +216,7 @@ namespace Enemies
                 AfterDeathAnimation();
                 return;
             }
-
+            
             Animator.SetTrigger(DeadAnimationID);
         }
 
@@ -235,16 +224,22 @@ namespace Enemies
         {
             if (_attacking)
                 NumberOfAttacking--;
-
+            
             gameObject.SetActive(false);
             _roomEnemies.EnemyKilled();
         }
 
-        public void Stop()
+        public override void Stop()
         {
-            Animator.SetBool(MoveAnimationID, false);
+            base.Stop();
+            Animator.SetBool(MoveAnimationID,false);
             DesiredDirection = Vector2.zero;
-            Rigidbody.velocity = Vector2.zero;
+        }
+
+        public override void Stun(float duration)
+        {
+            GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
+            base.Stun(duration);
         }
 
         #endregion
@@ -265,9 +260,9 @@ namespace Enemies
                 Rigidbody.velocity = _desiredDirection * MaxSpeed;
             }
         }
-        
-        protected override void HitShake() => CameraManager.EnemyHitShake();
 
+        protected override void HitShake() => CameraManager.EnemyHitShake();
+        
         #endregion
     }
 }

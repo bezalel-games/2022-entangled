@@ -119,7 +119,9 @@ namespace Player
 
             if(IsDead) return;
             
-            MoveCharacter();
+            if(!Frozen)
+                MoveCharacter();
+            
             ModifyPhysics();
         }
 
@@ -246,6 +248,12 @@ namespace Player
             {
                 Yoyo.CancelPrecision();
             }
+        }
+
+        public virtual void Stun(float stunDuration)
+        {
+            Yoyo.CancelPrecision();
+            base.Stun(stunDuration);
         }
 
         #endregion

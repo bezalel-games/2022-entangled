@@ -94,22 +94,25 @@ namespace Cards
         {
             _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
             var allRarities = Rarities.All;
-            _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
-            _cardPool.Add(DebuffType.MORE_FUMERS, allRarities);
-            _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
-            _cardPool.Add(DebuffType.TOUGHER_FUMERS, allRarities);
-            _cardPool.Add(DebuffType.FASTER_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.FASTER_SHOOTERS, allRarities);
-            _cardPool.Add(DebuffType.FASTER_FUMERS, allRarities);
-            _cardPool.Add(DebuffType.DECREASE_DAMAGE, allRarities);
-            _cardPool.Add(DebuffType.DECREASE_SHOT_DISTANCE, allRarities);
-            _cardPool.Add(DebuffType.DECREASE_MP_REGEN, allRarities);
-            _cardPool.Add(DebuffType.HOMING_SHOTS, allRarities);
-            // _cardPool.Add(DebuffType.SPLIT_GOOMBAS, allRarities);
-            _cardPool.Add(DebuffType.SPLIT_SHOOTERS, allRarities);
+            // _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
+            // _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
+            // _cardPool.Add(DebuffType.MORE_FUMERS, allRarities);
+            // _cardPool.Add(DebuffType.TOUGHER_GOOMBAS, allRarities);
+            // _cardPool.Add(DebuffType.TOUGHER_SHOOTERS, allRarities);
+            // _cardPool.Add(DebuffType.TOUGHER_FUMERS, allRarities);
+            // _cardPool.Add(DebuffType.FASTER_GOOMBAS, allRarities);
+            // _cardPool.Add(DebuffType.FASTER_SHOOTERS, allRarities);
+            // _cardPool.Add(DebuffType.FASTER_FUMERS, allRarities);
+            // _cardPool.Add(DebuffType.DECREASE_DAMAGE, allRarities);
+            // _cardPool.Add(DebuffType.DECREASE_SHOT_DISTANCE, allRarities);
+            // _cardPool.Add(DebuffType.DECREASE_MP_REGEN, allRarities);
+            // _cardPool.Add(DebuffType.HOMING_SHOTS, allRarities);
             // _cardPool.Add(DebuffType.SPLIT_FUMERS, allRarities);
+            _cardPool.Add(DebuffType.STUNNING_GOOMBAS, allRarities);
+            
+            // _cardPool.Add(DebuffType.SPLIT_GOOMBAS, allRarities);
+            // _cardPool.Add(DebuffType.SPLIT_SHOOTERS, allRarities);
+            
             //
             _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
             _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);

@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 namespace Enemies
@@ -22,10 +23,25 @@ namespace Enemies
         #region Properties
 
         public bool PreparingAttack { get; set; } = false;
+        public bool StunningAttack { get; set; } = false;
+
+        public float StunDuration { get; set; } = 1;
 
         #endregion
 
         #region Function Events
+
+        protected override void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if (Attacking && StunningAttack)
+                {
+                    GameManager.PlayerController.Stun(StunDuration);
+                }
+                base.OnCollisionEnter2D(other);
+            }
+        }
 
         #endregion
 
