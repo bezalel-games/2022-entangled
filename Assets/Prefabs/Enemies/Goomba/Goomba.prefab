@@ -237,9 +237,9 @@ MonoBehaviour:
   _maxMp: 0
   _pushbackFactor: 10
   _pushbackTime: 0.3
-  _barrier: {fileID: 1222314868618934884}
   _hitParticles: {fileID: 4017445775492915955}
   _confusion: {fileID: 6629899745934693392}
+  <Barrier>k__BackingField: {fileID: 1222314868618934884}
   _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1

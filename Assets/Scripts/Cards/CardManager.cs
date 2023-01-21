@@ -113,7 +113,6 @@ namespace Cards
             // _cardPool.Add(DebuffType.SPLIT_GOOMBAS, allRarities);
             // _cardPool.Add(DebuffType.SPLIT_SHOOTERS, allRarities);
             
-            //
             _cardPool.Add(BuffType.EXPLOSIVE_YOYO, allRarities);
             _cardPool.Add(BuffType.ENLARGE_YOYO, allRarities);
             _cardPool.Add(BuffType.SWAP_POSITIONS_WITH_YOYO, _factory.SwapPositionWithYoyo.Rarity);
