@@ -17,7 +17,6 @@ namespace Enemies.Boss
         {
             Boss.StartCoroutine(Accelerate());
             Boss.ShieldActive(true);
-            Boss.
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
