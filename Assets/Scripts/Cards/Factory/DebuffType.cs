@@ -17,6 +17,7 @@
         HOMING_SHOTS,
         SPLIT_GOOMBAS,
         SPLIT_SHOOTERS,
-        SPLIT_FUMERS
+        SPLIT_FUMERS,
+        STUNNING_GOOMBAS
     }
 }

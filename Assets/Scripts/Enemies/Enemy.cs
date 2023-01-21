@@ -144,7 +144,7 @@ namespace Enemies
             Move();
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        protected virtual void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
@@ -172,22 +172,9 @@ namespace Enemies
                         return;
                     }
 
-                    Stun(line);
+                    Stun(line.EnemyFreezeTime);
                 }
             }
-        }
-
-        private void Stun(Line line)
-        {
-            GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
-            Stop();
-            Renderer.color = Color.black;
-            Frozen = true;
-            DelayInvoke((() =>
-            {
-                Renderer.color = Color.white;
-                Frozen = false;
-            }), line.EnemyFreezeTime);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -243,11 +230,17 @@ namespace Enemies
             _roomEnemies.EnemyKilled();
         }
 
-        public void Stop()
+        public override void Stop()
         {
+            base.Stop();
             Animator.SetBool(MoveAnimationID,false);
             DesiredDirection = Vector2.zero;
-            Rigidbody.velocity = Vector2.zero;
+        }
+
+        public override void Stun(float duration)
+        {
+            GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
+            base.Stun(duration);
         }
 
         #endregion

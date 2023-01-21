@@ -33,6 +33,8 @@ namespace Player
 
         public Yoyo Yoyo { get; private set; }
 
+        private bool CanAttack => Yoyo.State == Yoyo.YoyoState.IDLE && !Frozen;
+
         #endregion
 
         #region Function Events
@@ -48,8 +50,8 @@ namespace Player
 
         public void OnAim(InputAction.CallbackContext context)
         {
-            if(Yoyo.enabled == false) return;
-            
+            if (Yoyo.enabled == false) return;
+
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -69,15 +71,14 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (Yoyo.State == Yoyo.YoyoState.IDLE)
-                    {
-                        var desiredDir = (!_aiming && _direction != Vector2.zero)
-                            ? _direction
-                            : _aimDirection;
-                        desiredDir = AimAssist(desiredDir);
-                        SetPivotRotation(desiredDir);
-                        Yoyo.Shoot(desiredDir, _direction);
-                    }
+                    if (!CanAttack) return;
+                    
+                    var desiredDir = (!_aiming && _direction != Vector2.zero)
+                        ? _direction
+                        : _aimDirection;
+                    desiredDir = AimAssist(desiredDir);
+                    SetPivotRotation(desiredDir);
+                    Yoyo.Shoot(desiredDir, _direction);
 
                     break;
             }
@@ -88,8 +89,9 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (Yoyo.State != Yoyo.YoyoState.IDLE) return;
-                    if(Mp > 0)
+                    if (!CanAttack) return;
+                    
+                    if (Mp > 0)
                         Yoyo.PrecisionShoot();
                     break;
                 case InputActionPhase.Canceled:
@@ -140,8 +142,8 @@ namespace Player
 
         private void SetAim()
         {
-            if(Yoyo == null) return;
-            
+            if (Yoyo == null) return;
+
             if (Yoyo.State == Yoyo.YoyoState.PRECISION)
             {
                 var currDir = Yoyo.PrecisionDirection;

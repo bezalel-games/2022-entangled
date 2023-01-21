@@ -239,6 +239,7 @@ MonoBehaviour:
   _pushbackTime: 0.3
   _barrier: {fileID: 1222314868618934884}
   _hitParticles: {fileID: 4017445775492915955}
+  _confusion: {fileID: 6629899745934693392}
   _damage: 15
   <MaxSpeed>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1
@@ -260,6 +261,11 @@ ParticleSystem:
 --- !u!4 &4153590485380178057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8621426443569654463, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
+  m_PrefabInstance: {fileID: 5621038956480547382}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6629899745934693392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1298113763261816358, guid: 3acb385fd8daabb47a62408edd6b5f4f, type: 3}
   m_PrefabInstance: {fileID: 5621038956480547382}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6835116194797199196

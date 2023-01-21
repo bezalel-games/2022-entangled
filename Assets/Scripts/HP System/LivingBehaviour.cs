@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using Player;
 using UnityEngine;
 using Utils;
 
@@ -16,6 +17,7 @@ namespace HP_System
         [SerializeField] protected float _pushbackTime = 0.3f;
         [SerializeField] private SpiritualBarrier _barrier;
         [SerializeField] private ParticleSystem _hitParticles;
+        [SerializeField] private GameObject _confusion;
 
         #endregion
 
@@ -155,10 +157,38 @@ namespace HP_System
             if(_barrier == null || _barrier.enabled == turnOn) return;
             _barrier.gameObject.SetActive(turnOn);
         }
+        
+        public virtual void Stop()
+        {
+            Rigidbody.velocity = Vector2.zero;
+        }
+
+        public virtual void Stun(float duration)
+        {
+            Stop();
+            _confusion.gameObject.SetActive(true);
+            Frozen = true;
+            DelayInvoke((() =>
+            {
+                _confusion.gameObject.SetActive(false);
+                Frozen = false;
+            }), duration);
+        }
 
         #endregion
 
         #region Private Methods
+
+        private void EmitParticles(Transform attacker)
+        {
+            if(_hitParticles == null)
+                return;
+
+            Vector2 dir = (attacker.position - transform.position).normalized;
+            var angles = dir.Angles(); //add 90 since emission is aimed down originally
+            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
+            _hitParticles.Play();
+        }
 
         #endregion
 
@@ -185,17 +215,6 @@ namespace HP_System
             }
 
             EmitParticles(attacker);
-        }
-
-        private void EmitParticles(Transform attacker)
-        {
-            if(_hitParticles == null)
-                return;
-
-            Vector2 dir = (attacker.position - transform.position).normalized;
-            var angles = dir.Angles(); //add 90 since emission is aimed down originally
-            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
-            _hitParticles.Play();
         }
 
         public void OnHeal(float health)
