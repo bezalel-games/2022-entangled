@@ -23,7 +23,7 @@ namespace Enemies.Boss
 
         protected override void OnFirstStateEnter()
         {
-            _throws = new ThrowOrder[] { OneAtATime, Triples, ThreeSets };
+            _throws = new ThrowOrder[] { OneAtATime, Triples, ThreeSets, InwardWave, OutwardWave };
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -38,7 +38,6 @@ namespace Enemies.Boss
 
         private IEnumerator<int?> ThreeSets(int min, int max)
         {
-            Debug.Log("Three sets");
             for (int set = 0; set < 3; ++set)
             {
                 for (int i = set + min; i <= max; i += 3)
@@ -49,22 +48,59 @@ namespace Enemies.Boss
 
         private IEnumerator<int?> Triples(int min, int max)
         {
-            Debug.Log("Triples");
-            for (int i = min; i <= max; ++i)
+            int numYoyos = max - min;
+            int third = numYoyos / 3;
+            int[] setSize = { third, third, third };
+            switch (third % 3)
             {
-                if (i > min && i % 3 == 0)
-                    yield return null;
-                yield return i;
+                case 2:
+                    ++setSize[0];
+                    ++setSize[2];
+                    break;
+                case 1:
+                    ++setSize[1];
+                    break;
+            }
+
+            int yoyo = min;
+            for (int set = 0; set < 3; ++set)
+            {
+                for (int i = 0; i < setSize[set]; ++i)
+                    yield return yoyo++;
+                yield return null;
             }
         }
 
         private IEnumerator<int?> OneAtATime(int min, int max)
         {
-            Debug.Log("One at a time");
             for (int i = min; i <= max; ++i)
             {
                 yield return i;
                 yield return null;
+            }
+        }
+        
+        private IEnumerator<int?> InwardWave(int min, int max)
+        {
+            int mid = (int) Mathf.Ceil((min + max) / 2f);
+            for (int i = min; i < mid; ++i)
+            {
+                yield return i;
+                yield return max - i + min;
+                yield return null;
+            }
+            yield return mid;
+        }
+        
+        private IEnumerator<int?> OutwardWave(int min, int max)
+        {
+            int mid = (int) Mathf.Ceil((min + max) / 2f);
+            yield return mid;
+            for (int i = mid - 1; i >= min; --i)
+            {
+                yield return null;
+                yield return i;
+                yield return max - i + min;
             }
         }
 

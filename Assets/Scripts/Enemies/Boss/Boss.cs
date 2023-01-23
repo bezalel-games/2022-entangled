@@ -200,7 +200,7 @@ namespace Enemies.Boss
             }
 
             yoyoTransform.localPosition = startPos + Vector3.down * _yoyoDrawDistance;
-            yoyo.Shoot(yoyo.transform.parent.rotation * Vector3.up, Vector3.zero);
+            yoyo.Shoot(yoyoTransform.up, Vector3.zero);
         }
 
         private IEnumerator CreateBombAnimation()

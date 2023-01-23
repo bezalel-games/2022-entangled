@@ -160,8 +160,6 @@ namespace Player
         protected override void Update()
         {
             base.Update();
-            transform.rotation = Quaternion.identity;
-
             switch (State)
             {
                 case YoyoState.IDLE:
