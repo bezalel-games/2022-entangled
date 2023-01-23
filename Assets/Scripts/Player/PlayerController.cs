@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Audio;
 using Managers;
 using HP_System;
 using UnityEngine;
@@ -174,8 +175,10 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    DashStartEvent?.Invoke();
                     if (!_canDash || _dashing || IsDead) return;
+
+                    ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.ROLL);
+                    DashStartEvent?.Invoke();
                     
                     _dashDirection = _direction.normalized;
                     
@@ -358,6 +361,7 @@ namespace Player
             if (Invulnerable) return;
 
             base.OnHit(attacker, damage, pushBack);
+            ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.HIT);
             Mp += _mpRecoveryOnHit;
 
             if (!attacker)
