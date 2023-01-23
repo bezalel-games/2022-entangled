@@ -1,4 +1,5 @@
-﻿using Cards.CardElementClasses;
+﻿using Audio;
+using Cards.CardElementClasses;
 using Cards.Factory;
 using Effects;
 using Managers;
@@ -45,6 +46,8 @@ namespace Cards.Buffs.ActiveBuffs
         private void SwapPositions()
         {
             if (_yoyo.State is Yoyo.YoyoState.IDLE) return;
+
+            ((IAudible<PlayerSounds>) _playerController).PlayOneShot(PlayerSounds.TELEPORT);
             
             //TODO: animation?
             var playerPos = _playerController.transform.position;
