@@ -28,6 +28,12 @@ public class MenuManager : MonoBehaviour
         _controls.Menu.SetCallbacks(controller);
         _controls.Menu.Enable();
     }
+    
+    private void OnDestroy()
+    {
+        _controls.Menu.Disable();
+        _controls.Menu.SetCallbacks(null);
+    }
 
     #endregion
 

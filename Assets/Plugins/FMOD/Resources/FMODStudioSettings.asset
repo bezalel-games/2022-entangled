@@ -452,6 +452,7 @@ MonoBehaviour:
   - Master
   Banks:
   - Player
+  - Yoyo
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
