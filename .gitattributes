@@ -64,6 +64,7 @@ WHATSNEW*          text
 *.css              text eol=crlf
 *.htm              text eol=crlf
 *.html             text eol=crlf
+*.plist            text eol=crlf #FMOD
 
 # No end-of-line conversions are applied (i.e., "-text -diff") to these files...
 *.7z               binary
