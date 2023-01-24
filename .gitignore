@@ -93,6 +93,9 @@ web/Release
 # Builds
 *Build*
 *.zip
+# Don't ignore FMOD build
+!/[Aa]ssets/FMOD/Build
+
 
 # FMOD
 # Never ignore DLLs in the FMOD subfolder.
