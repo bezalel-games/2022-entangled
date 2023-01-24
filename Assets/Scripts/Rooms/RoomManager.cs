@@ -49,6 +49,9 @@ namespace Rooms
         [Header("Boss room")]
         [SerializeField] private Room _bossRoomPrefab;
 
+        [Header("Tutorial Settings")] 
+        [SerializeField] private int _length;
+
         #endregion
 
         #region Non-Serialized Fields
@@ -337,6 +340,7 @@ namespace Rooms
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
                     _totalNumberOfRooms, _fountainCount, _treasureCount),
                 NeighborsStrategy.ENDLESS => new EndlessStrategy(),
+                NeighborsStrategy.TUTORIAL => new TutorialStrategy(_length),
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -368,6 +372,10 @@ namespace Rooms
                         neighborNode.Room.InitInteractable(type);
                         neighborNode.Cleared = true;
                         break;
+                    case RoomType.TUTORIAL:
+                        print(neighborNode.Index);
+                        neighborNode.Cleared = true;
+                        break;
                 }
             }
         }
@@ -391,6 +399,7 @@ namespace Rooms
             MAZE,
             ENDLESS,
             BOSS,
+            TUTORIAL
         }
 
         [Serializable]

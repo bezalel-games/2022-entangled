@@ -69,7 +69,7 @@ MonoBehaviour:
     Interactable: {fileID: 2952913734692303305, guid: 92a7904e52367044abd2fe7792336a8c, type: 3}
   - RoomType: 2
     Interactable: {fileID: 8081535492457954214, guid: f32a6a1ec4cfc4640abe68c897a0aaa7, type: 3}
-  _playMode: 0
+  <PlayMode>k__BackingField: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
   _totalNumberOfRooms: 40

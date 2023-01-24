@@ -195,7 +195,8 @@ namespace Rooms
         TREASURE,
         FOUNTAIN,
         START,
-        NONE
+        NONE,
+        TUTORIAL
     }
 }
 

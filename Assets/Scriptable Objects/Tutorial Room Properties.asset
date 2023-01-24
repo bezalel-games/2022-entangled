@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d26acd9b567d044a2446af417b98b0, type: 3}
+  m_Name: Tutorial Room Properties
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 8718016849013186310, guid: 0ada7e10b9192584ca6fd4ccfe92c982, type: 3}
+  _keepInCenter: 1
+  _useRatio: 1
+  _ratioMultiplicationFactor: 1
+  _ratio: {x: 16, y: 9}
+  <Width>k__BackingField: 16
+  <Height>k__BackingField: 9
+  <VerticalIntersection>k__BackingField: 0
+  <HorizontalIntersection>k__BackingField: 0
+  <WallSize>k__BackingField: 1
+  <GateWidth>k__BackingField: 2
+  <EnemySpawnMargin>k__BackingField: 2
+  <GroundTile>k__BackingField: {fileID: 11400000, guid: 1eb10a36f786d0d4dbc7dd43dc64778e, type: 2}
+  <WallTile>k__BackingField: {fileID: 11400000, guid: 456af034e5adac347b7a3beadeafc1d1, type: 2}
+  <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: c0ed70af6c9a1404fb09f360ad5f1c88, type: 2}
+  <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
+  <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: ef6bc1f4ea0141041b5f4c385295428e, type: 2}
+  <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
+  <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 3bff82585f6cc604e8d5cebc8f97d742, type: 2}
+  <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
+  _update: 0
+  _updateContinuously: 0
