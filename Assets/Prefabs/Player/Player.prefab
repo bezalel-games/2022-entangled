@@ -315,9 +315,9 @@ MonoBehaviour:
   _maxMp: 20
   _pushbackFactor: 20
   _pushbackTime: 0.3
-  _barrier: {fileID: 0}
   _hitParticles: {fileID: 0}
   _confusion: {fileID: 3368573063946589667}
+  <Barrier>k__BackingField: {fileID: 0}
   _speed: 5.1
   _maxSpeed: 6
   _acceleration: 7
@@ -690,6 +690,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+--- !u!1 &5706956825325892714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+  m_PrefabInstance: {fileID: 46227754159633035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6854391992305164997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5706956825325892714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2dd037be2212043bbded64e67aac2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6816954261784501857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}

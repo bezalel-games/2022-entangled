@@ -15,6 +15,7 @@ namespace Enemies.Boss
         #region Properties
 
         private Vector3 _direction;
+        private Quaternion _rotation;
 
         #endregion
 
@@ -23,6 +24,7 @@ namespace Enemies.Boss
         private void Awake()
         {
             _direction = transform.up;
+            _rotation = Quaternion.Euler(0,0,transform.rotation.eulerAngles.z);
         }
 
         private void LateUpdate()
@@ -32,7 +34,7 @@ namespace Enemies.Boss
             var angleToPlayer = Vector2.SignedAngle(_direction, (player.position - t.position));
             var desiredAngle = Mathf.Clamp(angleToPlayer, -_maxRotationDegree, _maxRotationDegree);
             var desiredRotation = Quaternion.Euler(0, 0, desiredAngle);
-            t.localRotation = desiredRotation * Quaternion.LookRotation(Vector3.back);
+            t.rotation = _rotation * desiredRotation;
         }
 
         #endregion
