@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d43b51f608f0bf44a21428a53d6bd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToExplosion: 10
+  _timeToExplosion: 6
   _scaleSpeed: 15
   _maxAdditionalScale: 0.4
   _pushbackFactor: 40

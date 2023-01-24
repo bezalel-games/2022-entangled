@@ -4993,14 +4993,14 @@ MonoBehaviour:
   _confusion: {fileID: 983120655633551798}
   <Barrier>k__BackingField: {fileID: 7628284627113293073}
   _damage: 15
-  <MaxSpeed>k__BackingField: 2
+  <MaxSpeed>k__BackingField: 1.5
   <AttackCooldown>k__BackingField: 0.5
   <MpRestore>k__BackingField: 0
   <AttackDistance>k__BackingField: 5
   <KeepDistance>k__BackingField: 5
   <PrepareAttackTime>k__BackingField: 1
   <AttackTime>k__BackingField: 0.5
-  <Rank>k__BackingField: 1
+  <Rank>k__BackingField: 2
   <SeparationWeight>k__BackingField: 1
   <ToPlayerWeight>k__BackingField: 1
   <AwayFromWallWeight>k__BackingField: 1

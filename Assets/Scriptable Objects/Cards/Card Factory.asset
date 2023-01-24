@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Card Factory
   m_EditorClassIdentifier: 
   <EnlargeYoyo>k__BackingField:
-    _commonVariant: 1.1
-    _rareVariant: 1.2
-    _epicVariant: 1.25
+    _commonVariant: 1.2
+    _rareVariant: 1.3
+    _epicVariant: 1.5
     <Attributes>k__BackingField: {fileID: 11400000, guid: dcf55da2f32ace841a5c78a4a7f72346, type: 2}
   <LeaveTrail>k__BackingField:
     <Rarity>k__BackingField: 1
@@ -36,13 +36,13 @@ MonoBehaviour:
     <Attributes>k__BackingField: {fileID: 11400000, guid: a96c01f479cbad847ab0b6ec2edc0712, type: 2}
   <ExpandExplosion>k__BackingField:
     _commonVariant: 1.1
-    _rareVariant: 1.2
-    _epicVariant: 1.25
+    _rareVariant: 1.3
+    _epicVariant: 1.5
     <Attributes>k__BackingField: {fileID: 11400000, guid: 965125e0740a85349afa87c812e25f87, type: 2}
   <IncreaseExplosionDamage>k__BackingField:
     _commonVariant: 1.2
-    _rareVariant: 1.4
-    _epicVariant: 1.7
+    _rareVariant: 1.3
+    _epicVariant: 1.4
     <Attributes>k__BackingField: {fileID: 11400000, guid: 5880ef4e5440cbb41baf69568bb293b5, type: 2}
   <IncreaseTrailStay>k__BackingField:
     _commonVariant: 1.5
@@ -50,50 +50,50 @@ MonoBehaviour:
     _epicVariant: 1.2
     <Attributes>k__BackingField: {fileID: 11400000, guid: f049c2ac268264f49a919e3a5b4affc0, type: 2}
   <IncreaseTrailDamage>k__BackingField:
-    _commonVariant: 1.2
-    _rareVariant: 1.35
-    _epicVariant: 1.5
+    _commonVariant: 1.3
+    _rareVariant: 1.4
+    _epicVariant: 1.6
     <Attributes>k__BackingField: {fileID: 11400000, guid: c722cf59ebebd5b40bd6d5d7bfd98df1, type: 2}
   <MoreGoombas>k__BackingField:
-    _commonVariant: 1.1
-    _rareVariant: 1.3
-    _epicVariant: 1.5
+    _commonVariant: 1.3
+    _rareVariant: 1.6
+    _epicVariant: 2.2
     <Attributes>k__BackingField: {fileID: 11400000, guid: 3723c6eff8a890c4aba027930ee8703e, type: 2}
     <EnemyIndex>k__BackingField: 0
   <MoreShooters>k__BackingField:
-    _commonVariant: 1.1
-    _rareVariant: 1.3
-    _epicVariant: 1.5
+    _commonVariant: 1.5
+    _rareVariant: 1.8
+    _epicVariant: 2.2
     <Attributes>k__BackingField: {fileID: 11400000, guid: b3881a6d50cd06b41bbbdc53c1d72411, type: 2}
     <EnemyIndex>k__BackingField: 1
   <MoreFumers>k__BackingField:
-    _commonVariant: 1.1
-    _rareVariant: 1.3
-    _epicVariant: 1.5
+    _commonVariant: 1.5
+    _rareVariant: 2
+    _epicVariant: 2.5
     <Attributes>k__BackingField: {fileID: 11400000, guid: 60b4db3a8bb7a7b43be4e353f4111a39, type: 2}
     <EnemyIndex>k__BackingField: 2
   <TougherGoombas>k__BackingField:
     _commonVariant: 1.2
     _rareVariant: 1.4
-    _epicVariant: 1.7
+    _epicVariant: 1.8
     <Attributes>k__BackingField: {fileID: 11400000, guid: 88dc1bf97df7da042b301c589b409880, type: 2}
     <EnemyIndex>k__BackingField: 0
   <TougherShooters>k__BackingField:
     _commonVariant: 1.2
     _rareVariant: 1.4
-    _epicVariant: 1.7
+    _epicVariant: 1.8
     <Attributes>k__BackingField: {fileID: 11400000, guid: 167359edc1e9bd84e87d9a5e88bcee96, type: 2}
     <EnemyIndex>k__BackingField: 1
   <TougherFumers>k__BackingField:
     _commonVariant: 1.2
     _rareVariant: 1.4
-    _epicVariant: 1.7
+    _epicVariant: 1.8
     <Attributes>k__BackingField: {fileID: 11400000, guid: 6bc5fa28c86d5bb4e9165b7a14851bc2, type: 2}
     <EnemyIndex>k__BackingField: 2
   <FasterGoombas>k__BackingField:
     _commonVariant: 1.2
     _rareVariant: 1.4
-    _epicVariant: 1.7
+    _epicVariant: 1.8
     <Attributes>k__BackingField: {fileID: 11400000, guid: 6f0e4e0690579f8429b6fe9a77f7f25c, type: 2}
     <EnemyIndex>k__BackingField: 0
   <FasterShooters>k__BackingField:
