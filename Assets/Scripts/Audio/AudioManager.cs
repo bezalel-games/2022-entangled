@@ -5,43 +5,54 @@ using FMODUnity;
 
 public class AudioManager : MonoBehaviour
 {
-  #region Serialized Fields
+    #region Serialized Fields
 
-  [SerializeField] private AudioBank _bank;
-  
-  #endregion
-  #region Non-Serialized Fields
-  
-  private static AudioManager _instance;
-   
-  #endregion
-  #region Properties
-  
-  #endregion
-  #region Function Events
+    [SerializeField] private AudioBank _bank;
 
-  private void Awake()
-  {
-    if (_instance != null)
+    #endregion
+
+    #region Non-Serialized Fields
+
+    private static AudioManager _instance;
+
+    #endregion
+
+    #region Properties
+
+    #endregion
+
+    #region Function Events
+
+    private void Awake()
     {
-      Destroy(gameObject);
-      return;
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
     }
 
-    _instance = this;
-  }
+    #endregion
 
-  #endregion
-  #region Public Methods
+    #region Public Methods
 
-  public static void PlayOneShot(SoundType type, int val)
-  {
-    RuntimeManager.PlayOneShot(_instance._bank[type,val]);
-  }
-  
-  #endregion
-  #region Private Methods
-  
-  #endregion
+    public static void PlayOneShot(SoundType type, int val)
+    {
+        try
+        {
+            RuntimeManager.PlayOneShot(_instance._bank[type, val]);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            print("Invalid sound");
+        }
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    #endregion
 }
-
