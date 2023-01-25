@@ -110,17 +110,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 173
-        height: 194
+        width: 360
+        height: 405
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -86.5, y: -97}
-        - {x: -86.5, y: 62}
-        - {x: 4.5, y: 11}
-        - {x: -26.5, y: -97}
+      - - {x: -180, y: -202.5}
+        - {x: -180, y: 202.5}
+        - {x: 63, y: 202.5}
+        - {x: -50, y: -202.5}
       tessellationDetail: 0
       bones: []
       spriteID: c1bdc8c77ed9f1b47ab19d47a6e60cf2
@@ -133,19 +133,19 @@ TextureImporter:
       name: BOSS upper Tiles sprite sheet_1
       rect:
         serializedVersion: 2
-        x: 173
+        x: 360
         y: 0
-        width: 173
-        height: 194
+        width: 360
+        height: 405
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 26.5, y: -97}
-        - {x: -9.5, y: 19}
-        - {x: 84.5, y: 32}
-        - {x: 86.5, y: -97}
+      - - {x: 51, y: -202.5}
+        - {x: -63, y: 202.5}
+        - {x: 180, y: 202.5}
+        - {x: 180, y: -202.5}
       tessellationDetail: 0
       bones: []
       spriteID: d58f9f679252b8b4aa527b22bb48d6b5
@@ -158,10 +158,10 @@ TextureImporter:
       name: BOSS upper Tiles sprite sheet_2
       rect:
         serializedVersion: 2
-        x: 346
+        x: 720
         y: 0
-        width: 173
-        height: 194
+        width: 360
+        height: 405
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,10 +179,10 @@ TextureImporter:
       name: BOSS upper Tiles sprite sheet_3
       rect:
         serializedVersion: 2
-        x: 519
+        x: 1080
         y: 0
-        width: 173
-        height: 194
+        width: 360
+        height: 405
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

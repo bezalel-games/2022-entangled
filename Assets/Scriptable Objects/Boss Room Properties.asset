@@ -25,7 +25,7 @@ MonoBehaviour:
   <GateWidth>k__BackingField: 2
   <EnemySpawnMargin>k__BackingField: 2.5
   <GroundTile>k__BackingField: {fileID: 11400000, guid: e072c05858d5feb48b2c2d55426e6396, type: 2}
-  <WallTile>k__BackingField: {fileID: 11400000, guid: 3236b8e7650b4234d86045dfa50b9746, type: 2}
+  <WallTile>k__BackingField: {fileID: 11400000, guid: ce68e1e97d505334ba6e18ee176f4101, type: 2}
   <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: c0ed70af6c9a1404fb09f360ad5f1c88, type: 2}
   <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
   <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: ef6bc1f4ea0141041b5f4c385295428e, type: 2}

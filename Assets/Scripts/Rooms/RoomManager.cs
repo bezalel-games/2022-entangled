@@ -68,7 +68,7 @@ namespace Rooms
 
         #region Properties
 
-        public static Vector2Int CurrentRoomIndex => _instance._currentRoom.Index;
+        public static Vector2Int CurrentRoomIndex => _instance == null ? Vector2Int.zero : _instance._currentRoom.Index;
         public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
         public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
