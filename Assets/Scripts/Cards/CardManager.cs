@@ -26,8 +26,6 @@ namespace Cards
 
         private static CardManager _instamce;
 
-        // private PlayerDeck _playerDeck;
-        // private RunDeck _runDeck;
         private CardPool _cardPool;
         private Card _leftCard;
         private Card _rightCard;
@@ -56,28 +54,14 @@ namespace Cards
             InitPool();
         }
 
-        // private void OnDestroy()
-        // {
-        //     SaveSystem.SaveData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
-        // }
-
         #endregion
 
         #region Public Methods
 
         public void ShowCards(Action finishedChoosingCardsAction)
         {
-            // bool leftIsDeckCard = true;
             _finishedChoosingCardsAction = finishedChoosingCardsAction;
             _leftCard = GenerateNewCard();
-            
-            // _leftCard = _runDeck.Draw();
-            // if (_leftCard == null)
-            // {
-            //     _leftCard = GenerateNewCard();
-            //     leftIsDeckCard = false;
-            // }
-
             _rightCard = GenerateNewCard();
             _ui.ShowCards(_leftCard, _rightCard, false);
         }
@@ -121,17 +105,6 @@ namespace Cards
             _cardPool.Add(BuffType.LEAVE_TRAIL, _factory.LeaveTrail.Rarity);
         }
         
-        // private void InitDecks()
-        // {
-        //     _playerDeck = new PlayerDeck(_factory);
-        //
-        //     if (SaveSystem.DataSaved(_playerDeck))
-        //         SaveSystem.LoadData(new() { { SaveSystem.DataType.DECK, _playerDeck } });
-        //     else
-        //         _playerDeck.InitEmpty();
-        //     _runDeck = new RunDeck(_playerDeck, _cardPool);
-        // }
-        
         private Card GenerateNewCard()
         {
             var buff = _cardPool.GetRandomBuff();
@@ -142,7 +115,6 @@ namespace Cards
         private void ChooseCard(Card card)
         {
             card.Apply(_cardPool);
-            // _runDeck.ReplaceCard(card);
             _finishedChoosingCardsAction.Invoke();
         }
 
