@@ -456,12 +456,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -540
       objectReference: {fileID: 0}
+    - target: {fileID: 8103738729594893142, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8103738729594893163, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5944900461693135748, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
 --- !u!114 &1431893202 stripped
 MonoBehaviour:

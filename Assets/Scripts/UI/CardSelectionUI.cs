@@ -1,3 +1,4 @@
+using System;
 using Cards;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,8 +9,6 @@ namespace UI
     {
         #region Serialized Fields
 
-        [SerializeField] private Color _goodColor;
-        [SerializeField] private Color _badColor;
         [SerializeField] private GameObject _firstSelectedCard;
         [SerializeField] private CardUI _leftCard;
         [SerializeField] private CardUI _rightCard;
@@ -28,6 +27,12 @@ namespace UI
         private void Awake()
         {
             _cardsParent = transform.GetChild(0).gameObject;
+            CardManager.StartedChoosingCards += ShowCards;
+        }
+
+        private void OnDestroy()
+        {
+            CardManager.StartedChoosingCards -= ShowCards;
         }
 
         #endregion

@@ -13,6 +13,8 @@ namespace UI
         
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
+        [SerializeField] private Color _buffColor;
+        [SerializeField] private Color _debuffColor;
         [SerializeField] private RarityIdentifierSprites _rarityIdentifierSprites;
 
         #endregion
@@ -83,7 +85,9 @@ namespace UI
             int value = (int) _buffRariy - (int) _debuffRariy;
             float t = (value / (2f * d)) + 0.5f;
             
-            Color c = (1 - t) * CardManager.DebuffColor + t * CardManager.BuffColor;
+            // Color c = (1 - t) * _buffColor + t * _debuffColor;
+            Color c = (Vector4)Vector3.Slerp((Vector4)_buffColor, (Vector4)_debuffColor, t);
+            c.a = Mathf.Lerp(_buffColor.a, _debuffColor.a, t);
             _borderGlow.color = c;
             _circleGlow.color = c;
         }

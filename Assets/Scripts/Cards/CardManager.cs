@@ -17,14 +17,10 @@ namespace Cards
         [SerializeField] private int _commonWeight;
         [SerializeField] private int _rareWeight;
         [SerializeField] private int _epicWeight;
-        [SerializeField] private Color _buffColor;
-        [SerializeField] private Color _debuffColor;
 
         #endregion
 
         #region Non-Serialized Fields
-
-        private static CardManager _instamce;
 
         private CardPool _cardPool;
         private Card _leftCard;
@@ -33,24 +29,17 @@ namespace Cards
 
         #endregion
 
-        #region Properties
+        #region Events
 
-        public static Color BuffColor => _instamce._buffColor;
-        public static Color DebuffColor => _instamce._debuffColor;
-
+        public static event Action<Card, Card, bool> StartedChoosingCards;
+        public static event Action FinishedChoosingCards;
+        
         #endregion
 
         #region Function Events
 
         private void Awake()
         {
-            if (_instamce != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            _instamce = this;
             InitPool();
         }
 
@@ -63,7 +52,7 @@ namespace Cards
             _finishedChoosingCardsAction = finishedChoosingCardsAction;
             _leftCard = GenerateNewCard();
             _rightCard = GenerateNewCard();
-            _ui.ShowCards(_leftCard, _rightCard, false);
+            StartedChoosingCards?.Invoke(_leftCard, _rightCard, false);
         }
 
         public void ChooseLeftCard() => ChooseCard(_leftCard);
@@ -114,6 +103,7 @@ namespace Cards
 
         private void ChooseCard(Card card)
         {
+            FinishedChoosingCards?.Invoke();
             card.Apply(_cardPool);
             _finishedChoosingCardsAction.Invoke();
         }
