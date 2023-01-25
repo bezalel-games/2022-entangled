@@ -18,6 +18,7 @@ public class LoadManager : MonoBehaviour
     [SerializeField] private string _menuSceneName = "Menu Scene";
     [SerializeField] private string _winSceneName = "Win Scene";
     [SerializeField] private string _loseSceneName = "Lose Scene";
+    [SerializeField] private string _tutorialSceneName = "Tutorial Scene";
     
     #endregion
 
@@ -73,6 +74,11 @@ public class LoadManager : MonoBehaviour
         }
     }
 
+    public static void LoadTutorial()
+    {
+        _instance.LoadScene(_instance._tutorialSceneName, onLoad: (() => { CurrentScene = Scene.HUB;}));
+    }
+    
     public static void LoadHub()
     {
         _instance.LoadScene(_instance._hubSceneName, onLoad: (() => { CurrentScene = Scene.HUB;}));

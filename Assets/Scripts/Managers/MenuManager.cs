@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour
 
     public static void StartRun()
     {
-        SceneManager.LoadScene("Run Scene");
+        SceneManager.LoadScene("Tutorial Scene");
     }
 
     public static void StartEndless()

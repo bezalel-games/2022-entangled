@@ -3,6 +3,7 @@ using System.Collections;
 using Audio;
 using Managers;
 using HP_System;
+using Rooms;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,6 +38,8 @@ namespace Player
 
         private bool _canDash = true;
         private bool _dashing;
+
+        private float _skipTime = 0;
         
         private Vector2 _direction;
         private bool _invulnerable;
@@ -105,6 +108,12 @@ namespace Player
         protected override void Update()
         {
             base.Update();
+
+            if (RoomManager.IsTutorial && _skipTime != 0 && Time.time > _skipTime)
+            {
+                LoadManager.LoadRun();
+                _skipTime = 0;
+            }
 
             if(IsDead) return;
             
@@ -203,9 +212,19 @@ namespace Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if (RoomManager.IsTutorial)
+                    {
+                        _skipTime = Time.time + 3;
+                        return;
+                    }
                     CameraManager.ToggleMinimap(true);
                     break;
                 case InputActionPhase.Canceled:
+                    if (RoomManager.IsTutorial)
+                    {
+                        _skipTime = 0;
+                        return;
+                    }
                     CameraManager.ToggleMinimap(false);
                     break;
             }
