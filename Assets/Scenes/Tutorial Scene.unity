@@ -300,6 +300,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 169392246954204016, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 169392246954204016, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 169392247107107243, guid: 4b8d60058cce6e145a233e2fe0352a24, type: 3}
       propertyPath: m_RootOrder
       value: 3
