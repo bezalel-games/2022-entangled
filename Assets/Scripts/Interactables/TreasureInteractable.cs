@@ -6,7 +6,7 @@ namespace Interactables
     {
         protected override void OnInteract()
         {
-            GameManager.RoomCleared();
+            GameManager.ShowCards();
         }
     }
 }

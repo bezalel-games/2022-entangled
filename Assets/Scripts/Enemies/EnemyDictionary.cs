@@ -45,6 +45,18 @@ namespace Enemies
             Array.Copy(Enemies, _sortedEnemies, _sortedEnemies.Length);
             Array.Sort(_sortedEnemies, (a, b) => Comparer<int>.Default.Compare(a.Rank, b.Rank));
         }
+        
+        private void OnEnable()
+        {
+            if (Enemies == null) return;
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                Enemies[i].IndexInDictionary = i;
+            }
+            _sortedEnemies = new Entry[Enemies.Length];
+            Array.Copy(Enemies, _sortedEnemies, _sortedEnemies.Length);
+            Array.Sort(_sortedEnemies, (a, b) => Comparer<int>.Default.Compare(a.Rank, b.Rank));
+        }
 
         #endregion
 

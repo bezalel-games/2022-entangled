@@ -630,6 +630,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _fountainCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _treasureCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _enemyDictionary
       value: 
       objectReference: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}

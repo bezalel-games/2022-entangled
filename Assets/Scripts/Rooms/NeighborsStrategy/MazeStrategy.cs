@@ -270,7 +270,7 @@ namespace Rooms.NeighborsStrategy
             }
 
             if (_treasureDistance > 0 
-                && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) > _treasureDistance))
+                && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) >= _treasureDistance))
             {
                 var poss = _rooms.Count / (_treasureDistance * (_treasureCount + 1) + _treasureDistance);
                 if (dist / _treasureDistance > _treasureCount && Random.value < poss)
