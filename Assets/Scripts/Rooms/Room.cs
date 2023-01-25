@@ -5,7 +5,6 @@ using Enemies;
 using Interactables;
 using Rooms.CardinalDirections;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -50,7 +49,11 @@ namespace Rooms
 
         public bool GateClosed
         {
-            set => GateState = value ? GateState.CLOSING : GateState.OPENING;
+            set
+            {
+                GateState = value ? GateState.CLOSING : GateState.OPENING;
+                _tilemap.RefreshAllTiles();
+            }
         }
 
         private GateState GateState
@@ -133,6 +136,7 @@ namespace Rooms
                     GateClosed = true;
                 }
             }
+            _tilemap.RefreshAllTiles();
         }
 
         public void Clean()

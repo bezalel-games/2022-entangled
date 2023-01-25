@@ -68,6 +68,7 @@ namespace Rooms
 
         #region Properties
 
+        public static Vector2Int CurrentRoomIndex => _instance._currentRoom.Index;
         public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
         public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
@@ -179,15 +180,14 @@ namespace Rooms
             var dirOfNewRoom = indexDiff.ToDirection();
             var player = transitioningObject.GetComponent<PlayerController>();
             if (player)
-            {
                 MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2) indexDiff, player);
-            }
 
-            newRoom.Room.Enter();
-            _instance._currentRoom.Room.Exit(_instance._previousRoomSleepDelay);
-            _instance.UnloadNeighbors(_instance._currentRoom, dirOfNewRoom); // TODO: async?
-            _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
+            var previousRoom = _instance._currentRoom;
             _instance._currentRoom = newRoom;
+            newRoom.Room.Enter();
+            previousRoom.Room.Exit(_instance._previousRoomSleepDelay);
+            _instance.UnloadNeighbors(previousRoom, dirOfNewRoom); // TODO: async?
+            _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             MinimapManager.AddRoom(newRoom.Index);
             if (newRoom.Cleared)
                 InitContentInNeighbors();

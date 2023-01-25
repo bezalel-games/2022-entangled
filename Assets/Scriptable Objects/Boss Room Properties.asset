@@ -30,7 +30,7 @@ MonoBehaviour:
   <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
   <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: ef6bc1f4ea0141041b5f4c385295428e, type: 2}
   <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
-  <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 3bff82585f6cc604e8d5cebc8f97d742, type: 2}
+  <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 403d1819f5ba02b448a688526fbc8141, type: 2}
   <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
   _update: 0
   _updateContinuously: 0
