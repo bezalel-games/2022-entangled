@@ -130,7 +130,7 @@ namespace Enemies
         {
             Frozen = true;
             
-            if (RoomManager.IsTutorial)
+            if (!RoomManager.IsTutorial)
             {
                 Enabled?.Invoke();
                 Invulnerable = true;
