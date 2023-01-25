@@ -47,6 +47,9 @@ namespace Enemies
 
         public void EnemyKilled()
         {
+            if(RoomManager.IsTutorial)
+                return;
+            
             GameManager.UpdateRoomCompletion(1 - (--_numOfLivingEnemies / (float)_enemiesTotal));
             if (_numOfLivingEnemies > 0) return;
             GameManager.RoomCleared();

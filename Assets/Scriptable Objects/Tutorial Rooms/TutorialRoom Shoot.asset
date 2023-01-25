@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e378e865964f4ae0a682212d3fb0c840, type: 3}
+  m_Name: TutorialRoom Shoot
+  m_EditorClassIdentifier: 
+  _enemies:
+  - _enemy: {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
+    _hasBarrier: 0
+  _text: Aim with Right Stick and shoot with RB

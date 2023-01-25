@@ -13,7 +13,7 @@ namespace Rooms.NeighborsStrategy
         
         public RoomType RoomType(Vector2Int index)
         {
-            return (index.x == 0 && index.y >= 0 && index.y < _length) 
+            return (index.x == 0 && index.y >= 0 && index.y <= _length) 
                 ? Rooms.RoomType.TUTORIAL
                 : Rooms.RoomType.NONE;
         }

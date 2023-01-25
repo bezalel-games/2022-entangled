@@ -26,11 +26,11 @@ MonoBehaviour:
   <EnemySpawnMargin>k__BackingField: 2
   <GroundTile>k__BackingField: {fileID: 11400000, guid: 1eb10a36f786d0d4dbc7dd43dc64778e, type: 2}
   <WallTile>k__BackingField: {fileID: 11400000, guid: 456af034e5adac347b7a3beadeafc1d1, type: 2}
-  <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: c0ed70af6c9a1404fb09f360ad5f1c88, type: 2}
-  <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
-  <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: ef6bc1f4ea0141041b5f4c385295428e, type: 2}
-  <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
-  <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 3bff82585f6cc604e8d5cebc8f97d742, type: 2}
+  <ClosingGateTile>k__BackingField: {fileID: 11400000, guid: b58f0d6afde96eb49bb3331c62290cc0, type: 2}
+  <ClosedGateTile>k__BackingField: {fileID: 11400000, guid: 09be54ce8f2e85e49b9c78c98c709965, type: 2}
+  <OpeningGateTile>k__BackingField: {fileID: 11400000, guid: 569181880daa2c741b15be4d43af1a1a, type: 2}
+  <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: 8a30c1f193b714649ab42dfc190de217, type: 2}
+  <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 238cc2e547102844597d9886536fdd3f, type: 2}
   <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
   _update: 0
   _updateContinuously: 0

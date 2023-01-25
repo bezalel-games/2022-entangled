@@ -28,7 +28,8 @@ public class MinimapManager : MonoBehaviour
   public static Transform MinimapParent => _instance.transform;
   public static MinimapRoom MinimapRoomPrefab => _instance._minimapRoomPrefab;
 
-  private static bool ShouldCreate(Vector2Int index) => !HasRoom(index) && RoomManager.GetRoomType(index) != RoomType.NONE;
+  private static bool ShouldCreate(Vector2Int index) => !RoomManager.IsTutorial 
+                                                        && !HasRoom(index) && RoomManager.GetRoomType(index) != RoomType.NONE;
   
   public static bool HasRoom(Vector2Int index) => _instance._rooms.ContainsKey(index);
   

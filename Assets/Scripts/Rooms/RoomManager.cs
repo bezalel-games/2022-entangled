@@ -26,19 +26,18 @@ namespace Rooms
         [Tooltip("A scriptable object containing all the enemies to spawn in the game")] [SerializeField]
         private EnemyDictionary _enemyDictionary;
 
-        [SerializeField]
-        private int _minRoomRank = 20;
+        [SerializeField] private int _minRoomRank = 20;
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
         [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
         [SerializeField] private InteractablePair[] _interactablePairs;
 
-        [field: Header("Play mode")]
-        [field: SerializeField] public NeighborsStrategy PlayMode { get; set; } = NeighborsStrategy.MAZE;
+        [field: Header("Play mode")] [SerializeField]
+        private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
 
-        [Header("Maze settings")]
-        [SerializeField] private int _minDistanceFromBoss = 5;
+        [Header("Maze settings")] [SerializeField]
+        private int _minDistanceFromBoss = 5;
 
         [SerializeField] private int _maxDistanceFromBoss = 6;
         [SerializeField] private int _totalNumberOfRooms = 40;
@@ -46,11 +45,10 @@ namespace Rooms
         [SerializeField] private int _treasureCount = 2;
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
-        [Header("Boss room")]
-        [SerializeField] private Room _bossRoomPrefab;
+        [Header("Boss room")] [SerializeField] private Room _bossRoomPrefab;
 
-        [Header("Tutorial Settings")] 
-        [SerializeField] private int _length;
+        [Header("Tutorial Settings")] [SerializeField]
+        private List<TutorialRoomProperties> _tutorialRooms;
 
         #endregion
 
@@ -69,9 +67,11 @@ namespace Rooms
         #endregion
 
         #region Properties
-        
+
+        public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
         public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
+
         public static CinemachineBasicMultiChannelPerlin CameraPerlin
         {
             get => _instance._cameraPerlin;
@@ -84,6 +84,8 @@ namespace Rooms
 
         private int ActualHalfWidth => _roomProperties.Width / 2 - _roomProperties.WallSize;
         private int ActualHalfHeight => _roomProperties.Height / 2 - _roomProperties.WallSize;
+
+        public static int TutorialLength => _instance._tutorialRooms.Count;
 
         #endregion
 
@@ -113,6 +115,11 @@ namespace Rooms
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
 
+            if (IsTutorial)
+            {
+                FillRoom(_currentRoom);
+            }
+
             LoadNeighbors(_currentRoom);
             InitContentInNeighbors();
 
@@ -130,6 +137,14 @@ namespace Rooms
 
         public static void EnteredRoom(RoomNode roomNode)
         {
+            if (IsTutorial)
+            {
+                if (roomNode.Index.y == TutorialLength)
+                {
+                    LoadManager.LoadRun();
+                    return;
+                }
+            }
             _instance._nextRoom = roomNode;
         }
 
@@ -145,7 +160,8 @@ namespace Rooms
         {
             room.transform.position = _instance.GetPosition_Inner(room.Node.Index);
             room.Clean();
-            _instance.SpawnEnemies(room.Node);
+            
+            _instance.FillRoom(room.Node);
         }
 
         public static Vector3 GetPosition(Vector2Int index) => _instance.GetPosition_Inner(index);
@@ -164,7 +180,7 @@ namespace Rooms
             var player = transitioningObject.GetComponent<PlayerController>();
             if (player)
             {
-                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
+                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2) indexDiff, player);
             }
 
             newRoom.Room.Enter();
@@ -198,10 +214,10 @@ namespace Rooms
             {
                 if (dir == dirOfNewRoom || prevRoom[dir] == null)
                     continue;
-                
+
                 var neighbor = prevRoom[dir].Room;
                 neighbor.GateClosed = false;
-                
+
                 // Don't add room to pool if not existing or if boss room
                 if (_strategy.RoomType(prevRoom.Index + dir.ToVector()) is RoomType.NONE or RoomType.BOSS)
                     continue;
@@ -254,16 +270,41 @@ namespace Rooms
 
         private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, index, _distanceToRankFunction);
 
+        private void FillTutorialRoom(RoomNode roomNode)
+        {
+            if (!IsTutorial || roomNode.Index.y >= TutorialLength) return;
+            
+            roomNode.Room.Clean();
+
+            int room = roomNode.Index.y;
+            var roomProp = _tutorialRooms[room];
+            
+            roomNode.Room.TutorialTxt.text = roomProp._text;
+            
+            foreach (var enemy in roomProp._enemies)
+            {
+                if(enemy._enemy == null) continue;
+                
+                Enemy enemyObj = EnemyDictionary[enemy._enemy.Index].Spawn(
+                    roomNode.Room.TutorialEnemyPosition.position,
+                    roomNode.Room.Enemies.transform,
+                    true).enemy;
+                enemyObj.Barrier.Active = enemy._hasBarrier;
+            }
+        }
+
         private void SpawnEnemies(RoomNode roomNode)
         {
+            if (IsTutorial) return;
             if (!_spawnEnemies || roomNode.Cleared) return;
             roomNode.Room.Clean();
+
             var roomCenter = GetPosition_Inner(roomNode.Index);
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
-                for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
-                    SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
+            for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
+                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)
@@ -335,12 +376,12 @@ namespace Rooms
 
         private void InitStrategy()
         {
-            _strategy = PlayMode switch
+            _strategy = _playMode switch
             {
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
                     _totalNumberOfRooms, _fountainCount, _treasureCount),
                 NeighborsStrategy.ENDLESS => new EndlessStrategy(),
-                NeighborsStrategy.TUTORIAL => new TutorialStrategy(_length),
+                NeighborsStrategy.TUTORIAL => new TutorialStrategy(TutorialLength),
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -359,24 +400,29 @@ namespace Rooms
                 var neighborNode = _currentRoom[dir];
                 if (neighborNode == null) continue;
 
-                RoomType type = _strategy.RoomType(neighborNode.Index);
-                switch (type)
-                {
-                    case RoomType.MONSTERS when !neighborNode.Cleared:
-                        neighborNode.ChooseEnemies();
-                        SpawnEnemies(neighborNode);
-                        neighborNode.Interacted = true;
-                        break;
-                    case RoomType.FOUNTAIN:
-                    case RoomType.TREASURE:
-                        neighborNode.Room.InitInteractable(type);
-                        neighborNode.Cleared = true;
-                        break;
-                    case RoomType.TUTORIAL:
-                        print(neighborNode.Index);
-                        neighborNode.Cleared = true;
-                        break;
-                }
+                FillRoom(neighborNode);
+            }
+        }
+
+        private void FillRoom(RoomNode node)
+        {
+            RoomType type = _strategy.RoomType(node.Index);
+            switch (type)
+            {
+                case RoomType.MONSTERS when !node.Cleared:
+                    node.ChooseEnemies();
+                    SpawnEnemies(node);
+                    node.Interacted = true;
+                    break;
+                case RoomType.FOUNTAIN:
+                case RoomType.TREASURE:
+                    node.Room.InitInteractable(type);
+                    node.Cleared = true;
+                    break;
+                case RoomType.TUTORIAL:
+                    node.Cleared = true;
+                    FillTutorialRoom(node);
+                    break;
             }
         }
 
