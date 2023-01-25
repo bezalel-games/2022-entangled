@@ -128,14 +128,19 @@ namespace Enemies
 
         protected override void OnEnable()
         {
-            Enabled?.Invoke();
             Frozen = true;
-            Invulnerable = true;
-            DelayInvoke((() =>
+            
+            if (!RoomManager.IsTutorial)
             {
-                Frozen = false;
-                Invulnerable = false;
-            }), 0.5f);
+                Enabled?.Invoke();
+                Invulnerable = true;
+                DelayInvoke((() =>
+                {
+                    Frozen = false;
+                    Invulnerable = false;
+                }), 0.5f);
+            }
+            
             base.OnEnable();
         }
 

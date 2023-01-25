@@ -4,6 +4,8 @@ using Cinemachine;
 using Enemies;
 using Interactables;
 using Rooms.CardinalDirections;
+using TMPro;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -34,13 +36,16 @@ namespace Rooms
         #endregion
 
         #region Properties
-        
+
         public CinemachineBasicMultiChannelPerlin ChannelPerlin { get; private set; }
         [field: SerializeField] public GameObject RoomContent { get; private set; }
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
         [field: SerializeField] private RoomProperties RoomProperties { get; set; }
         
+        [field: SerializeField] public TextMeshProUGUI TutorialTxt { get; private set; }
+        [field: SerializeField] public Transform TutorialEnemyPosition { get; private set; }
+
         public Interactable Interactable { get; private set; }
 
         public bool GateClosed
@@ -53,7 +58,7 @@ namespace Rooms
             get => _gateState;
             set
             {
-                if (_gateState == value) return;
+                if (_gateState == value || RoomManager.IsTutorial) return;
                 _gateState = value;
                 var tile = value switch
                 {
@@ -116,13 +121,20 @@ namespace Rooms
             _vCam.Priority = _inPriority;
             RoomContent.SetActive(true);
             Enemies.Node = Node;
-            if (!Node.Cleared)
+            if (RoomManager.IsTutorial)
             {
-                Enemies.Activate();
-                GateClosed = true;
+                CreateTutorialWalls();
+            }
+            else
+            {
+                if (!Node.Cleared)
+                {
+                    Enemies.Activate();
+                    GateClosed = true;
+                }
             }
         }
-        
+
         public void Clean()
         {
             Enemies.RemoveEnemies();
@@ -138,11 +150,12 @@ namespace Rooms
                 _sleepCoroutine = StartCoroutine(SleepWithDelay(sleepDelay));
         }
 
-        public void ShowDoor(Direction dir, bool show = true)
+        public void ShowDoor(Direction dir, bool show = true, Vector2Int index = default)
         {
+            if (RoomManager.IsTutorial) return;
             foreach (var gateTilePos in RoomProperties.GatePositions)
             {
-                if (((Vector2Int)gateTilePos).ToDirectionRounded() == dir)
+                if (((Vector2Int) gateTilePos).ToDirectionRounded() == dir)
                 {
                     var tile = show ? RoomProperties.GateFrameTile : RoomProperties.WallTile;
                     _frameTilemap.SetTile(gateTilePos, tile);
@@ -169,13 +182,52 @@ namespace Rooms
 
         #region Private Methods
 
+        private void CreateTutorialWalls()
+        {
+            foreach (var gateTilePos in RoomProperties.GatePositions)
+            {
+                var tile = RoomProperties.GroundTile;
+                if (gateTilePos.x == -(RoomProperties.Width / 2)
+                    || gateTilePos.x == (RoomProperties.Width / 2) - 1)
+                {
+                    tile = RoomProperties.WallTile;
+                }
+
+                var foreGround = RoomProperties.EmptyTile;
+                if (Node.Index.y == 0)
+                {
+                    if (gateTilePos.y <= -(RoomProperties.Height / 2 - 1))
+                        tile = RoomProperties.WallTile;
+                }
+
+                if (Node.Index.y == RoomManager.TutorialLength - 1)
+                {
+                    if (gateTilePos.y == RoomProperties.Height / 2)
+                    {
+                        if (gateTilePos.x is -1 or 0)
+                        {
+                            tile = RoomProperties.OpenedGateTile;
+                            foreGround = RoomProperties.GateFrameTile;
+                        }
+                        else
+                        {
+                            tile = RoomProperties.WallTile;
+                        }
+                    }
+                }
+
+                _tilemap.SetTile(gateTilePos, tile);
+                _frameTilemap.SetTile(gateTilePos, foreGround);
+            }
+        }
+
         private IEnumerator SleepWithDelay(float sleepDelay)
         {
             yield return new WaitForSeconds(sleepDelay);
             RoomContent.SetActive(false);
             _sleepCoroutine = null;
         }
-        
+
         private void RemoveInteractable()
         {
             if (Interactable != null)
@@ -195,7 +247,8 @@ namespace Rooms
         TREASURE,
         FOUNTAIN,
         START,
-        NONE
+        NONE,
+        TUTORIAL
     }
 }
 

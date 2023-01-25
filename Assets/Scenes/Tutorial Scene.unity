@@ -213,6 +213,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1622307392, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4768744146256827584, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -260,14 +264,6 @@ PrefabInstance:
     - target: {fileID: 4768744146256827586, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6631069827114147740, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192621023942638117, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
@@ -498,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0625
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 745331109023313610, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -516,7 +512,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 745331109023313604, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 867c14707c75da542afc9f93a1d5c5d6, type: 3}
 --- !u!20 &1848715560 stripped
 Camera:
@@ -609,18 +606,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4457939409290131965, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _length
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _playMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _roomPrefab
+      value: 
+      objectReference: {fileID: 8718016849013186310, guid: 0ada7e10b9192584ca6fd4ccfe92c982, type: 3}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _ghostChange
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _spawnEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _roomProperties
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c2bb8138bfa23844870b5cd5f5c9a62, type: 2}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _enemyDictionary
       value: 
       objectReference: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: <PlayMode>k__BackingField
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _tutorialRooms.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _tutorialRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d8459a1a299bb324da4e9c8f3d1ea5b8, type: 2}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _tutorialRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 954a265e7e0489542b9593ca7b2dd1c7, type: 2}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _tutorialRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ff7e6f7cecf46864f952b27e3fcd8d2d, type: 2}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _tutorialRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b4841c1a7f6c114898b59c393800246, type: 2}
     - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _inMap
       value: 
@@ -653,6 +694,26 @@ PrefabInstance:
       propertyPath: _minimapCamera
       value: 
       objectReference: {fileID: 30762363}
+    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minimapSprites.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minimapSprites.Array.data[5]._roomType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minimapSprites.Array.data[5]._spriteAfter
+      value: 
+      objectReference: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    - target: {fileID: 4457939409803202033, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minimapSprites.Array.data[5]._spriteBefore
+      value: 
+      objectReference: {fileID: -1943787029, guid: 87cff4bb0c005b949907ca8ed0366209, type: 3}
+    - target: {fileID: 4457939409803202039, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5320701097679658339, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -702,10 +763,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _effectPrefab
-      value: 
-      objectReference: {fileID: 5737355293133291687, guid: 48f307f0283e9a5439c047ed0876ef2b, type: 3}
-    - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _uiController
       value: 
       objectReference: {fileID: 1431893202}
@@ -717,38 +774,6 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1431893203}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.g
-      value: 0.8832901
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _buffColor.r
-      value: 0.4009434
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.b
-      value: 0.33490568
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.g
-      value: 0.33490568
-      objectReference: {fileID: 0}
-    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _debuffColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7413706062836178159, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: m_Name
       value: Managers

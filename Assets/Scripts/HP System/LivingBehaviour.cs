@@ -41,7 +41,7 @@ namespace HP_System
         public bool HasBarrier => Barrier != null && Barrier.Active;
 
         protected virtual bool Invulnerable { get; set; }
-        
+
         protected virtual bool Frozen { get; set; }
 
         public event Action<float, float> OnHpChange;

@@ -145,3 +145,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
+  _length: 0

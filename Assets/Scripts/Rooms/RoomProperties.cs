@@ -92,7 +92,11 @@ namespace Rooms
                     pos.y = y;
                     var topOrBottomWall = y - bottom < WallSize || top - y < WallSize;
                     var leftOrRightWall = x - left < WallSize || right - x < WallSize;
-                    if ((topOrBottomWall && x >= gateLeft && x <= gateRight) ||
+                    if (RoomManager.IsTutorial)
+                    {
+                        if(topOrBottomWall) _gatePositions.Add(pos);
+                    }
+                    else if ((topOrBottomWall && x >= gateLeft && x <= gateRight) ||
                         leftOrRightWall && y >= gateBottom && y <= gateTop)
                         _gatePositions.Add(pos);
                 }
