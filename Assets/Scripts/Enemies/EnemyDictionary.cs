@@ -12,6 +12,7 @@ namespace Enemies
         #region Serialized Fields
 
         [field: SerializeField] private Entry[] Enemies { get; set; }
+        private Entry[] _sortedEnemies;
 
         #endregion
 
@@ -36,11 +37,13 @@ namespace Enemies
         private void OnValidate()
         {
             if (Enemies == null) return;
-            Array.Sort(Enemies, (a, b) => Comparer<int>.Default.Compare(a.Rank, b.Rank));
             for (int i = 0; i < Enemies.Length; i++)
             {
                 Enemies[i].IndexInDictionary = i;
             }
+            _sortedEnemies = new Entry[Enemies.Length];
+            Array.Copy(Enemies, _sortedEnemies, _sortedEnemies.Length);
+            Array.Sort(_sortedEnemies, (a, b) => Comparer<int>.Default.Compare(a.Rank, b.Rank));
         }
 
         #endregion
@@ -49,8 +52,8 @@ namespace Enemies
 
         public int GetMaxIndexForRank(int rank)
         {
-            for (int i = Enemies.Length - 1; i >= 0; i--)
-                if (Enemies[i].Rank <= rank)
+            for (int i = _sortedEnemies.Length - 1; i >= 0; i--)
+                if (_sortedEnemies[i].Rank <= rank)
                     return i;
             return -1;
         }
@@ -131,8 +134,6 @@ namespace Enemies
             // Stunning Goombas Debuff
             public bool StunningAttack { get; set; }
             public float StunDuration { get; set; }
-
-            
 
             #endregion
 
