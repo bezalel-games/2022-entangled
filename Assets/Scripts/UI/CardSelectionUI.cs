@@ -1,11 +1,10 @@
-using System;
 using Cards;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace UI
 {
-    public class CardSelectionUI : MonoBehaviour
+    public class CardSelectionUI : MonoBehaviourExt
     {
         #region Serialized Fields
 
@@ -41,7 +40,7 @@ namespace UI
 
         public void HideCardSelection()
         {
-            _cardsParent.SetActive(false);
+            DelayInvoke(()=>_cardsParent.SetActive(false), 0.6f);
         }
 
         public void ShowCards(Card leftCard, Card rightCard, bool leftIsDeckCard)
