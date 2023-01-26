@@ -213,6 +213,7 @@ namespace Enemies
                 {
                     var split = RoomManager.EnemyDictionary[Index].Spawn(transform.position, transform.parent, true)
                         .enemy;
+                    split.Barrier.Active = false;
                     split.Enabled?.Invoke();
                     split.SplitCount = SplitCount - 1;
                 }

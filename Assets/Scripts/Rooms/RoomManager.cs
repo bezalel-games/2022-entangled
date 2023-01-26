@@ -26,7 +26,6 @@ namespace Rooms
         [Tooltip("A scriptable object containing all the enemies to spawn in the game")] [SerializeField]
         private EnemyDictionary _enemyDictionary;
 
-        [SerializeField] private int _minRoomRank = 20;
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
@@ -43,12 +42,15 @@ namespace Rooms
         [SerializeField] private int _totalNumberOfRooms = 40;
         [SerializeField] private int _fountainCount = 1;
         [SerializeField] private int _treasureCount = 2;
-        [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         [Header("Boss room")] [SerializeField] private Room _bossRoomPrefab;
 
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
+        
+        [Header("Room rank function")]
+        [SerializeField] private int _minRoomRank = 20;
+        [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         #endregion
 
