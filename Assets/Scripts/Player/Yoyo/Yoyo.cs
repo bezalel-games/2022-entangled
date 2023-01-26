@@ -194,6 +194,8 @@ namespace Player
             {
                 case YoyoState.IDLE when _idleHit:
                 case YoyoState.BACK:
+                    HitObject(other.GetComponent<IHittable>());
+                    break;
                 case YoyoState.PRECISION:
                     int id = other.GetInstanceID();
                     if (!_precisionHits.Contains(id))
