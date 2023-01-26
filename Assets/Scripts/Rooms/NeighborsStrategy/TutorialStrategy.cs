@@ -10,6 +10,11 @@ namespace Rooms.NeighborsStrategy
         {
             _length = length;
         }
+
+        public float RoomIntensity(Vector2Int index)
+        {
+            return 0;
+        }
         
         public RoomType RoomType(Vector2Int index)
         {

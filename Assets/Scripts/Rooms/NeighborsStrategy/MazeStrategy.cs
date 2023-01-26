@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Utils;
@@ -18,7 +19,7 @@ namespace Rooms.NeighborsStrategy
 
         private Vector2Int _bossIndex;
 
-        private readonly Dictionary<Vector2Int, RoomType> _rooms;
+        private readonly Dictionary<Vector2Int, (RoomType type, int bossDistance)> _rooms;
 
         private readonly int _fountainDistance;
         private readonly int _treasureDistance;
@@ -54,7 +55,9 @@ namespace Rooms.NeighborsStrategy
 
         #region INeighborsStrategy Implementation
 
-        public RoomType RoomType(Vector2Int index) => _rooms.ContainsKey(index) ? _rooms[index] : Rooms.RoomType.NONE;
+        public float RoomIntensity(Vector2Int index) => _rooms[index].bossDistance / (2f * _maxDistanceToBoss);
+
+        public RoomType RoomType(Vector2Int index) => _rooms.ContainsKey(index) ? _rooms[index].type : Rooms.RoomType.NONE;
 
         public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
@@ -66,31 +69,36 @@ namespace Rooms.NeighborsStrategy
 
         #region Private Methods
 
-        private void PrintMaze()
+        private void PrintMaze(bool distance = false)
         {
-            string s = "";
+            StringBuilder s = new();
             for (int row = _maxDistanceToBoss; row >= -_maxDistanceToBoss; row--)
             {
                 for (int col = -_maxDistanceToBoss; col <= _maxDistanceToBoss; col++)
                 {
                     var room = new Vector2Int(col, row);
                     if (!_rooms.ContainsKey(room))
-                        s += " - ";
+                        s.Append(" - ");
                     else
                     {
-                        s += _rooms[room] switch
+                        if (distance)
+                        {
+                            s.Append($" {_rooms[room].bossDistance} ");
+                            continue;
+                        }
+                        s.Append(_rooms[room].type switch
                         {
                             Rooms.RoomType.START => " S ",
                             Rooms.RoomType.BOSS => " B ",
                             Rooms.RoomType.TREASURE => " T ",
                             Rooms.RoomType.FOUNTAIN => " F ",
-                            Rooms.RoomType.MONSTERS => " m ",
+                            Rooms.RoomType.MONSTERS => " M ",
                             _ => " - "
-                        };
+                        });
                     }
                 }
 
-                s += "\n";
+                s.Append("\n");
             }
 
             Debug.Log(s);
@@ -102,8 +110,41 @@ namespace Rooms.NeighborsStrategy
 
             CreatePathToBoss();
             PopulateMaze();
+            MarkRoomIntensities();
 
             PrintMaze();
+            PrintMaze(true);
+        }
+
+        private void MarkRoomIntensities()
+        {
+            Queue<Vector2Int> currDistanceQueue = new Queue<Vector2Int>();
+            Queue<Vector2Int> nextDistanceQueue = new Queue<Vector2Int>();
+
+            nextDistanceQueue.Enqueue(_bossIndex);
+
+            //BFS until we populate enough rooms
+            for (int currDistance = 0; nextDistanceQueue.Count > 0; ++currDistance)
+            {
+                // move next to curr. curr is empty so it can be used ass the new next queue
+                (currDistanceQueue, nextDistanceQueue) = (nextDistanceQueue, currDistanceQueue);
+                
+                while (currDistanceQueue.Count > 0)
+                {
+                    var roomIndex = currDistanceQueue.Dequeue(); 
+                    var roomEntry = _rooms[roomIndex];
+                    if (roomEntry.bossDistance >= 0) // already marked
+                        continue;
+                    roomEntry.bossDistance = currDistance;
+                    _rooms[roomIndex] = roomEntry;
+                    foreach (Direction dir in DirectionExt.GetDirections())
+                    {
+                        var neighborIndex = roomIndex + dir.ToVector();
+                        if (_rooms.ContainsKey(neighborIndex))
+                            nextDistanceQueue.Enqueue(neighborIndex);
+                    }
+                }
+            }
         }
 
         //randomly add rooms to Set (using BFS to make sure they're all reachable)
@@ -245,8 +286,7 @@ namespace Rooms.NeighborsStrategy
         {
             if (_rooms.ContainsKey(index))
                 return;
-
-            _rooms[index] = GenerateType(index);
+            _rooms[index] = (GenerateType(index), -1);
         }
 
         private RoomType GenerateType(Vector2Int index)

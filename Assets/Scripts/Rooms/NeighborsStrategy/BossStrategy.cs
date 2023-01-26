@@ -8,6 +8,8 @@ namespace Rooms.NeighborsStrategy
 
         #region INeighborsStrategy Implementation
 
+        public float RoomIntensity(Vector2Int index) => index == BossRoom ? 1 : 0.8f;
+
         public RoomType RoomType(Vector2Int index)
         {
             return index == Vector2Int.zero ? Rooms.RoomType.START :
