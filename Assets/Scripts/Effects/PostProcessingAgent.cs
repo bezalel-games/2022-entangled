@@ -1,6 +1,7 @@
 using System.Collections;
 using Cards;
 using Managers;
+using Rooms;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -11,9 +12,20 @@ namespace Effects
     {
         #region Serialized Fields
 
+        [Header("Vignette")]
         [SerializeField] private float _vignetteTransitionSpeed = 3f;
+
+        [Header("Blur")]
         [SerializeField] private float _blurTransitionSpeed = 3f;
+
         [SerializeField] private float _focusDistanceAtMaxBlur = 1.5f;
+
+        [Header("Intensity")]
+        [SerializeField] private float _intensityTransitionSpeed = 3f;
+
+        [SerializeField] private AnimationCurve _intensityEffectGraph;
+        [SerializeField] private float _maxFilmGrainIntensity = 1;
+        [SerializeField] private float _minSplitToningBalance = -100;
 
         #endregion
 
@@ -27,6 +39,24 @@ namespace Effects
         private float _baseFocusDistance;
         private Coroutine _blurEffectCoroutine;
 
+        private FilmGrain _filmGrain;
+        private float _baseFilmGrainIntensity;
+        private SplitToning _splitToning;
+        private float _baseSplitToningBalance;
+        private Coroutine _intensityEffectCoroutine;
+        private float _intensity;
+
+        private float Intensity
+        {
+            get => _intensity;
+            set
+            {
+                var t = _intensityEffectGraph.Evaluate(value);
+                _filmGrain.intensity.value = Mathf.Lerp(_baseFilmGrainIntensity, _maxFilmGrainIntensity, t);
+                _splitToning.balance.value = Mathf.Lerp(_baseSplitToningBalance, _minSplitToningBalance, t);
+            }
+        }
+
         #endregion
 
         #region Function Events
@@ -38,6 +68,10 @@ namespace Effects
             _baseSmoothness = _vignette.smoothness.value;
             volume.profile.TryGet(out _depthOfField);
             _baseFocusDistance = _depthOfField.focusDistance.value;
+            volume.profile.TryGet(out _filmGrain);
+            _baseFilmGrainIntensity = _filmGrain.intensity.value;
+            volume.profile.TryGet(out _splitToning);
+            _baseSplitToningBalance = _splitToning.balance.value;
         }
 
         private void OnEnable()
@@ -45,6 +79,7 @@ namespace Effects
             GameManager.TimeScaleChanged += ChangeVignetteByTimeScale;
             CardManager.StartedChoosingCards += IncreaseBlur;
             CardManager.FinishedChoosingCards += DecreaseBlur;
+            RoomManager.RoomChanged += ChangeRoomIntensity;
         }
 
         private void OnDisable()
@@ -52,11 +87,23 @@ namespace Effects
             GameManager.TimeScaleChanged -= ChangeVignetteByTimeScale;
             CardManager.StartedChoosingCards -= IncreaseBlur;
             CardManager.FinishedChoosingCards -= DecreaseBlur;
+            RoomManager.RoomChanged -= ChangeRoomIntensity;
         }
 
         #endregion
 
         #region Private Methods
+
+        private void ChangeRoomIntensity(float intensity)
+        {
+            print(intensity);
+            if (_intensityEffectCoroutine != null)
+                StopCoroutine(_intensityEffectCoroutine);
+            intensity = Mathf.Clamp01(intensity);
+            _intensityEffectCoroutine = StartCoroutine(intensity > Intensity
+                ? DecreaseIntensity(intensity)
+                : IncreaseIntensity(intensity));
+        }
 
         private void IncreaseBlur(Card left, Card right, bool leftIsDeckCard)
         {
@@ -86,6 +133,32 @@ namespace Effects
 
         #region Coroutines
 
+        private IEnumerator IncreaseIntensity(float target)
+        {
+            float diff = target - Intensity;
+            while (Intensity < target)
+            {
+                yield return null;
+                Intensity += Time.deltaTime * diff * _intensityTransitionSpeed;
+            }
+
+            Intensity = target;
+            _intensityEffectCoroutine = null;
+        }
+
+        private IEnumerator DecreaseIntensity(float target)
+        {
+            float diff = Intensity - target;
+            while (Intensity > target)
+            {
+                yield return null;
+                Intensity -= Time.deltaTime * diff * _intensityTransitionSpeed;
+            }
+
+            Intensity = target;
+            _intensityEffectCoroutine = null;
+        }
+
         private IEnumerator IncreaseFocusDistanceCoroutine(float target)
         {
             float value;
@@ -102,7 +175,6 @@ namespace Effects
 
         private IEnumerator DecreaseFocusDistanceCoroutine(float target)
         {
-            
             target = Mathf.Max(0, target);
             float value;
             float diff = _depthOfField.focusDistance.value - target;

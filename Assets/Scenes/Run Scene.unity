@@ -624,6 +624,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Effectors
       objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765598598240808695, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
+      propertyPath: _intensityEffectGraph.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d7d430a7900f84b89b530d583e9309, type: 3}
 --- !u!1001 &4457939409996229301

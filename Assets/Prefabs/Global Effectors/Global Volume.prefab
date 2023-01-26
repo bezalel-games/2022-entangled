@@ -62,4 +62,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce513fa7995b3c46af572b57d7bb062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionSpeed: 3
+  _vignetteTransitionSpeed: 3
+  _blurTransitionSpeed: 3
+  _focusDistanceAtMaxBlur: 1.5
+  _intensityTransitionSpeed: 0.5
+  _intensityEffectGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxFilmGrainIntensity: 1
+  _minSplitToningBalance: -100

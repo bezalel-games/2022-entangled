@@ -56,7 +56,6 @@ namespace UI
 
         private void UpdateFill(float fill)
         {
-            print(fill);
             _targetFill = _min + (_max - _min) * fill;
         }
 

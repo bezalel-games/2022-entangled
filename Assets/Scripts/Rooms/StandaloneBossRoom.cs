@@ -31,7 +31,7 @@ namespace Rooms
 
         private void Start()
         {
-            _bossRoom.Node = new RoomNode(_bossRoom, Vector2Int.zero, 0);
+            _bossRoom.Node = new RoomNode(_bossRoom, Vector2Int.zero, 0, 1);
         }
 
         #endregion

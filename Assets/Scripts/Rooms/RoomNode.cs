@@ -47,6 +47,7 @@ namespace Rooms
         [field: SerializeField] public Room Room { get; set; }
         [field: SerializeField] public int Rank { get; set; }
         [field: SerializeField] public int[] Enemies { get; private set; }
+        public float Intensity { get; }
 
         #endregion
 
@@ -66,11 +67,12 @@ namespace Rooms
 
         #region Constructors
 
-        public RoomNode(Room room, Vector2Int index, int rank)
+        public RoomNode(Room room, Vector2Int index, int rank, float intensity)
         {
             Room = room;
             Index = index;
             Rank = rank;
+            Intensity = intensity;
             Enemies = new int[RoomManager.EnemyDictionary.Count];
             if (Room == null) return;
             foreach (Direction dir in DirectionExt.GetDirections())

@@ -47,9 +47,10 @@ namespace Rooms
 
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
-        
+
         [Header("Room rank function")]
         [SerializeField] private int _minRoomRank = 20;
+
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
         #endregion
@@ -92,6 +93,12 @@ namespace Rooms
 
         #endregion
 
+        #region Events
+
+        public static event Action<float> RoomChanged;
+        
+        #endregion
+        
         #region Function Events
 
         private void Awake()
@@ -113,7 +120,7 @@ namespace Rooms
         {
             _enemyDictionary = Instantiate(_enemyDictionary); // duplicate to not overwrite the saved asset
             var firstRoomIndex = Vector2Int.zero;
-            _currentRoom = new RoomNode(null, firstRoomIndex, RoomRank(firstRoomIndex));
+            _currentRoom = CreateNode(firstRoomIndex, null);
             _currentRoom.Room = GetRoom(_currentRoom.Index, _currentRoom);
             _currentRoom.Cleared = true;
             _currentRoom.Room.Enter();
@@ -127,6 +134,7 @@ namespace Rooms
             InitContentInNeighbors();
 
             MinimapManager.AddRoom(Vector2Int.zero);
+            RoomChanged?.Invoke(_instance._currentRoom.Intensity);
         }
 
         private void OnDestroy()
@@ -148,6 +156,7 @@ namespace Rooms
                     return;
                 }
             }
+
             _instance._nextRoom = roomNode;
         }
 
@@ -163,7 +172,7 @@ namespace Rooms
         {
             room.transform.position = _instance.GetPosition_Inner(room.Node.Index);
             room.Clean();
-            
+
             _instance.FillRoom(room.Node);
         }
 
@@ -182,7 +191,7 @@ namespace Rooms
             var dirOfNewRoom = indexDiff.ToDirection();
             var player = transitioningObject.GetComponent<PlayerController>();
             if (player)
-                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2) indexDiff, player);
+                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
 
             var previousRoom = _instance._currentRoom;
             _instance._currentRoom = newRoom;
@@ -193,6 +202,7 @@ namespace Rooms
             MinimapManager.AddRoom(newRoom.Index);
             if (newRoom.Cleared)
                 InitContentInNeighbors();
+            RoomChanged?.Invoke(_instance._currentRoom.Intensity);
         }
 
         private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
@@ -248,7 +258,7 @@ namespace Rooms
                 {
                     var isBossRoom = roomType is RoomType.BOSS;
                     var room = GetRoom(roomIndex, isBossRoom: isBossRoom);
-                    room.Node = new RoomNode(room, roomIndex, isBossRoom ? 0 : RoomRank(roomIndex));
+                    room.Node = CreateNode(roomIndex, room);
                     room.Node[dir.Inverse()] = newRoomNode;
                     newRoomNode[dir] = room.Node;
                     continue;
@@ -272,21 +282,24 @@ namespace Rooms
 
         private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, index, _distanceToRankFunction);
 
+        private RoomNode CreateNode(Vector2Int index, Room room) =>
+            new(room, index, RoomRank(index), _strategy.RoomIntensity(index));
+
         private void FillTutorialRoom(RoomNode roomNode)
         {
             if (!IsTutorial || roomNode.Index.y >= TutorialLength) return;
-            
+
             roomNode.Room.Clean();
 
             int room = roomNode.Index.y;
             var roomProp = _tutorialRooms[room];
-            
+
             roomNode.Room.TutorialTxt.text = roomProp._text;
-            
+
             foreach (var enemy in roomProp._enemies)
             {
-                if(enemy._enemy == null) continue;
-                
+                if (enemy._enemy == null) continue;
+
                 Enemy enemyObj = EnemyDictionary[enemy._enemy.Index].Spawn(
                     roomNode.Room.TutorialEnemyPosition.position,
                     roomNode.Room.Enemies.transform,
@@ -305,8 +318,8 @@ namespace Rooms
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
-            for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
-                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
+                for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
+                    SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)

@@ -5,6 +5,7 @@ using System.Text;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Utils;
+using static Rooms.RoomType;
 using Random = UnityEngine.Random;
 
 namespace Rooms.NeighborsStrategy
@@ -55,14 +56,17 @@ namespace Rooms.NeighborsStrategy
 
         #region INeighborsStrategy Implementation
 
-        public float RoomIntensity(Vector2Int index) => _rooms[index].bossDistance / (2f * _maxDistanceToBoss);
+        public float RoomIntensity(Vector2Int index) => 1 - _rooms[index].bossDistance / (2f * _maxDistanceToBoss);
 
-        public RoomType RoomType(Vector2Int index) => _rooms.ContainsKey(index) ? _rooms[index].type : Rooms.RoomType.NONE;
+        public RoomType RoomType(Vector2Int index) =>
+            _rooms.ContainsKey(index) ? _rooms[index].type : NONE;
 
         public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
-            return minRoomRank +
-                   (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) * minRoomRank);
+            return index == _bossIndex
+                ? 0
+                : minRoomRank +
+                  (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) * minRoomRank);
         }
 
         #endregion
@@ -86,13 +90,14 @@ namespace Rooms.NeighborsStrategy
                             s.Append($" {_rooms[room].bossDistance} ");
                             continue;
                         }
+
                         s.Append(_rooms[room].type switch
                         {
-                            Rooms.RoomType.START => " S ",
-                            Rooms.RoomType.BOSS => " B ",
-                            Rooms.RoomType.TREASURE => " T ",
-                            Rooms.RoomType.FOUNTAIN => " F ",
-                            Rooms.RoomType.MONSTERS => " M ",
+                            START => " S ",
+                            BOSS => " B ",
+                            TREASURE => " T ",
+                            FOUNTAIN => " F ",
+                            MONSTERS => " M ",
                             _ => " - "
                         });
                     }
@@ -110,28 +115,29 @@ namespace Rooms.NeighborsStrategy
 
             CreatePathToBoss();
             PopulateMaze();
-            MarkRoomIntensities();
+            MarkRoomBossDistance();
 
             PrintMaze();
             PrintMaze(true);
         }
 
-        private void MarkRoomIntensities()
+        private void MarkRoomBossDistance()
         {
             Queue<Vector2Int> currDistanceQueue = new Queue<Vector2Int>();
             Queue<Vector2Int> nextDistanceQueue = new Queue<Vector2Int>();
 
-            nextDistanceQueue.Enqueue(_bossIndex);
+            _rooms[_bossIndex] = (BOSS, 0);
+            nextDistanceQueue.Enqueue(_bossIndex + Direction.SOUTH.ToVector());
 
             //BFS until we populate enough rooms
-            for (int currDistance = 0; nextDistanceQueue.Count > 0; ++currDistance)
+            for (int currDistance = 1; nextDistanceQueue.Count > 0; ++currDistance)
             {
                 // move next to curr. curr is empty so it can be used ass the new next queue
                 (currDistanceQueue, nextDistanceQueue) = (nextDistanceQueue, currDistanceQueue);
-                
+
                 while (currDistanceQueue.Count > 0)
                 {
-                    var roomIndex = currDistanceQueue.Dequeue(); 
+                    var roomIndex = currDistanceQueue.Dequeue();
                     var roomEntry = _rooms[roomIndex];
                     if (roomEntry.bossDistance >= 0) // already marked
                         continue;
@@ -292,12 +298,12 @@ namespace Rooms.NeighborsStrategy
         private RoomType GenerateType(Vector2Int index)
         {
             if (index == Vector2Int.zero)
-                return Rooms.RoomType.START;
+                return START;
             if (index == _bossIndex)
-                return Rooms.RoomType.BOSS;
+                return BOSS;
 
             var dist = index.L1Norm(); // equivalent to L1Distance(zero, index)
-            if (_fountainDistance > 0 
+            if (_fountainDistance > 0
                 && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) > _fountainDistance))
             {
                 var poss = _rooms.Count / (_fountainDistance * (_fountainCount + 1) + _fountainDistance);
@@ -305,11 +311,11 @@ namespace Rooms.NeighborsStrategy
                 {
                     _fountainCount++;
                     _specialLocations.Add(index);
-                    return Rooms.RoomType.FOUNTAIN;
+                    return FOUNTAIN;
                 }
             }
 
-            if (_treasureDistance > 0 
+            if (_treasureDistance > 0
                 && _specialLocations.All(location => Vector2Ext.L1Distance(location, index) >= _treasureDistance))
             {
                 var poss = _rooms.Count / (_treasureDistance * (_treasureCount + 1) + _treasureDistance);
@@ -317,11 +323,11 @@ namespace Rooms.NeighborsStrategy
                 {
                     _treasureCount++;
                     _specialLocations.Add(index);
-                    return Rooms.RoomType.TREASURE;
+                    return TREASURE;
                 }
             }
 
-            return Rooms.RoomType.MONSTERS;
+            return MONSTERS;
         }
 
         #endregion
