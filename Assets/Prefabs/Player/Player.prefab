@@ -672,7 +672,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5596,6 +5596,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5023401168072644427, guid: 28f0119e08d46e444a9d564afaee4a5d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c7c8ee9ff5dbe2e4385843956ecfb540, type: 2}
     - target: {fileID: 5838007534844380991, guid: 28f0119e08d46e444a9d564afaee4a5d, type: 3}
       propertyPath: m_Name
       value: confusion
@@ -5604,6 +5608,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6641344182533506281, guid: 28f0119e08d46e444a9d564afaee4a5d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1042608491, guid: aac10dae5770fa941bddc4763c082d31, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28f0119e08d46e444a9d564afaee4a5d, type: 3}
 --- !u!1 &3368573063946589667 stripped
