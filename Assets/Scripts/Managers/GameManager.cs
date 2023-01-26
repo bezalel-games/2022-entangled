@@ -162,6 +162,11 @@ namespace Managers
             }
         }
 
+        public static void ShowCards()
+        {
+            _instance._cardManager.ShowCards(CardChosen);
+        }
+
         public static void PlayerKilled()
         {
             // LoadManager.ReloadStartingScene();
