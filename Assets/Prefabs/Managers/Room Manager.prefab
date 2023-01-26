@@ -60,10 +60,9 @@ MonoBehaviour:
   _roomPrefab: {fileID: 8718016849013186310, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   _previousRoomSleepDelay: 0.5
   _enemyDictionary: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
-  _minRoomRank: 20
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
-  _ghostChange: 0.66
+  _ghostChange: 0.726
   _interactablePairs:
   - RoomType: 3
     Interactable: {fileID: 2952913734692303305, guid: 92a7904e52367044abd2fe7792336a8c, type: 3}
@@ -72,9 +71,12 @@ MonoBehaviour:
   _playMode: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6
-  _totalNumberOfRooms: 40
-  _fountainCount: 1
+  _totalNumberOfRooms: 24
+  _fountainCount: 2
   _treasureCount: 2
+  _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
+  _tutorialRooms: []
+  _minRoomRank: 11
   _distanceToRankFunction:
     serializedVersion: 2
     m_Curve:
@@ -88,8 +90,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2613859
-      value: 0.52044725
+      time: 0.2877175
+      value: 0.3898158
       inSlope: 1.6165932
       outSlope: 1.6165932
       tangentMode: 0
@@ -97,8 +99,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.3657136
     - serializedVersion: 3
-      time: 0.44264483
-      value: 0.67448324
+      time: 0.5136287
+      value: 0.49438375
       inSlope: 1.2727807
       outSlope: 1.2727807
       tangentMode: 0
@@ -106,8 +108,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.81594306
     - serializedVersion: 3
-      time: 0.5246008
-      value: 0.8337795
+      time: 0.6224554
+      value: 0.9950802
       inSlope: 0.94350046
       outSlope: 0.94350046
       tangentMode: 0
@@ -115,8 +117,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7021089
-      value: 0.7006817
+      time: 0.8304506
+      value: 0.88516045
       inSlope: -0.02760051
       outSlope: -0.02760051
       tangentMode: 0
@@ -124,8 +126,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.95961833
     - serializedVersion: 3
-      time: 0.8803988
-      value: 1.0000037
+      time: 0.9037752
+      value: 1.4847487
       inSlope: 0.000011151607
       outSlope: 0.000011151607
       tangentMode: 0
@@ -133,16 +135,14 @@ MonoBehaviour:
       inWeight: 0.39014232
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0.804377
-      inSlope: -2.987242
-      outSlope: -2.987242
+      time: 0.982025
+      value: 1.3280247
+      inSlope: -1.1938261
+      outSlope: -1.1938261
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.48816565
+      inWeight: 0.39732993
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
-  _tutorialRooms: []
