@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enemies>k__BackingField:
   - <Prefab>k__BackingField: {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
-    _rank: 10
+    _rank: 3
+    IndexInDictionary: 0
   - <Prefab>k__BackingField: {fileID: 4070872303377383493, guid: 9984ac93dd4629c4da28ed03fd02eb55, type: 3}
-    _rank: 10
+    _rank: 5
+    IndexInDictionary: 1
   - <Prefab>k__BackingField: {fileID: 6797589689884115477, guid: b9a819e58d4b5d8479239c857145aed5, type: 3}
-    _rank: 10
+    _rank: 13
+    IndexInDictionary: 2
