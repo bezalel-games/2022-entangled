@@ -42,7 +42,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Bloom: 4
     - _Fill: 0
+    - _NoiseScale: 3.08
+    - _NoiseSpeed: 0.25
     - _Radius: 1.51
     m_Colors:
     - _Color: {r: 0.59607846, g: 0.9176471, b: 0.9176471, a: 0}
