@@ -48,10 +48,10 @@ namespace Enemies.Boss
 
         private IEnumerator<int?> Triples(int min, int max)
         {
-            int numYoyos = max - min;
+            int numYoyos = max - min + 1;
             int third = numYoyos / 3;
             int[] setSize = { third, third, third };
-            switch (third % 3)
+            switch (numYoyos % 3)
             {
                 case 2:
                     ++setSize[0];

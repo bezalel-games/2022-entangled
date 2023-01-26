@@ -9,13 +9,14 @@ namespace HP_System
     {
         #region Serialized Fields
 
-        [Header("Living Behaviour")] 
+        [Header("Living Behaviour")]
         [SerializeField] private float _maxHp;
+
         [SerializeField] private float _maxMp;
         [SerializeField] private float _pushbackFactor = 0.4f;
         [SerializeField] protected float _pushbackTime = 0.3f;
-        [SerializeField] private ParticleSystem _hitParticles;
         [SerializeField] private GameObject _confusion;
+        [field: SerializeField] protected ParticleSystem HitParticles { get; private set; }
 
         #endregion
 
@@ -26,10 +27,10 @@ namespace HP_System
         private float _hitTime;
 
         protected Rigidbody2D Rigidbody;
-        
+
         protected Vector2 PushbackVector;
         private Vector2 _pushbackDirection;
-        
+
         protected Animator Animator;
         protected SpriteRenderer Renderer;
 
@@ -48,15 +49,15 @@ namespace HP_System
         public event Action<float, float> OnMpChange;
 
         public bool IsDead => Hp <= 0;
-        
+
         public float MaxHp
         {
-          get => _maxHp;
-          set
-          {
-            _maxHp = Mathf.Max(value, 0);
-            Hp = Mathf.Min(Hp, _maxHp);
-          }
+            get => _maxHp;
+            set
+            {
+                _maxHp = Mathf.Max(value, 0);
+                Hp = Mathf.Min(Hp, _maxHp);
+            }
         }
 
         public virtual float Hp
@@ -65,7 +66,7 @@ namespace HP_System
             protected set
             {
                 _hp = Mathf.Min(Mathf.Max(value, 0), _maxHp);
-                
+
                 OnHpChange?.Invoke(_hp, MaxHp);
 
                 if (IsDead)
@@ -91,13 +92,13 @@ namespace HP_System
             protected set
             {
                 _mp = Mathf.Min(Mathf.Max(value, 0), _maxMp);
-                
+
                 OnMpChange?.Invoke(_mp, MaxMp);
             }
         }
 
         #endregion
-        
+
         #region Animator Strings
 
         protected static readonly int Dash = Animator.StringToHash("dash");
@@ -113,7 +114,7 @@ namespace HP_System
         {
             Hp = MaxHp;
             Mp = MaxMp;
-            
+
             Animator = GetComponentInChildren<Animator>();
             Renderer = GetComponentInChildren<SpriteRenderer>();
             Rigidbody = GetComponent<Rigidbody2D>();
@@ -127,6 +128,7 @@ namespace HP_System
             {
                 PushbackVector = Vector2.zero;
             }
+
             if (Time.time >= _hitTime && Time.time <= _hitTime + _pushbackTime)
             {
                 var t = (Time.time - _hitTime) / _pushbackTime;
@@ -171,29 +173,29 @@ namespace HP_System
 
         private void EmitParticles(Transform attacker)
         {
-            if(_hitParticles == null)
+            if (HitParticles == null)
                 return;
 
             Vector2 dir = (attacker.position - transform.position).normalized;
             var angles = dir.Angles(); //add 90 since emission is aimed down originally
-            _hitParticles.transform.eulerAngles = Vector3.forward * (angles+90);
-            _hitParticles.Play();
+            HitParticles.transform.eulerAngles = Vector3.forward * (angles + 90);
+            HitParticles.Play();
         }
 
         #endregion
 
         #region IHittable
 
-        public virtual void OnHit(Transform attacker, float damage, bool pushBack=true)
+        public virtual void OnHit(Transform attacker, float damage, bool pushBack = true)
         {
             if (Invulnerable || IsDead || HasBarrier) return;
             Hp -= damage;
-            
+
             if (!attacker)
                 return;
 
             HitShake();
-            if(pushBack)
+            if (pushBack)
                 _pushbackDirection = _pushbackFactor * (transform.position - attacker.position).normalized;
             _hitTime = Time.time;
             EmitParticles(attacker);

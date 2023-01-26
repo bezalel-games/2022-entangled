@@ -12,23 +12,25 @@ namespace Enemies.Boss
 
         [Header("Boss")]
         [SerializeField] private Transform _yoyoRotationPlane;
-
+        [SerializeField] private float _maxHitParticleRateOverTime = 50;
+        [SerializeField] private GameObject _yoyoAimPivotPrefab;
+        [SerializeField] private float _meleeDamage = 10;
         [SerializeField] private int _numberOfPhases = 2;
 
         [Header("Phase 1")]
         [SerializeField] private float _yoyoDrawDistance = 0.5f;
-
         [SerializeField] private float _yoyoDrawTime = 0.5f;
-        [SerializeField] private GameObject _yoyoAimPivotPrefab;
-        [SerializeField] private float _meleeDamage = 10;
 
         [Header("Phase 2")]
         [SerializeField] private float _spinSpeed;
-
         [SerializeField] private Bomb _bombPrefab;
         [SerializeField] private float _bombThrowSpeed = 1;
         [SerializeField] private Vector3 _bombOffset = new Vector3(0, -1, -0.5f);
-
+        
+        [Header("Death")]
+        [SerializeField] private float _dissolveTime = 3;
+        [SerializeField] private EndStairs _endStairs;
+        
         #endregion
 
         #region Non-Serialized Fields
@@ -42,6 +44,8 @@ namespace Enemies.Boss
         private static readonly int PhaseNumber = Animator.StringToHash("Phase");
         private Bomb _bomb;
         private int _phase = 1;
+        private ParticleSystem.EmissionModule _hitParticlesEmission;
+        private float _minHitParticleRateOverTime;
 
         #endregion
 
@@ -76,6 +80,10 @@ namespace Enemies.Boss
             protected set
             {
                 base.Hp = value;
+                var t = (1 - value / MaxHp);
+
+                var diffToMax = _maxHitParticleRateOverTime - _minHitParticleRateOverTime;
+                _hitParticlesEmission.rateOverTime = _minHitParticleRateOverTime + (t * diffToMax);
                 if (value < (1 - (Phase / (float)_numberOfPhases)) * MaxHp)
                     ++Phase;
             }
@@ -87,6 +95,8 @@ namespace Enemies.Boss
 
         protected override void Awake()
         {
+            _hitParticlesEmission = HitParticles.emission;
+            _minHitParticleRateOverTime = _hitParticlesEmission.rateOverTime.constant;
             base.Awake();
             _animator = GetComponent<Animator>();
             _shield = _yoyoRotationPlane.GetChild(0).gameObject;
@@ -142,11 +152,33 @@ namespace Enemies.Boss
         public override void OnDie()
         {
             _animator.SetTrigger(DieTrigger);
+            HitParticles.transform.eulerAngles = Vector3.forward;
+            var hitParticlesMain = HitParticles.main;
+            hitParticlesMain.duration = 10;
+            var hitParticlesShape = HitParticles.shape;
+            hitParticlesShape.shapeType = ParticleSystemShapeType.Circle;
+            hitParticlesShape.rotation = Vector3.zero;
+            HitParticles.Play();
+        }
+
+        private IEnumerator Dissolve()
+        {
+            HitParticles.transform.SetParent(null);
+            Vector3 scale = transform.localScale;
+            var startTime = Time.time;
+            float t;
+            while ((t = (Time.time - startTime) / _dissolveTime) < 1)
+            {
+                transform.localScale = (1 - t) * scale;
+                yield return null;
+            }
+            _endStairs.Open();
+            gameObject.SetActive(false);
         }
 
         public void AfterDeathAnimation()
         {
-            GameManager.BossKilled();
+            StartCoroutine(Dissolve());
         }
 
         protected override void HitShake() => CameraManager.EnemyHitShake();

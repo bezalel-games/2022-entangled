@@ -35,9 +35,11 @@ namespace Rooms
         [field: SerializeField] public int GateWidth { get; private set; } = 2;
 
         [field: SerializeField] public float EnemySpawnMargin { get; private set; } = 2.5f;
+        [SerializeField] private bool _isBossRoom = false;
 
         [field: Header("Tiles")]
         [field: SerializeField] public TileBase GroundTile { get; private set; }
+
         [field: SerializeField] public TileBase WallTile { get; private set; }
         [field: SerializeField] public TileBase ClosingGateTile { get; private set; }
         [field: SerializeField] public TileBase ClosedGateTile { get; private set; }
@@ -94,11 +96,19 @@ namespace Rooms
                     var leftOrRightWall = x - left < WallSize || right - x < WallSize;
                     if (RoomManager.IsTutorial)
                     {
-                        if(topOrBottomWall) _gatePositions.Add(pos);
+                        if (topOrBottomWall)
+                            _gatePositions.Add(pos);
+                    }
+                    else if (_isBossRoom)
+                    {
+                        if (topOrBottomWall && x >= gateLeft && x <= gateRight && y < 0)
+                            _gatePositions.Add(pos);
                     }
                     else if ((topOrBottomWall && x >= gateLeft && x <= gateRight) ||
-                        leftOrRightWall && y >= gateBottom && y <= gateTop)
+                             leftOrRightWall && y >= gateBottom && y <= gateTop)
+                    {
                         _gatePositions.Add(pos);
+                    }
                 }
         }
     }

@@ -41,7 +41,7 @@ namespace Rooms
         [field: SerializeField] public RoomEnemies Enemies { get; private set; }
         [field: SerializeField] public RoomNode Node { get; set; }
         [field: SerializeField] private RoomProperties RoomProperties { get; set; }
-        
+
         [field: SerializeField] public TextMeshProUGUI TutorialTxt { get; private set; }
         [field: SerializeField] public Transform TutorialEnemyPosition { get; private set; }
 
@@ -128,14 +128,12 @@ namespace Rooms
             {
                 CreateTutorialWalls();
             }
-            else
+            else if (!Node.Cleared)
             {
-                if (!Node.Cleared)
-                {
-                    Enemies.Activate();
-                    GateClosed = true;
-                }
+                Enemies.Activate();
+                GateClosed = true;
             }
+
             _tilemap.RefreshAllTiles();
         }
 
@@ -159,7 +157,7 @@ namespace Rooms
             if (RoomManager.IsTutorial) return;
             foreach (var gateTilePos in RoomProperties.GatePositions)
             {
-                if (((Vector2Int) gateTilePos).ToDirectionRounded() == dir)
+                if (((Vector2Int)gateTilePos).ToDirectionRounded() == dir)
                 {
                     var tile = show ? RoomProperties.GateFrameTile : RoomProperties.WallTile;
                     _frameTilemap.SetTile(gateTilePos, tile);
