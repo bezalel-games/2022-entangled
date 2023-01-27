@@ -354,8 +354,8 @@ MonoBehaviour:
   _bombPrefab: {fileID: 4363286533594577520, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
   _bombThrowSpeed: 10
   _bombOffset: {x: 0, y: -0.8, z: -0.5}
-  _dissolveTime: 1
   _endStairs: {fileID: 0}
+  _deathParticleEmissionFactor: 4
   <YoyoCount>k__BackingField: 12
   <ThrowSetInterval>k__BackingField: 0.3
   <AttackInterval>k__BackingField:
@@ -487,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770990998162162360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7, z: -0.2}
+  m_LocalPosition: {x: 0, y: -0.7, z: -5}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1069,7 +1069,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1434,7 +1434,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1445,21 +1445,30 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
+          time: 0.54200363
           value: 1
-          inSlope: 1
-          outSlope: 0
+          inSlope: -0.23830184
+          outSlope: -0.23830184
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
+          outWeight: 0.44302335
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -4.0484962
+          outSlope: -4.0484962
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.06025833
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

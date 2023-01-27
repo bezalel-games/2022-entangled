@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using HP_System;
-using Managers;
 using Player;
 using UnityEngine;
 
@@ -28,8 +27,8 @@ namespace Enemies.Boss
         [SerializeField] private Vector3 _bombOffset = new Vector3(0, -1, -0.5f);
         
         [Header("Death")]
-        [SerializeField] private float _dissolveTime = 3;
         [SerializeField] private EndStairs _endStairs;
+        [SerializeField] private float _deathParticleEmissionFactor = 4;
         
         #endregion
 
@@ -153,6 +152,7 @@ namespace Enemies.Boss
         {
             _animator.SetTrigger(DieTrigger);
             HitParticles.transform.eulerAngles = Vector3.forward;
+            HitParticles.transform.SetParent(null);
             var hitParticlesMain = HitParticles.main;
             hitParticlesMain.duration = 10;
             var hitParticlesShape = HitParticles.shape;
@@ -161,24 +161,18 @@ namespace Enemies.Boss
             HitParticles.Play();
         }
 
-        private IEnumerator Dissolve()
+        public void MidDeathAnimation()
         {
-            HitParticles.transform.SetParent(null);
-            Vector3 scale = transform.localScale;
-            var startTime = Time.time;
-            float t;
-            while ((t = (Time.time - startTime) / _dissolveTime) < 1)
-            {
-                transform.localScale = (1 - t) * scale;
-                yield return null;
-            }
-            _endStairs.Open();
-            gameObject.SetActive(false);
+            var rate = _hitParticlesEmission.rateOverTime;
+            rate.constant *= _deathParticleEmissionFactor;
+            _hitParticlesEmission.rateOverTime = rate;
         }
 
         public void AfterDeathAnimation()
         {
-            StartCoroutine(Dissolve());
+            _endStairs.Open();
+            gameObject.SetActive(false);
+            HitParticles.Stop();
         }
 
         protected override void HitShake() => CameraManager.EnemyHitShake();
