@@ -165,6 +165,7 @@ namespace Managers
         public static void ShowCards()
         {
             _instance._cardManager.ShowCards(CardChosen);
+            _instance.ActionMapInUse = ActionMap.UI;
         }
 
         public static void PlayerKilled()
