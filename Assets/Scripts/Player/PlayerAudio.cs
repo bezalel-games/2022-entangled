@@ -5,7 +5,7 @@ namespace Player
     public partial class PlayerController : IAudible<PlayerSounds>
     {
         
-        public SoundType GetType()
+        public SoundType GetSoundType()
         {
             return SoundType.PLAYER;
         }

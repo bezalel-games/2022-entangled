@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 
 namespace Enemies
@@ -10,6 +11,9 @@ namespace Enemies
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             ThisEnemy.DesiredDirection = Player.position - ThisEnemy.transform.position;
+            
+            ((IAudible<EnemySounds>) ThisEnemy).PlayOneShot(EnemySounds.GOOMBA_ATTACK);
+            
             ThisEnemy.Attack((() =>
             {
                 animator.SetTrigger(Idle);

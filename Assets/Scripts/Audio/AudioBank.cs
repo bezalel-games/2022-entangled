@@ -14,7 +14,7 @@ namespace Audio
         [field: SerializeField] public EventReference MusicEventReference { get; private set; }
         [SerializeField] private List<PlayerRefPair> _playerRefs = new();
         [SerializeField] private List<YoyoRefPair> _yoyoRefs = new();
-        [SerializeField] private List<MusicRefPair> _musicRefs = new();
+        [SerializeField] private List<EnemyRefPair> _enemyRefs = new();
 
         private Dictionary<SoundType, Object> _refsDict;
 
@@ -36,6 +36,7 @@ namespace Audio
                 {
                     SoundType.PLAYER => _playerRefs[sound]._reference,
                     SoundType.YOYO => _yoyoRefs[sound]._reference,
+                    SoundType.ENEMY => _enemyRefs[sound]._reference,
                 };
             }
         }
@@ -47,7 +48,8 @@ namespace Audio
                 _refsDict = new Dictionary<SoundType, Object>()
                 {
                     {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs}
+                    {SoundType.YOYO, _yoyoRefs},
+                    {SoundType.ENEMY, _enemyRefs}
                 };
             }
         }
@@ -59,7 +61,8 @@ namespace Audio
                 _refsDict = new Dictionary<SoundType, Object>()
                 {
                     {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs}
+                    {SoundType.YOYO, _yoyoRefs},
+                    {SoundType.ENEMY, _enemyRefs}
                 };
             }
             
@@ -72,6 +75,9 @@ namespace Audio
                         break;
                     case SoundType.YOYO:
                         ((List<YoyoRefPair>) value).Sort(((pair1, pair2) => pair1._type - pair2._type));
+                        break;
+                    case SoundType.ENEMY:
+                        ((List<EnemyRefPair>) value).Sort(((pair1, pair2) => pair1._type - pair2._type));
                         break;
                 }    
             }
@@ -110,9 +116,9 @@ namespace Audio
     }
     
     [Serializable]
-    public class MusicRefPair : SoundRefPair
+    public class EnemyRefPair : SoundRefPair
     {
-        public MusicSounds _type;
+        public EnemySounds _type;
         public override int Type => (int) _type;
     }
     
@@ -131,11 +137,21 @@ namespace Audio
         HIT,
         TELEPORT,
     }
+    
+    public enum EnemySounds
+    {
+        HIT,
+        GOOMBA_PREP,
+        GOOMBA_ATTACK,
+        // FUMER_ATTACK,
+        DEATH,
+    }
 
     public enum YoyoSounds
     {
         THROW = 0,
         PRECISION,
+        WALL_HIT
     }
     
     public enum MusicSounds
@@ -143,7 +159,7 @@ namespace Audio
         MENU = 0,
         RUN,
         BOSS1,
-        BOSS2,
+        // BOSS2,
         TUTORIAL
     }
 

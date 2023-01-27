@@ -30,11 +30,75 @@ MonoBehaviour:
     _type: 0
   - _reference:
       Guid:
+        Data1: -1610607286
+        Data2: 1183499924
+        Data3: 757864075
+        Data4: 488956421
+      Path: event:/Player/Hit
+    _type: 1
+  - _reference:
+      Guid:
         Data1: 1137715026
         Data2: 1239175575
         Data3: -1260429175
         Data4: -1436370875
       Path: event:/Player/Teleport
     _type: 2
-  _yoyoRefs: []
-  _musicRefs: []
+  _yoyoRefs:
+  - _reference:
+      Guid:
+        Data1: -1007472432
+        Data2: 1163916687
+        Data3: -1312538695
+        Data4: -8364152
+      Path: event:/Yoyo/Quickshot
+    _type: 0
+  - _reference:
+      Guid:
+        Data1: 824951847
+        Data2: 1142839400
+        Data3: -476224872
+        Data4: -183511314
+      Path: event:/Yoyo/Precision
+    _type: 1
+  - _reference:
+      Guid:
+        Data1: 1852854257
+        Data2: 1177260606
+        Data3: 1689247361
+        Data4: -1409140777
+      Path: event:/Yoyo/Wall Hit
+    _type: 2
+  _enemyRefs:
+  - _reference:
+      Guid:
+        Data1: -1752492507
+        Data2: 1322264442
+        Data3: -853669237
+        Data4: -1403077886
+      Path: event:/Enemy/Hit
+    _type: 0
+  - _reference:
+      Guid:
+        Data1: 147302076
+        Data2: 1320178887
+        Data3: 127981197
+        Data4: -1397695874
+      Path: event:/Enemy/GoombaPrep
+    _type: 1
+  - _reference:
+      Guid:
+        Data1: 1233741085
+        Data2: 1241125519
+        Data3: -288861312
+        Data4: -512855484
+      Path: event:/Enemy/GoombaAttack
+    _type: 2
+  - _reference:
+      Guid:
+        Data1: -1371934048
+        Data2: 1268831661
+        Data3: 1231411591
+        Data4: -1473246287
+      Path: event:/Enemy/Death
+    _type: 4
