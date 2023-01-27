@@ -16,3 +16,5 @@ MonoBehaviour:
   - _enemy: {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
     _hasBarrier: 0
   _text: Hold RT while moving the Right Stick for a special attack
+  _sprite: {fileID: 21300000, guid: 49a9ebd9b7f584c6c8d5b11d20d91638, type: 3}
+  _showSprite: 0

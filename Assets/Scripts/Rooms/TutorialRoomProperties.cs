@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Enemies;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Rooms
     {
         public EnemyBarrierPair[] _enemies;
         public string _text;
+        public Sprite _sprite;
+        public bool _showSprite;
     }
     
     [Serializable]

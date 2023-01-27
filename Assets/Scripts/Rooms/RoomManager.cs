@@ -294,7 +294,14 @@ namespace Rooms
             int room = roomNode.Index.y;
             var roomProp = _tutorialRooms[room];
 
-            roomNode.Room.TutorialTxt.text = roomProp._text;
+            if (roomProp._sprite != null && roomProp._showSprite)
+            {
+                roomNode.Room.TutorialSpriteRenderer.sprite = roomProp._sprite;
+            }
+            else
+            {
+                roomNode.Room.TutorialTxt.text = roomProp._text;
+            }
 
             foreach (var enemy in roomProp._enemies)
             {

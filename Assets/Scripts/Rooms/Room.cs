@@ -42,8 +42,10 @@ namespace Rooms
         [field: SerializeField] public RoomNode Node { get; set; }
         [field: SerializeField] private RoomProperties RoomProperties { get; set; }
 
+        [field: Header("Tutorial")]
         [field: SerializeField] public TextMeshProUGUI TutorialTxt { get; private set; }
         [field: SerializeField] public Transform TutorialEnemyPosition { get; private set; }
+        [field: SerializeField] public SpriteRenderer TutorialSpriteRenderer { get; private set; }
 
         public Interactable Interactable { get; private set; }
 
@@ -139,6 +141,7 @@ namespace Rooms
 
         public void Clean()
         {
+            CleanTutorial();
             Enemies.RemoveEnemies();
             RemoveInteractable();
         }
@@ -237,6 +240,13 @@ namespace Rooms
                 Destroy(Interactable.gameObject);
                 Interactable = null;
             }
+        }
+        
+        private void CleanTutorial()
+        {
+            if(!RoomManager.IsTutorial) return;
+            TutorialTxt.text = "";
+            TutorialSpriteRenderer.sprite = null;
         }
 
         #endregion
