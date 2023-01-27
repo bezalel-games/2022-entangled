@@ -90,9 +90,12 @@ namespace Player
             {
                 case InputActionPhase.Started:
                     if (!CanAttack) return;
-                    
+
                     if (Mp > 0)
+                    {
+                        Yoyo.PrecisionIntensity = Mp / MaxMp;
                         Yoyo.PrecisionShoot();
+                    }
                     break;
                 case InputActionPhase.Canceled:
                     if (Yoyo.State != Yoyo.YoyoState.PRECISION) return;

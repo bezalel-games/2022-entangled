@@ -86,7 +86,7 @@ namespace HP_System
             }
         }
 
-        public float Mp
+        public virtual float Mp
         {
             get => _mp;
             protected set

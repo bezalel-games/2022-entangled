@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bf1b8ec5-0e88-4800-9d59-6378bc6b704b}">
+		<property name="assetPath">
+			<value>Enemy/Hit/body hit with grunt 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.29660416666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e064a99d-ef3c-4c76-bbb0-32a2ba73ab27}</destination>
+		</relationship>
+	</object>
+</objects>

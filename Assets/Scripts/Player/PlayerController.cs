@@ -55,6 +55,17 @@ namespace Player
 
         #region Properties
 
+        public override float Mp
+        {
+            get => base.Mp;
+            protected set
+            {
+                base.Mp = value;
+                if(Yoyo != null)
+                    Yoyo.PrecisionIntensity = Mp / MaxMp;
+            }
+        }
+
         public float MpRecovery
         {
             get => _mpRecoveryPerSec;

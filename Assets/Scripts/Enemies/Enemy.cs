@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using Effects;
 using HP_System;
 using Managers;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public class Enemy : LivingBehaviour
+    public class Enemy : LivingBehaviour, IAudible<EnemySounds>
     {
         #region Serialized Fields
 
@@ -202,6 +203,12 @@ namespace Enemies
         #endregion
 
         #region Public Methods
+        
+        public override void OnHit(Transform attacker, float damage, bool pushBack = true)
+        {
+            base.OnHit(attacker, damage, pushBack);
+            ((IAudible<EnemySounds>) this).PlayOneShot(EnemySounds.HIT);
+        }
 
         public override void OnDie()
         {
@@ -222,7 +229,8 @@ namespace Enemies
                 AfterDeathAnimation();
                 return;
             }
-            
+
+            ((IAudible<EnemySounds>) this).PlayOneShot(EnemySounds.DEATH);
             Animator.SetTrigger(DeadAnimationID);
         }
 
@@ -246,6 +254,11 @@ namespace Enemies
         {
             GameManager.PlayEffect(transform.position, Effect.EffectType.STUN);
             base.Stun(duration);
+        }
+        
+        public SoundType GetSoundType()
+        {
+            return SoundType.ENEMY;
         }
 
         #endregion

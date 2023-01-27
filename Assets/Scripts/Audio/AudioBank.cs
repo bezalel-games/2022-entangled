@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cards.Factory;
+using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
 using Object = System.Object;
@@ -10,10 +11,10 @@ namespace Audio
     [CreateAssetMenu(fileName = "Audio Bank", menuName = "Entangled/Audio/Audio Bank", order = 0)]
     public class AudioBank : ScriptableObject
     {
-        [SerializeField] private List<PlayerRefPair> _playerRefs = 
-            new List<PlayerRefPair>();
-        [SerializeField] private List<YoyoRefPair> _yoyoRefs = 
-            new List<YoyoRefPair>();
+        [field: SerializeField] public EventReference MusicEventReference { get; private set; }
+        [SerializeField] private List<PlayerRefPair> _playerRefs = new();
+        [SerializeField] private List<YoyoRefPair> _yoyoRefs = new();
+        [SerializeField] private List<EnemyRefPair> _enemyRefs = new();
 
         private Dictionary<SoundType, Object> _refsDict;
 
@@ -35,6 +36,7 @@ namespace Audio
                 {
                     SoundType.PLAYER => _playerRefs[sound]._reference,
                     SoundType.YOYO => _yoyoRefs[sound]._reference,
+                    SoundType.ENEMY => _enemyRefs[sound]._reference,
                 };
             }
         }
@@ -46,7 +48,8 @@ namespace Audio
                 _refsDict = new Dictionary<SoundType, Object>()
                 {
                     {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs}
+                    {SoundType.YOYO, _yoyoRefs},
+                    {SoundType.ENEMY, _enemyRefs}
                 };
             }
         }
@@ -58,7 +61,8 @@ namespace Audio
                 _refsDict = new Dictionary<SoundType, Object>()
                 {
                     {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs}
+                    {SoundType.YOYO, _yoyoRefs},
+                    {SoundType.ENEMY, _enemyRefs}
                 };
             }
             
@@ -71,6 +75,9 @@ namespace Audio
                         break;
                     case SoundType.YOYO:
                         ((List<YoyoRefPair>) value).Sort(((pair1, pair2) => pair1._type - pair2._type));
+                        break;
+                    case SoundType.ENEMY:
+                        ((List<EnemyRefPair>) value).Sort(((pair1, pair2) => pair1._type - pair2._type));
                         break;
                 }    
             }
@@ -108,24 +115,52 @@ namespace Audio
         public override int Type => (int) _type;
     }
     
+    [Serializable]
+    public class EnemyRefPair : SoundRefPair
+    {
+        public EnemySounds _type;
+        public override int Type => (int) _type;
+    }
+    
 
     public enum SoundType
     {
-        PLAYER,
-        YOYO
+        PLAYER = 0,
+        YOYO,
+        ENEMY,
+        MUSIC,
     }
 
     public enum PlayerSounds
     {
-        ROLL,
+        ROLL = 0,
         HIT,
         TELEPORT,
+    }
+    
+    public enum EnemySounds
+    {
+        HIT,
+        GOOMBA_PREP,
+        GOOMBA_ATTACK,
+        // FUMER_ATTACK,
+        DEATH,
     }
 
     public enum YoyoSounds
     {
-        THROW,
+        THROW = 0,
         PRECISION,
+        WALL_HIT
+    }
+    
+    public enum MusicSounds
+    {
+        MENU = 0,
+        RUN,
+        BOSS1,
+        // BOSS2,
+        TUTORIAL
     }
 
     #endregion

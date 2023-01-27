@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Audio;
+using UnityEngine;
 
 namespace Enemies
 {
@@ -8,6 +9,8 @@ namespace Enemies
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             ThisEnemy.PreparingAttack = true;
+
+            ((IAudible<EnemySounds>) ThisEnemy).PlayOneShot(EnemySounds.GOOMBA_PREP);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

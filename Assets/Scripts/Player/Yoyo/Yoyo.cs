@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using Cards.Buffs.ActiveBuffs;
 using Effects;
 using Enemies;
+using FMOD.Studio;
 using HP_System;
 using Managers;
 using UnityEngine;
@@ -10,7 +12,7 @@ using Utils;
 
 namespace Player
 {
-    public class Yoyo : MonoBehaviourExt
+    public class Yoyo : MonoBehaviourExt, IAudible<YoyoSounds>
     {
         public enum YoyoState
         {
@@ -84,6 +86,8 @@ namespace Player
 
         private HashSet<int> _precisionHits = new ();
 
+        private EventInstance _precisionInstance;
+
         #endregion
 
         #region C# Events
@@ -98,6 +102,17 @@ namespace Player
         [field: SerializeField] public float Damage { get; set; }
         
         public float OriginalDamage { get; private set; }
+
+        public float PrecisionIntensity
+        {
+            set
+            {
+                if(!_precisionInstance.isValid() || _state != YoyoState.PRECISION) return;
+                
+                Mathf.Clamp(value, 0, 1);
+                _precisionInstance.setParameterByName(AudioManager.PrecisionParameter, value);
+            }
+        }
 
         public Line LinePrefab => _linePrefab;
 
@@ -155,6 +170,8 @@ namespace Player
 
             _linePrefab.Damage = 0;
             _linePrefab.StayTime = 0;
+
+            _precisionInstance = ((IAudible<YoyoSounds>)this).CreateEventInstance(YoyoSounds.PRECISION);
         }
 
         protected override void Update()
@@ -242,6 +259,7 @@ namespace Player
         {
             if (aimDirection != Vector3.zero)
             {
+                ((IAudible<YoyoSounds>)this).PlayOneShot(YoyoSounds.THROW);
                 aimDirection = aimDirection.normalized;
                 moveDirection = moveDirection.normalized;
 
@@ -270,6 +288,8 @@ namespace Player
                 RemovePath(_currentLine);
             }
 
+            _precisionInstance.start();
+            
             GameManager.ScaleTime(_timeScale);
 
             transform.SetParent(null);
@@ -300,6 +320,8 @@ namespace Player
             {
                 RemovePath(_currentLine);
             }
+            
+            _precisionInstance.stop(STOP_MODE.IMMEDIATE);
 
             _precisionHits.Clear();
             GoBack();
@@ -322,6 +344,7 @@ namespace Player
             {
                 case null: //not IHittable, i.e. a wall
                     GameManager.PlayEffect(transform.position, Effect.EffectType.WALL_HIT);
+                    ((IAudible<YoyoSounds>)this).PlayOneShot(YoyoSounds.WALL_HIT);
                     return true;
                 case IBarrierable { HasBarrier: true }:
                     return false;
@@ -438,5 +461,10 @@ namespace Player
         }
 
         #endregion
+
+        public SoundType GetSoundType()
+        {
+            return SoundType.YOYO;
+        }
     }
 }

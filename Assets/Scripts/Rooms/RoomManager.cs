@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -135,6 +136,8 @@ namespace Rooms
 
             MinimapManager.AddRoom(Vector2Int.zero);
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
+
+            AudioManager.SetMusic(IsTutorial ? MusicSounds.TUTORIAL : MusicSounds.RUN);
         }
 
         private void OnDestroy()
@@ -195,14 +198,19 @@ namespace Rooms
 
             var previousRoom = _instance._currentRoom;
             _instance._currentRoom = newRoom;
+            
             newRoom.Room.Enter();
             previousRoom.Room.Exit(_instance._previousRoomSleepDelay);
+            
             _instance.UnloadNeighbors(previousRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             MinimapManager.AddRoom(newRoom.Index);
             if (newRoom.Cleared)
                 InitContentInNeighbors();
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
+
+            if(_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
+                AudioManager.SetMusic(MusicSounds.BOSS1);
         }
 
         private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
