@@ -28,6 +28,7 @@ namespace Enemies.Boss
         private SpiritualBarrier _barrier;
         private Rigidbody2D _rigidBody;
         private Collider2D _collider;
+        private SpriteRenderer _spriteRenderer;
 
         #endregion
 
@@ -56,6 +57,7 @@ namespace Enemies.Boss
             _rigidBody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
             _barrier = GetComponentInChildren<SpiritualBarrier>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             _barrier.Active = true;
             _baseScale = transform.localScale;
         }
@@ -71,6 +73,7 @@ namespace Enemies.Boss
             var sinTSquared = Mathf.Sin(Mathf.Pow(_scaleSpeed * (1 - TimeLeftToExplosion / _timeToExplosion), 2));
             var adjustedSinTSquared = (sinTSquared + 1) * _maxAdditionalScale / 2;
             transform.localScale = _baseScale + Vector3.one * adjustedSinTSquared;
+            _spriteRenderer.color = Color.HSVToRGB(0,adjustedSinTSquared,1, true);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

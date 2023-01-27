@@ -10,7 +10,7 @@ namespace UI
     public class CardUI : MonoBehaviour
     {
         #region Serialized Fields
-        
+
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
         [SerializeField] private Color _buffColor;
@@ -62,7 +62,7 @@ namespace UI
             var circleGlowObject = transform.GetChild(5);
             _borderGlow = borderGlowObject.GetComponentInChildren(typeof(Image), true) as Image;
             _circleGlow = circleGlowObject.GetComponentInChildren(typeof(Image), true) as Image;
-            
+
             var buffObject = transform.GetChild(1);
             _buffImage = buffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _buffText = buffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
@@ -81,13 +81,16 @@ namespace UI
             /*
              * moving from [-d,d] to [0,1]: x/(2*d) + 0.5f
              */
-            int d = (int) Rarity.EPIC;
-            int value = (int) _buffRariy - (int) _debuffRariy;
+            int d = (int)Rarity.EPIC;
+            int value = (int)_buffRariy - (int)_debuffRariy;
             float t = (value / (2f * d)) + 0.5f;
-            
+
             // Color c = (1 - t) * _buffColor + t * _debuffColor;
-            Color c = (Vector4)Vector3.Slerp((Vector4)_buffColor, (Vector4)_debuffColor, t);
-            c.a = Mathf.Lerp(_buffColor.a, _debuffColor.a, t);
+            Color.RGBToHSV(_buffColor, out var buffH, out var buffS, out var buffV);
+            Color.RGBToHSV(_debuffColor, out var debuffH, out var debuffS, out var debuffV);
+            var newHSV = Vector4.Lerp(new(buffH, buffS, buffV, _buffColor.a), new(debuffH, debuffS, debuffV, _debuffColor.a), t);
+            Color c = Color.HSVToRGB(newHSV.x, newHSV.y, newHSV.z);
+            c.a = newHSV.z;
             _borderGlow.color = c;
             _circleGlow.color = c;
         }

@@ -1045,7 +1045,7 @@ MonoBehaviour:
   _buffFormat: '{0}'
   _debuffFormat: '{0}'
   _buffColor: {r: 0.4, g: 0.88235295, b: 1, a: 1}
-  _debuffColor: {r: 1, g: 0.33333334, b: 0.33333334, a: 1}
+  _debuffColor: {r: 1, g: 0.33333337, b: 0.3444443, a: 1}
   _rarityIdentifierSprites:
     _common: {fileID: 21300000, guid: ac2e5c91a32e4a341b91866eaba251c7, type: 3}
     _rare: {fileID: 21300000, guid: 5370a4c09044c1e4eb73d3a6bcacf29c, type: 3}
