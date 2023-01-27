@@ -41,7 +41,9 @@ public class MinimapRoom : MonoBehaviour
     foreach (Direction dir in DirectionExt.GetDirections())
     {
       var newIndex = Index + dir.ToVector();
-      bool shouldShow = RoomManager.GetRoomType(newIndex) != RoomType.NONE && !MinimapManager.HasRoom(newIndex);
+      bool shouldShow = RoomManager.GetRoomType(newIndex) == RoomType.BOSS 
+                          ? dir == Direction.NORTH 
+                          : RoomManager.GetRoomType(newIndex) != RoomType.NONE && !MinimapManager.HasRoom(newIndex);
       _connections[(byte) dir].SetActive(shouldShow);
     }
   }

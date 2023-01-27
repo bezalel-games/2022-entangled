@@ -28,9 +28,6 @@ public class MinimapManager : MonoBehaviour
   public static Transform MinimapParent => _instance.transform;
   public static MinimapRoom MinimapRoomPrefab => _instance._minimapRoomPrefab;
 
-  private static bool ShouldCreate(Vector2Int index) => !RoomManager.IsTutorial 
-                                                        && !HasRoom(index) && RoomManager.GetRoomType(index) != RoomType.NONE;
-  
   public static bool HasRoom(Vector2Int index) => _instance._rooms.ContainsKey(index);
   
   #endregion
@@ -66,16 +63,19 @@ public class MinimapManager : MonoBehaviour
     _instance._rooms[index].SetCleared();
   }
 
+  #endregion
+  #region Private Methods
+  
+  private static bool ShouldCreate(Vector2Int index) => !RoomManager.IsTutorial 
+                                                        && !HasRoom(index) && RoomManager.GetRoomType(index) != RoomType.NONE;
+
   private void AddRoom_Inner(Vector2Int index)
   {
     var minimap = Instantiate(_minimapRoomPrefab, RoomManager.GetPosition(index), Quaternion.identity, transform);
     minimap.Init(index);
     _instance._rooms[index] = minimap;
   }
-
-  #endregion
-  #region Private Methods
-
+  
   #endregion
 
   #region Classes

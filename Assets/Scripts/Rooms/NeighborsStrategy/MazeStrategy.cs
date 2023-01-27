@@ -114,6 +114,8 @@ namespace Rooms.NeighborsStrategy
             AddRoom(Vector2Int.zero);
 
             CreatePathToBoss();
+            PrintMaze();
+            
             PopulateMaze();
             MarkRoomBossDistance();
 
@@ -202,14 +204,24 @@ namespace Rooms.NeighborsStrategy
             var col = Random.Range(_minDistanceToBoss - row, _maxDistanceToBoss - row);
 
             row *= (Random.value > 0.5) ? 1 : -1;
-            col *= (Random.value > 0.5) ? 1 : -1;
-
+            col *= (Random.value > 0.5) ? 1 : -1; 
+            
+            HashSet<Vector2Int> noReturnRooms = new HashSet<Vector2Int>();
+            
             _bossIndex = new Vector2Int(col, row);
             AddRoom(_bossIndex);
+            noReturnRooms.Add(_bossIndex);
 
             Vector2Int currRoom = _bossIndex + Vector2Int.down;
             AddRoom(currRoom);
-            int roomCount = 1;
+            noReturnRooms.Add(currRoom);
+            
+            currRoom += new Vector2Int(Random.value >= 0.5f ? 1 : -1, 0);
+            AddRoom(currRoom);
+            noReturnRooms.Add(currRoom);
+            
+            int roomCount = 2;
+            
             Vector2Int lastDir = Vector2Int.zero;
 
             while (currRoom != Vector2Int.zero)
@@ -217,18 +229,10 @@ namespace Rooms.NeighborsStrategy
                 int roomsLeft = _maxDistanceToBoss - roomCount;
                 int distance = Vector2Ext.L1Norm(currRoom);
 
-                if (distance > roomsLeft + 1)
-                {
-                    PrintMaze();
-                    Debug.Log($"Distance: {distance}, RoomsLeft: {roomsLeft}");
-                    throw new Exception(
-                        "Got too far from start. this shouldn't happen, something is wrong with the algorithm");
-                }
-
                 //if needed create shortest path
                 if (distance >= roomsLeft)
                 {
-                    CreateStraightPath(currRoom, Vector2Int.zero);
+                    CreateStraightPath(currRoom, Vector2Int.zero, noReturnRooms);
                     break;
                 }
 
@@ -239,6 +243,7 @@ namespace Rooms.NeighborsStrategy
                 {
                     Vector2Int newCurr = currRoom + dir.ToVector();
                     if (_rooms.ContainsKey(newCurr) ||
+                        RoomType(newCurr) == BOSS ||
                         Vector2Ext.L1Distance(newCurr, Vector2Int.zero) > roomsLeft - 1) continue;
 
                     possible.Add(dir.ToVector());
@@ -265,8 +270,12 @@ namespace Rooms.NeighborsStrategy
         /**
          * Adds to _rooms a shortest path from 'from' to 'to'. i.e., for path p it holds |p|=Distance(from,to).
          */
-        private void CreateStraightPath(Vector2Int from, Vector2Int to)
+        private void CreateStraightPath(Vector2Int from, Vector2Int to, HashSet<Vector2Int> noReturn = null)
         {
+
+            if (noReturn == null)
+                noReturn = new HashSet<Vector2Int>();
+            
             Vector2Int curr = from;
             AddRoom(curr);
 
@@ -275,13 +284,40 @@ namespace Rooms.NeighborsStrategy
 
             while (curr != to)
             {
+                bool yLegal = !noReturn.Contains(curr + yDir);
+                bool xLegal = !noReturn.Contains(curr + xDir);
+                
                 var dir = Vector2Int.zero;
-                if (curr.x == to.x)
+                if ((curr.x == to.x || !xLegal) && yLegal)
                     dir = yDir;
-                else if (curr.y == to.y)
+                else if ((curr.y == to.y || !yLegal) && xLegal)
                     dir = xDir;
-                else
+                else if(yLegal) //when reaching this else, if yLegal == true than necessarily xLegal == true
                     dir = (Random.value > 0.5f) ? yDir : xDir;
+                else // both directions aren't legal. In this case, go in direction that increases distance the least
+                {
+                    {
+                        Vector2Int negYDir = curr - yDir;
+                        Vector2Int negXDir = curr - xDir;
+
+                        yLegal = !noReturn.Contains(negYDir);
+                        xLegal = !noReturn.Contains(negXDir);
+                        if (!yLegal && !xLegal)
+                            throw new Exception("All direction are invalid! help!");
+                        else if (yLegal && xLegal)
+                        {
+                            float yDist = Vector2Ext.L1Norm(negYDir);
+                            float xDist = Vector2Ext.L1Norm(negXDir);
+                            dir = yDist < xDist ? -yDir : -xDir;
+                        }
+                        else
+                        {
+                            dir = yLegal ? -yDir : -xDir;
+                        }
+
+                        noReturn.Add(curr + dir);
+                    }
+                }
 
                 curr += dir;
                 AddRoom(curr);
