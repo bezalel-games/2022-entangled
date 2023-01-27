@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cards.Factory;
+using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
 using Object = System.Object;
@@ -10,10 +11,10 @@ namespace Audio
     [CreateAssetMenu(fileName = "Audio Bank", menuName = "Entangled/Audio/Audio Bank", order = 0)]
     public class AudioBank : ScriptableObject
     {
-        [SerializeField] private List<PlayerRefPair> _playerRefs = 
-            new List<PlayerRefPair>();
-        [SerializeField] private List<YoyoRefPair> _yoyoRefs = 
-            new List<YoyoRefPair>();
+        [field: SerializeField] public EventReference MusicEventReference { get; private set; }
+        [SerializeField] private List<PlayerRefPair> _playerRefs = new();
+        [SerializeField] private List<YoyoRefPair> _yoyoRefs = new();
+        [SerializeField] private List<MusicRefPair> _musicRefs = new();
 
         private Dictionary<SoundType, Object> _refsDict;
 
@@ -108,24 +109,42 @@ namespace Audio
         public override int Type => (int) _type;
     }
     
+    [Serializable]
+    public class MusicRefPair : SoundRefPair
+    {
+        public MusicSounds _type;
+        public override int Type => (int) _type;
+    }
+    
 
     public enum SoundType
     {
-        PLAYER,
-        YOYO
+        PLAYER = 0,
+        YOYO,
+        ENEMY,
+        MUSIC,
     }
 
     public enum PlayerSounds
     {
-        ROLL,
+        ROLL = 0,
         HIT,
         TELEPORT,
     }
 
     public enum YoyoSounds
     {
-        THROW,
+        THROW = 0,
         PRECISION,
+    }
+    
+    public enum MusicSounds
+    {
+        MENU = 0,
+        RUN,
+        BOSS1,
+        BOSS2,
+        TUTORIAL
     }
 
     #endregion

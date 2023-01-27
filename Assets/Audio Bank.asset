@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e2b8c5e3174fe4a29dc136bb846007, type: 3}
   m_Name: Audio Bank
   m_EditorClassIdentifier: 
+  <MusicEventReference>k__BackingField:
+    Guid:
+      Data1: -116760968
+      Data2: 1139804087
+      Data3: -1569083236
+      Data4: 1698925487
+    Path: event:/Music/Music
   _playerRefs:
   - _reference:
       Guid:
@@ -30,3 +37,4 @@ MonoBehaviour:
       Path: event:/Player/Teleport
     _type: 2
   _yoyoRefs: []
+  _musicRefs: []
