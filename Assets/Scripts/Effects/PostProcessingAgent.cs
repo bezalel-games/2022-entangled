@@ -26,6 +26,7 @@ namespace Effects
         [SerializeField] private AnimationCurve _intensityEffectGraph;
         [SerializeField] private float _maxFilmGrainIntensity = 1;
         [SerializeField] private float _minSplitToningBalance = -100;
+        [SerializeField] private float _maxChannelMixerRedOutGreenIn = 200;
 
         #endregion
 
@@ -43,6 +44,8 @@ namespace Effects
         private float _baseFilmGrainIntensity;
         private SplitToning _splitToning;
         private float _baseSplitToningBalance;
+        private ChannelMixer _channelMixer;
+        private float _baseChannelMixerRedOutGreenIn;
         private Coroutine _intensityEffectCoroutine;
         private float _intensity;
 
@@ -54,6 +57,7 @@ namespace Effects
                 var t = _intensityEffectGraph.Evaluate(value);
                 _filmGrain.intensity.value = Mathf.Lerp(_baseFilmGrainIntensity, _maxFilmGrainIntensity, t);
                 _splitToning.balance.value = Mathf.Lerp(_baseSplitToningBalance, _minSplitToningBalance, t);
+                _channelMixer.redOutGreenIn.value = Mathf.Lerp(_baseChannelMixerRedOutGreenIn, _maxChannelMixerRedOutGreenIn, t);
             }
         }
 
@@ -72,6 +76,8 @@ namespace Effects
             _baseFilmGrainIntensity = _filmGrain.intensity.value;
             volume.profile.TryGet(out _splitToning);
             _baseSplitToningBalance = _splitToning.balance.value;
+            volume.profile.TryGet(out _channelMixer);
+            _baseChannelMixerRedOutGreenIn = _channelMixer.redOutGreenIn.value;
         }
 
         private void OnEnable()
