@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{08457bb6-b464-4c21-b5db-c04614ba20f9}">
+		<property name="name">
+			<value>PrecisionMP</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1c8b0c9c-4ca9-462f-84c0-981be5537b37}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{106dd68b-f3fa-4f7b-8f79-8ebdd9662211}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{106dd68b-f3fa-4f7b-8f79-8ebdd9662211}">
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+	</object>
+</objects>

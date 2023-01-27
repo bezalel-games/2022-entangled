@@ -451,6 +451,9 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Enemy
+  - Environment
+  - Music
   - Player
   - Yoyo
   BanksToLoad: []

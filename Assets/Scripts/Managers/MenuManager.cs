@@ -1,3 +1,5 @@
+using System;
+using Audio;
 using Rooms;
 using UI;
 using UnityEngine;
@@ -28,7 +30,12 @@ public class MenuManager : MonoBehaviour
         _controls.Menu.SetCallbacks(controller);
         _controls.Menu.Enable();
     }
-    
+
+    private void Start()
+    {
+        AudioManager.SetMusic(MusicSounds.MENU);
+    }
+
     private void OnDestroy()
     {
         _controls.Menu.Disable();
