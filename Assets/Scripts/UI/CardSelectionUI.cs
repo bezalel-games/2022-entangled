@@ -12,6 +12,8 @@ namespace UI
         [SerializeField] private CardUI _leftCard;
         [SerializeField] private CardUI _rightCard;
         [SerializeField] private GameObject _leftIsDeckCard;
+        [SerializeField]private float _hideAnimationDuration = 0.5f;
+        [SerializeField]private float _showAnimationDuration = 0.5f;
 
         #endregion
 
@@ -40,16 +42,24 @@ namespace UI
 
         public void HideCardSelection()
         {
-            DelayInvoke(()=>_cardsParent.SetActive(false), 0.6f);
+            _leftCard.Hide(_hideAnimationDuration);
+            _rightCard.Hide(_hideAnimationDuration, true);
+            DelayInvoke(()=>_cardsParent.SetActive(false), _hideAnimationDuration);
         }
+        
+        #endregion
+        
+        #region Private Methods
 
-        public void ShowCards(Card leftCard, Card rightCard, bool leftIsDeckCard)
+        private void ShowCards(Card leftCard, Card rightCard, bool leftIsDeckCard)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(_firstSelectedCard);
             _cardsParent.SetActive(true);
             _leftCard.Card = leftCard;
             _rightCard.Card = rightCard;
+            _leftCard.Show(_showAnimationDuration);
+            _rightCard.Show(_showAnimationDuration, true);
             _leftIsDeckCard.SetActive(leftIsDeckCard);
         }
 
