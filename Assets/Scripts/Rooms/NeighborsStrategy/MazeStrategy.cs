@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FMOD;
 using Rooms.CardinalDirections;
 using UnityEngine;
 using Utils;
 using static Rooms.RoomType;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 namespace Rooms.NeighborsStrategy
@@ -361,6 +363,12 @@ namespace Rooms.NeighborsStrategy
                 return START;
             if (index == _bossIndex)
                 return BOSS;
+            if (index == _bossIndex + Vector2Int.down)
+            {
+                _fountainCount++;
+                _specialLocations.Add(index);
+                return FOUNTAIN;
+            }
 
             var dist = index.L1Norm(); // equivalent to L1Distance(zero, index)
             if (_fountainDistance > 0
