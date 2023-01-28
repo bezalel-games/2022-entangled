@@ -2,8 +2,8 @@
 using Cards;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using static Utils.Coroutines;
 
 namespace UI
 {
@@ -31,6 +31,7 @@ namespace UI
 
         private Rarity _buffRariy;
         private Rarity _debuffRariy;
+        private RectTransform _rectTransform;
 
         #endregion
 
@@ -70,13 +71,47 @@ namespace UI
             _debuffImage = debuffObject.GetComponentInChildren(typeof(Image), true) as Image;
             _debuffText = debuffObject.GetComponentInChildren(typeof(TextMeshProUGUI), true) as TextMeshProUGUI;
             _rarityIdentifier = transform.GetChild(3).GetComponent<Image>();
+            
+            _rectTransform = GetComponent<RectTransform>();
         }
 
         #endregion
 
         #region Public Methods
 
-        public void SetGlowColor()
+        public void Show(float duration, bool reverse = false)
+        {
+            float start = reverse ? -1000 : 1000;
+            const float end = 0;
+            void EasedShow(float t)
+            {
+                var pos = _rectTransform.localPosition;
+                pos.y = Mathf.Lerp(start, end, Mathf.Sqrt(t));
+                _rectTransform.localPosition = pos;
+            }
+
+            StartCoroutine(Interpolate(EasedShow, duration));
+        }
+
+        public void Hide(float duration, bool reverse = false)
+        {
+            float end = reverse ? 1000 : -1000;
+            const float start = 0;
+            void EasedHide(float t)
+            {
+                var pos = _rectTransform.localPosition;
+                pos.y = Mathf.Lerp(start, end, Mathf.Pow(t, 2));
+                _rectTransform.localPosition = pos;
+            }
+
+            StartCoroutine(Interpolate(EasedHide, duration));
+        }
+        
+        #endregion
+
+        #region Private Methods
+
+        private void SetGlowColor()
         {
             /*
              * moving from [-d,d] to [0,1]: x/(2*d) + 0.5f
@@ -94,10 +129,6 @@ namespace UI
             _borderGlow.color = c;
             _circleGlow.color = c;
         }
-
-        #endregion
-
-        #region Private Methods
 
         private static void AssignImage(Image image, Sprite sprite)
         {

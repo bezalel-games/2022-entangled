@@ -47,8 +47,8 @@ WHATSNEW*          text
 *.vspscc           text eol=lf
 .htaccess          text eol=lf
 *.cs               text eol=lf
-*.plist            text eol=lf #FMOD
-*.bundle           text eol=lf #FMOD
+*.plist            text eol=lf
+*.bundle           text eol=lf
 
 # Previous "binary"
 *.mat              text
