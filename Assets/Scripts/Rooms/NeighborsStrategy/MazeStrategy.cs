@@ -21,13 +21,12 @@ namespace Rooms.NeighborsStrategy
         private Vector2Int _bossIndex;
 
         private readonly Dictionary<Vector2Int, (RoomType type, int bossDistance)> _rooms;
+        private readonly HashSet<Vector2Int> _specialLocations;
 
         private readonly int _fountainDistance;
         private readonly int _treasureDistance;
         private int _fountainCount;
         private int _treasureCount;
-
-        private HashSet<Vector2Int> _specialLocations;
 
         #endregion
 
@@ -108,7 +107,7 @@ namespace Rooms.NeighborsStrategy
 
             Debug.Log(s);
         }
-        
+
         private void CreateMazeWithRetry()
         {
             for (int i = 0; i < 3; ++i)
@@ -127,6 +126,10 @@ namespace Rooms.NeighborsStrategy
                     }
 
                     Debug.Log($"{e}. Retrying.");
+                    _rooms.Clear();
+                    _specialLocations.Clear();
+                    _fountainCount = 0;
+                    _treasureCount = 0;
                 }
             }
         }
