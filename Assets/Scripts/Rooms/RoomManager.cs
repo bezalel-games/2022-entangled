@@ -11,6 +11,7 @@ using Enemies;
 using Interactables;
 using Managers;
 using Player;
+using Utils;
 
 namespace Rooms
 {
@@ -32,6 +33,8 @@ namespace Rooms
         [SerializeField] private bool _spawnEnemies = true;
         [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
         [SerializeField] private InteractablePair[] _interactablePairs;
+        [SerializeField] private ParticleSystemForceField _bossRoomForceFieldPrefab;
+        [SerializeField] private ParticleSystem _bossRoomParticlesPrefab;
 
         [field: Header("Play mode")] [SerializeField]
         private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
@@ -49,8 +52,8 @@ namespace Rooms
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
 
-        [Header("Room rank function")]
-        [SerializeField] private int _minRoomRank = 20;
+        [Header("Room rank function")] [SerializeField]
+        private int _minRoomRank = 20;
 
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
@@ -67,6 +70,7 @@ namespace Rooms
         private INeighborsStrategy _strategy;
         private readonly Dictionary<Vector2Int, RoomNode> _nodes = new();
         private readonly Dictionary<RoomType, Interactable> _interactables = new();
+        private ParticleSystem _bossRoomParticles;
 
         #endregion
 
@@ -97,9 +101,9 @@ namespace Rooms
         #region Events
 
         public static event Action<float> RoomChanged;
-        
+
         #endregion
-        
+
         #region Function Events
 
         private void Awake()
@@ -127,9 +131,10 @@ namespace Rooms
             _currentRoom.Room.Enter();
 
             if (IsTutorial)
-            {
                 FillRoom(_currentRoom);
-            }
+
+            if (_playMode == NeighborsStrategy.MAZE)
+                RepositionParticles(_currentRoom);
 
             LoadNeighbors(_currentRoom);
             InitContentInNeighbors();
@@ -194,14 +199,14 @@ namespace Rooms
             var dirOfNewRoom = indexDiff.ToDirection();
             var player = transitioningObject.GetComponent<PlayerController>();
             if (player)
-                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2)indexDiff, player);
+                MovePlayerToNewRoom(newRoom.Index, dirOfNewRoom, (Vector2) indexDiff, player);
 
             var previousRoom = _instance._currentRoom;
             _instance._currentRoom = newRoom;
-            
+
             newRoom.Room.Enter();
             previousRoom.Room.Exit(_instance._previousRoomSleepDelay);
-            
+
             _instance.UnloadNeighbors(previousRoom, dirOfNewRoom); // TODO: async?
             _instance.LoadNeighbors(newRoom, dirOfNewRoom.Inverse()); // TODO: async?
             MinimapManager.AddRoom(newRoom.Index);
@@ -209,8 +214,24 @@ namespace Rooms
                 InitContentInNeighbors();
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
 
-            if(_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
+            if (_instance._playMode == NeighborsStrategy.MAZE)
+                _instance.RepositionParticles(newRoom);
+
+            if (_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
                 AudioManager.SetMusic(MusicSounds.BOSS1);
+        }
+
+        private void RepositionParticles(RoomNode node)
+        {
+            if (_bossRoomParticles == null || _playMode != NeighborsStrategy.MAZE) return;
+
+            var bossIndex = ((MazeStrategy) _strategy).GetBossRoom();
+            var delta = node.Index - bossIndex;
+            delta.x = (int) (Math.Sign(delta.x) * _roomProperties.Width * 0.75f);
+            delta.y = (int) (Math.Sign(delta.y) * _roomProperties.Height * 0.75f);
+
+            _bossRoomParticles.transform.position = GetPosition(node.Index) + new Vector3(delta.x, delta.y, 0);
+            _bossRoomParticles.transform.rotation = Quaternion.Euler(0, 0, Vector2Ext.Angles(Vector2.up, delta));
         }
 
         private static void MovePlayerToNewRoom(Vector2Int newRoomIndex, Direction dirOfNewRoom, Vector3 walkDirection,
@@ -333,8 +354,8 @@ namespace Rooms
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
-                for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
-                    SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
+            for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
+                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)
@@ -415,6 +436,13 @@ namespace Rooms
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
             };
+
+            if (_playMode == NeighborsStrategy.MAZE)
+            {
+                Instantiate(_bossRoomForceFieldPrefab, GetPosition(((MazeStrategy) _strategy).GetBossRoom()),
+                    Quaternion.identity);
+                _bossRoomParticles = Instantiate(_bossRoomParticlesPrefab);
+            }
         }
 
 

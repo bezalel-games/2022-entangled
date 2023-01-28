@@ -53,6 +53,8 @@ namespace Rooms.NeighborsStrategy
             CreateMazeWithRetry();
         }
 
+        public Vector2Int GetBossRoom() => _bossIndex;
+
         #endregion
 
         #region INeighborsStrategy Implementation
