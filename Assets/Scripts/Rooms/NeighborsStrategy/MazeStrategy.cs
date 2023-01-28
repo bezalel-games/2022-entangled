@@ -49,7 +49,7 @@ namespace Rooms.NeighborsStrategy
 
             _rooms = new();
             _specialLocations = new();
-            CreateMaze();
+            CreateMazeWithRetry();
         }
 
         #endregion
@@ -108,19 +108,39 @@ namespace Rooms.NeighborsStrategy
 
             Debug.Log(s);
         }
+        
+        private void CreateMazeWithRetry()
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                try
+                {
+                    CreateMaze();
+                    return;
+                }
+                catch (MazeGenerationException e)
+                {
+                    if (i == 2)
+                    {
+                        Debug.Log($"{e}. Failed to create maze.");
+                        throw;
+                    }
+
+                    Debug.Log($"{e}. Retrying.");
+                }
+            }
+        }
 
         private void CreateMaze()
         {
             AddRoom(Vector2Int.zero);
 
             CreatePathToBoss();
-            PrintMaze();
-            
+
             PopulateMaze();
             MarkRoomBossDistance();
 
             PrintMaze();
-            PrintMaze(true);
         }
 
         private void MarkRoomBossDistance()
@@ -204,10 +224,10 @@ namespace Rooms.NeighborsStrategy
             var col = Random.Range(_minDistanceToBoss - row, _maxDistanceToBoss - row);
 
             row *= (Random.value > 0.5) ? 1 : -1;
-            col *= (Random.value > 0.5) ? 1 : -1; 
-            
+            col *= (Random.value > 0.5) ? 1 : -1;
+
             HashSet<Vector2Int> noReturnRooms = new HashSet<Vector2Int>();
-            
+
             _bossIndex = new Vector2Int(col, row);
             AddRoom(_bossIndex);
             noReturnRooms.Add(_bossIndex);
@@ -215,13 +235,13 @@ namespace Rooms.NeighborsStrategy
             Vector2Int currRoom = _bossIndex + Vector2Int.down;
             AddRoom(currRoom);
             noReturnRooms.Add(currRoom);
-            
+
             currRoom += new Vector2Int(Random.value >= 0.5f ? 1 : -1, 0);
             AddRoom(currRoom);
             noReturnRooms.Add(currRoom);
-            
+
             int roomCount = 2;
-            
+
             Vector2Int lastDir = Vector2Int.zero;
 
             while (currRoom != Vector2Int.zero)
@@ -272,27 +292,26 @@ namespace Rooms.NeighborsStrategy
          */
         private void CreateStraightPath(Vector2Int from, Vector2Int to, HashSet<Vector2Int> noReturn = null)
         {
-
             if (noReturn == null)
                 noReturn = new HashSet<Vector2Int>();
-            
+
             Vector2Int curr = from;
             AddRoom(curr);
 
-            Vector2Int yDir = Math.Sign(to.y - from.y) * Vector2Int.up;
-            Vector2Int xDir = Math.Sign(to.x - from.x) * Vector2Int.right;
+            Vector2Int yDir = (Math.Sign(to.y - from.y) == -1 ? -1 : 1) * Vector2Int.up;
+            Vector2Int xDir = (Math.Sign(to.x - from.x) == -1 ? -1 : 1) * Vector2Int.right;
 
             while (curr != to)
             {
                 bool yLegal = !noReturn.Contains(curr + yDir);
                 bool xLegal = !noReturn.Contains(curr + xDir);
-                
+
                 var dir = Vector2Int.zero;
                 if ((curr.x == to.x || !xLegal) && yLegal)
                     dir = yDir;
                 else if ((curr.y == to.y || !yLegal) && xLegal)
                     dir = xDir;
-                else if(yLegal) //when reaching this else, if yLegal == true than necessarily xLegal == true
+                else if (yLegal) //when reaching this else, if yLegal == true than necessarily xLegal == true
                     dir = (Random.value > 0.5f) ? yDir : xDir;
                 else // both directions aren't legal. In this case, go in direction that increases distance the least
                 {
@@ -303,8 +322,8 @@ namespace Rooms.NeighborsStrategy
                         yLegal = !noReturn.Contains(negYDir);
                         xLegal = !noReturn.Contains(negXDir);
                         if (!yLegal && !xLegal)
-                            throw new Exception("All direction are invalid! help!");
-                        else if (yLegal && xLegal)
+                            throw new MazeGenerationException("All direction are invalid! help!");
+                        if (yLegal && xLegal)
                         {
                             float yDist = Vector2Ext.L1Norm(negYDir);
                             float xDist = Vector2Ext.L1Norm(negXDir);
@@ -321,6 +340,8 @@ namespace Rooms.NeighborsStrategy
 
                 curr += dir;
                 AddRoom(curr);
+                if (curr.L1Norm() > 2 * _maxDistanceToBoss)
+                    throw new MazeGenerationException("Maze generator went in wrong direction");
             }
         }
 
@@ -364,6 +385,17 @@ namespace Rooms.NeighborsStrategy
             }
 
             return MONSTERS;
+        }
+
+        #endregion
+
+        #region Classes
+
+        private class MazeGenerationException : Exception
+        {
+            public MazeGenerationException(string message) : base(message)
+            {
+            }
         }
 
         #endregion
