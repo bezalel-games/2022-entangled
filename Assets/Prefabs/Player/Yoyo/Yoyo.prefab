@@ -218,6 +218,7 @@ MonoBehaviour:
   _idleHit: 0
   _parent: {fileID: 0}
   _initPos: {fileID: 0}
+  _walCollider: {fileID: 2744190503378649879}
   <Damage>k__BackingField: 20
 --- !u!1 &6143497779323870012
 GameObject:

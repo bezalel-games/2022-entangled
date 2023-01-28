@@ -62,6 +62,7 @@ namespace Player
         [SerializeField] private bool _idleHit;
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _initPos;
+        [SerializeField] private Collider2D _walCollider;
 
         #endregion
 
@@ -425,6 +426,7 @@ namespace Player
         private void GoBack(bool immediate = false)
         {
             _stopBackEase = immediate ? Time.time : Time.time + _backEaseDuration;
+            _walCollider.enabled = false;
             _collider.isTrigger = true;
             _rigidbody.velocity = Vector2.zero;
             State = YoyoState.BACK;
@@ -434,6 +436,7 @@ namespace Player
         {
             _quickShotCumDistance = 0;
             _collider.isTrigger = true;
+            _walCollider.enabled = true;
             transform.position = _initPos.position;
             _rigidbody.velocity = Vector2.zero;
             State = YoyoState.IDLE;
