@@ -59,7 +59,8 @@ namespace Rooms
             set
             {
                 _nodes[(byte) dir] = value;
-                Room.ShowDoor(dir, value != null);
+                if(Room != null)
+                    Room.ShowDoor(dir, value != null);
             }
         }
 
@@ -76,7 +77,7 @@ namespace Rooms
             Enemies = new int[RoomManager.EnemyDictionary.Count];
             if (Room == null) return;
             foreach (Direction dir in DirectionExt.GetDirections())
-                Room.ShowDoor(dir, false, index);
+                Room.ShowDoor(dir, false);
         }
 
         #endregion

@@ -96,7 +96,7 @@ public class AudioManager : MonoBehaviour
         }
         catch (ArgumentOutOfRangeException)
         {
-            print("Invalid sound");
+            print($"Invalid sound {type}:{val}");
         }
 
         return new EventInstance();

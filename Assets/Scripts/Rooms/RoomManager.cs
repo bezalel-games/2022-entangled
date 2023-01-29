@@ -179,6 +179,7 @@ namespace Rooms
         public static void RepositionRoom(Room room)
         {
             room.transform.position = _instance.GetPosition_Inner(room.Node.Index);
+            room.UpdateDoors();
             room.Clean();
 
             _instance.FillRoom(room.Node);

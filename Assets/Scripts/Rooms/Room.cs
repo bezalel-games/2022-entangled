@@ -155,7 +155,7 @@ namespace Rooms
                 _sleepCoroutine = StartCoroutine(SleepWithDelay(sleepDelay));
         }
 
-        public void ShowDoor(Direction dir, bool show = true, Vector2Int index = default)
+        public void ShowDoor(Direction dir, bool show = true)
         {
             if (RoomManager.IsTutorial) return;
             foreach (var gateTilePos in RoomProperties.GatePositions)
@@ -165,6 +165,14 @@ namespace Rooms
                     var tile = show ? RoomProperties.GateFrameTile : RoomProperties.WallTile;
                     _frameTilemap.SetTile(gateTilePos, tile);
                 }
+            }
+        }
+
+        public void UpdateDoors()
+        {
+            foreach (Direction dir in DirectionExt.GetDirections())
+            {
+                ShowDoor(dir, Node[dir] != null);
             }
         }
 
