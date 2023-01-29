@@ -105,160 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: New MINI MAP UI_0
+      name: New MINI MAP UI sprite sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 195
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dbfb4b9bfac111e47a7204bfb9a80416
-      internalID: 1579518174
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_1
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 0
-        width: 195
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2582c9d00f3b5314d843ac1ff5151680
-      internalID: 778207692
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_2
-      rect:
-        serializedVersion: 2
-        x: 390
-        y: 0
-        width: 195
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: db5e8fa9a2c421a44a1b46bd7d66ff36
-      internalID: -1919052992
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_3
-      rect:
-        serializedVersion: 2
-        x: 585
-        y: 0
-        width: 195
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1be47a30fec08449b3d65dc3af650c5
-      internalID: -1884000892
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_4
-      rect:
-        serializedVersion: 2
-        x: 780
-        y: 0
-        width: 195
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e21ceb793439d33468a09354df9d5b28
-      internalID: 463288662
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_5
-      rect:
-        serializedVersion: 2
-        x: 991
-        y: 0
-        width: 46
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fe7addaaeb29f143923104c97dec45f
-      internalID: 474851736
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_6
-      rect:
-        serializedVersion: 2
-        x: 1047
-        y: 59
-        width: 56
-        height: 35
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d490491c083e774478e0d0b272116e16
-      internalID: 683208333
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New MINI MAP UI_7
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 12
-        width: 25
-        height: 26
+        width: 406.33334
+        height: 229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,8 +119,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab6f2e2f285161a45a261db430ca0762
-      internalID: 1372452882
+      spriteID: 381684702c3b9504380dba9802ed4f20
+      internalID: -2054526182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_1
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 0
+        width: 406.33334
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d9053c53f4fec142a2bc62b9982a655
+      internalID: -869365040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_2
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 0
+        width: 406.33334
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a21c43145c24dac4a82bbc33b6d4152f
+      internalID: 1160482582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 0
+        width: 406.33334
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f6e6f30e64c3c149baab484e26f93ef
+      internalID: 308392272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 0
+        width: 406.33334
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 470b7046983ab074ba475ea92f470b2b
+      internalID: 2133704904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_5
+      rect:
+        serializedVersion: 2
+        x: 2065
+        y: 0
+        width: 96
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3391bacf49c48a44ca6126cd720cb27e
+      internalID: -192517976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_6
+      rect:
+        serializedVersion: 2
+        x: 2183
+        y: 123
+        width: 117
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d02857071caca040a885c185a4b97ca
+      internalID: -1952523099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New MINI MAP UI sprite sheet_7
+      rect:
+        serializedVersion: 2
+        x: 2242
+        y: 24
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a05c3ff441115d4ba7b08dc456631bb
+      internalID: -2038090719
       vertices: []
       indices: 
       edges: []
@@ -283,14 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      New MINI MAP UI_4: 463288662
-      New MINI MAP UI_7: 1372452882
-      New MINI MAP UI_2: -1919052992
-      New MINI MAP UI_3: -1884000892
-      New MINI MAP UI_6: 683208333
-      New MINI MAP UI_5: 474851736
-      New MINI MAP UI_1: 778207692
-      New MINI MAP UI_0: 1579518174
+      New MINI MAP UI sprite sheet_5: -192517976
+      New MINI MAP UI sprite sheet_3: 308392272
+      New MINI MAP UI sprite sheet_6: -1952523099
+      New MINI MAP UI sprite sheet_7: -2038090719
+      New MINI MAP UI sprite sheet_2: 1160482582
+      New MINI MAP UI sprite sheet_1: -869365040
+      New MINI MAP UI sprite sheet_4: 2133704904
+      New MINI MAP UI sprite sheet_0: -2054526182
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
