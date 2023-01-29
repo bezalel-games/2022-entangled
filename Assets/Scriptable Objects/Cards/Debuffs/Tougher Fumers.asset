@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Tougher Fumers
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Increase Fumer health
+  <Description>k__BackingField: VAR_TXT increase Fumer health
   <CardSprite>k__BackingField: {fileID: 21300000, guid: fe5a741d7f1e9f74f9aa23a1b19cd823, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
+  <CommonText>k__BackingField: Slightly
+  <RareText>k__BackingField: 
+  <EpicText>k__BackingField: Greatly

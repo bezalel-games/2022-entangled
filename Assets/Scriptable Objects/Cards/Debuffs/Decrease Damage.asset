@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Decrease Damage
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Decrease weapon damage
+  <Description>k__BackingField: VAR_TXT decrease weapon damage
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 18fa59dffb0e4f744b5a4d927df54601, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
+  <CommonText>k__BackingField: Slightly
+  <RareText>k__BackingField: 
+  <EpicText>k__BackingField: Greatly

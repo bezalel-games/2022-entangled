@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f982e12c850042999ee69e4b5019751a, type: 3}
   m_Name: Faster Shooters
   m_EditorClassIdentifier: 
-  <Description>k__BackingField: Shooters move faster
+  <Description>k__BackingField: Shooters move VAR_TXT faster
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 41aa2f0029d834196bd6ba0e7a157c1f, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
+  <CommonText>k__BackingField: a bit
+  <RareText>k__BackingField: 
+  <EpicText>k__BackingField: much

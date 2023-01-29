@@ -6,8 +6,30 @@ namespace Cards
 {
     public abstract class CardElement
     {
+        public static readonly string VariablePlaceholder = "VAR_TXT"; 
+        
         private readonly CardElementClassAttributes _attributes;
-        public string Description => _attributes.Description;
+        
+        public string Description
+        {
+            get
+            {
+                string s = _attributes.Description;
+                string replacement = Rarity switch
+                {
+                    Rarity.COMMON => _attributes.CommonText,
+                    Rarity.RARE => _attributes.RareText,
+                    Rarity.EPIC => _attributes.EpicText,
+                };
+                
+                Debug.Log($"{Rarity}: {replacement}");
+
+                s = s.Replace(VariablePlaceholder, replacement);
+                s = s.Trim();
+                return char.ToUpper(s[0]) + s.Substring(1);
+            }
+        }
+        
         public Sprite CardSprite => _attributes.CardSprite;
         public Rarity Rarity { get; }
 
