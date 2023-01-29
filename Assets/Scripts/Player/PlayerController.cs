@@ -163,6 +163,16 @@ namespace Player
 
         // =============================== Action Map ======================================================================
 
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    GameManager.Pause(!UIManager.Paused);
+                    break;
+            }
+        }
+
         public void OnMove(InputAction.CallbackContext context)
         {
             if (_overridenMovement) return;

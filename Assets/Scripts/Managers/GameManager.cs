@@ -153,8 +153,7 @@ namespace Managers
         {
             if (_instance._chooseCards && ++_instance._roomsSinceLastCard == _instance._numberOfRoomsToCard)
             {
-                _instance._cardManager.ShowCards(CardChosen);
-                _instance.ActionMapInUse = ActionMap.UI;
+                ShowCards();
             }
             else
             {
@@ -178,6 +177,12 @@ namespace Managers
         {
             // LoadManager.ReloadStartingScene();
             LoadManager.LoadWin();
+        }
+
+        public static void Pause(bool pause)
+        {
+            UIManager.TogglePauseMenu(pause);
+            _instance.ActionMapInUse = pause ? ActionMap.UI : ActionMap.PLAYER;
         }
 
         #endregion

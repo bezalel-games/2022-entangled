@@ -159,7 +159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f2a18fe7ab68a4ea02995123c7fc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingCanvas: {fileID: 382336144543370636}
+  _hubSceneName: Hub Scene
+  _runSceneName: Run Scene
+  _menuSceneName: Menu Scene
+  _winSceneName: Win Scene
+  _loseSceneName: Lose Scene
+  _tutorialSceneName: Tutorial Scene
 --- !u!1 &8149771192234584241
 GameObject:
   m_ObjectHideFlags: 0

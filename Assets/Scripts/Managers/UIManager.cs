@@ -9,6 +9,7 @@ namespace Managers
 
         [SerializeField] private Canvas _slowdownFilter;
         [SerializeField] private Canvas _generalCanvas;
+        [SerializeField] private Canvas _pauseMenu;
 
         #endregion
 
@@ -19,6 +20,8 @@ namespace Managers
         #endregion
 
         #region Properties
+
+        public static bool Paused => _instance._pauseMenu.gameObject.activeSelf;
 
         #endregion
 
@@ -58,5 +61,10 @@ namespace Managers
         }
 
         #endregion
+
+        public static void TogglePauseMenu(bool show)
+        {
+            _instance._pauseMenu.gameObject.SetActive(show);
+        }
     }
 }
