@@ -14,6 +14,8 @@ public class MinimapManager : MonoBehaviour
 
   [SerializeField] private List<MinimapPair> _minimapSprites = new();
 
+  [SerializeField] private float _sizeFactor = 0.5f;
+
   #endregion
   #region Non-Serialized Fields
   
@@ -71,7 +73,8 @@ public class MinimapManager : MonoBehaviour
 
   private void AddRoom_Inner(Vector2Int index)
   {
-    var minimap = Instantiate(_minimapRoomPrefab, RoomManager.GetPosition(index), Quaternion.identity, transform);
+    var minimap = Instantiate(_minimapRoomPrefab, RoomManager.GetPosition(index) * _sizeFactor, Quaternion.identity, transform);
+    minimap.transform.localScale *= _sizeFactor;
     minimap.Init(index);
     _instance._rooms[index] = minimap;
   }
