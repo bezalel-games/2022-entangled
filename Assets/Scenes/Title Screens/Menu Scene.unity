@@ -1333,6 +1333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossButton: {fileID: 1928445184}
+  _runButton: {fileID: 442309655}
 --- !u!1 &1739426011
 GameObject:
   m_ObjectHideFlags: 0

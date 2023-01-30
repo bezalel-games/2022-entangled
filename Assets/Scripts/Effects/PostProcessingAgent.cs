@@ -27,6 +27,7 @@ namespace Effects
         [SerializeField] private float _maxFilmGrainIntensity = 1;
         [SerializeField] private float _minSplitToningBalance = -100;
         [SerializeField] private float _maxChannelMixerRedOutGreenIn = 200;
+        [SerializeField] private bool _intensityChangesChannelMixer;
 
         #endregion
 
@@ -57,7 +58,8 @@ namespace Effects
                 var t = _intensityEffectGraph.Evaluate(value);
                 _filmGrain.intensity.value = Mathf.Lerp(_baseFilmGrainIntensity, _maxFilmGrainIntensity, t);
                 _splitToning.balance.value = Mathf.Lerp(_baseSplitToningBalance, _minSplitToningBalance, t);
-                _channelMixer.redOutGreenIn.value = Mathf.Lerp(_baseChannelMixerRedOutGreenIn, _maxChannelMixerRedOutGreenIn, t);
+                if (_intensityChangesChannelMixer)
+                    _channelMixer.redOutGreenIn.value = Mathf.Lerp(_baseChannelMixerRedOutGreenIn, _maxChannelMixerRedOutGreenIn, t);
             }
         }
 
