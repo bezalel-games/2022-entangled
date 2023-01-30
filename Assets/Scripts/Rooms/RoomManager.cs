@@ -71,6 +71,7 @@ namespace Rooms
         private readonly Dictionary<Vector2Int, RoomNode> _nodes = new();
         private readonly Dictionary<RoomType, Interactable> _interactables = new();
         private ParticleSystem _bossRoomParticles;
+        private ParticleSystemForceField _bossRoomParticlesForceField;
 
         #endregion
 
@@ -216,7 +217,12 @@ namespace Rooms
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
 
             if (_instance._playMode == NeighborsStrategy.MAZE)
+            {
+                if (_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
+                    _instance._bossRoomParticlesForceField.transform.position =
+                        GetPosition(newRoom.Index + Vector2Int.right * 2);
                 _instance.RepositionParticles(newRoom);
+            }
 
             if (_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
                 AudioManager.SetMusic(MusicSounds.BOSS1);
@@ -440,7 +446,7 @@ namespace Rooms
 
             if (_playMode == NeighborsStrategy.MAZE)
             {
-                Instantiate(_bossRoomForceFieldPrefab, GetPosition(((MazeStrategy) _strategy).GetBossRoom()),
+                _bossRoomParticlesForceField = Instantiate(_bossRoomForceFieldPrefab, GetPosition(((MazeStrategy) _strategy).GetBossRoom()),
                     Quaternion.identity);
                 _bossRoomParticles = Instantiate(_bossRoomParticlesPrefab);
             }
