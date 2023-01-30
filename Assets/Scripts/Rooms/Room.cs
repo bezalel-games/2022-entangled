@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Audio;
 using Cinemachine;
 using Enemies;
 using Interactables;
@@ -79,9 +80,15 @@ namespace Rooms
                 }
 
                 if (value is GateState.CLOSING)
-                    DelayInvoke(() => GateState = GateState.CLOSED, _doorClosingAnimationDuration);
+                {
+                    AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CLOSE_DOOR);
+                    DelayInvoke(() => GateState = GateState.CLOSED, _doorClosingAnimationDuration);   
+                }
                 else if (value is GateState.OPENING)
+                {
+                    AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CLOSE_DOOR);
                     DelayInvoke(() => GateState = GateState.OPEN, _doorOpeningAnimationDuration);
+                }
             }
         }
 

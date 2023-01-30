@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Audio;
 using HP_System;
 using Player;
 using UnityEngine;
@@ -226,6 +227,7 @@ namespace Enemies.Boss
             }
 
             yoyoTransform.localPosition = startPos + Vector3.down * _yoyoDrawDistance;
+            AudioManager.PlayOneShot(SoundType.ENEMY, (int)EnemySounds.BOSS_ATTACK);
             yoyo.Shoot(yoyoTransform.up, Vector3.zero);
         }
 

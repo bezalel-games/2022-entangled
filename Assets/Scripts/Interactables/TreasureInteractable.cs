@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Audio;
+using Managers;
 
 namespace Interactables
 {
@@ -6,6 +7,7 @@ namespace Interactables
     {
         protected override void OnInteract()
         {
+            AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CHEST);
             GameManager.ShowCards();
         }
     }

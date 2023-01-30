@@ -1,3 +1,4 @@
+using Audio;
 using Cards.Buffs.Components;
 using HP_System;
 using Player;
@@ -67,6 +68,7 @@ namespace Enemies.Boss
             if (!Active) return;
             if (TimeLeftToExplosion <= 0)
             {
+                AudioManager.PlayOneShot(SoundType.ENEMY, (int)EnemySounds.BOSS_EXPLOSION);
                 Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }

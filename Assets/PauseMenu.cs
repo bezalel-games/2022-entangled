@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,11 @@ public class PauseMenu : MonoBehaviour
   public void ExitGame()
   {
     LoadManager.LoadMenu();
+  }
+
+  public void ScrollSound()
+  {
+    AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.BUTTON_MOVE);
   }
   
   #endregion

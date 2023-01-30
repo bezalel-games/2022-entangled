@@ -69,6 +69,14 @@ MonoBehaviour:
         Data4: -1409140777
       Path: event:/Yoyo/Wall Hit
     _type: 2
+  - _reference:
+      Guid:
+        Data1: -929826364
+        Data2: 1263658267
+        Data3: 1765718206
+        Data4: -1234215732
+      Path: event:/Yoyo/Explosion
+    _type: 3
   _enemyRefs:
   - _reference:
       Guid:
@@ -80,10 +88,10 @@ MonoBehaviour:
     _type: 0
   - _reference:
       Guid:
-        Data1: 147302076
-        Data2: 1320178887
-        Data3: 127981197
-        Data4: -1397695874
+        Data1: 575078492
+        Data2: 1298407819
+        Data3: -126519151
+        Data4: 1700269342
       Path: event:/Enemy/GoombaPrep
     _type: 1
   - _reference:
@@ -96,9 +104,82 @@ MonoBehaviour:
     _type: 2
   - _reference:
       Guid:
+        Data1: -1290544280
+        Data2: 1195788286
+        Data3: -767612737
+        Data4: -1120321567
+      Path: event:/Enemy/FumerAttack
+    _type: 3
+  - _reference:
+      Guid:
+        Data1: -1525307544
+        Data2: 1245276697
+        Data3: 874891151
+        Data4: 19201795
+      Path: event:/Enemy/ShooterAttack
+    _type: 4
+  - _reference:
+      Guid:
         Data1: -1371934048
         Data2: 1268831661
         Data3: 1231411591
         Data4: -1473246287
       Path: event:/Enemy/Death
+    _type: 5
+  - _reference:
+      Guid:
+        Data1: -1849715216
+        Data2: 1292278320
+        Data3: -1914720350
+        Data4: -1841969585
+      Path: event:/Boss/Bomb Explosion
+    _type: 6
+  - _reference:
+      Guid:
+        Data1: -851460835
+        Data2: 1153595984
+        Data3: 842624413
+        Data4: 1366574742
+      Path: event:/Boss/Attack
+    _type: 7
+  _sfxRefs:
+  - _reference:
+      Guid:
+        Data1: 1326279935
+        Data2: 1292489575
+        Data3: -959320185
+        Data4: -1559960208
+      Path: event:/Environment/Fountain Interact
+    _type: 0
+  - _reference:
+      Guid:
+        Data1: 2097697321
+        Data2: 1229062062
+        Data3: -155843426
+        Data4: 1834835311
+      Path: event:/Environment/Open Chest
+    _type: 1
+  - _reference:
+      Guid:
+        Data1: 1804560051
+        Data2: 1340981802
+        Data3: -974091842
+        Data4: -1072461314
+      Path: event:/Cards/CardsInOut
+    _type: 2
+  - _reference:
+      Guid:
+        Data1: -957178793
+        Data2: 1318826733
+        Data3: -1000017003
+        Data4: -244192787
+      Path: event:/ButtonPick
+    _type: 3
+  - _reference:
+      Guid:
+        Data1: -1027757410
+        Data2: 1133455933
+        Data3: -638870853
+        Data4: -103403900
+      Path: event:/Environment/Close Door
     _type: 4

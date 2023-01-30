@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a0ac89e9-5752-419b-9b20-08d49591917c}">
+		<property name="assetPath">
+			<value>Enemy/Goomba Prep/Sam_nor1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>22.0499992</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.2365079365079366</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e064a99d-ef3c-4c76-bbb0-32a2ba73ab27}</destination>
+		</relationship>
+	</object>
+</objects>

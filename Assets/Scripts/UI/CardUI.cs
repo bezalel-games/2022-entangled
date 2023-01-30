@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using Cards;
 using TMPro;
 using UnityEngine;
@@ -79,6 +80,7 @@ namespace UI
 
         public void Show(float duration, bool reverse = false)
         {
+            AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.CARDS_IN_OUT);
             float start = reverse ? -1000 : 1000;
             const float end = 0;
             void EasedShow(float t)
@@ -93,6 +95,7 @@ namespace UI
 
         public void Hide(float duration, bool reverse = false)
         {
+            AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.CARDS_IN_OUT);
             float end = reverse ? 1000 : -1000;
             const float start = 0;
             void EasedHide(float t)

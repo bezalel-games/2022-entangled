@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using Player;
 using UnityEngine;
 
@@ -90,6 +91,7 @@ namespace Enemies
                 _projectilePool.Push(proj);
             };
 
+            ((IAudible<EnemySounds>)this).PlayOneShot(EnemySounds.SHOOTER_ATTACK);
             CanShoot = false;
             DelayInvoke(() => { CanShoot = true; }, shootCooldown);
         }

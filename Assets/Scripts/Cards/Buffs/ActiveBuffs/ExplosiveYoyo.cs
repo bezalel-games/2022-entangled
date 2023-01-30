@@ -1,4 +1,5 @@
-﻿using Cards.Buffs.Components;
+﻿using Audio;
+using Cards.Buffs.Components;
 using Cards.CardElementClasses;
 using Cards.Factory;
 using Player;
@@ -52,6 +53,7 @@ namespace Cards.Buffs.ActiveBuffs
 
         private void BlowUpYoyo()
         {
+            ((IAudible<YoyoSounds>) _yoyo).PlayOneShot(YoyoSounds.EXPLOSION);
             var explosion = Object.Instantiate(_explosion, _yoyo.transform);
             explosion.Radius = ExplosionRadius;
             explosion.Damage = Damage;

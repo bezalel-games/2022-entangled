@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Enemies;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -107,6 +108,7 @@ public class LoadManager : MonoBehaviour
     private void LoadScene(string name, LoadSceneMode mode = LoadSceneMode.Single, Action beforeFade = null,
         Action onLoad = null, Action afterFade = null)
     {
+        Shooter.ClearProjectiles();
         StartCoroutine(LoadScene_Inner(
             name, mode, _durationTime, _loadScreenTime,
             beforeFade, onLoad, afterFade));

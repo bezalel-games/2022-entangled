@@ -11,13 +11,14 @@ namespace Audio
     [CreateAssetMenu(fileName = "Audio Bank", menuName = "Entangled/Audio/Audio Bank", order = 0)]
     public class AudioBank : ScriptableObject
     {
+        #region Serialized Fields
+        
         [field: SerializeField] public EventReference MusicEventReference { get; private set; }
         [SerializeField] private List<PlayerRefPair> _playerRefs = new();
         [SerializeField] private List<YoyoRefPair> _yoyoRefs = new();
         [SerializeField] private List<EnemyRefPair> _enemyRefs = new();
-
-        private Dictionary<SoundType, Object> _refsDict;
-
+        [SerializeField] private List<SfxRefPair> _sfxRefs = new();
+        
         // #region Add
         // [Header("Add Sounds")] [SerializeField]
         // private SoundType _type;
@@ -27,6 +28,14 @@ namespace Audio
         // [SerializeField] private EventReference _reference;
         //
         // #endregion
+        
+        #endregion
+
+        #region None-Serialized Fields
+
+        private Dictionary<SoundType, Object> _refsDict;
+
+        #endregion
 
         public EventReference this[SoundType soundType, int sound]
         {
@@ -37,35 +46,20 @@ namespace Audio
                     SoundType.PLAYER => _playerRefs[sound]._reference,
                     SoundType.YOYO => _yoyoRefs[sound]._reference,
                     SoundType.ENEMY => _enemyRefs[sound]._reference,
+                    SoundType.SFX => _sfxRefs[sound]._reference
                 };
             }
         }
 
         private void OnEnable()
         {
-            if (_refsDict == null)
-            {
-                _refsDict = new Dictionary<SoundType, Object>()
-                {
-                    {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs},
-                    {SoundType.ENEMY, _enemyRefs}
-                };
-            }
+            InitSoundDictionary();
         }
 
         private void OnValidate()
         {
-            if (_refsDict == null)
-            {
-                _refsDict = new Dictionary<SoundType, Object>()
-                {
-                    {SoundType.PLAYER, _playerRefs},
-                    {SoundType.YOYO, _yoyoRefs},
-                    {SoundType.ENEMY, _enemyRefs}
-                };
-            }
-            
+            InitSoundDictionary();
+
             foreach ((var key, var value) in _refsDict)
             {
                 switch (key)
@@ -80,6 +74,20 @@ namespace Audio
                         ((List<EnemyRefPair>) value).Sort(((pair1, pair2) => pair1._type - pair2._type));
                         break;
                 }    
+            }
+        }
+
+        private void InitSoundDictionary()
+        {
+            if (_refsDict == null)
+            {
+                _refsDict = new Dictionary<SoundType, Object>()
+                {
+                    {SoundType.PLAYER, _playerRefs},
+                    {SoundType.YOYO, _yoyoRefs},
+                    {SoundType.ENEMY, _enemyRefs},
+                    {SoundType.SFX, _sfxRefs}
+                };
             }
         }
 
@@ -122,12 +130,20 @@ namespace Audio
         public override int Type => (int) _type;
     }
     
+    [Serializable]
+    public class SfxRefPair : SoundRefPair
+    {
+        public SfxSounds _type;
+        public override int Type => (int) _type;
+    }
+    
 
     public enum SoundType
     {
         PLAYER = 0,
         YOYO,
         ENEMY,
+        SFX,
         MUSIC,
     }
 
@@ -143,15 +159,19 @@ namespace Audio
         HIT,
         GOOMBA_PREP,
         GOOMBA_ATTACK,
-        // FUMER_ATTACK,
+        FUMER_ATTACK,
+        SHOOTER_ATTACK,
         DEATH,
+        BOSS_EXPLOSION,
+        BOSS_ATTACK
     }
 
     public enum YoyoSounds
     {
         THROW = 0,
         PRECISION,
-        WALL_HIT
+        WALL_HIT,
+        EXPLOSION
     }
     
     public enum MusicSounds
@@ -161,6 +181,15 @@ namespace Audio
         BOSS1,
         // BOSS2,
         TUTORIAL
+    }
+
+    public enum SfxSounds
+    {
+        FOUNTAIN,
+        CHEST,
+        CARDS_IN_OUT,
+        BUTTON_MOVE,
+        CLOSE_DOOR,
     }
 
     #endregion

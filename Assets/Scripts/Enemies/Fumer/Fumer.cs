@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using Managers;
 using Player;
 using UnityEngine;
@@ -66,6 +67,7 @@ namespace Enemies
 
         public void Attack(Action onEnd)
         {
+            ((IAudible<EnemySounds>)this).PlayOneShot(EnemySounds.FUMER_ATTACK);
             _particleSystem.Play();
             DelayInvoke(() =>
             {

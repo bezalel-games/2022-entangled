@@ -46,6 +46,11 @@ public class MenuManager : MonoBehaviour
 
     #region Public Methods
 
+    public void ScrollButtons()
+    {
+        AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.BUTTON_MOVE);
+    }
+    
     public static void StartRun()
     {
         SceneManager.LoadScene("Tutorial Scene");
