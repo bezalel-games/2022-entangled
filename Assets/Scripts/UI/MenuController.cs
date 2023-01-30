@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace UI
@@ -6,11 +7,14 @@ namespace UI
     public class MenuController : MonoBehaviour, CharacterMap.IMenuActions
     {
         [SerializeField] private GameObject _bossButton;
+        [SerializeField] private GameObject _runButton;
 
         #region Action Map
         
         public void OnNavigate(InputAction.CallbackContext context)
         {
+            if (context.ReadValue<Vector2>().sqrMagnitude > 0.5f && EventSystem.current.currentSelectedGameObject == null)
+                EventSystem.current.SetSelectedGameObject(_runButton);
         }
 
         public void OnSubmit(InputAction.CallbackContext context)
@@ -54,7 +58,7 @@ namespace UI
             if (context.started)
                 _bossButton.SetActive(!_bossButton.activeSelf);
         }
-        
+
         #endregion
     }
 }
