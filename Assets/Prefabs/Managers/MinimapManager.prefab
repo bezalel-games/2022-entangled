@@ -48,17 +48,17 @@ MonoBehaviour:
   _minimapRoomPrefab: {fileID: 4209900696098792105, guid: 18c149da2d8ea3e4b9d6096a4dc43629, type: 3}
   _minimapSprites:
   - _roomType: 0
-    _spriteBefore: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
-    _spriteAfter: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteBefore: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteAfter: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
   - _roomType: 1
-    _spriteBefore: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
-    _spriteAfter: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteBefore: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteAfter: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
   - _roomType: 2
-    _spriteBefore: {fileID: -1919052992, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
-    _spriteAfter: {fileID: 778207692, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteBefore: {fileID: 1160482582, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteAfter: {fileID: -869365040, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
   - _roomType: 3
-    _spriteBefore: {fileID: 463288662, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
-    _spriteAfter: {fileID: -1884000892, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteBefore: {fileID: 2133704904, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteAfter: {fileID: 308392272, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
   - _roomType: 4
-    _spriteBefore: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
-    _spriteAfter: {fileID: 1579518174, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteBefore: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
+    _spriteAfter: {fileID: -2054526182, guid: 7ae222dafbf49d44ca5c9d70b45d527a, type: 3}
