@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Splitting Goombas
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Chargers split to two on death
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 18fa59dffb0e4f744b5a4d927df54601, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: b2af3fa5062914120baafdb74f1156c0, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 1
