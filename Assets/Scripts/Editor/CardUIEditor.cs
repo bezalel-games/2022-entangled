@@ -10,16 +10,14 @@ namespace Editor
         private SerializedProperty _buffFormat;
         private SerializedProperty _debuffFormat;
         private SerializedProperty _rarityIdentifierSprites;
-        private SerializedProperty _buffColor;
-        private SerializedProperty _debuffColor;
+        private SerializedProperty _glowColor;
 
         private void OnEnable()
         {
             _buffFormat = serializedObject.FindProperty("_buffFormat");
             _debuffFormat = serializedObject.FindProperty("_debuffFormat");
             _rarityIdentifierSprites = serializedObject.FindProperty("_rarityIdentifierSprites");
-            _buffColor = serializedObject.FindProperty("_buffColor");
-            _debuffColor = serializedObject.FindProperty("_debuffColor");
+            _glowColor = serializedObject.FindProperty("_glowColor");
         }
 
         public override void OnInspectorGUI()
@@ -35,9 +33,7 @@ namespace Editor
             GUILayout.Label("where  {0} = Description  {1} = Rarity\n");
 
             EditorGUILayout.PropertyField(_rarityIdentifierSprites);
-            GUILayout.Label("Colors:");
-            EditorGUILayout.PropertyField(_buffColor);
-            EditorGUILayout.PropertyField(_debuffColor);
+            EditorGUILayout.PropertyField(_glowColor);
             
             serializedObject.ApplyModifiedProperties();
         }

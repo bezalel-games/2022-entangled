@@ -68,5 +68,9 @@ MonoBehaviour:
   _commonWeight: 5
   _rareWeight: 4
   _epicWeight: 3
-  _buffColor: {r: 0.4009434, g: 0.8832901, b: 1, a: 1}
-  _debuffColor: {r: 1, g: 0.33490568, b: 0.33490568, a: 1}
+  _buffGlowColor:
+    _superDebuff: {r: 1, g: 0, b: 0, a: 1}
+    _debuff: {r: 1, g: 0.524459, b: 0, a: 1}
+    _neutral: {r: 1, g: 0.97981787, b: 0, a: 1}
+    _buff: {r: 0, g: 1, b: 0.49535728, a: 1}
+    _superBuff: {r: 0, g: 0.9539039, b: 1, a: 1}

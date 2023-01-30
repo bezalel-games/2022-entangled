@@ -21,8 +21,6 @@ namespace Cards
                     Rarity.RARE => _attributes.RareText,
                     Rarity.EPIC => _attributes.EpicText,
                 };
-                
-                Debug.Log($"{Rarity}: {replacement}");
 
                 s = s.Replace(VariablePlaceholder, replacement);
                 s = s.Trim();

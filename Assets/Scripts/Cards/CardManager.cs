@@ -17,6 +17,7 @@ namespace Cards
         [SerializeField] private int _commonWeight;
         [SerializeField] private int _rareWeight;
         [SerializeField] private int _epicWeight;
+        [SerializeField] private GlowColor _buffGlowColor;
 
         #endregion
 
@@ -26,6 +27,12 @@ namespace Cards
         private Card _leftCard;
         private Card _rightCard;
         private Action _finishedChoosingCardsAction;
+
+        #endregion
+
+        #region Properties
+
+        public static GlowColor BuffGlowColor { get; private set; }
 
         #endregion
 
@@ -41,6 +48,7 @@ namespace Cards
         private void Awake()
         {
             InitPool();
+            BuffGlowColor = _buffGlowColor;
         }
 
         #endregion
@@ -150,5 +158,32 @@ namespace Cards
         }
 
         #endregion
+        
+        [Serializable]
+        public class GlowColor
+        {
+            [SerializeField] private Color _superDebuff;
+            [SerializeField] private Color _debuff;
+            [SerializeField] private Color _neutral;
+            [SerializeField] private Color _buff;
+            [SerializeField] private Color _superBuff;
+
+            public Color this[Rarity buff, Rarity debuff]
+            {
+                get
+                {
+                    int value = ((int) buff - (int) debuff);
+                    print(value);
+                    return value switch
+                    {
+                        -2 => _superDebuff,
+                        -1 => _debuff,
+                        0 => _neutral,
+                        1 => _buff,
+                        2 => _superBuff,
+                    };
+                }
+            }
+        }
     }
 }

@@ -13,8 +13,6 @@ namespace UI
 
         [SerializeField] private string _buffFormat;
         [SerializeField] private string _debuffFormat;
-        [SerializeField] private Color _buffColor;
-        [SerializeField] private Color _debuffColor;
         [SerializeField] private RarityIdentifierSprites _rarityIdentifierSprites;
 
         #endregion
@@ -29,8 +27,8 @@ namespace UI
         private TextMeshProUGUI _debuffText;
         private Image _rarityIdentifier;
 
-        private Rarity _buffRariy;
-        private Rarity _debuffRariy;
+        private Rarity _buffRarity;
+        private Rarity _debuffRarity;
         private RectTransform _rectTransform;
 
         #endregion
@@ -47,8 +45,8 @@ namespace UI
                 AssignImage(_buffImage, value.BuffSprite);
                 AssignImage(_debuffImage, value.DebuffSprite);
 
-                _buffRariy = value.BuffRarity;
-                _debuffRariy = value.DebuffRarity;
+                _buffRarity = value.BuffRarity;
+                _debuffRarity = value.DebuffRarity;
                 SetGlowColor();
             }
         }
@@ -113,19 +111,7 @@ namespace UI
 
         private void SetGlowColor()
         {
-            /*
-             * moving from [-d,d] to [0,1]: x/(2*d) + 0.5f
-             */
-            int d = (int)Rarity.EPIC;
-            int value = (int)_buffRariy - (int)_debuffRariy;
-            float t = (value / (2f * d)) + 0.5f;
-
-            // Color c = (1 - t) * _buffColor + t * _debuffColor;
-            Color.RGBToHSV(_buffColor, out var buffH, out var buffS, out var buffV);
-            Color.RGBToHSV(_debuffColor, out var debuffH, out var debuffS, out var debuffV);
-            var newHSV = Vector4.Lerp(new(buffH, buffS, buffV, _buffColor.a), new(debuffH, debuffS, debuffV, _debuffColor.a), t);
-            Color c = Color.HSVToRGB(newHSV.x, newHSV.y, newHSV.z);
-            c.a = newHSV.z;
+            Color c = CardManager.BuffGlowColor[_buffRarity, _debuffRarity];
             _borderGlow.color = c;
             _circleGlow.color = c;
         }

@@ -914,6 +914,86 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1431893203}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._buff.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._buff.b
+      value: 0.49535728
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._buff.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._buff.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._debuff.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._debuff.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._debuff.g
+      value: 0.524459
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._debuff.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._neutral.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._neutral.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._neutral.g
+      value: 0.97981787
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._neutral.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superBuff.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superBuff.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superBuff.g
+      value: 0.9539039
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superBuff.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superDebuff.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superDebuff.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superDebuff.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _buffGlowColor._superDebuff.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6643732644843969071, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: m_Alpha
       value: 0
