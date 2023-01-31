@@ -218,8 +218,8 @@ namespace Player
                     int id = other.GetInstanceID();
                     if (!_precisionHits.Contains(id))
                     {
-                        _precisionHits.Add(id);
-                        HitObject(other.GetComponent<IHittable>());
+                        if (HitObject(other.GetComponent<IHittable>()))
+                            _precisionHits.Add(id);
                     }
                     break;
                 case YoyoState.SHOOT:
