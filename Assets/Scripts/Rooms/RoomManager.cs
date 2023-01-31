@@ -53,6 +53,7 @@ namespace Rooms
         private List<TutorialRoomProperties> _tutorialRooms;
 
         [Header("Room rank function")] 
+        [SerializeField] private int _minDistanceForGhost = 3;
         [SerializeField] private int _minRoomRank = 20;
         [SerializeField] private int _maxRoomRank = 50;
 
@@ -77,7 +78,7 @@ namespace Rooms
         #endregion
 
         #region Properties
-
+        
         public static Vector2Int CurrentRoomIndex => _instance == null ? Vector2Int.zero : _instance._currentRoom.Index;
         public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
@@ -361,9 +362,10 @@ namespace Rooms
             var roomCenter = GetPosition_Inner(roomNode.Index);
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
+            var canGhost = Vector2Ext.L1Norm(roomNode.Index) >= _minDistanceForGhost;
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
             for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
-                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform);
+                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform, canGhost);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)
@@ -422,15 +424,15 @@ namespace Rooms
         }
 
         private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter,
-            Transform enemiesTransform)
+            Transform enemiesTransform, bool canGhost = true)
         {
             for (int i = 0; i < 20; i++)
             {
-                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform).success)
+                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, canGhost: canGhost).success)
                     return;
             }
 
-            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true);
+            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true, canGhost);
         }
 
         private void InitStrategy()

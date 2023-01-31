@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3033486312102769485, guid: 1d676263cee0f944ca0e958388ffabe7, type: 3}
+      propertyPath: _minDistanceForGhost
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3033486312102769486, guid: 1d676263cee0f944ca0e958388ffabe7, type: 3}
       propertyPath: m_Name
       value: Room Manager

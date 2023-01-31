@@ -78,6 +78,7 @@ MonoBehaviour:
   _treasureCount: 2
   _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
   _tutorialRooms: []
+  _minDistanceForGhost: 2
   _minRoomRank: 10
   _maxRoomRank: 40
   _distanceToRankFunction:
