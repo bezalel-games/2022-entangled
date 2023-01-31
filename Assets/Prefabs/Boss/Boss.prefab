@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786417144015999408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -256,7 +256,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 6.46, y: 5.14}
+  m_Size: {x: 5.73, y: 8.32}
   m_Direction: 0
 --- !u!1 &6949696617542262838
 GameObject:
@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a638fc10424b27a297cdeff9a31341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 300
-  _maxMp: 300
+  _maxHp: 400
+  _maxMp: 400
   _pushbackFactor: 0
   _pushbackTime: 0
   _confusion: {fileID: 0}
@@ -430,7 +430,7 @@ MonoBehaviour:
   _yoyoDrawTime: 1
   _spinSpeed: 4
   _bombPrefab: {fileID: 4363286533594577520, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
-  _bombThrowSpeed: 10
+  _bombThrowSpeed: 12
   _bombOffset: {x: 0, y: -0.8, z: -0.5}
   _endStairs: {fileID: 0}
   _deathParticleEmissionFactor: 4
@@ -438,7 +438,7 @@ MonoBehaviour:
   <ThrowSetInterval>k__BackingField: 0.3
   <AttackInterval>k__BackingField:
   - 1.5
-  - 5
+  - 3.7
 --- !u!58 &1400841166670746961
 CircleCollider2D:
   m_ObjectHideFlags: 0

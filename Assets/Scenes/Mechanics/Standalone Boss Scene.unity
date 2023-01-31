@@ -528,6 +528,8 @@ MonoBehaviour:
   _spawnEnemies: 1
   _ghostChange: 0.66
   _interactablePairs: []
+  _bossRoomForceFieldPrefab: {fileID: 0}
+  _bossRoomParticlesPrefab: {fileID: 0}
   _playMode: 0
   _minDistanceFromBoss: 5
   _maxDistanceFromBoss: 6

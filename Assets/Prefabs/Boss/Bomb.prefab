@@ -89,7 +89,7 @@ MonoBehaviour:
   _maxAdditionalScale: 0.4
   _pushbackFactor: 200
   _explosionPrefab: {fileID: 7945216905868025943, guid: 6878f9b79c1d0664ebbc5409d7f80a52, type: 3}
-  _touchDamage: 5
+  _touchDamage: 8
 --- !u!1 &2743148646096245621
 GameObject:
   m_ObjectHideFlags: 0

@@ -223,7 +223,8 @@ namespace Player
                     }
                     break;
                 case YoyoState.SHOOT:
-                    if (HitObject(other.GetComponent<IHittable>()) && _defaultToReturn)
+                    var hittableObj = other.GetComponent<IHittable>();
+                    if (HitObject(hittableObj) && (_defaultToReturn || (hittableObj == null && other.GetComponent<Yoyo>() != null)))
                         GoBack(true);
                     break;
             }
