@@ -224,6 +224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _mpRecoveryPerSec
+      value: 0.162
+      objectReference: {fileID: 0}
     - target: {fileID: 1489229911919675126, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 7
