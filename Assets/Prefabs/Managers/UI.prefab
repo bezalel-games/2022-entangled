@@ -380,6 +380,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3631422925528125522}
     m_Modifications:
+    - target: {fileID: 2158706388501712659, guid: 68c9d60c8c014d74d991a6f6eb32002d, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4586456177219292706, guid: 68c9d60c8c014d74d991a6f6eb32002d, type: 3}
       propertyPath: m_Name
       value: Minimap

@@ -24,6 +24,7 @@ namespace Managers
         [SerializeField] private CardManager _cardManager;
         [SerializeField] private int _numberOfRoomsToCard = 2;
         [SerializeField] private Effect _effectPrefab;
+        [SerializeField] private float _tutorialSkipTime = 2;
 
         #endregion
 
@@ -87,6 +88,8 @@ namespace Managers
                 }
             }
         }
+
+        public static float TutorialSkipTime => _instance._tutorialSkipTime;
 
         #endregion
         

@@ -224,6 +224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785876761506726257, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
+      propertyPath: _mpRecoveryPerSec
+      value: 0.162
+      objectReference: {fileID: 0}
     - target: {fileID: 1489229911919675126, guid: dca172e2e477d4840b7ef32dd2f9413a, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 7
@@ -870,18 +874,6 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _playMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _enemyDictionary
-      value: 
-      objectReference: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
-    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: <PlayMode>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _inMap
       value: 
@@ -978,6 +970,10 @@ PrefabInstance:
       propertyPath: _playerController
       value: 
       objectReference: {fileID: 670769348}
+    - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _numberOfRoomsToCard
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _ui
       value: 

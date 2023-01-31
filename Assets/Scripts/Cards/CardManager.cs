@@ -173,7 +173,6 @@ namespace Cards
                 get
                 {
                     int value = ((int) buff - (int) debuff);
-                    print(value);
                     return value switch
                     {
                         -2 => _superDebuff,
