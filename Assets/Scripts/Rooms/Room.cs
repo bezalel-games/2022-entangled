@@ -64,7 +64,7 @@ namespace Rooms
                     GateState = value ? GateState.CLOSING : GateState.OPENING;
                     _tilemap.RefreshAllTiles();
                     
-                }), 0.5f);
+                }), 0);
             }
         }
         
@@ -84,7 +84,6 @@ namespace Rooms
             {
                 if (_gateState == value || RoomManager.IsTutorial) return;
                 _gateState = value;
-                print(value);
                 var tile = value switch
                 {
                     GateState.CLOSING => RoomProperties.ClosingGateTile,
@@ -93,6 +92,7 @@ namespace Rooms
                     GateState.OPEN => RoomProperties.OpenedGateTile,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 };
+                print($"{value} - {tile}");
                 foreach (var gateTilePos in RoomProperties.GatePositions)
                 {
                     _tilemap.SetTile(gateTilePos, tile);
