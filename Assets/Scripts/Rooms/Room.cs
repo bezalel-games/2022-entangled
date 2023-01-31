@@ -50,11 +50,29 @@ namespace Rooms
 
         public Interactable Interactable { get; private set; }
 
+        public bool GateClosing
+        {
+            set
+            {
+                if((value && GateState == GateState.CLOSED) || (!value && GateState == GateState.OPEN)) return;
+                if(GateState == GateState.CLOSING || GateState == GateState.OPENING) return;
+                
+                GateState = value ? GateState.OPEN : GateState.CLOSED;
+                _tilemap.RefreshAllTiles();
+                DelayInvoke((() => 
+                {
+                    GateState = value ? GateState.CLOSING : GateState.OPENING;
+                    _tilemap.RefreshAllTiles();
+                    
+                }), 0.5f);
+            }
+        }
+        
         public bool GateClosed
         {
             set
             {
-                GateState = value ? GateState.CLOSING : GateState.OPENING;
+                GateState = value ? GateState.CLOSED : GateState.OPEN;
                 _tilemap.RefreshAllTiles();
             }
         }
@@ -66,6 +84,7 @@ namespace Rooms
             {
                 if (_gateState == value || RoomManager.IsTutorial) return;
                 _gateState = value;
+                print(value);
                 var tile = value switch
                 {
                     GateState.CLOSING => RoomProperties.ClosingGateTile,
@@ -140,7 +159,7 @@ namespace Rooms
             else if (!Node.Cleared)
             {
                 Enemies.Activate();
-                GateClosed = true;
+                GateClosing = true;
             }
 
             _tilemap.RefreshAllTiles();
@@ -177,6 +196,7 @@ namespace Rooms
 
         public void UpdateDoors()
         {
+            if(Node == null) return;
             foreach (Direction dir in DirectionExt.GetDirections())
             {
                 ShowDoor(dir, Node[dir] != null);

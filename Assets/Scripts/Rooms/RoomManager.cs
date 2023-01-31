@@ -306,8 +306,11 @@ namespace Rooms
                     // neighbor node exists and still has a room that is linked to it
                 {
                     var poolIndex = _roomPool.FindIndex(room => room == neighborNode.Room);
-                    RemoveAndReplaceFromPool(poolIndex);
-                    continue;
+                    if (poolIndex >= 0 && poolIndex < _roomPool.Count)
+                    {
+                        RemoveAndReplaceFromPool(poolIndex);
+                        continue;
+                    }
                 }
 
                 // neighbor node exists but needs a new room
@@ -389,6 +392,7 @@ namespace Rooms
             room.Clean();
             room.Node.Room = null;
             room.Node = roomNode;
+            room.UpdateDoors();
             room.transform.position = GetPosition_Inner(index);
             return room;
         }
@@ -402,7 +406,7 @@ namespace Rooms
         private void RemoveAndReplaceFromPool(int index)
         {
             var last = PopFromPool();
-            if (index == _roomPool.Count) return;
+            if (index >= _roomPool.Count) return;
             _roomPool[index] = last;
         }
 
@@ -497,6 +501,7 @@ namespace Rooms
         private void FinishedCurrentRoom()
         {
             _currentRoom.Cleared = true;
+            _currentRoom.Room.GateClosing = false;
             InitContentInNeighbors_Inner();
         }
 

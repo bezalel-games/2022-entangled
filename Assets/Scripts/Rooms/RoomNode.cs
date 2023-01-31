@@ -25,8 +25,8 @@ namespace Rooms
             set
             {
                 _cleared = value;
-                if (Room != null)
-                    Room.GateClosed = !value;
+                // if (Room != null)
+                //     Room.GateClosing = !value;
                 if(_cleared && _interacted)
                     MinimapManager.SetCleared(Index);
             }

@@ -104,7 +104,6 @@ namespace Effects
 
         private void ChangeRoomIntensity(float intensity)
         {
-            print(intensity);
             if (_intensityEffectCoroutine != null)
                 StopCoroutine(_intensityEffectCoroutine);
             intensity = Mathf.Clamp01(intensity);
