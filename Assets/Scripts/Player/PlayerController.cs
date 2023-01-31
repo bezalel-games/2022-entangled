@@ -235,7 +235,7 @@ namespace Player
                 case InputActionPhase.Started:
                     if (RoomManager.IsTutorial)
                     {
-                        _skipTime = Time.time + 3;
+                        _skipTime = Time.time + GameManager.TutorialSkipTime;
                         return;
                     }
                     CameraManager.ToggleMinimap(true);
