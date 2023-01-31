@@ -16,3 +16,5 @@ MonoBehaviour:
   - _enemy: {fileID: 0}
     _hasBarrier: 0
   _text: Move with Left Stick and dash with LB
+  _sprite: {fileID: 21300000, guid: f2969a468c45d5741b21350c8a1c0a30, type: 3}
+  _showSprite: 1

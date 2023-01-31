@@ -16,3 +16,5 @@ MonoBehaviour:
   - _enemy: {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
     _hasBarrier: 0
   _text: Aim with Right Stick and shoot with RB
+  _sprite: {fileID: 21300000, guid: 58d132687e832054abace4e5a09e6789, type: 3}
+  _showSprite: 1

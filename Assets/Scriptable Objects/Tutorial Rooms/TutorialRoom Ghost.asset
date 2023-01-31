@@ -16,5 +16,5 @@ MonoBehaviour:
   - _enemy: {fileID: -5456139093824870760, guid: 2b718e889e5dd444b9ac7fe5c39711dd, type: 3}
     _hasBarrier: 1
   _text: Draw a circle around a spectral enemy to remove its barrier
-  _sprite: {fileID: 21300000, guid: 08c91a7677e66844281a99aaf6ea36f1, type: 3}
-  _showSprite: 0
+  _sprite: {fileID: 21300000, guid: cf48ea92ba5f41444ac7ed14766aefad, type: 3}
+  _showSprite: 1
