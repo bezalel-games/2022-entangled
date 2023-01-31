@@ -29,6 +29,8 @@ namespace Interactables
     private Material _defaultMaterial;
     private bool _after = false;
     private Action _interactAction;
+    private Animator _animator;
+    private static readonly int Interact = Animator.StringToHash("Interact");
 
     #endregion
 
@@ -43,6 +45,7 @@ namespace Interactables
     private void Awake()
     {
       _renderer = GetComponent<SpriteRenderer>();
+      _animator = GetComponentInChildren<Animator>();
 
       _renderer.sprite = _beforeInteractSprite;
       _innerRenderer.sprite = _beforeInteractInnerSprite;
@@ -86,6 +89,10 @@ namespace Interactables
 
     public void SetToAfter()
     {
+      if (_animator != null)
+      {
+        _animator.SetTrigger(Interact);
+      }
       _renderer.sprite = _afterInteractSprite;
       _innerRenderer.sprite = _afterInteractInnerSprite;
       _innerRenderer.material = _defaultMaterial;
