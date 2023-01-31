@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: More Fumers
   m_EditorClassIdentifier: 
   <Description>k__BackingField: VAR_TXT more Fumers will appear
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 16dbce46c31cf8b45b84b270a0b9cb52, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 51bc657486b0944d09410ded0889488c, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 0
