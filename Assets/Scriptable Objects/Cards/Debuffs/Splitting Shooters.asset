@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Splitting Shooters
   m_EditorClassIdentifier: 
   <Description>k__BackingField: Shooters split to two on death
-  <CardSprite>k__BackingField: {fileID: 21300000, guid: 18fa59dffb0e4f744b5a4d927df54601, type: 3}
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: ff92983ff069647aaa8e80fac52fea6a, type: 3}
   <UnlockedBuffs>k__BackingField: 
   <UnlockedDebuffs>k__BackingField: 
   <SingleUse>k__BackingField: 1
