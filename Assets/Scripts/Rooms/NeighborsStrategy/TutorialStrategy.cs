@@ -23,7 +23,7 @@ namespace Rooms.NeighborsStrategy
                 : Rooms.RoomType.NONE;
         }
 
-        public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
+        public int RoomRank(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
             return 0;
         }

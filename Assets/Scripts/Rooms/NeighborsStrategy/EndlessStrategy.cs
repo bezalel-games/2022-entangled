@@ -12,7 +12,7 @@ namespace Rooms.NeighborsStrategy
         public float RoomIntensity(Vector2Int index) =>
             Mathf.Atan(Mathf.Sqrt(index.L1Norm())) * INTENSITY_NORMALIZATION_FACTOR;
 
-        public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
+        public int RoomRank(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
             return minRoomRank + (int)Mathf.Log(1 + index.L1Norm());
         }

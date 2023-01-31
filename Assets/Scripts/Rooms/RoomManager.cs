@@ -52,8 +52,9 @@ namespace Rooms
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
 
-        [Header("Room rank function")] [SerializeField]
-        private int _minRoomRank = 20;
+        [Header("Room rank function")] 
+        [SerializeField] private int _minRoomRank = 20;
+        [SerializeField] private int _maxRoomRank = 50;
 
         [SerializeField] private AnimationCurve _distanceToRankFunction;
 
@@ -316,7 +317,7 @@ namespace Rooms
             }
         }
 
-        private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, index, _distanceToRankFunction);
+        private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, _maxRoomRank, index, _distanceToRankFunction);
 
         private RoomNode CreateNode(Vector2Int index, Room room) =>
             new(room, index, RoomRank(index), _strategy.RoomIntensity(index));

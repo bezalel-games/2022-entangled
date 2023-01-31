@@ -64,12 +64,13 @@ namespace Rooms.NeighborsStrategy
         public RoomType RoomType(Vector2Int index) =>
             _rooms.ContainsKey(index) ? _rooms[index].type : NONE;
 
-        public int RoomRank(int minRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
+        public int RoomRank(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction)
         {
             return index == _bossIndex
                 ? 0
                 : minRoomRank +
-                  (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) * minRoomRank);
+                  (int)(distanceToRankFunction.Evaluate(index.L1Norm() / (float)_maxDistanceToBoss) *
+                        (maxRoomRank - minRoomRank));
         }
 
         #endregion
