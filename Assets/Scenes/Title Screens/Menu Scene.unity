@@ -870,7 +870,7 @@ RectTransform:
   m_GameObject: {fileID: 955885567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823128152}
@@ -891,7 +891,7 @@ Animator:
   m_GameObject: {fileID: 955885567}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e5bd1e3190539fc47a34725423adc5e2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 515f0f7cf5481a344a430b1015bbbd4c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1862116137, guid: 7fe74c881ca7d8a4e8f152950f9b0a8c, type: 3}
+  m_Sprite: {fileID: 1855748306, guid: 29c2040e70675284f9e3acf7eaabd46e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
