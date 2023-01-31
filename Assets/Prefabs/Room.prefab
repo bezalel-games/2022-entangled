@@ -137,8 +137,8 @@ MonoBehaviour:
   _vCam: {fileID: 6572897696822594641}
   _tilemap: {fileID: 6989130975492644380}
   _frameTilemap: {fileID: 7787925117019193349}
-  _doorOpeningAnimationDuration: 0.48
-  _doorClosingAnimationDuration: 0.98
+  _doorOpeningAnimationDuration: 1
+  _doorClosingAnimationDuration: 2
   _miniMap: {fileID: 0}
   <RoomContent>k__BackingField: {fileID: 7363860059572617434}
   <Enemies>k__BackingField: {fileID: 8590644783412925667}

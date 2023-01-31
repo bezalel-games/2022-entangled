@@ -1,8 +1,10 @@
 ﻿using System;
 using Rooms;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace Tiles
 {
@@ -33,14 +35,14 @@ namespace Tiles
             return true;
         }
 
-        public override bool GetTileAnimationData(Vector3Int position, ITilemap tilemap,
-            ref TileAnimationData tileAnimationData)
-        {
-            var result = base.GetTileAnimationData(position, tilemap, ref tileAnimationData);
-            if (result)
-                tileAnimationData.animationStartTime = Time.time;
-            return result;
-        }
+        // public override bool GetTileAnimationData(Vector3Int position, ITilemap tilemap,
+        //     ref TileAnimationData tileAnimationData)
+        // {
+        //     var result = base.GetTileAnimationData(position, tilemap, ref tileAnimationData);
+        //     if (result)
+        //         tileAnimationData.animationStartTime = Time.time;
+        //     return result;
+        // }
 
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
         {
@@ -84,6 +86,31 @@ namespace Tiles
                     break;
                 }
             }
+        }
+        
+        public override bool GetTileAnimationData(Vector3Int position, ITilemap tilemap, ref TileAnimationData tileAnimationData)
+        {
+            Matrix4x4 transform = Matrix4x4.identity;
+            foreach (TilingRule rule in m_TilingRules)
+            {
+                if (rule.m_Output == TilingRuleOutput.OutputSprite.Animation)
+                {
+                    if (RuleMatches(rule, position, tilemap, ref transform))
+                    {
+                        //fill animation with more tiles of the last frame to avoid looping
+                        var newAnimationSprites = new Sprite[rule.m_Sprites.Length * 2];
+                        for (int i = 0; i < newAnimationSprites.Length; i++)
+                        {
+                            int index = Math.Min(i, rule.m_Sprites.Length - 1);
+                            newAnimationSprites[i] = rule.m_Sprites[index];
+                        }
+                        tileAnimationData.animatedSprites = newAnimationSprites;
+                        tileAnimationData.animationSpeed = Random.Range( rule.m_MinAnimationSpeed, rule.m_MaxAnimationSpeed);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

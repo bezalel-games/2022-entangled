@@ -266,7 +266,7 @@ namespace Rooms
                     continue;
 
                 var neighbor = prevRoom[dir].Room;
-                neighbor.GateClosed = false;
+                // neighbor.GateClosed = false;
 
                 // Don't add room to pool if not existing or if boss room
                 if (_strategy.RoomType(prevRoom.Index + dir.ToVector()) is RoomType.NONE or RoomType.BOSS)
