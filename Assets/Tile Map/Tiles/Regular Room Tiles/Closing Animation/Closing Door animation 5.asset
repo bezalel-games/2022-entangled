@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad9710867ae84fcd89343fdab931b901, type: 3}
-  m_Name: Closing Door animation
+  m_Name: Closing Door animation 5
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
   m_DefaultGameObject: {fileID: 0}
@@ -18,7 +18,7 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -2076862416, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1584402208, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 658590311, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 1380672113, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -1835172520, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 1
     m_Sprites:
-    - {fileID: 1284020697, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1321130170, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -1878110216, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 262535820, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -1792012723, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_RuleTransform: 3
   - m_Id: 2
     m_Sprites:
-    - {fileID: -345580129, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: -1551796911, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -258836980, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 1612809290, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 1851490618, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
@@ -87,7 +87,7 @@ MonoBehaviour:
     m_RuleTransform: 2
   - m_Id: 3
     m_Sprites:
-    - {fileID: -322673200, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
+    - {fileID: 891992111, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: 1604794928, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -2017034356, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
     - {fileID: -1539134364, guid: 8ef2f9036eee14a4faf90fa6d58c76a4, type: 3}
