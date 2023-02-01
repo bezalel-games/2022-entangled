@@ -33,6 +33,9 @@ namespace Rooms
         private Coroutine _sleepCoroutine;
         private GateState _gateState = GateState.OPEN;
 
+        private float _nextFrameTime;
+        private int _animationFrame = -1;
+        
         #endregion
 
         #region Properties
@@ -61,18 +64,8 @@ namespace Rooms
                 DelayInvoke((() => 
                 {
                     GateState = value ? GateState.CLOSING : GateState.OPENING;
-                    _tilemap.RefreshAllTiles();
-                    
-                }), 0);
-            }
-        }
-        
-        public bool GateClosed
-        {
-            set
-            {
-                GateState = value ? GateState.CLOSED : GateState.OPEN;
-                _tilemap.RefreshAllTiles();
+                    _animationFrame = 0;
+                }), 0.5f);
             }
         }
 
@@ -91,21 +84,10 @@ namespace Rooms
                     GateState.OPEN => RoomProperties.OpenedGateTile,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 };
-                print($"{value} - {tile}");
+                
                 foreach (var gateTilePos in RoomProperties.GatePositions)
                 {
                     _tilemap.SetTile(gateTilePos, tile);
-                }
-
-                if (value is GateState.CLOSING)
-                {
-                    AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CLOSE_DOOR);
-                    DelayInvoke(() => GateState = GateState.CLOSED, _doorClosingAnimationDuration);   
-                }
-                else if (value is GateState.OPENING)
-                {
-                    AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CLOSE_DOOR);
-                    DelayInvoke(() => GateState = GateState.OPEN, _doorOpeningAnimationDuration);
                 }
             }
         }
@@ -117,6 +99,21 @@ namespace Rooms
         private void Start()
         {
             ChannelPerlin = _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(_animationFrame == -1) return;
+
+            if (GateState == GateState.CLOSING)
+            {
+                ClosingAnimation();
+            }
+            else if (GateState == GateState.OPENING)
+            {
+                OpeningAnimation();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D col)
@@ -220,6 +217,48 @@ namespace Rooms
         #endregion
 
         #region Private Methods
+        
+        private void OpeningAnimation()
+        {
+            if (_animationFrame >= RoomProperties.OpeningAnimationLength)
+            {
+                GateState = GateState.OPEN;
+                return;
+            }
+
+            if (Time.time >= _nextFrameTime)
+            {
+                foreach (var gateTilePos in RoomProperties.GatePositions)
+                {
+                    _tilemap.SetTile(gateTilePos, RoomProperties.GateOpeningAnimation[_animationFrame]);
+                }
+
+                _tilemap.RefreshAllTiles();
+                _animationFrame++;
+                _nextFrameTime = Time.time + RoomProperties.OpeningAnimationFrameTime;
+            }
+        }
+
+        private void ClosingAnimation()
+        {
+            if (_animationFrame >= RoomProperties.ClosingAnimationLength)
+            {
+                GateState = GateState.CLOSED;
+                return;
+            }
+
+            if (Time.time >= _nextFrameTime)
+            {
+                foreach (var gateTilePos in RoomProperties.GatePositions)
+                {
+                    _tilemap.SetTile(gateTilePos, RoomProperties.GateClosingAnimation[_animationFrame]);
+                }
+
+                _tilemap.RefreshAllTiles();
+                _animationFrame++;
+                _nextFrameTime = Time.time + RoomProperties.ClosingAnimationFrameTime;
+            }
+        }
 
         private void CreateTutorialWalls()
         {
