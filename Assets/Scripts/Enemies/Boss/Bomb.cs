@@ -106,7 +106,7 @@ namespace Enemies.Boss
 
         #region IHittable Implementation
 
-        public virtual void OnHit(Transform attacker, float damage, bool pushBack = true)
+        public virtual void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {
             if (_barrier.Active) return;
             if (!attacker)
@@ -115,10 +115,6 @@ namespace Enemies.Boss
                 _rigidBody.AddForce(_pushbackFactor * (transform.position - attacker.position).normalized);
             // EmitParticles(attacker);
         }
-
-        #endregion
-
-        #region Public Methods
 
         #endregion
 

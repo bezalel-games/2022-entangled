@@ -397,7 +397,7 @@ namespace Player
             ((IAudible<PlayerSounds>)this).PlayOneShot(PlayerSounds.DEATH);
         }
 
-        public override void OnHit(Transform attacker, float damage, bool pushBack = true)
+        public override void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {
             if (Invulnerable) return;
 

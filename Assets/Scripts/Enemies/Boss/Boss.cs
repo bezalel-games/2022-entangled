@@ -16,12 +16,14 @@ namespace Enemies.Boss
         [SerializeField] private GameObject _yoyoAimPivotPrefab;
         [SerializeField] private float _meleeDamage = 10;
         [SerializeField] private int _numberOfPhases = 2;
+        [SerializeField] private float _explosionDamageDivisor = 5f;
 
         [Header("Phase 1")]
         [SerializeField] private float _yoyoDrawDistance = 0.5f;
         [SerializeField] private float _yoyoDrawTime = 0.5f;
 
         [Header("Phase 2")]
+        [SerializeField] private GameObject _shield;
         [SerializeField] private float _spinSpeed;
         [SerializeField] private Bomb _bombPrefab;
         [SerializeField] private float _bombThrowSpeed = 1;
@@ -37,7 +39,6 @@ namespace Enemies.Boss
 
         private Animator _animator;
         private Yoyo[] _yoyos;
-        private GameObject _shield;
         private int _idleYoyoNum;
         private static readonly int DieTrigger = Animator.StringToHash("Die");
         private static readonly int AttackingFlag = Animator.StringToHash("Attacking");
@@ -99,7 +100,6 @@ namespace Enemies.Boss
             _minHitParticleRateOverTime = _hitParticlesEmission.rateOverTime.constant;
             base.Awake();
             _animator = GetComponent<Animator>();
-            _shield = _yoyoRotationPlane.GetChild(0).gameObject;
             _yoyos = new Yoyo[YoyoCount];
             for (int i = 0; i < YoyoCount; ++i)
             {
@@ -144,9 +144,9 @@ namespace Enemies.Boss
 
         #region LivingBehaviour
 
-        public override void OnHit(Transform attacker, float damage, bool pushBack = true)
+        public override void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {
-            base.OnHit(attacker, damage, false);
+            base.OnHit(attacker, explosion ? damage / _explosionDamageDivisor : damage, false, explosion);
             AudioManager.PlayOneShot(SoundType.ENEMY, (int)EnemySounds.BOSS_HIT);
         }
 

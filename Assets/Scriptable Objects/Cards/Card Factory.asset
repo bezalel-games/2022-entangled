@@ -153,6 +153,6 @@ MonoBehaviour:
     <Attributes>k__BackingField: {fileID: 11400000, guid: cbcb829dcf6a68248a700809fdfb8bcd, type: 2}
     <EnemyIndex>k__BackingField: 0
   _buffToApply: 0
-  _buffRarity: 0
+  _buffRarity: 2
   _debuffToApply: 0
-  _debuffRarity: 0
+  _debuffRarity: 2

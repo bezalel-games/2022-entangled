@@ -205,9 +205,9 @@ namespace Enemies
 
         #region Public Methods
         
-        public override void OnHit(Transform attacker, float damage, bool pushBack = true)
+        public override void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {
-            base.OnHit(attacker, damage, pushBack);
+            base.OnHit(attacker, damage, pushBack, explosion);
             ((IAudible<EnemySounds>) this).PlayOneShot(EnemySounds.HIT);
         }
 

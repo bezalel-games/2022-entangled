@@ -34,7 +34,7 @@ RectTransform:
   - {fileID: 3323689072007131426}
   - {fileID: 238982616417112995}
   m_Father: {fileID: 6949696617704915584}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -129,10 +129,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6871399650029582655}
+  m_Children: []
   m_Father: {fileID: 6949696617704915584}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!1 &4176636921012932859
 GameObject:
@@ -234,13 +233,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786417144015999408}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.73, z: 0}
+  m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 1.3252573, z: 1.1120225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2005108948183878034}
-  m_RootOrder: 0
+  m_Father: {fileID: 6949696617704915584}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &3755349825610820360
 CapsuleCollider2D:
@@ -376,6 +375,7 @@ Transform:
   m_Children:
   - {fileID: 6949696617734507916}
   - {fileID: 6949696617542262839}
+  - {fileID: 6871399650029582655}
   - {fileID: 2005108948183878034}
   - {fileID: 2399265871943245422}
   - {fileID: 7942621146906118573}
@@ -426,8 +426,10 @@ MonoBehaviour:
   _yoyoAimPivotPrefab: {fileID: 3627438472626235927, guid: 91f777d2d89c18e4baa2d545c036178b, type: 3}
   _meleeDamage: 10
   _numberOfPhases: 2
+  _explosionDamageDivisor: 10
   _yoyoDrawDistance: 0.5
   _yoyoDrawTime: 1
+  _shield: {fileID: 6786417144015999408}
   _spinSpeed: 4
   _bombPrefab: {fileID: 4363286533594577520, guid: 6fae9f9c49dd7af4597495c339dda897, type: 3}
   _bombThrowSpeed: 12
@@ -585,7 +587,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6949696617704915584}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5040185862991212370
 ParticleSystem:

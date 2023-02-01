@@ -10,6 +10,7 @@ namespace Cards.Buffs.Components
 
         [SerializeField] private AnimationCurve _explosionExpansionCurve;
         [SerializeField] private float _expansionTime = 1;
+        [SerializeField] private bool _playerExplosion = true;
 
         #endregion
 
@@ -59,7 +60,7 @@ namespace Cards.Buffs.Components
 
             var hittableObj = other.GetComponent<IHittable>();
             if (hittableObj == null || _hitObjects.Contains(hittableObj)) return;
-            hittableObj.OnHit(transform, Damage);
+            hittableObj.OnHit(transform, Damage, explosion: _playerExplosion);
             _hitObjects.Add(hittableObj);
         }
 
@@ -71,7 +72,7 @@ namespace Cards.Buffs.Components
         {
             Destroy(gameObject);
         }
-        
+
         #endregion
     }
 }

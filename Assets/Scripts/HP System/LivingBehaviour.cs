@@ -186,7 +186,7 @@ namespace HP_System
 
         #region IHittable
 
-        public virtual void OnHit(Transform attacker, float damage, bool pushBack = true)
+        public virtual void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {
             if (Invulnerable || IsDead || HasBarrier) return;
             Hp -= damage;
