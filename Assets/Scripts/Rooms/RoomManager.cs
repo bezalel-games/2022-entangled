@@ -31,7 +31,7 @@ namespace Rooms
 
         [SerializeField] private RoomProperties _roomProperties;
         [SerializeField] private bool _spawnEnemies = true;
-        [SerializeField] [Range(0f, 1f)] private float _ghostChange = 0.66f;
+        [SerializeField] [Range(0f, 1f)] private float _ghostChanceFactor = 0.66f;
         [SerializeField] private InteractablePair[] _interactablePairs;
         [SerializeField] private ParticleSystemForceField _bossRoomForceFieldPrefab;
         [SerializeField] private ParticleSystem _bossRoomParticlesPrefab;
@@ -52,9 +52,8 @@ namespace Rooms
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
 
-        [Header("Room rank function")] [SerializeField]
-        private int _minDistanceForGhost = 3;
-
+        [Header("Room rank function")] 
+        [SerializeField] private int _minDistanceForGhost = 3;
         [SerializeField] private int _minRoomRank = 20;
         [SerializeField] private int _maxRoomRank = 50;
 
@@ -90,8 +89,6 @@ namespace Rooms
             get => _instance._cameraPerlin;
             set => _instance._cameraPerlin = value;
         }
-
-        public static float GhostChance => _instance._ghostChange;
 
         public static EnemyDictionary EnemyDictionary => _instance._enemyDictionary;
 
@@ -157,6 +154,19 @@ namespace Rooms
         #endregion
 
         #region Public Method
+
+        public static float GetGhostChance(Vector2Int index)
+        {
+            if (index.L1Norm() < _instance._minDistanceForGhost) return 0;
+            
+            return _instance._strategy.GhostChance(
+                _instance._minRoomRank,
+                _instance._maxRoomRank,
+                index,
+                _instance._distanceToRankFunction,
+                _instance._ghostChanceFactor
+            );
+        }
 
         public static void EnteredRoom(RoomNode roomNode)
         {
@@ -373,10 +383,10 @@ namespace Rooms
             var roomCenter = GetPosition_Inner(roomNode.Index);
             var enemiesTransform = roomNode.Room.Enemies.transform;
             var numOfEnemyTypes = roomNode.Enemies.Length;
-            var canGhost = Vector2Ext.L1Norm(roomNode.Index) >= _minDistanceForGhost;
+            var ghostChance = GetGhostChance(roomNode.Index);
             for (int enemyType = 0; enemyType < numOfEnemyTypes; ++enemyType)
             for (int i = roomNode.Enemies[enemyType]; i > 0; i--)
-                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform, canGhost);
+                SpawnEnemyInRandomPos(EnemyDictionary[enemyType], roomCenter, enemiesTransform, ghostChance);
         }
 
         private Room GetRoom(Vector2Int index, RoomNode roomNode = null, bool isBossRoom = false)
@@ -436,15 +446,15 @@ namespace Rooms
         }
 
         private void SpawnEnemyInRandomPos(EnemyDictionary.Entry enemyEntry, Vector3 roomCenter,
-            Transform enemiesTransform, bool canGhost = true)
+            Transform enemiesTransform, float ghostChance = 0)
         {
             for (int i = 0; i < 20; i++)
             {
-                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, canGhost: canGhost).success)
+                if (enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, ghostChance: ghostChance).success)
                     return;
             }
 
-            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true, canGhost);
+            enemyEntry.Spawn(roomCenter + RandomPosInRoom(), enemiesTransform, force: true, ghostChance: ghostChance);
         }
 
         private void InitStrategy()

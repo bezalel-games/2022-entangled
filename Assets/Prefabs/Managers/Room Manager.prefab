@@ -62,7 +62,7 @@ MonoBehaviour:
   _enemyDictionary: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
   _roomProperties: {fileID: 11400000, guid: d7aa4f044cf5bad4c8811d4fc9290993, type: 2}
   _spawnEnemies: 1
-  _ghostChange: 0.726
+  _ghostChanceFactor: 0.5
   _interactablePairs:
   - RoomType: 3
     Interactable: {fileID: 2952913734692303305, guid: 92a7904e52367044abd2fe7792336a8c, type: 3}

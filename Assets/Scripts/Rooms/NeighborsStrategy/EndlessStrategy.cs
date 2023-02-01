@@ -22,6 +22,8 @@ namespace Rooms.NeighborsStrategy
             return Rooms.RoomType.MONSTERS;
         }
 
+        public float GhostChance(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction, float chanceFactor) => 0.5f;
+
         #endregion
     }
 }

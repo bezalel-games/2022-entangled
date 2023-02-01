@@ -18,6 +18,8 @@ namespace Rooms.NeighborsStrategy
 
         public int RoomRank(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction) => 0;
 
+        public float GhostChance(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction, float chanceFactor) => 0;
+
         #endregion
     }
 }

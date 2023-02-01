@@ -151,7 +151,7 @@ namespace Enemies
 
             #region Public Methods
 
-            public (bool success, Enemy enemy) Spawn(Vector3 position, Transform parent, bool force = false, bool canGhost = true)
+            public (bool success, Enemy enemy) Spawn(Vector3 position, Transform parent, bool force = false, float ghostChance = 0)
             {
                 if (_collisionLayerMask == 0)
                     _collisionLayerMask = Physics2D.GetLayerCollisionMask(Prefab.gameObject.layer);
@@ -159,7 +159,7 @@ namespace Enemies
                     return (false, null);
 
                 var spawnedEnemy = Instantiate(Prefab, position, Quaternion.identity, parent);
-                spawnedEnemy.Barrier.Active = canGhost && Random.value >= RoomManager.GhostChance;
+                spawnedEnemy.Barrier.Active = Random.value < ghostChance;
 
                 // subscribe a method to update enemy type variables on it's enablement
                 spawnedEnemy.Enabled += () =>

@@ -11,6 +11,7 @@ namespace Rooms.NeighborsStrategy
         // number in the range [0,1]. 0 is not intense at all, 1 is boss level intensity. 
         public float RoomIntensity(Vector2Int index);
         public int RoomRank(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction);
+        public float GhostChance(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction, float chanceFactor);
 
         #endregion
 

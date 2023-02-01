@@ -73,6 +73,13 @@ namespace Rooms.NeighborsStrategy
                         (maxRoomRank - minRoomRank));
         }
 
+        public float GhostChance(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction, float chanceFactor)
+        {
+            return index == _bossIndex
+                ? 0
+                : Math.Clamp(distanceToRankFunction.Evaluate(index.L1Norm() / (float) _maxDistanceToBoss),0,1) * chanceFactor;
+        }
+
         #endregion
 
         #region Private Methods

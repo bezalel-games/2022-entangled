@@ -27,5 +27,7 @@ namespace Rooms.NeighborsStrategy
         {
             return 0;
         }
+
+        public float GhostChance(int minRoomRank, int maxRoomRank, Vector2Int index, AnimationCurve distanceToRankFunction, float chanceFactor) => 0;
     }
 }
