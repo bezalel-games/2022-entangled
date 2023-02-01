@@ -40,11 +40,10 @@ namespace Cards
 
         public virtual void UpdatePool(CardPool pool)
         {
-            var allRarities = Rarities.All;
             foreach (var buff in _attributes.UnlockedBuffs)
-                pool.Add(buff, allRarities);
+                pool.Add(buff, Rarity.EPIC);
             foreach (var debuff in _attributes.UnlockedDebuffs)
-                pool.Add(debuff, allRarities);
+                pool.Add(debuff, Rarity.EPIC);
             // if (_attributes.SingleUse)
             RemoveSelfFromPool(pool);
         }
