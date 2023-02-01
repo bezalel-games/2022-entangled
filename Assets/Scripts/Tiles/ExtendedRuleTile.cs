@@ -35,15 +35,6 @@ namespace Tiles
             return true;
         }
 
-        // public override bool GetTileAnimationData(Vector3Int position, ITilemap tilemap,
-        //     ref TileAnimationData tileAnimationData)
-        // {
-        //     var result = base.GetTileAnimationData(position, tilemap, ref tileAnimationData);
-        //     if (result)
-        //         tileAnimationData.animationStartTime = Time.time;
-        //     return result;
-        // }
-
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
         {
             var iden = Matrix4x4.identity;
@@ -87,7 +78,7 @@ namespace Tiles
                 }
             }
         }
-        
+
         public override bool GetTileAnimationData(Vector3Int position, ITilemap tilemap, ref TileAnimationData tileAnimationData)
         {
             Matrix4x4 transform = Matrix4x4.identity;
@@ -106,6 +97,7 @@ namespace Tiles
                         }
                         tileAnimationData.animatedSprites = newAnimationSprites;
                         tileAnimationData.animationSpeed = Random.Range( rule.m_MinAnimationSpeed, rule.m_MaxAnimationSpeed);
+                        tileAnimationData.animationStartTime = Time.time;
                         return true;
                     }
                 }
