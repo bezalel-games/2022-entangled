@@ -874,6 +874,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _maxRoomRank
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _minRoomRank
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _inMap
       value: 
@@ -972,7 +980,7 @@ PrefabInstance:
       objectReference: {fileID: 670769348}
     - target: {fileID: 6204533738225537106, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _numberOfRoomsToCard
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6464175749848288758, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _ui

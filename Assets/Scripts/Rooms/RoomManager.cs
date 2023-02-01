@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Audio;
+using Cards;
 using Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -144,6 +145,12 @@ namespace Rooms
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
 
             AudioManager.SetMusic(IsTutorial ? MusicSounds.TUTORIAL : MusicSounds.RUN);
+
+            if (_playMode is NeighborsStrategy.MAZE or NeighborsStrategy.ENDLESS)
+            {
+                GameManager.PlayerController.DelayInvoke((
+                    GameManager.ShowCards), 1f);
+            }
         }
 
         private void OnDestroy()
@@ -234,7 +241,7 @@ namespace Rooms
                 if (_instance._playMode is NeighborsStrategy.MAZE 
                     && _instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
                     _instance._bossRoomParticlesForceField.transform.position =
-                        GetPosition(newRoom.Index + Vector2Int.up * 2);
+                        GetPosition(newRoom.Index + Vector2Int.up * 3);
                 
                 _instance.RepositionParticles(newRoom);
             }

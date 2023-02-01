@@ -643,6 +643,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
+      propertyPath: _fountainCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _roomProperties
       value: 
       objectReference: {fileID: 11400000, guid: 7c2bb8138bfa23844870b5cd5f5c9a62, type: 2}

@@ -19,7 +19,8 @@ namespace Cards
                 {
                     Rarity.COMMON => _attributes.CommonText,
                     Rarity.RARE => _attributes.RareText,
-                    Rarity.EPIC => _attributes.EpicText,
+                    // Rarity.EPIC => _attributes.EpicText,
+                    Rarity.EPIC => ""
                 };
 
                 s = s.Replace(VariablePlaceholder, replacement);
