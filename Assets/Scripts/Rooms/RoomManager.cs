@@ -52,8 +52,9 @@ namespace Rooms
         [Header("Tutorial Settings")] [SerializeField]
         private List<TutorialRoomProperties> _tutorialRooms;
 
-        [Header("Room rank function")] 
-        [SerializeField] private int _minDistanceForGhost = 3;
+        [Header("Room rank function")] [SerializeField]
+        private int _minDistanceForGhost = 3;
+
         [SerializeField] private int _minRoomRank = 20;
         [SerializeField] private int _maxRoomRank = 50;
 
@@ -78,7 +79,7 @@ namespace Rooms
         #endregion
 
         #region Properties
-        
+
         public static Vector2Int CurrentRoomIndex => _instance == null ? Vector2Int.zero : _instance._currentRoom.Index;
         public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
         public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
@@ -136,7 +137,7 @@ namespace Rooms
             if (IsTutorial)
                 FillRoom(_currentRoom);
 
-            if (_playMode == NeighborsStrategy.MAZE)
+            if (_playMode is NeighborsStrategy.MAZE or NeighborsStrategy.TUTORIAL)
                 RepositionParticles(_currentRoom);
 
             LoadNeighbors(_currentRoom);
@@ -218,11 +219,13 @@ namespace Rooms
                 InitContentInNeighbors();
             RoomChanged?.Invoke(_instance._currentRoom.Intensity);
 
-            if (_instance._playMode == NeighborsStrategy.MAZE)
+            if (_instance._playMode is NeighborsStrategy.MAZE or NeighborsStrategy.TUTORIAL)
             {
-                if (_instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
+                if (_instance._playMode is NeighborsStrategy.MAZE 
+                    && _instance._strategy.RoomType(newRoom.Index) == RoomType.BOSS)
                     _instance._bossRoomParticlesForceField.transform.position =
-                        GetPosition(newRoom.Index + Vector2Int.right * 2);
+                        GetPosition(newRoom.Index + Vector2Int.up * 2);
+                
                 _instance.RepositionParticles(newRoom);
             }
 
@@ -232,9 +235,13 @@ namespace Rooms
 
         private void RepositionParticles(RoomNode node)
         {
-            if (_bossRoomParticles == null || _playMode != NeighborsStrategy.MAZE) return;
+            if (_bossRoomParticles == null
+                || (_playMode != NeighborsStrategy.MAZE && _playMode != NeighborsStrategy.TUTORIAL)) return;
 
-            var bossIndex = ((MazeStrategy) _strategy).GetBossRoom();
+            var bossIndex = _playMode == NeighborsStrategy.MAZE
+                ? ((MazeStrategy) _strategy).GetBossRoom()
+                : Vector2Int.up * TutorialLength;
+
             var delta = node.Index - bossIndex;
             delta.x = (int) (Math.Sign(delta.x) * _roomProperties.Width * 0.75f);
             delta.y = (int) (Math.Sign(delta.y) * _roomProperties.Height * 0.75f);
@@ -321,7 +328,8 @@ namespace Rooms
             }
         }
 
-        private int RoomRank(Vector2Int index) => _strategy.RoomRank(_minRoomRank, _maxRoomRank, index, _distanceToRankFunction);
+        private int RoomRank(Vector2Int index) =>
+            _strategy.RoomRank(_minRoomRank, _maxRoomRank, index, _distanceToRankFunction);
 
         private RoomNode CreateNode(Vector2Int index, Room room) =>
             new(room, index, RoomRank(index), _strategy.RoomIntensity(index));
@@ -451,10 +459,13 @@ namespace Rooms
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            if (_playMode == NeighborsStrategy.MAZE)
+            if (_playMode is NeighborsStrategy.MAZE or NeighborsStrategy.TUTORIAL)
             {
-                _bossRoomParticlesForceField = Instantiate(_bossRoomForceFieldPrefab, GetPosition(((MazeStrategy) _strategy).GetBossRoom()),
-                    Quaternion.identity);
+                var index = _playMode is NeighborsStrategy.MAZE
+                    ? ((MazeStrategy) _strategy).GetBossRoom()
+                    : Vector2Int.up * TutorialLength;
+                _bossRoomParticlesForceField = Instantiate(_bossRoomForceFieldPrefab,
+                    GetPosition(index), Quaternion.identity);
                 _bossRoomParticles = Instantiate(_bossRoomParticlesPrefab);
             }
         }
