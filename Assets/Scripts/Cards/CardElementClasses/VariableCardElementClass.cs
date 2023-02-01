@@ -7,8 +7,8 @@ namespace Cards.CardElementClasses
     [Serializable]
     public class VariableCardElementClass
     {
-        [SerializeField] private float _commonVariant;
-        [SerializeField] private float _rareVariant;
+        [SerializeField][HideInInspector] private float _commonVariant;
+        [SerializeField][HideInInspector] private float _rareVariant;
         [SerializeField] private float _epicVariant;
         [field: SerializeField] public CardElementClassAttributes Attributes { get; private set; }
 

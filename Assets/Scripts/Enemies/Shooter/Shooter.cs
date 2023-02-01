@@ -52,7 +52,8 @@ namespace Enemies
         {
             foreach (var proj in _projectilePool)
             {
-                Destroy(proj.gameObject);
+                if(proj != null)
+                    Destroy(proj.gameObject);
             }
 
             _projectilePool = new Stack<Projectile>();

@@ -52,7 +52,10 @@ public class AudioManager : MonoBehaviour
         }
 
         _instance = this;
+        
+        transform.SetParent(null);
         DontDestroyOnLoad(_instance.gameObject);
+        
         InitializeMusicEventInstance(_bank.MusicEventReference);
 
         _masterBus = RuntimeManager.GetBus("bus:/");

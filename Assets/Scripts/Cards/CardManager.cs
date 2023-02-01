@@ -74,7 +74,7 @@ namespace Cards
         private void InitPool()
         {
             _cardPool = new CardPool(_commonWeight, _rareWeight, _epicWeight);
-            var allRarities = Rarities.All;
+            var allRarities = new Rarities(Rarity.EPIC); //Rarities.All);
             _cardPool.Add(DebuffType.MORE_GOOMBAS, allRarities);
             _cardPool.Add(DebuffType.MORE_SHOOTERS, allRarities);
             _cardPool.Add(DebuffType.MORE_FUMERS, allRarities);
@@ -162,10 +162,10 @@ namespace Cards
         [Serializable]
         public class GlowColor
         {
-            [SerializeField] private Color _superDebuff;
-            [SerializeField] private Color _debuff;
-            [SerializeField] private Color _neutral;
-            [SerializeField] private Color _buff;
+            [SerializeField][HideInInspector] private Color _superDebuff;
+            [SerializeField][HideInInspector] private Color _debuff;
+            [SerializeField][HideInInspector] private Color _neutral;
+            [SerializeField][HideInInspector] private Color _buff;
             [SerializeField] private Color _superBuff;
 
             public Color this[Rarity buff, Rarity debuff]
@@ -175,11 +175,12 @@ namespace Cards
                     int value = ((int) buff - (int) debuff);
                     return value switch
                     {
-                        -2 => _superDebuff,
-                        -1 => _debuff,
-                        0 => _neutral,
-                        1 => _buff,
-                        2 => _superBuff,
+                        // -2 => _superDebuff,
+                        // -1 => _debuff,
+                        // 0 => _neutral,
+                        // 1 => _buff,
+                        // 2 => _superBuff,
+                        _ => _superBuff
                     };
                 }
             }
