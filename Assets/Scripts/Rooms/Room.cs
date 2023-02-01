@@ -141,9 +141,6 @@ namespace Rooms
                 _sleepCoroutine = null;
             }
 
-            if (!RoomManager.Nodes.ContainsKey(Node.Index))
-                RoomManager.Nodes[Node.Index] = Node;
-
             if (RoomManager.CameraPerlin != null)
                 RoomManager.CameraPerlin.m_AmplitudeGain = 0;
 

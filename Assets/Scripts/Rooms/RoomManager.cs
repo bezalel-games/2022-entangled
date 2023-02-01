@@ -80,9 +80,10 @@ namespace Rooms
 
         #region Properties
 
+        private static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
+        
         public static Vector2Int CurrentRoomIndex => _instance == null ? Vector2Int.zero : _instance._currentRoom.Index;
         public static bool IsTutorial => _instance._playMode == NeighborsStrategy.TUTORIAL;
-        public static Dictionary<Vector2Int, RoomNode> Nodes => _instance._nodes;
         public static Dictionary<RoomType, Interactable> Interactables => _instance._interactables;
 
         public static CinemachineBasicMultiChannelPerlin CameraPerlin
@@ -348,8 +349,14 @@ namespace Rooms
         private int RoomRank(Vector2Int index) =>
             _strategy.RoomRank(_minRoomRank, _maxRoomRank, index, _distanceToRankFunction);
 
-        private RoomNode CreateNode(Vector2Int index, Room room) =>
-            new(room, index, RoomRank(index), _strategy.RoomIntensity(index));
+        private RoomNode CreateNode(Vector2Int index, Room room)
+        {
+            var node = new RoomNode(room, index, RoomRank(index), _strategy.RoomIntensity(index));
+            if (Nodes.ContainsKey(index))
+                print("double index");
+            Nodes[index] = node;
+            return node;
+        }
 
         private void FillTutorialRoom(RoomNode roomNode)
         {
