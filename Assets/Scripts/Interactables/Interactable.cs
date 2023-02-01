@@ -20,6 +20,8 @@ namespace Interactables
     
     [SerializeField] private Material _outlineMaterial;
 
+    [SerializeField] private GameObject _interactText;
+
     #endregion
 
     #region Non-Serialized Fields
@@ -68,6 +70,7 @@ namespace Interactables
       if (other.CompareTag("Player"))
       {
         _innerRenderer.material = _material;
+        _interactText.SetActive(true);
         GameManager.PlayerController.InteractEvent = _interactAction;
       }
     }
@@ -79,6 +82,7 @@ namespace Interactables
       if (other.CompareTag("Player"))
       {
         _innerRenderer.material = _defaultMaterial;
+        _interactText.SetActive(false);
         GameManager.PlayerController.InteractEvent = null;
       }
     }
@@ -96,6 +100,7 @@ namespace Interactables
       _renderer.sprite = _afterInteractSprite;
       _innerRenderer.sprite = _afterInteractInnerSprite;
       _innerRenderer.material = _defaultMaterial;
+      _interactText.SetActive(false);
       _after = true;
     }
 

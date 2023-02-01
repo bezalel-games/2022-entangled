@@ -875,17 +875,13 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _maxRoomRank
-      value: 10
+      propertyPath: _distanceToRankFunction.m_Curve.Array.data[1].time
+      value: 0.4986151
       objectReference: {fileID: 0}
     - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _minRoomRank
-      value: 10
+      propertyPath: _distanceToRankFunction.m_Curve.Array.data[1].value
+      value: 0.5856411
       objectReference: {fileID: 0}
-    - target: {fileID: 4457939409290131966, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
-      propertyPath: _enemyDictionary
-      value: 
-      objectReference: {fileID: 11400000, guid: d495ed49c96aa414eb43cbd5135e7f06, type: 2}
     - target: {fileID: 4457939409347984154, guid: bcbfcf094cfb55645af47ac52e864964, type: 3}
       propertyPath: _inMap
       value: 
