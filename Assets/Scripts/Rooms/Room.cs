@@ -64,6 +64,7 @@ namespace Rooms
                 DelayInvoke((() => 
                 {
                     GateState = value ? GateState.CLOSING : GateState.OPENING;
+                    AudioManager.PlayOneShot(SoundType.SFX, (int)SfxSounds.CLOSE_DOOR);
                     _animationFrame = 0;
                 }), 0.5f);
             }
