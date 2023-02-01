@@ -152,6 +152,7 @@ namespace Audio
         ROLL = 0,
         HIT,
         TELEPORT,
+        DEATH,
     }
     
     public enum EnemySounds
@@ -163,7 +164,8 @@ namespace Audio
         SHOOTER_ATTACK,
         DEATH,
         BOSS_EXPLOSION,
-        BOSS_ATTACK
+        BOSS_ATTACK,
+        BOSS_HIT,
     }
 
     public enum YoyoSounds
@@ -171,7 +173,8 @@ namespace Audio
         THROW = 0,
         PRECISION,
         WALL_HIT,
-        EXPLOSION
+        EXPLOSION,
+        CIRCLE,
     }
     
     public enum MusicSounds
@@ -190,6 +193,7 @@ namespace Audio
         CARDS_IN_OUT,
         BUTTON_MOVE,
         CLOSE_DOOR,
+        SHIELD_BREAK,
     }
 
     #endregion

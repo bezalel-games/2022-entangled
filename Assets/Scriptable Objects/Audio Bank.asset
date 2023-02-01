@@ -44,6 +44,14 @@ MonoBehaviour:
         Data4: -1436370875
       Path: event:/Player/Teleport
     _type: 2
+  - _reference:
+      Guid:
+        Data1: -1372203697
+        Data2: 1084139413
+        Data3: 1908006279
+        Data4: 721505385
+      Path: event:/Player/Death
+    _type: 3
   _yoyoRefs:
   - _reference:
       Guid:
@@ -77,6 +85,14 @@ MonoBehaviour:
         Data4: -1234215732
       Path: event:/Yoyo/Explosion
     _type: 3
+  - _reference:
+      Guid:
+        Data1: -600990240
+        Data2: 1132112791
+        Data3: 592867994
+        Data4: -269063036
+      Path: event:/Yoyo/Circle
+    _type: 4
   _enemyRefs:
   - _reference:
       Guid:
@@ -142,6 +158,14 @@ MonoBehaviour:
         Data4: 1366574742
       Path: event:/Boss/Attack
     _type: 7
+  - _reference:
+      Guid:
+        Data1: -2072066971
+        Data2: 1087986507
+        Data3: -257290842
+        Data4: -2001471332
+      Path: event:/Boss/Hit
+    _type: 8
   _sfxRefs:
   - _reference:
       Guid:
@@ -183,3 +207,11 @@ MonoBehaviour:
         Data4: -103403900
       Path: event:/Environment/Close Door
     _type: 4
+  - _reference:
+      Guid:
+        Data1: 1917231084
+        Data2: 1262323626
+        Data3: 989190034
+        Data4: 1431603202
+      Path: event:/Environment/Shield Break
+    _type: 5

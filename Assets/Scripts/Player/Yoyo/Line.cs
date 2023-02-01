@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Audio;
 using Unity.Mathematics;
 using UnityEngine;
 using Utils;
@@ -71,6 +72,7 @@ namespace Player
             if (start >= 0)
             {
                 _polygonCollider.points = points.GetRange(start, points.Count - start).ToArray();
+                AudioManager.PlayOneShot(SoundType.YOYO, (int) YoyoSounds.CIRCLE);
             }
         }
         

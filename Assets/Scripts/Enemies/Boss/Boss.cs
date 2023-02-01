@@ -147,6 +147,7 @@ namespace Enemies.Boss
         public override void OnHit(Transform attacker, float damage, bool pushBack = true)
         {
             base.OnHit(attacker, damage, false);
+            AudioManager.PlayOneShot(SoundType.ENEMY, (int)EnemySounds.BOSS_HIT);
         }
 
         public override void OnDie()

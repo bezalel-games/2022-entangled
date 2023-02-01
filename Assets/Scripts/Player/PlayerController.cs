@@ -394,6 +394,7 @@ namespace Player
         {
             Rigidbody.bodyType = RigidbodyType2D.Static;
             Animator.SetTrigger("Dead");
+            ((IAudible<PlayerSounds>)this).PlayOneShot(PlayerSounds.DEATH);
         }
 
         public override void OnHit(Transform attacker, float damage, bool pushBack = true)

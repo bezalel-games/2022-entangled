@@ -83,6 +83,7 @@ namespace Enemies.Boss
             if (!other.gameObject.CompareTag("Precision")) return;
             if (other.GetComponent<Line>() == null || other is not PolygonCollider2D) return;
             _barrier.Active = false;
+            AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.SHIELD_BREAK);
         }
 
         private void OnTriggerExit2D(Collider2D other)

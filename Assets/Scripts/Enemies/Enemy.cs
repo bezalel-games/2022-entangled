@@ -174,6 +174,7 @@ namespace Enemies
                 if (HasBarrier)
                 {
                     Barrier.Active = false;
+                    AudioManager.PlayOneShot(SoundType.SFX, (int) SfxSounds.SHIELD_BREAK);
                     return;
                 }
 
