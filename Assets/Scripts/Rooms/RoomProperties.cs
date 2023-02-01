@@ -47,6 +47,9 @@ namespace Rooms
         [field: SerializeField] public TileBase OpenedGateTile { get; private set; }
         [field: SerializeField] public TileBase GateFrameTile { get; private set; }
         [field: SerializeField] public TileBase EmptyTile { get; private set; }
+        [field: SerializeField] public TileBase[] GateClosingAnimation { get; private set; }
+        [field: SerializeField] public TileBase[] GateOpeningAnimation { get; private set; }
+        [field: SerializeField] public float AnimationSpeed { get; private set; } = 1;
 
         [Space(20)] [SerializeField] private bool _update;
         [Space(20)] [SerializeField] private bool _updateContinuously;
@@ -60,6 +63,10 @@ namespace Rooms
         #endregion
 
         #region Properties
+        public int ClosingAnimationLength => GateClosingAnimation.Length;
+        public int OpeningAnimationLength => GateOpeningAnimation.Length;
+        public float ClosingAnimationFrameTime => AnimationSpeed / ClosingAnimationLength;
+        public float OpeningAnimationFrameTime => AnimationSpeed / OpeningAnimationLength;
 
         public IEnumerable<Vector3Int> GatePositions
         {

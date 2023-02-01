@@ -52,6 +52,7 @@ public class LoadManager : MonoBehaviour
         _instance = this;
         _loadingCanvas = GetComponentInChildren<CanvasGroup>();
         _startScene = SceneManager.GetActiveScene().name == _menuSceneName ? Scene.MENU : Scene.RUN;
+        CurrentScene = _startScene;
         transform.SetParent(null);
         DontDestroyOnLoad(_instance.gameObject);
     }
