@@ -78,9 +78,9 @@ MonoBehaviour:
   _treasureCount: 2
   _bossRoomPrefab: {fileID: 4638867324425199658, guid: 4d316415cb3b2ae43baf8d2969918f00, type: 3}
   _tutorialRooms: []
-  _minDistanceForGhost: 2
+  _minDistanceForGhost: 3
   _minRoomRank: 10
-  _maxRoomRank: 40
+  _maxRoomRank: 35
   _distanceToRankFunction:
     serializedVersion: 2
     m_Curve:
@@ -94,17 +94,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2877175
-      value: 0.3898158
-      inSlope: 1.6165932
-      outSlope: 1.6165932
+      time: 0.26733708
+      value: 0.17823108
+      inSlope: 0.050394174
+      outSlope: 0.050394174
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.3657136
+      outWeight: 0.92679924
     - serializedVersion: 3
-      time: 0.5136287
-      value: 0.49438375
+      time: 0.30498004
+      value: 0.46783346
       inSlope: 1.2727807
       outSlope: 1.2727807
       tangentMode: 0
@@ -112,8 +112,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.81594306
     - serializedVersion: 3
-      time: 0.6224554
-      value: 0.9950802
+      time: 0.54440176
+      value: 0.65206826
       inSlope: 0.94350046
       outSlope: 0.94350046
       tangentMode: 0
@@ -121,8 +121,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.8304506
-      value: 0.88516045
+      time: 0.78557867
+      value: 0.69296557
       inSlope: -0.02760051
       outSlope: -0.02760051
       tangentMode: 0
@@ -130,8 +130,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.95961833
     - serializedVersion: 3
-      time: 0.9037752
-      value: 1.4847487
+      time: 0.8997164
+      value: 0.7842504
       inSlope: 0.000011151607
       outSlope: 0.000011151607
       tangentMode: 0
@@ -139,8 +139,8 @@ MonoBehaviour:
       inWeight: 0.39014232
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.982025
-      value: 1.3280247
+      time: 0.9861018
+      value: 0.7748809
       inSlope: -1.1938261
       outSlope: -1.1938261
       tangentMode: 0
