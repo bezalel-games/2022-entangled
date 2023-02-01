@@ -55,8 +55,7 @@ namespace Rooms
             set
             {
                 if((value && GateState == GateState.CLOSED) || (!value && GateState == GateState.OPEN)) return;
-                if(GateState == GateState.CLOSING || GateState == GateState.OPENING) return;
-                
+
                 GateState = value ? GateState.OPEN : GateState.CLOSED;
                 _tilemap.RefreshAllTiles();
                 DelayInvoke((() => 

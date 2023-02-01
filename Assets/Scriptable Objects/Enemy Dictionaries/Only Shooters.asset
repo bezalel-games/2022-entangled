@@ -15,3 +15,10 @@ MonoBehaviour:
   <Enemies>k__BackingField:
   - <Prefab>k__BackingField: {fileID: 4070872303377383493, guid: 9984ac93dd4629c4da28ed03fd02eb55, type: 3}
     _rank: 10
+    IndexInDictionary: 0
+  - <Prefab>k__BackingField: {fileID: 4070872303377383493, guid: 9984ac93dd4629c4da28ed03fd02eb55, type: 3}
+    _rank: 10
+    IndexInDictionary: 1
+  - <Prefab>k__BackingField: {fileID: 4070872303377383493, guid: 9984ac93dd4629c4da28ed03fd02eb55, type: 3}
+    _rank: 10
+    IndexInDictionary: 2
