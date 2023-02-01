@@ -90,6 +90,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _maxFilmGrainIntensity: 1
+  _maxFilmGrainIntensity: 0.5
   _minSplitToningBalance: -100
-  _maxChannelMixerRedOutGreenIn: 200
+  _maxChannelMixerRedOutGreenIn: 180
+  _intensityChangesChannelMixer: 0
