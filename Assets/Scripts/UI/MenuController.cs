@@ -9,7 +9,7 @@ namespace UI
         [SerializeField] private GameObject _bossButton;
         [SerializeField] private GameObject _runButton;
 
-        private int _bCounter = 5;
+        private int _bCounter = 3;
 
         #region Action Map
         
