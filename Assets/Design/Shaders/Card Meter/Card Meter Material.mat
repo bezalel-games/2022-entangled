@@ -46,7 +46,7 @@ Material:
     - _Fill: 0
     - _NoiseScale: 3.08
     - _NoiseSpeed: 0.25
-    - _Radius: 1.51
+    - _Radius: 2
     m_Colors:
     - _Color: {r: 0.59607846, g: 0.9176471, b: 0.9176471, a: 0}
     - _EmptyColor: {r: 0, g: 0, b: 0, a: 0}
