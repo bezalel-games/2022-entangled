@@ -33,5 +33,17 @@ MonoBehaviour:
   <OpenedGateTile>k__BackingField: {fileID: 11400000, guid: a43923f94f467f14ba39811a13dc2354, type: 2}
   <GateFrameTile>k__BackingField: {fileID: 11400000, guid: 403d1819f5ba02b448a688526fbc8141, type: 2}
   <EmptyTile>k__BackingField: {fileID: 11400000, guid: dbb118ea2f623834eb963d981ccfcf64, type: 2}
+  <GateClosingAnimation>k__BackingField:
+  - {fileID: 11400000, guid: bcf106fd2177ac6469e07cf41ad3e391, type: 2}
+  - {fileID: 11400000, guid: 529fe517fee922743a933736217b0635, type: 2}
+  - {fileID: 11400000, guid: 7ee44ea5c77d644419a0927817f46ff5, type: 2}
+  - {fileID: 11400000, guid: f43891a3107d22b40b884ead7338e645, type: 2}
+  - {fileID: 11400000, guid: adeafabc13d32dc408b9a2ceaed25baa, type: 2}
+  - {fileID: 11400000, guid: 4c186d18a2a12854fa8d93295fd6ac64, type: 2}
+  - {fileID: 11400000, guid: f2d19586b2473cc4e9f548b2b26b9e74, type: 2}
+  - {fileID: 11400000, guid: 5450fef2865eea14da41ed7e3a085923, type: 2}
+  <GateOpeningAnimation>k__BackingField:
+  - {fileID: 11400000, guid: f24a029e62865664f82c9eb3d6828797, type: 2}
+  <AnimationSpeed>k__BackingField: 1
   _update: 0
   _updateContinuously: 0
