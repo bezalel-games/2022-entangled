@@ -33,7 +33,7 @@ namespace Player
 
         public Yoyo Yoyo { get; private set; }
 
-        private bool CanAttack => Yoyo.State == Yoyo.YoyoState.IDLE && !Frozen;
+        private bool CanAttack => Yoyo.State == Yoyo.YoyoState.IDLE && !Frozen && !IsDead;
 
         #endregion
 

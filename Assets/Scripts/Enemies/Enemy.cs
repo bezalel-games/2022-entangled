@@ -204,6 +204,12 @@ namespace Enemies
         #endregion
 
         #region Public Methods
+
+        public static void ResetAttacking()
+        {
+            NumberOfAttacking = 0;
+            MaxCanAttack = _maxAttacking;
+        }
         
         public override void OnHit(Transform attacker, float damage, bool pushBack = true, bool explosion = false)
         {

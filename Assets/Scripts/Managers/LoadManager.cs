@@ -110,6 +110,8 @@ public class LoadManager : MonoBehaviour
         Action onLoad = null, Action afterFade = null)
     {
         Shooter.ClearProjectiles();
+        Enemy.ResetAttacking();
+        
         StartCoroutine(LoadScene_Inner(
             name, mode, _durationTime, _loadScreenTime,
             beforeFade, onLoad, afterFade));
