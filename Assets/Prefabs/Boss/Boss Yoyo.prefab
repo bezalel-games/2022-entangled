@@ -29,11 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _backSpeed
-      value: 16
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _shootSpeed
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1134928996173750113, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: _maxDistance

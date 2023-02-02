@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 6657404622504611198}
   m_Layer: 0
   m_Name: Particle System
-  m_TagString: Untagged
+  m_TagString: Yoyo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10261,6 +10261,14 @@ PrefabInstance:
       propertyPath: _initPos
       value: 
       objectReference: {fileID: 669163529}
+    - target: {fileID: 2589237000484608349, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5373774459956894482, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
+      objectReference: {fileID: 0}
     - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_Name
       value: Yoyo
@@ -10268,6 +10276,14 @@ PrefabInstance:
     - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735075857051453153, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6143497779323870012, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
       objectReference: {fileID: 0}
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_RootOrder
@@ -10312,6 +10328,14 @@ PrefabInstance:
     - target: {fileID: 6791028210301857002, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955761565699022059, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213034140519300429, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}
+      propertyPath: m_TagString
+      value: Yoyo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f23829d80e0d1244967f7c61b13a8b2, type: 3}

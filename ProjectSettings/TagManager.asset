@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Enemy
   - Precision
+  - Yoyo
   layers:
   - Default
   - TransparentFX
