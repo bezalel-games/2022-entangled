@@ -621,9 +621,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 5ba3587f2e7bb6b4dbf7254d63ec64a1, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  m_TileSpriteArray: []
   m_TileMatrixArray:
   - m_RefCount: 56
     m_Data:
@@ -643,29 +641,9 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
-  - m_RefCount: 0
-    m_Data:
-      e00: 0
-      e01: 0
-      e02: -1.8295932e-19
-      e03: -1.8295932e-19
-      e10: 0
-      e11: 0
-      e12: 7.82e-43
-      e13: 7.82e-43
-      e20: -0.00001134233
-      e21: 1e-45
-      e22: 5.923318e-29
-      e23: -3.8377283e+19
-      e30: 4.5905e-41
-      e31: 0
-      e32: 7.83e-43
-      e33: 7.86e-43
   m_TileColorArray:
   - m_RefCount: 56
     m_Data: {r: 1, g: 0, b: 0, a: 1}
-  - m_RefCount: 0
-    m_Data: {r: 6.6127e-41, g: 6.6127e-41, b: 6.6127e-41, a: 6.6127e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9044,6 +9022,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3401266017214625909, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
   m_PrefabInstance: {fileID: 4079152279021354796}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8250488297870174103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5396315135941499067, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
+  m_PrefabInstance: {fileID: 4079152279021354796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1023046094670057680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8250488297870174103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8c14194cd64eefac8530947d3b1f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minimap: {fileID: 0}
 --- !u!4 &8496920717021916615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5581982203018302187, guid: d1f67f69173336d4c8349d7bc5595132, type: 3}
