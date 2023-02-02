@@ -40,6 +40,9 @@ namespace Rooms
         [field: Header("Play mode")] [SerializeField]
         private NeighborsStrategy _playMode = NeighborsStrategy.MAZE;
 
+        [field: Header("Endless settings")] [SerializeField]
+        private int _endlessDistanceToSpecial = 7;
+
         [Header("Maze settings")] [SerializeField]
         private int _minDistanceFromBoss = 5;
 
@@ -477,7 +480,7 @@ namespace Rooms
             {
                 NeighborsStrategy.MAZE => new MazeStrategy(_minDistanceFromBoss, _maxDistanceFromBoss,
                     _totalNumberOfRooms, _fountainCount, _treasureCount),
-                NeighborsStrategy.ENDLESS => new EndlessStrategy(),
+                NeighborsStrategy.ENDLESS => new EndlessStrategy(_endlessDistanceToSpecial),
                 NeighborsStrategy.TUTORIAL => new TutorialStrategy(TutorialLength),
                 NeighborsStrategy.BOSS => new BossStrategy(),
                 _ => throw new ArgumentOutOfRangeException()
