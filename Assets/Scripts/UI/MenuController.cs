@@ -9,6 +9,8 @@ namespace UI
         [SerializeField] private GameObject _bossButton;
         [SerializeField] private GameObject _runButton;
 
+        private int _bCounter = 5;
+
         #region Action Map
         
         public void OnNavigate(InputAction.CallbackContext context)
@@ -55,7 +57,7 @@ namespace UI
 
         public void OnBossOption(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && --_bCounter == 0)
                 _bossButton.SetActive(!_bossButton.activeSelf);
         }
 
